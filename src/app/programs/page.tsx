@@ -84,7 +84,7 @@ export default function ProgramsPage() {
             </h2>
             <p className="mx-auto mt-2 max-w-xl text-sm text-ink-soft">
               Complete courses of eight live classes each, taught one-to-one by
-              Acharya Ji and the team. Timings are scheduled together after
+              the Mind Mirage team. Timings are scheduled together after
               enrolment.
             </p>
           </div>
