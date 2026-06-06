@@ -4,7 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import CourseCard from "@/components/CourseCard";
-import { COURSES } from "@/lib/constants";
+import AddToCartButton from "@/components/AddToCartButton";
+import { COURSES, GUIDANCE_SUBJECTS } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Indian Philosophy Courses Online — Offerings",
@@ -37,6 +38,56 @@ export default function ProgramsPage() {
           {COURSES.map((c, i) => (
             <CourseCard key={c.slug} course={c} index={i} />
           ))}
+        </div>
+      </section>
+
+      {/* One-to-one classes — part of the offerings */}
+      <section className="bg-paper-warm px-6 py-8">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center">
+            <p className="eyebrow">1:1 with Acharya Ji</p>
+            <h2 className="display mt-3 text-3xl text-ink sm:text-4xl">
+              Choose the field of inquiry
+            </h2>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-ink-soft">
+              Every subject is a complete one-to-one course of{" "}
+              <strong className="text-ink">eight classes</strong> on Zoom — add
+              to your basket and check out; timings are scheduled together
+              after enrolment.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {GUIDANCE_SUBJECTS.map((s) => (
+              <div
+                key={s.slug}
+                className="flex items-center justify-between gap-3 rounded-xl border border-ink/8 bg-paper px-5 py-4"
+              >
+                <div className="min-w-0">
+                  {s.deva && <p className="deva text-base text-ink">{s.deva}</p>}
+                  <p className="display text-lg text-ink">{s.name}</p>
+                  <p className="mt-0.5 text-sm text-ink-soft">
+                    {s.priceINR
+                      ? `₹${s.priceINR.toLocaleString("en-IN")}`
+                      : s.notes ?? ""}
+                  </p>
+                </div>
+                {s.priceINR ? (
+                  <AddToCartButton
+                    slug={`1on1-${s.slug}`}
+                    variant="secondary"
+                    className="shrink-0"
+                  />
+                ) : (
+                  <Link
+                    href="/mentorship"
+                    className="shrink-0 rounded-lg border border-ink/15 px-4 py-2 text-xs text-ink transition-colors hover:border-ink"
+                  >
+                    Apply
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

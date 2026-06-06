@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-/* The Q&A moved to /ask; official posts live at /updates. */
+/* Old journal URL — official posts live at /updates; questions at /faq. */
 export default function JournalRedirect() {
-  redirect("/ask");
+  redirect("/faq");
 }

@@ -59,8 +59,8 @@ export const SANSKRIT = {
 export const NAV_PRIMARY = [
   { href: "/programs", label: "Offerings" },
   { href: "/sit-with-guruji", label: "Sit with Guruji" },
-  { href: "/updates", label: "Updates" },
-  { href: "/ask", label: "Ask" },
+  { href: "/newsletters", label: "Newsletters" },
+  { href: "/faq", label: "FAQ" },
   { href: "/about-us", label: "About" },
   { href: "/contact", label: "Reach Us" },
 ] as const;
@@ -87,7 +87,7 @@ export const NAV_FOOTER_RESEARCH = [
 ] as const;
 
 export const NAV_FOOTER_ENGAGE = [
-  { href: "/updates", label: "Updates" },
+  { href: "/newsletters", label: "Newsletters" },
   { href: "/internship", label: "Internship" },
   { href: "/volunteer", label: "Seva / Volunteer" },
   { href: "/contact", label: "Contact" },
@@ -109,7 +109,7 @@ export const THREE_PATHS = [
     iast: "Guru-Mukha",
     en: "From the Guru's Lips",
     description:
-      "One-to-one sessions with Acharya Ji on Zoom. Personal guidance, direct answers, the warmth of the traditional Guru-Sishya Paramparā.",
+      "One-to-one classes with Acharya Ji on Zoom. Personal guidance, direct answers, the warmth of the traditional Guru-Sishya Paramparā.",
     href: "/sit-with-guruji",
   },
   {
@@ -313,6 +313,25 @@ export const GUIDANCE_SUBJECTS: GuidanceSubject[] = [
   { slug: "contemplation", name: "Contemplation", priceINR: 3000 },
   { slug: "mentorship", name: "1:1 Mentorship", priceINR: 0, notes: "Application-based — custom" },
 ];
+
+/* 1:1 subjects as purchasable items — each is a complete course of eight
+   classes on Zoom, bought through the same cart/checkout as courses. */
+export const SESSION_COURSES: Course[] = GUIDANCE_SUBJECTS.filter(
+  (s) => s.priceINR && s.priceINR > 0,
+).map((s) => ({
+  slug: `1on1-${s.slug}`,
+  title: `${s.name} · 1:1`,
+  deva: s.deva ?? "",
+  tradition: "1:1 with Acharya Ji · eight classes",
+  excerpt: `A complete one-to-one course of eight classes on Zoom with Acharya Ji — ${s.name}.`,
+  syllabus: [],
+  duration: "Eight classes · scheduled together after enrolment",
+  prerequisites: "None.",
+  priceINR: s.priceINR as number,
+}));
+
+/* Everything that can be added to the basket. */
+export const CATALOG: Course[] = [...COURSES, ...SESSION_COURSES];
 
 export const SLOTS = [
   {

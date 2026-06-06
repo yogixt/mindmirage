@@ -9,7 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { COURSES, type Course } from "@/lib/constants";
+import { CATALOG, type Course } from "@/lib/constants";
 
 const STORAGE_KEY = "mindmirage:cart:v1";
 
@@ -76,7 +76,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const courses = useMemo(
     () =>
       items
-        .map((i) => COURSES.find((c) => c.slug === i.slug))
+        .map((i) => CATALOG.find((c) => c.slug === i.slug))
         .filter((c): c is Course => !!c),
     [items],
   );

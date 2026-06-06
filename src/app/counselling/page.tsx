@@ -71,7 +71,7 @@ export default function CounsellingPage() {
       <section className="bg-paper-warm px-6 py-8">
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
-            <p className="eyebrow">Request a counselling session</p>
+            <p className="eyebrow">Request counselling</p>
             <h2
               className="display mt-4 text-3xl text-ink sm:text-5xl"
               style={{ lineHeight: "1.05", letterSpacing: "-0.02em" }}

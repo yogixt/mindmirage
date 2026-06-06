@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { POST_CATEGORIES } from "@/lib/journal";
 
-export default function NewUpdateForm() {
+export default function NewPostForm() {
   const router = useRouter();
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +18,7 @@ export default function NewUpdateForm() {
     setSending(true);
     const fd = new FormData(e.currentTarget);
     try {
-      const res = await fetch("/api/updates", {
+      const res = await fetch("/api/newsletters", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -26,6 +26,7 @@ export default function NewUpdateForm() {
           category: String(fd.get("category") ?? "announcement"),
           body: String(fd.get("body") ?? ""),
           link: String(fd.get("link") ?? ""),
+          image: String(fd.get("image") ?? ""),
         }),
       });
       const data = await res.json();
@@ -36,7 +37,7 @@ export default function NewUpdateForm() {
             : "Could not post. Please try again.",
         );
       }
-      router.push("/updates");
+      router.push("/newsletters");
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not post.");
@@ -75,6 +76,15 @@ export default function NewUpdateForm() {
           maxLength={8000}
           placeholder="Dates, venues, who it is for, how to join…"
           className={`${inputCls} mt-2 resize-none`}
+        />
+      </div>
+      <div>
+        <label className="eyebrow block">Photo URL (optional)</label>
+        <input
+          name="image"
+          type="url"
+          placeholder="https://… (a public image link)"
+          className={`${inputCls} mt-2`}
         />
       </div>
       <div>

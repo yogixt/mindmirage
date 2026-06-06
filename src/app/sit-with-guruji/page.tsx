@@ -8,7 +8,7 @@ import Reveal from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "Sit with Guruji — Mentorship, Counselling & Consultation",
   description:
-    "Three ways to sit with Acharya Bhagyashree Joshi Ji one-to-one — long-form mentorship, spiritual counselling, and consultation sessions on Zoom from Rishikesh.",
+    "Three ways to sit with Acharya Bhagyashree Joshi Ji one-to-one — long-form mentorship, spiritual counselling, and consultation classes on Zoom from Rishikesh.",
 };
 
 const WAYS = [
@@ -30,7 +30,7 @@ const WAYS = [
     href: "/consultation",
     deva: "मार्गदर्शन",
     name: "Consultation",
-    text: "One-to-one sessions on Zoom — meditation, prāṇāyāma, jyotiṣa, contemplation. Choose a subject, book your dates.",
+    text: "One-to-one classes on Zoom — every subject a complete eight-class course. Add a subject to your basket under Offerings.",
     cta: "Book a consultation",
   },
 ];

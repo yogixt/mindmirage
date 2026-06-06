@@ -26,7 +26,7 @@ If a seeker is in distress, gently suggest writing to Acharya Ji directly via Wh
 Reference details:
 - Teacher: ${SITE.founder}
 - Email: ${SITE.email}
-- WhatsApp: ${SITE.whatsappDisplay}
+- WhatsApp: available via the Contact page (do not share the number directly)
 - Website: ${SITE.domain}
 - Location: ${SITE.location}
 

@@ -36,7 +36,7 @@ export default async function DashboardPage() {
             {first}, <span className="italic text-ink-soft">welcome home.</span>
           </h1>
           <p className="animate-fade-rise-delay-2 opacity-0 mt-6 max-w-2xl text-base text-ink-soft sm:text-lg leading-relaxed">
-            Your courses, sessions, and contemplative notes — gathered in one
+            Your courses, classes, and contemplative notes — gathered in one
             quiet place. The pace stays yours.
           </p>
         </div>

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getSeeker, isAdmin } from "@/lib/auth";
+import { getSeeker, getSeekerUserId, isAdmin } from "@/lib/auth";
 import { journalDb, listPosts, POST_CATEGORIES } from "@/lib/journal";
 
 const BodySchema = z.object({
@@ -8,12 +8,21 @@ const BodySchema = z.object({
   category: z.enum(
     POST_CATEGORIES.map((c) => c.value) as [string, ...string[]],
   ),
-  body: z.string().max(8000).optional().default(""),
+  body: z.string().max(12000).optional().default(""),
   link: z.string().url().max(500).optional().or(z.literal("")).default(""),
+  image: z.string().url().max(500).optional().or(z.literal("")).default(""),
 });
 
 export async function GET() {
-  const posts = await listPosts();
+  // Reading the feed requires sign-in.
+  const viewerId = await getSeekerUserId();
+  if (!viewerId) {
+    return NextResponse.json(
+      { ok: false, error: "sign_in_required" },
+      { status: 401 },
+    );
+  }
+  const posts = await listPosts(viewerId);
   return NextResponse.json({ ok: true, posts });
 }
 
@@ -21,16 +30,14 @@ export async function POST(req: Request) {
   const db = journalDb();
   if (!db) {
     return NextResponse.json(
-      { ok: false, error: "updates_not_configured" },
+      { ok: false, error: "newsletters_not_configured" },
       { status: 503 },
     );
   }
 
+  // Only the team posts.
   if (!(await isAdmin())) {
-    return NextResponse.json(
-      { ok: false, error: "admin_only" },
-      { status: 403 },
-    );
+    return NextResponse.json({ ok: false, error: "team_only" }, { status: 403 });
   }
 
   let body: unknown;
@@ -50,13 +57,14 @@ export async function POST(req: Request) {
   const seeker = await getSeeker();
   const author = seeker?.fullName?.trim() || "Mind Mirage Team";
   await db.execute({
-    sql: "INSERT INTO posts (author, category, title, body, link) VALUES (?, ?, ?, ?, ?)",
+    sql: "INSERT INTO posts (author, category, title, body, link, image) VALUES (?, ?, ?, ?, ?, ?)",
     args: [
       author,
       parsed.data.category,
       parsed.data.title.trim(),
       parsed.data.body.trim(),
       parsed.data.link.trim(),
+      parsed.data.image.trim(),
     ],
   });
 

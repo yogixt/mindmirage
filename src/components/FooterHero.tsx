@@ -134,7 +134,7 @@ export default function FooterHero() {
                 rel="noreferrer noopener"
                 className="hover:text-ink"
               >
-                WhatsApp {SITE.whatsappDisplay}
+                Message us on WhatsApp
               </a>
             </div>
           </div>

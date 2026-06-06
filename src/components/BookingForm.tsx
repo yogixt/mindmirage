@@ -48,7 +48,7 @@ export default function BookingForm() {
         <p className="display text-3xl text-ink">नमस्ते</p>
         <p className="mt-3 text-base text-ink-soft">
           Acharya Ji will confirm your dates within 24 hours and share Zoom links for
-          each session.
+          each class.
         </p>
       </div>
     );
@@ -66,7 +66,7 @@ export default function BookingForm() {
         required
         options={GUIDANCE_SUBJECTS.map((s) => ({
           value: s.slug,
-          label: `${s.name}${s.priceINR ? ` · ₹${s.priceINR.toLocaleString("en-IN")}/session` : " · application-based"}`,
+          label: `${s.name}${s.priceINR ? ` · ₹${s.priceINR.toLocaleString("en-IN")}/class` : " · application-based"}`,
         }))}
       />
       <Select
@@ -79,7 +79,7 @@ export default function BookingForm() {
         }))}
       />
       <div className="sm:col-span-2">
-        <p className="eyebrow mb-3">Five preferred dates · Acharya Ji confirms or proposes alternatives</p>
+        <p className="eyebrow mb-3">Preferred dates for your first classes · Acharya Ji confirms or proposes alternatives</p>
         <div className="grid gap-3 sm:grid-cols-5">
           {[1, 2, 3, 4, 5].map((n) => (
             <input
@@ -101,7 +101,7 @@ export default function BookingForm() {
       </div>
       {error && <p className="sm:col-span-2 text-xs text-saffron">{error}</p>}
       <div className="sm:col-span-2 flex justify-center">
-        <SubmitButton state={state}>Request session</SubmitButton>
+        <SubmitButton state={state}>Request class</SubmitButton>
       </div>
     </form>
   );

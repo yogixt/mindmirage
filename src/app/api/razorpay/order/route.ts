@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import Razorpay from "razorpay";
-import { applyCoupon, COURSES } from "@/lib/constants";
+import { applyCoupon, CATALOG } from "@/lib/constants";
 
 const BodySchema = z.object({
   slugs: z.array(z.string()).min(1),
@@ -43,8 +43,8 @@ export async function POST(req: Request) {
   }
 
   const courses = parsed.data.slugs
-    .map((slug) => COURSES.find((c) => c.slug === slug))
-    .filter((c): c is (typeof COURSES)[number] => !!c);
+    .map((slug) => CATALOG.find((c) => c.slug === slug))
+    .filter((c): c is (typeof CATALOG)[number] => !!c);
 
   if (courses.length === 0) {
     return NextResponse.json(

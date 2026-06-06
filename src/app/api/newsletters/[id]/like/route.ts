@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { getSeeker } from "@/lib/auth";
+import { getSeekerUserId } from "@/lib/auth";
 import { journalDb } from "@/lib/journal";
 
-/* Toggle like — one per seeker per question. */
+/* Toggle like — one per seeker per post. */
 export async function POST(
   _req: Request,
   { params }: { params: Promise<{ id: string }> },
@@ -10,13 +10,13 @@ export async function POST(
   const db = journalDb();
   if (!db) {
     return NextResponse.json(
-      { ok: false, error: "journal_not_configured" },
+      { ok: false, error: "newsletters_not_configured" },
       { status: 503 },
     );
   }
 
-  const seeker = await getSeeker();
-  if (!seeker) {
+  const userId = await getSeekerUserId();
+  if (!userId) {
     return NextResponse.json(
       { ok: false, error: "sign_in_required" },
       { status: 401 },
@@ -24,31 +24,31 @@ export async function POST(
   }
 
   const { id } = await params;
-  const questionId = Number(id);
-  if (!Number.isInteger(questionId) || questionId <= 0) {
+  const postId = Number(id);
+  if (!Number.isInteger(postId) || postId <= 0) {
     return NextResponse.json({ ok: false, error: "invalid_id" }, { status: 400 });
   }
 
   const existing = await db.execute({
-    sql: "SELECT 1 FROM likes WHERE question_id = ? AND user_id = ?",
-    args: [questionId, seeker.userId],
+    sql: "SELECT 1 FROM post_likes WHERE post_id = ? AND user_id = ?",
+    args: [postId, userId],
   });
 
   if (existing.rows.length > 0) {
     await db.execute({
-      sql: "DELETE FROM likes WHERE question_id = ? AND user_id = ?",
-      args: [questionId, seeker.userId],
+      sql: "DELETE FROM post_likes WHERE post_id = ? AND user_id = ?",
+      args: [postId, userId],
     });
   } else {
     await db.execute({
-      sql: "INSERT OR IGNORE INTO likes (question_id, user_id) VALUES (?, ?)",
-      args: [questionId, seeker.userId],
+      sql: "INSERT OR IGNORE INTO post_likes (post_id, user_id) VALUES (?, ?)",
+      args: [postId, userId],
     });
   }
 
   const count = await db.execute({
-    sql: "SELECT COUNT(*) AS n FROM likes WHERE question_id = ?",
-    args: [questionId],
+    sql: "SELECT COUNT(*) AS n FROM post_likes WHERE post_id = ?",
+    args: [postId],
   });
 
   return NextResponse.json({

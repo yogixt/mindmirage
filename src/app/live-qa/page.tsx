@@ -81,12 +81,12 @@ export default function LiveQAPage() {
 
       <section className="px-6 py-8 sm:py-8">
         <div className="mx-auto max-w-3xl rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center sm:p-10">
-          <p className="eyebrow">Upcoming sessions</p>
+          <p className="eyebrow">Upcoming satsangs</p>
           <p className="display mt-4 text-2xl text-ink">
             The next dates are being set with Acharya Ji.
           </p>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink-soft">
-            Sessions are announced here and on WhatsApp first. If you would like to
+            Satsangs are announced here and on WhatsApp first. If you would like to
             be told when the next satsang opens, send a quiet hello and we&apos;ll
             keep you in mind.
           </p>
