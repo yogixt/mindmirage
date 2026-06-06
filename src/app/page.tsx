@@ -17,7 +17,7 @@ export default function HomePage() {
 
       {/* ──────────  1. CINEMATIC HERO  ────────── */}
       <section className="relative min-h-screen w-full overflow-hidden bg-paper">
-        <VideoHero fullBleed />
+        <VideoHero fullBleed poster="/hero-poster.jpg" />
         <div
           className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 text-center"
           style={{ paddingTop: "8rem", paddingBottom: "6rem" }}

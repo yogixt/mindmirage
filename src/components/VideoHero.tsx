@@ -23,6 +23,10 @@ export default function VideoHero({
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    // Set muted/playsInline imperatively — mobile browsers require the
+    // muted attribute at play time, and React's SSR markup can miss it.
+    video.muted = true;
+    video.playsInline = true;
     video.load();
     void video.play().catch(() => {});
   }, []);
@@ -38,6 +42,7 @@ export default function VideoHero({
         autoPlay
         loop
         preload="auto"
+        webkit-playsinline="true"
         className="absolute object-cover"
         style={
           fullBleed

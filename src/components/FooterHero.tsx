@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   NAV_FOOTER_ABOUT,
   NAV_FOOTER_ENGAGE,
@@ -11,11 +11,10 @@ import {
   SITE,
 } from "@/lib/constants";
 
-const VIDEO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260424_064411_9e9d7f84-9277-41f4-ab10-59172d89e6be.mp4";
-
-const POSTER =
-  "https://images.unsplash.com/photo-1557683316-973673baf926?w=2880&q=85&auto=format&fit=crop";
+/* Self-hosted 720p re-encode (~0.8 MB) — the original CloudFront file is
+   33 MB and never finishes loading on mobile connections. */
+const VIDEO_URL = "/footer-720.mp4";
+const POSTER = "/footer-poster.jpg";
 
 /**
  * Footer — two-column split:
@@ -25,17 +24,19 @@ const POSTER =
  */
 export default function FooterHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    // Mobile browsers need muted set imperatively at play time.
+    video.muted = true;
+    video.playsInline = true;
     const onCanPlay = () => {
-      setReady(true);
       void video.play().catch(() => {});
     };
     video.addEventListener("canplay", onCanPlay, { once: true });
     video.load();
+    void video.play().catch(() => {});
     return () => {
       video.removeEventListener("canplay", onCanPlay);
     };
@@ -59,9 +60,7 @@ export default function FooterHero() {
               disableRemotePlayback
               webkit-playsinline="true"
               x5-playsinline="true"
-              className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-700 ${
-                ready ? "opacity-100" : "opacity-0"
-              }`}
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
             {/* Soft bottom scrim for the caption */}
             <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/55 via-ink/15 to-transparent" />

@@ -15,8 +15,10 @@ export const SITE = {
   tradition: "Adi Shankaracharya · Kevala Advaita · Bhāratīya Jñāna Paramparā",
 } as const;
 
-export const VIDEO_HERO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4";
+/* Self-hosted 720p re-encode (~1.2 MB) — the original CloudFront file is
+   30 MB and never finishes loading on mobile connections. */
+export const VIDEO_HERO_URL = "/hero-720.mp4";
+export const VIDEO_HERO_POSTER = "/hero-poster.jpg";
 
 /* ────────────  Sanskrit  ──────────── */
 
