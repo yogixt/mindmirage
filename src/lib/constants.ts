@@ -330,8 +330,16 @@ export const SESSION_COURSES: Course[] = GUIDANCE_SUBJECTS.filter(
   priceINR: s.priceINR as number,
 }));
 
+
+/* Booklist sets — bought through checkout; the team confirms shipping. */
+export const BOOK_SETS: Course[] = [
+  { slug: "booklist-beginner", title: "Booklist · Beginner", deva: "ग्रन्थसूची", tradition: "Booklist", excerpt: "The Beginner booklist from the ashram.", syllabus: [], duration: "Shipped by the ashram", prerequisites: "None.", priceINR: 2500 },
+  { slug: "booklist-intermediate", title: "Booklist · Intermediate", deva: "ग्रन्थसूची", tradition: "Booklist", excerpt: "The Intermediate booklist from the ashram.", syllabus: [], duration: "Shipped by the ashram", prerequisites: "None.", priceINR: 3500 },
+  { slug: "booklist-advanced", title: "Booklist · Advanced", deva: "ग्रन्थसूची", tradition: "Booklist", excerpt: "The Advanced booklist from the ashram.", syllabus: [], duration: "Shipped by the ashram", prerequisites: "None.", priceINR: 5000 },
+];
+
 /* Everything that can be added to the basket. */
-export const CATALOG: Course[] = [...COURSES, ...SESSION_COURSES];
+export const CATALOG: Course[] = [...COURSES, ...SESSION_COURSES, ...BOOK_SETS];
 
 export const SLOTS = [
   {

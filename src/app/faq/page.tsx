@@ -42,7 +42,7 @@ const FAQS = [
   },
   {
     q: "How do I buy books from the ashram?",
-    a: "Browse the Booklist under Offerings, tap Order on WhatsApp for the title you want, and we confirm availability, price, and shipping before any payment.",
+    a: "The Booklist comes as three sets — Beginner, Intermediate, and Advanced — bought through the secure checkout. The team confirms shipping by email.",
   },
   {
     q: "Where do I find blogs, news, and announcements from the team?",

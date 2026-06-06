@@ -101,8 +101,7 @@ export default function ProgramsPage() {
                 The Booklist — primary texts from the ashram
               </h2>
               <p className="mt-2 max-w-xl text-sm text-ink-soft">
-                The kuṭīr keeps a small stock of the primary texts in trusted
-                editions. Ordered on WhatsApp; payment on confirmation.
+                Three sets — Beginner, Intermediate, Advanced.
               </p>
             </div>
             <Link
