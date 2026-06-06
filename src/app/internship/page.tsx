@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import InternshipForm from "@/components/InternshipForm";
+import FormCard from "@/components/FormCard";
 
 export const metadata: Metadata = {
   title: "Internship",
@@ -45,11 +46,11 @@ export default function InternshipPage() {
         }
       />
 
-      <section className="px-6 py-5 sm:py-5">
+      <section className="px-6 py-4 sm:py-4">
         <div className="mx-auto max-w-4xl grid gap-12 sm:grid-cols-2">
           <div>
             <p className="eyebrow">Roles available</p>
-            <ul className="mt-6 space-y-3">
+            <ul className="mt-4 space-y-3">
               {ROLES.map((r, i) => (
                 <li key={r} className="flex gap-4 text-base text-ink">
                   <span className="display text-gold w-8">{String(i + 1).padStart(2, "0")}</span>
@@ -60,7 +61,7 @@ export default function InternshipPage() {
           </div>
           <div>
             <p className="eyebrow">What you receive</p>
-            <ul className="mt-6 space-y-3">
+            <ul className="mt-4 space-y-3">
               {BENEFITS.map((b) => (
                 <li key={b} className="flex gap-4 text-base text-ink">
                   <span className="display text-gold w-8">✦</span>
@@ -72,7 +73,7 @@ export default function InternshipPage() {
         </div>
       </section>
 
-      <section className="px-6 py-5 sm:py-5 bg-paper-warm">
+      <section className="px-6 py-4 sm:py-4 bg-paper-warm">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">Apply</p>
           <h2
@@ -85,8 +86,10 @@ export default function InternshipPage() {
             Reviewed personally. A short interview follows.
           </p>
         </div>
-        <div className="mx-auto max-w-3xl mt-5">
-          <InternshipForm />
+        <div className="mx-auto max-w-3xl mt-4">
+          <FormCard subtitle="Apply for the internship">
+            <InternshipForm />
+          </FormCard>
         </div>
       </section>
       <Footer />

@@ -38,23 +38,23 @@ export default async function NewslettersPage() {
             </>
           }
         />
-        <section className="px-6 pb-5">
+        <section className="px-6 pb-4">
           <div className="mx-auto max-w-md rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center">
-            <p className="display text-2xl text-ink">For seekers&apos; eyes.</p>
+            <p className="display text-2xl text-ink">For sādhaks&apos; eyes.</p>
             <p className="mt-3 text-sm leading-relaxed text-ink-soft">
               The newsletters are read inside the satsang — sign in (free) to
               read, like, and comment.
             </p>
             <Link
               href="/sign-in"
-              className="mt-6 inline-flex rounded-lg bg-saffron px-8 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
+              className="mt-4 inline-flex rounded-lg bg-saffron px-8 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
             >
               Sign in to read
             </Link>
             <p className="mt-3 text-xs text-ink-faint">
               New here?{" "}
               <Link href="/sign-up" className="text-saffron underline underline-offset-2">
-                Create a seeker account
+                Create a sādhak account
               </Link>
             </p>
           </div>
@@ -79,23 +79,23 @@ export default async function NewslettersPage() {
           }
           description={
             <>
-              Blogs and news written by Acharya Ji and the team — for seekers
+              Blogs and news written by Acharya Ji and the team — for sādhaks
               walking with us.
             </>
           }
         />
-        <section className="px-6 pb-5">
+        <section className="px-6 pb-4">
           <div className="mx-auto max-w-md rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center">
             <p className="display text-2xl text-ink">
               Begin your journey first.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-              The newsletters open to seekers who have enrolled in a course —
+              The newsletters open to sādhaks who have enrolled in a course —
               once your journey with us begins, the letters are yours.
             </p>
             <Link
               href="/programs"
-              className="mt-6 inline-flex rounded-lg bg-saffron px-8 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
+              className="mt-4 inline-flex rounded-lg bg-saffron px-8 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
             >
               Browse the offerings
             </Link>
@@ -127,7 +127,7 @@ export default async function NewslettersPage() {
         }
       />
 
-      <section className="px-6 pb-6">
+      <section className="px-6 pb-4">
         <div className="mx-auto max-w-2xl">
           {posts.length === 0 ? (
             <div className="rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center">

@@ -62,18 +62,18 @@ export default function ResearchPage() {
         }
       />
 
-      <section className="px-6 py-5 sm:py-5">
+      <section className="px-6 py-4 sm:py-4">
         <div className="mx-auto max-w-3xl space-y-10">
           {SECTIONS.map((s) => (
             <div key={s.id} id={s.id} className="scroll-mt-24">
               <p className="eyebrow">{s.title}</p>
               {"note" in s && s.note && (
-                <p className="mt-6 border-l-2 border-gold/60 pl-4 text-base italic leading-relaxed text-ink-soft">
+                <p className="mt-4 border-l-2 border-gold/60 pl-4 text-base italic leading-relaxed text-ink-soft">
                   {s.note}
                 </p>
               )}
               {s.items.length > 0 && (
-                <ul className="mt-6 space-y-3">
+                <ul className="mt-4 space-y-3">
                   {s.items.map((it) => (
                     <li key={it} className="text-base text-ink leading-relaxed border-b border-ink/8 pb-3">
                       {it}
@@ -86,7 +86,7 @@ export default function ResearchPage() {
         </div>
       </section>
 
-      <section id="collaborate" className="scroll-mt-24 px-6 py-5 sm:py-5 bg-paper-warm">
+      <section id="collaborate" className="scroll-mt-24 px-6 py-4 sm:py-4 bg-paper-warm">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">Collaborate</p>
           <h2
@@ -95,11 +95,11 @@ export default function ResearchPage() {
           >
             Working on something <span className="italic text-ink-soft">adjacent?</span>
           </h2>
-          <p className="mt-6 text-base text-ink-soft leading-relaxed">
+          <p className="mt-4 text-base text-ink-soft leading-relaxed">
             We welcome research collaborations, joint publications, and seminar
             invitations. Write to Acharya Ji with what you are working on.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-4 flex flex-wrap justify-center gap-3">
             <a
               href={mailtoLink("Research collaboration")}
               className="rounded-lg bg-saffron px-8 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"

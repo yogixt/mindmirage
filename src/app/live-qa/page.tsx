@@ -11,7 +11,7 @@ import { whatsappLink } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Live Q&A · Satsaṅga",
   description:
-    "Live group satsang where seekers gather, listen, ask, and study together — in the spirit of the gurukulam.",
+    "Live group satsang where sādhaks gather, listen, ask, and study together — in the spirit of the gurukulam.",
 };
 
 const MOVEMENTS = [
@@ -23,7 +23,7 @@ const MOVEMENTS = [
   {
     deva: "मननम्",
     name: "Manana — asking",
-    text: "Then the floor opens. Seekers bring their questions — from study, from practice, from life — and Acharya Ji takes each one as it comes, in the old gurukulam way.",
+    text: "Then the floor opens. Sādhaks bring their questions — from study, from practice, from life — and Acharya Ji takes each one as it comes, in the old gurukulam way.",
   },
   {
     deva: "निदिध्यासनम्",
@@ -46,7 +46,7 @@ export default function LiveQAPage() {
         }
         description={
           <>
-            Live Q&amp;A and group satsang where seekers gather, listen, ask, and
+            Live Q&amp;A and group satsang where sādhaks gather, listen, ask, and
             study together — held in the spirit of the gurukulam.
           </>
         }
@@ -62,7 +62,7 @@ export default function LiveQAPage() {
         <Divider />
       </section>
 
-      <section className="px-6 pb-6">
+      <section className="px-6 pb-4">
         <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
           {MOVEMENTS.map((m, i) => (
             <Reveal key={m.name} delay={i * 0.08}>
@@ -74,12 +74,12 @@ export default function LiveQAPage() {
             </Reveal>
           ))}
         </div>
-        <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-ink-faint">
+        <p className="mx-auto mt-4 max-w-2xl text-center text-xs text-ink-faint">
           This is the shape every satsang follows — listening, asking, sitting.
         </p>
       </section>
 
-      <section className="px-6 py-5 sm:py-5">
+      <section className="px-6 py-4 sm:py-4">
         <div className="mx-auto max-w-3xl rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center sm:p-10">
           <p className="eyebrow">Upcoming satsangs</p>
           <p className="display mt-4 text-2xl text-ink">
@@ -90,7 +90,7 @@ export default function LiveQAPage() {
             be told when the next satsang opens, send a quiet hello and we&apos;ll
             keep you in mind.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-4 flex flex-wrap justify-center gap-3">
             <a
               href={whatsappLink("Namaste. Please let me know when the next Live Q&A is scheduled.")}
               target="_blank"

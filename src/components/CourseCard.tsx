@@ -23,7 +23,9 @@ export default function CourseCard({
             </span>
           )}
         </div>
-        <p className="deva mt-5 text-2xl text-ink">{course.deva}</p>
+        <p className="deva mt-5 bg-gradient-to-r from-saffron via-gold to-saffron bg-clip-text text-2xl text-transparent">
+          {course.deva}
+        </p>
         <h3 className="display mt-2 text-2xl text-ink">{course.title}</h3>
         <p className="mt-4 text-sm leading-relaxed text-ink-soft">{course.excerpt}</p>
         <div className="mt-6 flex items-center justify-between text-xs text-ink-faint">

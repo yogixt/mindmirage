@@ -9,7 +9,7 @@ const NODES: Node[] = [
   { deva: "श्री आदि शङ्कराचार्य", en: "Adi Shankarācārya", subtitle: "Source of the lineage" },
   { en: "Paramparā", subtitle: "The unbroken line of teachers" },
   { en: "Acharya Bhagyashree Joshi Ji", subtitle: "Mind Mirage · Rishikesh" },
-  { en: "The Seeker", subtitle: "You" },
+  { en: "The Sādhak", subtitle: "You" },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;

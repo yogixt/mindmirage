@@ -10,7 +10,7 @@ type Props = {
 
 export default function PageHero({ eyebrow, deva, title, description, children }: Props) {
   return (
-    <section className="relative bg-paper pt-24 pb-3 px-6 sm:pb-5">
+    <section className="relative bg-paper pt-24 pb-3 px-6 sm:pb-4">
       <div className="mx-auto max-w-4xl text-center">
         <p className="eyebrow animate-fade-rise opacity-0">{eyebrow}</p>
         {deva && (

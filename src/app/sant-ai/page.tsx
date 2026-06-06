@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import MonkGlyph from "@/components/MonkGlyph";
 import {
   useEffect,
   useRef,
@@ -46,7 +47,7 @@ const BOT_STATES: { key: BotState; label: string }[] = [
 
 const QUICK_ACTIONS = [
   { label: "Teach me a mantra", prompt: "Teach me a mantra I can chant daily." },
-  { label: "Daily practice", prompt: "Suggest a daily practice for a beginner seeker." },
+  { label: "Daily practice", prompt: "Suggest a daily practice for a beginner sādhak." },
   { label: "Guided meditation", prompt: "Guide me through a short meditation." },
 ];
 
@@ -61,7 +62,7 @@ const SIDEBAR_NAV = [
 const FIRST_MESSAGE: Message = {
   role: "assistant",
   content:
-    "Namaste, seeker.\n\nI'm Sant AI, here to guide you on your inner journey. How may I support you today?",
+    "Namaste, sādhak.\n\nI'm Sant AI, here to guide you on your inner journey. How may I support you today?",
   // Empty on initial render to avoid SSR/CSR locale mismatch (hydration error).
   time: "",
 };
@@ -154,11 +155,14 @@ export default function SantAiPage() {
         fontFamily: "var(--font-inter), system-ui, sans-serif",
       }}
     >
-      {/* Background landscape (drop /public/sant-ai/landscape.jpg) */}
+      {/* Background wash — soft dawn gradient, no asset needed */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-center bg-cover opacity-55"
-        style={{ backgroundImage: "url(/sant-ai/landscape.jpg)" }}
+        className="pointer-events-none absolute inset-0 opacity-55"
+        style={{
+          background:
+            "linear-gradient(180deg, #FDF2DC 0%, #F8E8C8 35%, #EFE3CC 70%, #E9E2D2 100%)",
+        }}
       />
       <div
         aria-hidden
@@ -173,7 +177,7 @@ export default function SantAiPage() {
       <Leaf className="pointer-events-none absolute -top-6 -left-8 w-44 rotate-12 opacity-60 text-[#7e8a4b]" />
       <Leaf className="pointer-events-none absolute -top-6 -right-8 w-48 -rotate-12 scale-x-[-1] opacity-60 text-[#7e8a4b]" />
 
-      <div className="relative z-10 mx-auto grid min-h-screen w-full max-w-[1600px] grid-cols-1 gap-6 px-4 py-5 sm:px-6 sm:py-6 lg:grid-cols-[300px_minmax(0,1fr)_300px]">
+      <div className="relative z-10 mx-auto grid min-h-screen w-full max-w-[1600px] grid-cols-1 gap-6 px-4 py-4 sm:px-6 sm:py-4 lg:grid-cols-[300px_minmax(0,1fr)_300px]">
         {/* ───────── SIDEBAR ───────── */}
         <aside className="flex flex-col gap-5 rounded-3xl bg-white/85 p-6 shadow-sm backdrop-blur-md ring-1 ring-black/[0.04]">
           <div className="text-center">
@@ -243,7 +247,7 @@ export default function SantAiPage() {
           <header className="flex items-center justify-between px-2 pt-2">
             <div className="flex-1 text-center">
               <h1 className="display text-3xl text-ink sm:text-4xl">
-                Welcome, Seeker{" "}
+                Welcome, Sādhak{" "}
                 <Leaf className="inline-block w-6 align-middle text-[#7e8a4b]" />
               </h1>
               <div className="mx-auto mt-2 flex max-w-[260px] items-center gap-3">
@@ -268,7 +272,7 @@ export default function SantAiPage() {
           {/* Messages */}
           <div
             ref={scrollRef}
-            className="mt-6 flex-1 space-y-5 overflow-y-auto px-1 sm:px-4"
+            className="mt-4 flex-1 space-y-5 overflow-y-auto px-1 sm:px-4"
           >
             {messages.map((m, i) => (
               <Bubble key={i} role={m.role} content={m.content} time={m.time} />
@@ -293,8 +297,7 @@ export default function SantAiPage() {
           </div>
 
           {/* Input bar */}
-          <div className="mt-4 flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-black/[0.05]">
-            <Lotus className="w-5 shrink-0 text-[#B8862B]" />
+          <div className="mt-4 flex items-center gap-2 rounded-full bg-white px-5 py-2 shadow-sm ring-1 ring-black/[0.05]">
             <textarea
               ref={inputRef}
               value={input}
@@ -323,9 +326,9 @@ export default function SantAiPage() {
             </button>
           </div>
 
-          <p className="mt-3 text-center text-[11px] uppercase tracking-[0.25em] text-ink-faint">
-            <Lotus className="mr-2 inline-block w-3 align-middle text-[#B8862B]" />
-            Rooted in lineage. Guided by wisdom. Here for you.
+          <p className="deva mt-3 text-center text-xs text-ink-soft">
+            <span className="mr-1.5 text-[#B8862B]">ॐ</span>
+            न हि ज्ञानेन सदृशं पवित्रमिह विद्यते
           </p>
         </section>
 
@@ -342,18 +345,9 @@ export default function SantAiPage() {
                 filter: "blur(8px)",
               }}
             />
-            <img
-              src={`/sant-ai/monk-${botState}.png`}
-              alt="Sant AI"
-              className="relative h-full w-full select-none object-contain"
-              onError={(e) => {
-                const el = e.currentTarget;
-                if (!el.dataset.fallback) {
-                  el.dataset.fallback = "1";
-                  el.src = "/sant-ai/monk.png";
-                }
-              }}
-            />
+            <div className="sant-float relative grid h-full w-full place-items-center">
+              <MonkGlyph size={190} />
+            </div>
           </div>
 
           <Link
@@ -369,7 +363,6 @@ export default function SantAiPage() {
             <WisdomCard
               title="Daily Wisdom"
               body="The quieter you become, the more you can hear."
-              imageSrc="/sant-ai/wisdom-river.jpg"
             />
             <WisdomCard
               title="योगः कर्मसु कौशलम्"
@@ -394,14 +387,7 @@ export default function SantAiPage() {
                       : "ring-transparent bg-white/60 hover:bg-white"
                   }`}
                 >
-                  <img
-                    src={`/sant-ai/monk-${s.key}.png`}
-                    alt=""
-                    className="size-8 object-contain"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
-                  />
+                  <MonkGlyph size={32} />
                 </button>
               ))}
             </div>
@@ -476,14 +462,7 @@ function Avatar({ small = false }: { small?: boolean }) {
     <div
       className={`${size} shrink-0 overflow-hidden rounded-full bg-[#FAF3E0] ring-1 ring-black/[0.05]`}
     >
-      <img
-        src="/sant-ai/monk-happy.png"
-        alt="Sant AI"
-        className="h-full w-full object-cover"
-        onError={(e) => {
-          e.currentTarget.style.display = "none";
-        }}
-      />
+      <MonkGlyph size={small ? 36 : 44} />
     </div>
   );
 }

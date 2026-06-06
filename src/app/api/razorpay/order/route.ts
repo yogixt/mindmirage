@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import Razorpay from "razorpay";
-import { applyCoupon, CATALOG } from "@/lib/constants";
+import { CATALOG } from "@/lib/constants";
+import { discountFor, getCouponPercent } from "@/lib/coupons";
 import { getSeekerUserId } from "@/lib/auth";
 
 const BodySchema = z.object({
@@ -67,7 +68,9 @@ export async function POST(req: Request) {
 
   // Server-side coupon validation — the client never controls the amount.
   const couponCode = parsed.data.coupon.trim().toUpperCase();
-  const couponResult = couponCode ? applyCoupon(baseINR, couponCode) : null;
+  const couponPercent = couponCode ? await getCouponPercent(couponCode) : null;
+  const couponResult =
+    couponPercent !== null ? discountFor(baseINR, couponPercent) : null;
   if (couponCode && !couponResult) {
     return NextResponse.json(
       { ok: false, error: "invalid_coupon" },

@@ -4,11 +4,15 @@ import { useState } from "react";
 import { Field, Select, SubmitButton, TextArea, type SubmitState } from "./FormField";
 
 const SEVA_ROLES = [
+  "Technical support",
   "Community support",
   "WhatsApp group management",
   "Event coordination",
   "Translation (vernacular outreach)",
   "Social media seva",
+  "Content and design",
+  "Photography and video",
+  "Many more — tell us your skill",
 ];
 
 export default function VolunteerForm() {
@@ -42,7 +46,7 @@ export default function VolunteerForm() {
       <div className="border border-gold/30 bg-paper-warm px-8 py-5 text-center">
         <p className="display text-3xl text-ink">नमस्ते</p>
         <p className="mt-3 text-base text-ink-soft">
-          Welcome to seva. Acharya Ji will write to you with the next step.
+          Welcome to karma yoga. The team will write to you with the next step.
         </p>
       </div>
     );
@@ -56,10 +60,9 @@ export default function VolunteerForm() {
       <Field name="country" label="Country" required />
       <Select
         name="role"
-        label="Seva you would offer"
+        label="Karma yoga you would offer"
         required
         options={[
-          { value: "", label: "Choose a seva…" },
           ...SEVA_ROLES.map((r) => ({ value: r, label: r })),
         ]}
       />
@@ -72,14 +75,14 @@ export default function VolunteerForm() {
       <div className="sm:col-span-2">
         <TextArea
           name="motivation"
-          label="What draws you to seva at Mind Mirage?"
+          label="What draws you to karma yoga at Mind Mirage?"
           required
           rows={5}
         />
       </div>
       {error && <p className="sm:col-span-2 text-xs text-saffron">{error}</p>}
       <div className="sm:col-span-2 flex justify-center">
-        <SubmitButton state={state}>Offer seva</SubmitButton>
+        <SubmitButton state={state}>Offer karma yoga</SubmitButton>
       </div>
     </form>
   );

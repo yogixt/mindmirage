@@ -34,7 +34,7 @@ export default async function BlogPost(
     <main className="bg-paper">
       <Navbar variant="solid" />
 
-      <article className="px-6 pt-24 pb-5 sm:pt-24">
+      <article className="px-6 pt-24 pb-4 sm:pt-24">
         <div className="mx-auto max-w-2xl">
           <Link
             href="/blog"
@@ -42,7 +42,7 @@ export default async function BlogPost(
           >
             ← Journal
           </Link>
-          <p className="eyebrow mt-6">
+          <p className="eyebrow mt-4">
             {post.frontmatter.type ?? "blog"} ·{" "}
             {new Date(post.frontmatter.date).toLocaleDateString("en-IN", {
               year: "numeric",
@@ -51,7 +51,7 @@ export default async function BlogPost(
             })}
           </p>
           {post.frontmatter.sanskrit && (
-            <p className="deva mt-6 text-2xl text-ink sm:text-3xl">
+            <p className="deva mt-4 text-2xl text-ink sm:text-3xl">
               {post.frontmatter.sanskrit}
             </p>
           )}
@@ -61,13 +61,13 @@ export default async function BlogPost(
             </p>
           )}
           <h1
-            className="display mt-6 text-4xl text-ink sm:text-6xl"
+            className="display mt-4 text-4xl text-ink sm:text-6xl"
             style={{ lineHeight: "1.0", letterSpacing: "-0.025em" }}
           >
             {post.frontmatter.title}
           </h1>
           {post.frontmatter.author && (
-            <p className="mt-6 text-sm text-ink-soft">— {post.frontmatter.author}</p>
+            <p className="mt-4 text-sm text-ink-soft">— {post.frontmatter.author}</p>
           )}
 
           <Divider />

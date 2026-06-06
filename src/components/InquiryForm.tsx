@@ -53,7 +53,6 @@ export default function InquiryForm() {
           label="Subject"
           required
           options={[
-            { value: "", label: "Choose a subject…" },
             ...INQUIRY_SUBJECTS.map((s) => ({ value: s, label: s })),
           ]}
         />

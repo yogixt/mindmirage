@@ -7,7 +7,7 @@ import PageHero from "@/components/PageHero";
 import { isClerkConfigured } from "@/lib/auth";
 
 export const metadata: Metadata = {
-  title: "Seeker Sign-in",
+  title: "Sādhak Sign-in",
 };
 
 export default function SignInPage() {
@@ -16,7 +16,7 @@ export default function SignInPage() {
       <main className="bg-paper">
         <Navbar variant="solid" />
         <PageHero
-          eyebrow="Seeker login"
+          eyebrow="Sādhak login"
           deva="शिष्य प्रवेश"
           title={
             <>
@@ -26,7 +26,7 @@ export default function SignInPage() {
           description={
             <>
               Add your Clerk keys to <code className="font-mono text-ink">.env.local</code> to
-              open the seeker portal. Until then, every program is reachable
+              open the sādhak portal. Until then, every program is reachable
               directly through Acharya Ji.
             </>
           }
@@ -46,9 +46,9 @@ export default function SignInPage() {
   return (
     <main className="bg-paper">
       <Navbar variant="solid" />
-      <section className="min-h-[calc(100vh-200px)] pt-24 pb-5 px-6 sm:pt-36 flex flex-col items-center">
+      <section className="min-h-[calc(100vh-200px)] pt-24 pb-4 px-6 sm:pt-36 flex flex-col items-center">
         <p className="deva text-xl text-ink-soft">शिष्य प्रवेश</p>
-        <div className="mt-6 w-full flex justify-center">
+        <div className="mt-4 w-full flex justify-center">
           <SignIn signUpUrl="/sign-up" fallbackRedirectUrl="/dashboard" />
         </div>
       </section>

@@ -84,7 +84,7 @@ export async function POST(
     return NextResponse.json({ ok: false, error: "not_found" }, { status: 404 });
   }
 
-  const author = seeker.fullName.trim() || "A seeker";
+  const author = seeker.fullName.trim() || "A sādhak";
   await db.execute({
     sql: "INSERT INTO post_comments (post_id, user_id, author, body) VALUES (?, ?, ?, ?)",
     args: [postId, seeker.userId, author, parsed.data.body.trim()],

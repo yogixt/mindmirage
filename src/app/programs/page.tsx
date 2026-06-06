@@ -33,7 +33,7 @@ export default function ProgramsPage() {
         }
       />
       {/* Live classes */}
-      <section className="px-6 pb-5">
+      <section className="px-6 pb-4">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
             <p className="eyebrow">Live classes · on Zoom</p>
@@ -45,7 +45,7 @@ export default function ProgramsPage() {
               self-paced if you prefer your own rhythm.
             </p>
           </div>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {COURSES.filter((c) => c.formats).map((c, i) => (
               <CourseCard key={c.slug} course={c} index={i} />
             ))}
@@ -54,7 +54,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* Self-paced classes */}
-      <section className="bg-paper-warm px-6 py-5">
+      <section className="bg-paper-warm px-6 py-4">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
             <p className="eyebrow">Self-paced · gurukulam rhythm</p>
@@ -66,7 +66,7 @@ export default function ProgramsPage() {
               personal reading between each.
             </p>
           </div>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {COURSES.filter((c) => !c.formats).map((c, i) => (
               <CourseCard key={c.slug} course={c} index={i} />
             ))}
@@ -75,7 +75,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* More live courses */}
-      <section className="px-6 py-5">
+      <section className="px-6 py-4">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
             <p className="eyebrow">Live courses · with the team</p>
@@ -83,7 +83,7 @@ export default function ProgramsPage() {
               Eight classes <span className="italic text-ink-soft">each.</span>
             </h2>
           </div>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {SESSION_COURSES.map((c, i) => (
               <CourseCard key={c.slug} course={c} index={i} />
             ))}
@@ -92,7 +92,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* Booklist — part of the offerings */}
-      <section className="px-6 pb-6">
+      <section className="px-6 pb-4">
         <div className="mx-auto max-w-6xl rounded-2xl border border-ink/10 bg-paper-warm p-6 sm:p-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>

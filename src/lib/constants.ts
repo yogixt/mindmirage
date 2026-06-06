@@ -59,17 +59,14 @@ export const SANSKRIT = {
 export const NAV_PRIMARY = [
   { href: "/programs", label: "Offerings" },
   { href: "/newsletters", label: "Newsletters" },
-  { href: "/faq", label: "FAQ" },
   { href: "/about-us", label: "About" },
   { href: "/contact", label: "Reach Us" },
 ] as const;
 
-export const NAV_FOOTER_LEARN = [
-  { href: "/programs", label: "Self-Paced Courses" },
-  { href: "/sit-with-guruji", label: "Sit with Guruji" },
-  { href: "/live-qa", label: "Live Q&A" },
-  { href: "/mentorship", label: "1:1 Mentorship" },
-  { href: "/books", label: "Booklist" },
+export const NAV_FOOTER_SIT = [
+  { href: "/mentorship", label: "Mentorship" },
+  { href: "/counselling", label: "Counselling" },
+  { href: "/consultation", label: "Consultation" },
 ] as const;
 
 export const NAV_FOOTER_ABOUT = [
@@ -81,14 +78,15 @@ export const NAV_FOOTER_ABOUT = [
 export const NAV_FOOTER_RESEARCH = [
   { href: "/research#publications", label: "Publications" },
   { href: "/research#bibliography", label: "Bibliography" },
-  { href: "/research#collaborate", label: "Collaborate" },
+  { href: "/collaboration", label: "Collaboration" },
   { href: "/research", label: "All Research" },
 ] as const;
 
 export const NAV_FOOTER_ENGAGE = [
   { href: "/newsletters", label: "Newsletters" },
   { href: "/internship", label: "Internship" },
-  { href: "/volunteer", label: "Seva / Volunteer" },
+  { href: "/volunteer", label: "Karma Yoga" },
+  { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
@@ -108,7 +106,7 @@ export const THREE_PATHS = [
     iast: "Guru-Mukha",
     en: "From the Guru's Lips",
     description:
-      "One-to-one classes with Acharya Ji on Zoom. Personal guidance, direct answers, the warmth of the traditional Guru-Sishya Paramparā.",
+      "Live classes with the team on Zoom. Personal guidance, direct answers, the warmth of the traditional Guru-Śiṣya Paramparā.",
     href: "/sit-with-guruji",
   },
   {
@@ -116,7 +114,7 @@ export const THREE_PATHS = [
     iast: "Satsaṅga",
     en: "In the Company of the Good",
     description:
-      "Live Q&A and group satsang where seekers gather, listen, ask, and study together — held in the spirit of the gurukulam.",
+      "Live Q&A and group satsang where sādhaks gather, listen, ask, and study together — held in the spirit of the gurukulam.",
     href: "/live-qa",
   },
 ] as const;
@@ -254,7 +252,7 @@ export const COURSES: Course[] = [
     deva: "ललिता",
     tradition: "Śākta · Śrī Vidyā",
     excerpt:
-      "A devotional study of the Lalitā Sahasranāma offered for women seekers — the Goddess as the very ground of awareness, beauty, and play.",
+      "A devotional study of the Lalitā Sahasranāma offered for women sādhaks — the Goddess as the very ground of awareness, beauty, and play.",
     syllabus: [
       "Introduction to the Śākta tradition",
       "Lalitā Sahasranāma — selected names",
@@ -262,7 +260,7 @@ export const COURSES: Course[] = [
       "Daily contemplative practice",
     ],
     duration: "Self-paced · ~4 months",
-    prerequisites: "Open to women seekers of any background.",
+    prerequisites: "Open to women sādhaks of any background.",
     priceINR: 4499,
   },
   {
@@ -311,7 +309,7 @@ export const GUIDANCE_SUBJECTS: GuidanceSubject[] = [
   { slug: "jyotisha", name: "Jyotiṣa (Astrology)", deva: "ज्योतिष", priceINR: 3000 },
   { slug: "western-philosophy", name: "Western Philosophy", priceINR: 5000 },
   { slug: "contemplation", name: "Contemplation", priceINR: 3000 },
-  { slug: "mentorship", name: "1:1 Mentorship", priceINR: 0, notes: "Application-based — custom" },
+  { slug: "mentorship", name: "Mentorship", priceINR: 0, notes: "Application-based — custom" },
 ];
 
 /* 1:1 subjects as purchasable items — each is a complete course of eight
@@ -401,7 +399,7 @@ export const BOOKS: Book[] = [
     title: "Ātma-bodha & Tattva-bodha",
     deva: "आत्मबोधः",
     author: "Adi Shankarācārya",
-    note: "The two beginner texts every seeker starts with at the kuṭīr.",
+    note: "The two beginner texts every sādhak starts with at the kuṭīr.",
   },
   {
     title: "Sānkhya Kārikā",
@@ -417,7 +415,7 @@ export const INQUIRY_SUBJECTS = [
   "Mentorship",
   "Research collaboration",
   "Internship",
-  "Volunteer / Seva",
+  "Karma Yoga",
   "Other",
 ] as const;
 

@@ -61,7 +61,6 @@ export default function InternshipForm() {
         label="Preferred role"
         required
         options={[
-          { value: "", label: "Choose a role…" },
           ...ROLES.map((r) => ({ value: r, label: r })),
         ]}
       />

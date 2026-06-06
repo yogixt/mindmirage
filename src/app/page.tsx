@@ -6,9 +6,8 @@ import FooterHero from "@/components/FooterHero";
 import SanskritVerse from "@/components/SanskritVerse";
 import Reveal from "@/components/Reveal";
 import LineageTree from "@/components/LineageTree";
-import CourseCard from "@/components/CourseCard";
 import Divider from "@/components/Divider";
-import { COURSES, SANSKRIT, SITE, THREE_PATHS, whatsappLink } from "@/lib/constants";
+import { SANSKRIT, THREE_PATHS } from "@/lib/constants";
 
 export default function HomePage() {
   return (
@@ -123,40 +122,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ──────────  5. PROGRAMS  ────────── */}
-      <section className="bg-paper-warm py-5 px-6 sm:py-5" id="programs">
-        <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-xl">
-              <p className="eyebrow">Offerings · self-paced</p>
-              <h2
-                className="display mt-3 text-4xl text-ink sm:text-5xl"
-                style={{ lineHeight: "1.05", letterSpacing: "-0.02em" }}
-              >
-                Eight studies, <span className="italic text-ink-soft">one inquiry.</span>
-              </h2>
-            </div>
-            <Link
-              href="/programs"
-              className="text-sm text-ink underline-offset-4 hover:underline"
-            >
-              See all eight →
-            </Link>
-          </div>
-
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {COURSES.slice(0, 6).map((c, i) => (
-              <CourseCard key={c.slug} course={c} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-      {/* ──────────  7. ACHARYA JI · full-bleed banner  ────────── */}
+      {/* ──────────  5. ACHARYA JI · full-bleed banner  ────────── */}
       <section className="relative w-full overflow-hidden bg-paper-warm">
         {/* Photo — stacked on top for mobile; bleeds in from the right on desktop */}
-        <div className="relative h-64 w-full sm:h-80 lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
+        <div className="relative h-[420px] w-full sm:h-[480px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
           <Image
             src="/acharya-ji.jpg"
             alt="Acharya Bhagyashree Joshi Ji by the Ganga in Rishikesh"
@@ -170,12 +139,12 @@ export default function HomePage() {
 
         {/* Content — below the photo on mobile, left column over the blend on desktop */}
         <div className="relative z-10 mx-auto max-w-6xl px-6">
-          <div className="max-w-xl py-5 sm:py-6 lg:py-6">
+          <div className="max-w-xl py-6 sm:py-8 lg:max-w-md lg:py-24 xl:max-w-lg">
             <p className="deva text-2xl text-ink sm:text-3xl">
               आचार्य भाग्यश्री जोशी जी
             </p>
             <h2
-              className="display mt-3 text-5xl text-ink sm:text-6xl"
+              className="display mt-3 text-5xl text-ink sm:text-6xl lg:text-5xl xl:text-6xl"
               style={{ lineHeight: "1.0", letterSpacing: "-0.02em" }}
             >
               Acharya
@@ -199,7 +168,7 @@ export default function HomePage() {
             <p className="mt-5 text-base text-ink-soft leading-relaxed sm:text-lg">
               A teacher in the Advaita lineage of Adi Shankarācārya —
               weaving Yoga, Vedānta, and Sanskrit into the contemporary
-              seeker&apos;s life, in the warmth of the Guru-Śiṣya Paramparā.
+              sādhak&apos;s life, in the warmth of the Guru-Śiṣya Paramparā.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-4">
               <Link

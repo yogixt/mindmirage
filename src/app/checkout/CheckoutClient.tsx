@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Script from "next/script";
 import { useCart } from "@/lib/cart";
-import { applyCoupon, formatINR, SITE } from "@/lib/constants";
+import { formatINR, SITE } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
@@ -72,25 +72,41 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [couponInput, setCouponInput] = useState("");
   const [coupon, setCoupon] = useState<string | null>(null);
+  const [couponPercent, setCouponPercent] = useState<number | null>(null);
   const [couponError, setCouponError] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.Razorpay) setScriptReady(true);
   }, []);
 
-  const discount = coupon ? applyCoupon(total, coupon) : null;
+  const discount =
+    coupon && couponPercent !== null
+      ? {
+          percent: couponPercent,
+          discountINR: Math.round((total * couponPercent) / 100),
+          finalINR: total - Math.round((total * couponPercent) / 100),
+        }
+      : null;
   const payable = discount ? discount.finalINR : total;
 
-  const handleApplyCoupon = () => {
+  const handleApplyCoupon = async () => {
     setCouponError(null);
     const code = couponInput.trim().toUpperCase();
     if (!code) return;
-    if (!applyCoupon(total, code)) {
+    try {
+      const res = await fetch("/api/coupons/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error();
+      setCouponPercent(data.percent);
+      setCoupon(code);
+      setCouponInput("");
+    } catch {
       setCouponError("That code is not valid.");
-      return;
     }
-    setCoupon(code);
-    setCouponInput("");
   };
 
   const handlePay = async () => {
@@ -181,11 +197,29 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
       modal: {
         ondismiss: () => {
           setStatus("idle");
+          void fetch("/api/razorpay/log", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              status: "cancelled",
+              orderId: order.ok ? order.orderId : "",
+              reason: "checkout closed before paying",
+            }),
+          }).catch(() => {});
         },
       },
     });
 
     rzp.on("payment.failed", (response) => {
+      void fetch("/api/razorpay/log", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          status: "failed",
+          orderId: order.ok ? order.orderId : "",
+                    reason: response.error?.description ?? "payment failed",
+        }),
+      }).catch(() => {});
       setStatus("error");
       setErrorMessage(
         response.error?.description ??
@@ -215,13 +249,13 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
           description="A one-time offering for the path ahead. Acharya Ji reviews every enrolment personally."
         />
 
-        <section className="mx-auto max-w-3xl px-6 pb-5">
+        <section className="mx-auto max-w-3xl px-6 pb-4">
           {count === 0 ? (
             <div className="rounded-2xl border border-ink/10 bg-paper-warm/40 p-8 text-center">
               <p className="display text-2xl text-ink">Your basket is empty.</p>
               <Link
                 href="/programs"
-                className="mt-6 inline-flex rounded-lg bg-saffron px-7 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
+                className="mt-4 inline-flex rounded-lg bg-saffron px-7 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
               >
                 Browse programs
               </Link>
@@ -229,7 +263,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
           ) : (
             <div className="rounded-2xl border border-ink/10 bg-paper p-6 sm:p-7">
               <p className="eyebrow">Order summary</p>
-              <ul className="mt-5 divide-y divide-ink/10">
+              <ul className="mt-4 divide-y divide-ink/10">
                 {courses.map((c) => (
                   <li
                     key={c.slug}
@@ -270,7 +304,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
                       Coupon <strong>{coupon}</strong> — {discount.percent}% off
                       <button
                         type="button"
-                        onClick={() => setCoupon(null)}
+                        onClick={() => { setCoupon(null); setCouponPercent(null); }}
                         className="ml-3 text-xs text-ink-faint underline underline-offset-2 hover:text-ink"
                       >
                         remove
@@ -316,7 +350,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
                 type="button"
                 onClick={handlePay}
                 disabled={busy || !scriptReady || !signedIn}
-                className="mt-6 block w-full rounded-lg bg-green-600 px-6 py-4 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.01] hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="mt-4 block w-full rounded-lg bg-green-600 px-6 py-4 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.01] hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 {status === "creating" && "Preparing your order…"}
                 {status === "opening" && "Opening Razorpay…"}

@@ -37,7 +37,7 @@ const FAQS = [
     a: "All courses — self-paced, live, and one-to-one — are bought through the site's secure checkout: UPI, cards, net banking, wallets, with coupon codes applied at checkout. Books are confirmed by the team first; payment follows on confirmation.",
   },
   {
-    q: "Are the class timings friendly for seekers outside India?",
+    q: "Are the class timings friendly for sādhaks outside India?",
     a: "Yes — classes run in fixed IST windows that map to mornings in the UK and Europe and evenings in the US. Acharya Ji confirms exact timings with you before anything is fixed.",
   },
   {
@@ -46,7 +46,7 @@ const FAQS = [
   },
   {
     q: "Where do I find blogs, news, and announcements from the team?",
-    a: "In the Newsletters — blogs, news, photos, and announcements posted by Acharya Ji and the team. Sign in to read, like, and comment. Retreats and gatherings are also announced to the WhatsApp seekers' list first.",
+    a: "In the Newsletters — blogs, news, photos, and announcements posted by Acharya Ji and the team. Sign in to read, like, and comment. Retreats and gatherings are also announced to the WhatsApp sādhaks' list first.",
   },
   {
     q: "I have a question that isn't answered here.",
@@ -68,13 +68,13 @@ export default function FAQPage() {
         }
         description={
           <>
-            The questions seekers ask most — about courses, classes, payments,
+            The questions sādhaks ask most — about courses, classes, payments,
             and studying with Acharya Ji.
           </>
         }
       />
 
-      <section className="px-6 pb-5">
+      <section className="px-6 pb-4">
         <div className="mx-auto max-w-3xl space-y-3">
           {FAQS.map((f) => (
             <details
@@ -90,14 +90,14 @@ export default function FAQPage() {
                   +
                 </span>
               </summary>
-              <p className="px-5 pb-5 text-sm leading-relaxed text-ink-soft">
+              <p className="px-5 pb-4 text-sm leading-relaxed text-ink-soft">
                 {f.a}
               </p>
             </details>
           ))}
         </div>
 
-        <div className="mx-auto mt-5 max-w-3xl rounded-2xl border border-ink/10 bg-paper-warm p-6 text-center">
+        <div className="mx-auto mt-4 max-w-3xl rounded-2xl border border-ink/10 bg-paper-warm p-6 text-center">
           <p className="display text-xl text-ink">Still wondering?</p>
           <div className="mt-4 flex flex-wrap justify-center gap-3">
             <a

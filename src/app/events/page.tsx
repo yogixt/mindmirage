@@ -59,7 +59,7 @@ export default function EventsPage() {
         }
       />
 
-      <section className="px-6 pb-6 pt-2">
+      <section className="px-6 pb-4 pt-2">
         <div className="mx-auto max-w-5xl">
           <p className="eyebrow text-center">The rhythm of a day at the kuṭīr</p>
           <Divider />
@@ -75,20 +75,20 @@ export default function EventsPage() {
               </Reveal>
             ))}
           </div>
-          <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-ink-faint">
+          <p className="mx-auto mt-4 max-w-2xl text-center text-xs text-ink-faint">
             Every retreat follows this shape; the texts and themes change with the season.
           </p>
         </div>
       </section>
 
-      <section className="px-6 py-5 sm:py-5">
+      <section className="px-6 py-4 sm:py-4">
         <div className="mx-auto max-w-3xl rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center sm:p-10">
           <p className="eyebrow">No public events scheduled today</p>
           <p className="display mt-4 text-2xl text-ink">
             The next gathering will be posted here.
           </p>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink-soft">
-            Retreats are announced to the seekers&apos; list before anywhere else.
+            Retreats are announced to the sādhaks&apos; list before anywhere else.
             If you would like to be invited when the next one opens, write to us on
             WhatsApp and we&apos;ll keep your name on it.
           </p>
@@ -96,7 +96,7 @@ export default function EventsPage() {
             href={whatsappLink("Namaste. Please add me to the retreats list.")}
             target="_blank"
             rel="noreferrer noopener"
-            className="mt-6 inline-flex rounded-lg bg-saffron px-8 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
+            className="mt-4 inline-flex rounded-lg bg-saffron px-8 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
           >
             Keep me informed
           </a>

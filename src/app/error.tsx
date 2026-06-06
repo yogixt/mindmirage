@@ -16,17 +16,17 @@ export default function Error({
 
   return (
     <main className="bg-paper">
-      <section className="flex min-h-[80vh] items-center justify-center px-6 py-6">
+      <section className="flex min-h-[80vh] items-center justify-center px-6 py-4">
         <div className="max-w-xl text-center">
           <p className="deva text-2xl text-saffron">क्षम्यताम्</p>
-          <h1 className="display mt-6 text-4xl text-ink sm:text-5xl">
+          <h1 className="display mt-4 text-4xl text-ink sm:text-5xl">
             Something went quiet.
           </h1>
-          <p className="mt-6 text-base leading-relaxed text-ink-soft">
+          <p className="mt-4 text-base leading-relaxed text-ink-soft">
             An unexpected error interrupted the page. Nothing is lost — you can
             try again, or return to stiller ground.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-4 flex flex-wrap justify-center gap-3">
             <button
               type="button"
               onClick={reset}

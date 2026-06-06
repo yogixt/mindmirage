@@ -3,9 +3,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import MentorshipForm from "@/components/MentorshipForm";
+import FormCard from "@/components/FormCard";
 
 export const metadata: Metadata = {
-  title: "1:1 Mentorship",
+  title: "Mentorship",
   description: "Application-based long-form mentorship with Acharya Bhagyashree Joshi Ji.",
 };
 
@@ -23,14 +24,14 @@ export default function MentorshipPage() {
         }
         description={
           <>
-            A long-form bond with Acharya Ji for seekers committed to deep, sustained
+            A long-form bond with Acharya Ji for sādhaks committed to deep, sustained
             practice. Custom in shape and duration. Reviewed personally — not every
             application is accepted, and that is part of the care.
           </>
         }
       />
 
-      <section className="px-6 py-5 sm:py-5 bg-paper-warm">
+      <section className="px-6 py-4 sm:py-4 bg-paper-warm">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">Apply</p>
           <h2
@@ -40,8 +41,10 @@ export default function MentorshipPage() {
             A short letter <span className="italic text-ink-soft">to begin.</span>
           </h2>
         </div>
-        <div className="mx-auto max-w-3xl mt-5">
-          <MentorshipForm />
+        <div className="mx-auto max-w-3xl mt-4">
+          <FormCard subtitle="Apply for mentorship">
+            <MentorshipForm />
+          </FormCard>
         </div>
       </section>
       <Footer />

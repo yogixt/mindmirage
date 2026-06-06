@@ -2,8 +2,8 @@ import Link from "next/link";
 import {
   NAV_FOOTER_ABOUT,
   NAV_FOOTER_ENGAGE,
-  NAV_FOOTER_LEARN,
   NAV_FOOTER_RESEARCH,
+  NAV_FOOTER_SIT,
   SANSKRIT,
   SITE,
 } from "@/lib/constants";
@@ -35,10 +35,15 @@ export default function Footer() {
             </p>
           </div>
 
-          <FooterColumn title="Learn" links={NAV_FOOTER_LEARN} />
-          <FooterColumn title="About" links={NAV_FOOTER_ABOUT} />
-          <FooterColumn title="Research" links={NAV_FOOTER_RESEARCH} />
-          <FooterColumn title="Engage" links={NAV_FOOTER_ENGAGE} />
+          <FooterColumn
+            title="Sit with Us"
+            titleHref="/sit-with-guruji"
+            color="text-saffron"
+            links={NAV_FOOTER_SIT}
+          />
+          <FooterColumn title="About" color="text-green-700" links={NAV_FOOTER_ABOUT} />
+          <FooterColumn title="Research" color="text-[#B8862B]" links={NAV_FOOTER_RESEARCH} />
+          <FooterColumn title="Engage" color="text-red-700" links={NAV_FOOTER_ENGAGE} />
         </div>
 
         <div className="mt-5 grid gap-3 border-t border-ink/10 pt-4 sm:grid-cols-2 sm:items-center">
@@ -46,14 +51,17 @@ export default function Footer() {
             © {new Date().getFullYear()} {SITE.name} · {SITE.location}
           </p>
           <div className="flex flex-wrap gap-5 sm:justify-end text-sm text-ink-soft">
-            <a href={`mailto:${SITE.email}`} className="hover:text-ink">
+            <a
+              href={`mailto:${SITE.email}`}
+              className="underline underline-offset-4 hover:text-ink"
+            >
               {SITE.email}
             </a>
             <a
               href={`https://wa.me/${SITE.whatsapp}`}
               target="_blank"
               rel="noreferrer noopener"
-              className="hover:text-ink"
+              className="underline underline-offset-4 hover:text-ink"
             >
               Message us on WhatsApp
             </a>
@@ -66,22 +74,29 @@ export default function Footer() {
 
 function FooterColumn({
   title,
+  titleHref,
+  color,
   links,
 }: {
   title: string;
+  titleHref?: string;
+  color: string;
   links: ReadonlyArray<{ href: string; label: string }>;
 }) {
+  const heading = (
+    <h3 className={`text-xs font-bold uppercase tracking-[0.18em] ${color}`}>
+      {title}
+    </h3>
+  );
   return (
     <div>
-      <h3 className="text-xs uppercase tracking-[0.18em] text-gold">
-        {title}
-      </h3>
+      {titleHref ? <Link href={titleHref}>{heading}</Link> : heading}
       <ul className="mt-2.5 space-y-1.5">
         {links.map((l) => (
           <li key={l.href}>
             <Link
               href={l.href}
-              className="text-sm text-ink-soft transition-colors hover:text-ink"
+              className="text-sm font-semibold text-ink transition-colors hover:text-saffron"
             >
               {l.label}
             </Link>

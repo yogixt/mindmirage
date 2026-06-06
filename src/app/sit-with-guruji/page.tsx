@@ -30,7 +30,7 @@ const WAYS = [
     href: "/consultation",
     deva: "मार्गदर्शन",
     name: "Consultation",
-    text: "One-to-one classes on Zoom — every subject a complete eight-class course. Add a subject to your basket under Offerings.",
+    text: "Live classes on Zoom — every subject a complete eight-class course. Add a subject to your basket under Offerings.",
     cta: "Book a consultation",
   },
 ];
@@ -55,7 +55,7 @@ export default function SitWithGurujiPage() {
         }
       />
 
-      <section className="px-6 pb-6">
+      <section className="px-6 pb-4">
         <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
           {WAYS.map((w, i) => (
             <Reveal key={w.href} delay={i * 0.08} className="flex">
@@ -68,7 +68,7 @@ export default function SitWithGurujiPage() {
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">
                   {w.text}
                 </p>
-                <p className="display mt-5 text-sm text-ink transition-transform group-hover:translate-x-0.5">
+                <p className="display mt-4 text-sm text-ink transition-transform group-hover:translate-x-0.5">
                   {w.cta} →
                 </p>
               </Link>

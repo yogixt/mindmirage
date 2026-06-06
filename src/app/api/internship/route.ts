@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { buildResponse, notify } from "@/lib/notify";
+import { journalDb } from "@/lib/journal";
 
 export const runtime = "nodejs";
 
@@ -24,6 +25,19 @@ export async function POST(req: Request) {
   } catch {
     return NextResponse.json({ error: "Invalid internship data" }, { status: 400 });
   }
+  // Keep a copy for the admin portal.
+  try {
+    const db = journalDb();
+    if (db) {
+      await db.execute({
+        sql: "INSERT INTO form_entries (kind, name, email, whatsapp, payload) VALUES (?, ?, ?, ?, ?)",
+        args: ["internship", body.name ?? null, body.email ?? null, body.whatsapp ?? null, JSON.stringify(body)],
+      });
+    }
+  } catch (e) {
+    console.error("[internship] record failed", e);
+  }
+
   const result = await notify({ _kind: "Internship", ...body });
   return NextResponse.json(buildResponse("internship", result));
 }

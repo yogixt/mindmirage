@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import BookingForm from "@/components/BookingForm";
+import { getSeeker } from "@/lib/auth";
+import FormCard from "@/components/FormCard";
 
 export const metadata: Metadata = {
   title: "Counselling — Spiritual Counselling Online from Rishikesh",
@@ -29,7 +31,10 @@ const FIELDS = [
   },
 ];
 
-export default function CounsellingPage() {
+export const dynamic = "force-dynamic";
+
+export default async function CounsellingPage() {
+  const seeker = await getSeeker();
   return (
     <main className="bg-paper">
       <Navbar variant="solid" />
@@ -50,7 +55,7 @@ export default function CounsellingPage() {
         }
       />
 
-      <section className="px-6 pb-6">
+      <section className="px-6 pb-4">
         <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
           {FIELDS.map((f, i) => (
             <Reveal key={f.name} delay={i * 0.08}>
@@ -68,7 +73,7 @@ export default function CounsellingPage() {
         </p>
       </section>
 
-      <section className="bg-paper-warm px-6 py-5">
+      <section className="bg-paper-warm px-6 py-4">
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
             <p className="eyebrow">Request counselling</p>
@@ -79,12 +84,14 @@ export default function CounsellingPage() {
               Take the first <span className="italic text-ink-soft">step.</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-sm text-ink-soft">
-              Acharya Ji will confirm or propose alternatives within 24 hours.
+              The team will confirm or propose alternatives within 24 hours.
               Zoom links are shared on confirmation.
             </p>
           </div>
-          <div className="mt-5">
-            <BookingForm />
+          <div className="mt-4">
+            <FormCard subtitle="Request counselling">
+              <BookingForm signedIn={!!seeker} enrolled={(seeker?.metadata.enrolledPrograms ?? []).filter(Boolean)} />
+            </FormCard>
           </div>
         </div>
       </section>

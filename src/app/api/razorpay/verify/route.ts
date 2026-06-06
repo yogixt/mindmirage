@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import { createHmac, timingSafeEqual } from "crypto";
+import Razorpay from "razorpay";
 import { z } from "zod";
-import { enrollCurrentSeeker } from "@/lib/auth";
+import { enrollCurrentSeeker, getSeeker } from "@/lib/auth";
+import { journalDb } from "@/lib/journal";
+import { notify } from "@/lib/notify";
 
 const BodySchema = z.object({
   razorpay_order_id: z.string().min(1),
@@ -51,6 +54,19 @@ export async function POST(req: Request) {
     timingSafeEqual(expectedBuf, receivedBuf);
 
   if (!matches) {
+    try {
+      const db = journalDb();
+      const seeker = await getSeeker();
+      if (db) {
+        await db.execute({
+          sql: `INSERT INTO payment_events (status, payment_id, order_id, user_name, email, reason)
+                VALUES ('failed', ?, ?, ?, ?, 'signature_mismatch')`,
+          args: [razorpay_payment_id, razorpay_order_id, seeker?.fullName ?? null, seeker?.email ?? null],
+        });
+      }
+    } catch (e) {
+      console.error("[verify] failure log failed", e);
+    }
     return NextResponse.json(
       { ok: false, error: "signature_mismatch" },
       { status: 400 },
@@ -61,6 +77,66 @@ export async function POST(req: Request) {
   for (const slug of slugs) {
     const ok = await enrollCurrentSeeker(slug);
     if (ok) enrolled.push(slug);
+  }
+
+  // Record the purchase for the admin portal — amount and coupon read back
+  // from Razorpay itself, never from the client.
+  try {
+    const db = journalDb();
+    if (db) {
+      const keyId = process.env.RAZORPAY_KEY_ID ?? process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+      let amountINR = 0;
+      let coupon: string | null = null;
+      let titles = slugs.join(", ");
+      if (keyId) {
+        const rzp = new Razorpay({ key_id: keyId, key_secret: keySecret });
+        const order = await rzp.orders.fetch(razorpay_order_id);
+        amountINR = Math.round(Number(order.amount) / 100);
+        const notes = (order.notes ?? {}) as Record<string, string>;
+        coupon = notes.coupon ?? null;
+        titles = notes.titles ?? titles;
+      }
+      const seeker = await getSeeker();
+      await db.execute({
+        sql: `INSERT OR IGNORE INTO orders (payment_id, order_id, user_id, user_name, email, items, amount_inr, coupon)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        args: [
+          razorpay_payment_id,
+          razorpay_order_id,
+          seeker?.userId ?? null,
+          seeker?.fullName ?? null,
+          seeker?.email ?? null,
+          titles,
+          amountINR,
+          coupon,
+        ],
+      });
+    }
+  } catch (e) {
+    // Recording must never break a successful payment.
+    console.error("[verify] order record failed", e);
+  }
+
+  // Email the team about the sale — best effort.
+  try {
+    const seeker = await getSeeker();
+    const db = journalDb();
+    if (db) {
+      await db.execute({
+        sql: `INSERT INTO payment_events (status, payment_id, order_id, user_name, email)
+              VALUES ('success', ?, ?, ?, ?)`,
+        args: [razorpay_payment_id, razorpay_order_id, seeker?.fullName ?? null, seeker?.email ?? null],
+      });
+    }
+    await notify({
+      _kind: "Order",
+      sadhak: seeker?.fullName ?? "Unknown",
+      email: seeker?.email ?? "",
+      courses: slugs.join(", "),
+      paymentId: razorpay_payment_id,
+    });
+  } catch (e) {
+    console.error("[verify] order notify failed", e);
   }
 
   return NextResponse.json({

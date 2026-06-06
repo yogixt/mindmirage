@@ -1,5 +1,7 @@
 "use client";
 
+import MonkGlyph from "./MonkGlyph";
+import { usePastHero } from "./WhatsAppButton";
 import {
   useEffect,
   useRef,
@@ -14,14 +16,14 @@ type BotState = "happy" | "thinking" | "meditating" | "speaking" | "blessing";
 
 const QUICK_ACTIONS = [
   { label: "Teach me a mantra", prompt: "Teach me a mantra I can chant daily." },
-  { label: "Daily practice", prompt: "Suggest a daily practice for a beginner seeker." },
+  { label: "Daily practice", prompt: "Suggest a daily practice for a beginner sādhak." },
   { label: "Guided meditation", prompt: "Guide me through a short meditation." },
 ];
 
 const FIRST_MESSAGE: Message = {
   role: "assistant",
   content:
-    "Namaste, seeker.\n\nI'm Sant AI, here to guide you on your inner journey. How may I support you today?",
+    "Namaste, sādhak.\n\nI'm Sant AI, here to guide you on your inner journey. How may I support you today?",
   // Left blank to avoid SSR/CSR locale mismatch — the welcome message stays
   // timeless; sent/received messages get their timestamp on the client.
   time: "",
@@ -47,6 +49,7 @@ export default function SantAi() {
   const [botState, setBotState] = useState<BotState>("meditating");
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const pastHero = usePastHero();
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 1200);
@@ -121,14 +124,13 @@ export default function SantAi() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open Sant AI"
-        className={`fixed bottom-6 right-6 z-30 inline-flex items-center gap-2 rounded-full bg-[#0A0A0A] px-5 py-3 text-white shadow-lg shadow-black/15 transition-all hover:scale-[1.04] ${
-          mounted && !open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+        className={`fixed bottom-6 right-6 z-30 transition-all hover:scale-[1.1] ${
+          mounted && pastHero && !open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
         }`}
         style={{ transitionDuration: "600ms" }}
       >
-        <Lotus className="w-5 text-[#B8862B]" />
-        <span style={{ fontFamily: "var(--font-instrument-serif), serif" }} className="text-base">
-          Sant AI
+        <span className="sant-float sant-glow block rounded-full ring-2 ring-gold/50">
+          <MonkGlyph size={68} />
         </span>
       </button>
 
@@ -188,7 +190,7 @@ export default function SantAi() {
           {messages.length === 1 && (
             <div className="px-5 pt-4 text-center">
               <p style={{ fontFamily: "var(--font-instrument-serif), serif" }} className="text-2xl text-ink">
-                Welcome, Seeker{" "}
+                Welcome, Sādhak{" "}
                 <Leaf className="inline-block w-5 align-middle text-[#7e8a4b]" />
               </p>
               <div className="mx-auto mt-2 flex max-w-[180px] items-center gap-2">
@@ -228,8 +230,7 @@ export default function SantAi() {
 
           {/* Input bar */}
           <div className="border-t border-black/[0.05] bg-white px-3 py-3">
-            <div className="flex items-center gap-2 rounded-full bg-white px-3 py-1.5 ring-1 ring-black/[0.06]">
-              <Lotus className="w-4 shrink-0 text-[#B8862B]" />
+            <div className="flex items-center gap-2 rounded-full bg-white px-4 py-1.5 ring-1 ring-black/[0.06]">
               <textarea
                 ref={inputRef}
                 value={input}
@@ -257,9 +258,9 @@ export default function SantAi() {
                 <Send className="w-4" />
               </button>
             </div>
-            <p className="mt-2 text-center text-[10px] uppercase tracking-[0.25em] text-ink-faint">
-              <Lotus className="mr-1 inline-block w-3 align-middle text-[#B8862B]" />
-              Rooted in lineage · Guided by wisdom
+            <p className="deva mt-2 text-center text-[11px] text-ink-soft">
+              <span className="mr-1.5 text-[#B8862B]">ॐ</span>
+              न हि ज्ञानेन सदृशं पवित्रमिह विद्यते
             </p>
           </div>
         </section>
@@ -318,28 +319,8 @@ function TypingIndicator() {
   );
 }
 
-function Avatar({ state, size = 36 }: { state: BotState; size?: number }) {
-  return (
-    <div
-      className="shrink-0 overflow-hidden rounded-full bg-[#FAF3E0] ring-1 ring-black/[0.05]"
-      style={{ width: size, height: size }}
-    >
-      <img
-        src={`/sant-ai/monk-${state}.png`}
-        alt=""
-        className="h-full w-full object-cover"
-        onError={(e) => {
-          const el = e.currentTarget;
-          if (!el.dataset.fb1) {
-            el.dataset.fb1 = "1";
-            el.src = "/sant-ai/monk.png";
-            return;
-          }
-          el.style.display = "none";
-        }}
-      />
-    </div>
-  );
+function Avatar({ size = 36 }: { state?: BotState; size?: number }) {
+  return <MonkGlyph size={size} />;
 }
 
 /* ─────────────────────────  Inline icons  ───────────────────────── */

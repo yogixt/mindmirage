@@ -25,14 +25,14 @@ export default function CartPage() {
           }
         />
 
-        <section className="mx-auto max-w-3xl px-6 pb-5">
+        <section className="mx-auto max-w-3xl px-6 pb-4">
           {courses.length === 0 ? (
             <div className="rounded-2xl border border-ink/10 bg-paper-warm/40 p-8 text-center">
               <p className="deva text-2xl text-ink-soft">शून्य</p>
               <p className="mt-3 display text-2xl text-ink">Begin with one.</p>
               <Link
                 href="/programs"
-                className="mt-6 inline-flex rounded-lg bg-saffron px-7 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
+                className="mt-4 inline-flex rounded-lg bg-saffron px-7 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
               >
                 Browse programs
               </Link>
@@ -78,7 +78,7 @@ export default function CartPage() {
                 ))}
               </ul>
 
-              <div className="mt-6 rounded-2xl border border-ink/10 bg-paper p-5 sm:p-6">
+              <div className="mt-4 rounded-2xl border border-ink/10 bg-paper p-5 sm:p-6">
                 <div className="flex items-baseline justify-between">
                   <span className="text-sm text-ink-soft">Total</span>
                   <span className="display text-3xl text-green-700">                    {formatINR(total)}
@@ -86,7 +86,7 @@ export default function CartPage() {
                 </div>
                 <Link
                   href="/checkout"
-                  className="mt-6 block w-full text-center rounded-lg bg-green-600 px-6 py-4 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.01] hover:bg-green-700"
+                  className="mt-4 block w-full text-center rounded-lg bg-green-600 px-6 py-4 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.01] hover:bg-green-700"
                 >
                   Proceed to checkout
                 </Link>

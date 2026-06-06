@@ -53,7 +53,7 @@ export async function getSeeker(): Promise<SeekerSummary | null> {
     userId: user.id,
     firstName: user.firstName ?? null,
     lastName: user.lastName ?? null,
-    fullName: fullName || email || "Seeker",
+    fullName: fullName || email || "Sādhak",
     email,
     imageUrl: user.imageUrl ?? null,
     metadata,

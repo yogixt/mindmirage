@@ -1,12 +1,11 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { Field, Select, TextArea } from "@/components/FormField";
 import { saveProfileAction, type ProfileFormState } from "./actions";
 import type { SeekerMetadata } from "@/lib/auth";
 
 const PATHS = [
-  { value: "", label: "Choose a path…" },
   { value: "ashtanga-yoga", label: "Patañjali's Ashtanga Yoga" },
   { value: "bhakti-yoga", label: "Bhakti Yoga" },
   { value: "jnana-yoga", label: "Jnana Yoga" },
@@ -14,11 +13,56 @@ const PATHS = [
   { value: "all", label: "All of the above" },
 ];
 
+const PATH_LABEL: Record<string, string> = Object.fromEntries(
+  PATHS.map((p) => [p.value, p.label]),
+);
+
 export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) {
   const [state, action, pending] = useActionState<ProfileFormState, FormData>(
     saveProfileAction,
     { status: "idle" },
   );
+  const hasDetails = !!(metadata.city || metadata.preferredPath || metadata.whyISeek);
+  const [mode, setMode] = useState<"view" | "edit">(hasDetails ? "view" : "edit");
+
+  // After a successful save, settle into the display view.
+  useEffect(() => {
+    if (state.status === "ok") setMode("view");
+  }, [state.status]);
+
+  if (mode === "view") {
+    return (
+      <div>
+        <dl className="grid gap-3 sm:grid-cols-2">
+          <div>
+            <dt className="eyebrow text-ink-faint">City</dt>
+            <dd className="mt-1 text-sm text-ink">{metadata.city || "—"}</dd>
+          </div>
+          <div>
+            <dt className="eyebrow text-ink-faint">Preferred path</dt>
+            <dd className="mt-1 text-sm text-ink">
+              {PATH_LABEL[metadata.preferredPath ?? ""] || "—"}
+            </dd>
+          </div>
+          {metadata.whyISeek && (
+            <div className="sm:col-span-2">
+              <dt className="eyebrow text-ink-faint">Why I seek</dt>
+              <dd className="mt-1 whitespace-pre-line text-sm leading-relaxed text-ink-soft">
+                {metadata.whyISeek}
+              </dd>
+            </div>
+          )}
+        </dl>
+        <button
+          type="button"
+          onClick={() => setMode("edit")}
+          className="mt-4 rounded-full border border-ink/15 px-5 py-2 text-xs font-semibold text-ink transition-colors hover:border-ink"
+        >
+          Edit details
+        </button>
+      </div>
+    );
+  }
 
   return (
     <form action={action} className="grid gap-5 sm:grid-cols-2">
@@ -54,7 +98,7 @@ export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) 
         <button
           type="submit"
           disabled={pending}
-          className="rounded-lg bg-saffron px-8 py-3 text-sm text-paper transition-transform hover:scale-[1.03] disabled:opacity-60"
+          className="rounded-2xl bg-saffron px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-clay disabled:opacity-60"
         >
           {pending ? "Saving…" : "Save profile"}
         </button>

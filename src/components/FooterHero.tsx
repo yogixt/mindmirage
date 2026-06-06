@@ -5,8 +5,8 @@ import { useEffect, useRef } from "react";
 import {
   NAV_FOOTER_ABOUT,
   NAV_FOOTER_ENGAGE,
-  NAV_FOOTER_LEARN,
   NAV_FOOTER_RESEARCH,
+  NAV_FOOTER_SIT,
   SANSKRIT,
   SITE,
 } from "@/lib/constants";
@@ -110,10 +110,10 @@ export default function FooterHero() {
 
           {/* Link grid */}
           <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-ink/10 pt-5 sm:grid-cols-4">
-            <FooterColumn title="Learn" links={NAV_FOOTER_LEARN} />
-            <FooterColumn title="About" links={NAV_FOOTER_ABOUT} />
-            <FooterColumn title="Research" links={NAV_FOOTER_RESEARCH} />
-            <FooterColumn title="Engage" links={NAV_FOOTER_ENGAGE} />
+            <FooterColumn title="Sit with Us" color="text-saffron" links={NAV_FOOTER_SIT} />
+            <FooterColumn title="About" color="text-green-700" links={NAV_FOOTER_ABOUT} />
+            <FooterColumn title="Research" color="text-[#B8862B]" links={NAV_FOOTER_RESEARCH} />
+            <FooterColumn title="Engage" color="text-red-700" links={NAV_FOOTER_ENGAGE} />
           </div>
 
           {/* Spacer pushes the copyright row to the bottom on tall screens */}
@@ -125,14 +125,17 @@ export default function FooterHero() {
               © {new Date().getFullYear()} {SITE.name} · {SITE.location}
             </p>
             <div className="flex flex-wrap gap-5 sm:justify-end text-sm text-ink-soft">
-              <a href={`mailto:${SITE.email}`} className="hover:text-ink">
+              <a
+                href={`mailto:${SITE.email}`}
+                className="underline underline-offset-4 hover:text-ink"
+              >
                 {SITE.email}
               </a>
               <a
                 href={`https://wa.me/${SITE.whatsapp}`}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="hover:text-ink"
+                className="underline underline-offset-4 hover:text-ink"
               >
                 Message us on WhatsApp
               </a>
@@ -146,14 +149,16 @@ export default function FooterHero() {
 
 function FooterColumn({
   title,
+  color,
   links,
 }: {
   title: string;
+  color: string;
   links: ReadonlyArray<{ href: string; label: string }>;
 }) {
   return (
     <div>
-      <h3 className="text-[11px] uppercase tracking-[0.22em] text-saffron font-medium">
+      <h3 className={`text-[11px] font-bold uppercase tracking-[0.22em] ${color}`}>
         {title}
       </h3>
       <ul className="mt-2.5 space-y-1.5">
@@ -161,7 +166,7 @@ function FooterColumn({
           <li key={l.href}>
             <Link
               href={l.href}
-              className="text-sm text-ink-soft transition-colors hover:text-ink"
+              className="text-sm font-semibold text-ink transition-colors hover:text-saffron"
             >
               {l.label}
             </Link>

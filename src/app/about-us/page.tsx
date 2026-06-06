@@ -34,14 +34,14 @@ export default function AboutPage() {
         }
       />
 
-      <section className="px-6 py-5 sm:py-5">
+      <section className="px-6 py-4 sm:py-4">
         <div className="mx-auto max-w-3xl space-y-8">
           <div>
             <p className="eyebrow">Mission</p>
             <p className="mt-4 text-base text-ink leading-relaxed sm:text-lg">
               To offer the timeless teaching of Advaita — the non-dual recognition at
               the root of the Indian philosophical tradition — in a way that meets the
-              contemporary seeker without diluting the depth, the language, or the
+              contemporary sādhak without diluting the depth, the language, or the
               human relationship at its heart.
             </p>
           </div>
@@ -50,7 +50,7 @@ export default function AboutPage() {
 
           <div>
             <p className="eyebrow">Tradition</p>
-            <div className="mt-6">
+            <div className="mt-4">
               <SanskritVerse
                 deva={SANSKRIT.shankara.deva}
                 en={SANSKRIT.shankara.en}
@@ -58,7 +58,7 @@ export default function AboutPage() {
                 align="left"
               />
             </div>
-            <p className="mt-6 text-base text-ink leading-relaxed">
+            <p className="mt-4 text-base text-ink leading-relaxed">
               {SITE.tradition}.
             </p>
           </div>
@@ -75,7 +75,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-paper-warm px-6 py-5 sm:py-5">
+      <section className="bg-paper-warm px-6 py-4 sm:py-4">
         <div className="mx-auto max-w-4xl text-center">
           <p className="eyebrow">Paramparā · the unbroken line</p>
           <h2
@@ -85,7 +85,7 @@ export default function AboutPage() {
             How the teaching reaches <span className="italic text-ink-soft">you.</span>
           </h2>
         </div>
-        <div className="mt-6 mx-auto max-w-3xl rounded-2xl border border-ink/10 bg-paper py-5 px-6">
+        <div className="mt-4 mx-auto max-w-3xl rounded-2xl border border-ink/10 bg-paper py-4 px-6">
           <LineageTree />
         </div>
       </section>

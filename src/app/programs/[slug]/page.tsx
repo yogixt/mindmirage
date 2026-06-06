@@ -12,7 +12,7 @@ export function generateStaticParams() {
 }
 
 /* Per-course search titles and descriptions — each targets the phrases
-   seekers actually type (e.g. "Bhagavad Gita course online"). */
+   sādhaks actually type (e.g. "Bhagavad Gita course online"). */
 const SEO: Record<string, { title: string; description: string }> = {
   "yoga-sutras": {
     title: "Yoga Sutras Course Online — Classical Yoga Philosophy",
@@ -89,7 +89,7 @@ export default async function CoursePage(
             ← All programs
           </Link>
           <p className="eyebrow mt-4">{course.tradition}</p>
-          <p className="deva mt-3 text-3xl text-ink sm:text-4xl">{course.deva}</p>
+          <p className="deva mt-3 bg-gradient-to-r from-saffron via-gold to-saffron bg-clip-text text-3xl text-transparent sm:text-4xl">{course.deva}</p>
           <h1
             className="display mt-4 text-4xl text-ink sm:text-6xl"
             style={{ lineHeight: "1.0", letterSpacing: "-0.025em" }}
@@ -102,7 +102,7 @@ export default async function CoursePage(
         </div>
       </section>
 
-      <section className="px-6 py-5">
+      <section className="px-6 py-4">
         <div className="mx-auto max-w-3xl grid gap-4 sm:grid-cols-3">
           <Stat label="Pace" value={course.duration.split("·")[0].trim()} />
           <Stat
@@ -131,12 +131,12 @@ export default async function CoursePage(
         )}
       </section>
 
-      <section className="px-6 py-5">
+      <section className="px-6 py-4">
         <div className="mx-auto max-w-3xl">
           {course.syllabus.length > 0 && (
             <>
               <p className="eyebrow">Syllabus</p>
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-4 space-y-3">
                 {course.syllabus.map((s, i) => (
                   <li key={i} className="flex gap-4 text-base text-ink leading-relaxed">
                     <span className="display text-gold w-8 shrink-0">
@@ -159,7 +159,7 @@ export default async function CoursePage(
       </section>
 
       {/* Enroll */}
-      <section className="px-6 py-5 sm:py-5 bg-paper-warm">
+      <section className="px-6 py-4 sm:py-4 bg-paper-warm">
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
             <p className="eyebrow">Enrol</p>
@@ -170,7 +170,7 @@ export default async function CoursePage(
               Begin {course.title}.
             </h2>
           </div>
-          <div className="mt-5">
+          <div className="mt-4">
             <CourseCta course={course} />
           </div>
         </div>

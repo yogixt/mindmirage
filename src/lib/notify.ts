@@ -22,7 +22,7 @@ export type NotifyResult = {
 export async function notify(payload: Payload): Promise<NotifyResult> {
   const errors: string[] = [];
 
-  const [sheets, formspree] = await Promise.all([
+  const [sheets, formspree, resend] = await Promise.all([
     forwardToSheets(payload).catch((e) => {
       errors.push(`sheets:${asMessage(e)}`);
       return false;
@@ -31,9 +31,13 @@ export async function notify(payload: Payload): Promise<NotifyResult> {
       errors.push(`formspree:${asMessage(e)}`);
       return false;
     }),
+    forwardToResend(payload).catch((e) => {
+      errors.push(`resend:${asMessage(e)}`);
+      return false;
+    }),
   ]);
 
-  return { sheetsOk: sheets, formspreeOk: formspree, errors };
+  return { sheetsOk: sheets, formspreeOk: formspree || resend, errors };
 }
 
 async function forwardToSheets(payload: Payload): Promise<boolean> {
@@ -66,6 +70,42 @@ async function forwardToFormspree(payload: Payload): Promise<boolean> {
     body: JSON.stringify({
       _subject: `Mind Mirage · ${payload._kind}`,
       ...payload,
+    }),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return true;
+}
+
+/* Resend — free tier email straight to the team's Gmail.
+   Needs RESEND_API_KEY (+ optional NOTIFY_EMAIL_TO, defaults below). */
+async function forwardToResend(payload: Payload): Promise<boolean> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    console.warn("[notify] RESEND_API_KEY not set — skipping Resend email");
+    return false;
+  }
+  const to = (process.env.NOTIFY_EMAIL_TO ?? "namaste@mindmirageindia.com")
+    .split(",")
+    .map((e) => e.trim())
+    .filter(Boolean);
+  const rows = Object.entries(payload)
+    .filter(([k]) => k !== "_kind")
+    .map(
+      ([k, v]) =>
+        `<tr><td style="padding:6px 12px;font-weight:600;color:#555;text-transform:capitalize">${k}</td><td style="padding:6px 12px;color:#111;white-space:pre-line">${String(v ?? "")}</td></tr>`,
+    )
+    .join("");
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${key}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: process.env.NOTIFY_EMAIL_FROM ?? "Mind Mirage <onboarding@resend.dev>",
+      to,
+      subject: `Mind Mirage · New ${payload._kind}`,
+      html: `<div style="font-family:Georgia,serif;max-width:560px"><h2 style="color:#C0531F">New ${payload._kind}</h2><table style="border-collapse:collapse;font-family:system-ui,sans-serif;font-size:14px">${rows}</table><p style="color:#999;font-size:12px;margin-top:16px">Also saved in the admin portal inbox.</p></div>`,
     }),
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);

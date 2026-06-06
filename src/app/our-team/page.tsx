@@ -20,7 +20,7 @@ const MENTORS = [
   {
     name: "Core Team",
     description:
-      "Acharya Ji is supported by a small core team of seekers and volunteers who hold the day-to-day work — assignments, communications, content, and the Rishikesh courtyard itself.",
+      "Acharya Ji is supported by a small core team of sādhaks and volunteers who hold the day-to-day work — assignments, communications, content, and the Rishikesh courtyard itself.",
   },
 ];
 
@@ -38,9 +38,9 @@ export default function OurTeamPage() {
         }
       />
 
-      <section className="px-6 py-5 sm:py-5">
+      <section className="px-6 py-4 sm:py-4">
         <div className="mx-auto max-w-4xl">
-          <div className="grid gap-8 sm:grid-cols-5 sm:items-start">
+          <div className="grid gap-6 sm:grid-cols-5 sm:items-start">
             <div className="sm:col-span-2">
               <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-ink/10">
                 <Image
@@ -60,7 +60,7 @@ export default function OurTeamPage() {
               <h2 className="display mt-4 text-3xl text-ink sm:text-4xl">
                 {SITE.founder}
               </h2>
-              <p className="mt-6 text-base text-ink-soft leading-relaxed">
+              <p className="mt-4 text-base text-ink-soft leading-relaxed">
                 Acharya Bhagyashree Joshi Ji is a teacher in the Advaita lineage of
                 Adi Shankarācārya. She studies and teaches Yoga, Vedānta, Sanskrit,
                 Sānkhya, and the contemplative traditions of the Indian Knowledge
@@ -68,7 +68,7 @@ export default function OurTeamPage() {
               </p>
               <p className="mt-4 text-base text-ink-soft leading-relaxed">
                 Her teaching is rooted in primary texts, but its register is
-                intimate. She works with seekers one at a time, in the rhythm of
+                intimate. She works with sādhaks one at a time, in the rhythm of
                 the gurukulam — a lesson sent personally, an assignment read
                 personally, a reply written by hand.
               </p>

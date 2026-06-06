@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { generateText, type ModelMessage } from "ai";
 import { z } from "zod";
 import { selectModel } from "@/lib/ai";
-import { SANT_AI_SYSTEM_PROMPT } from "@/lib/sant-ai-prompt";
+import { buildSantAiPrompt } from "@/lib/sant-ai-prompt";
 
 export const runtime = "nodejs";
 
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
   try {
     const { text } = await generateText({
       model: selectModel(),
-      system: SANT_AI_SYSTEM_PROMPT,
+      system: buildSantAiPrompt(),
       messages,
       maxOutputTokens: 600,
       temperature: 0.6,

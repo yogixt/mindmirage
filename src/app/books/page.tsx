@@ -32,7 +32,7 @@ export default function BooksPage() {
         }
       />
 
-      <section className="px-6 pb-6">
+      <section className="px-6 pb-4">
         <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
           {BOOK_SETS.map((b, i) => (
             <Reveal key={b.slug} delay={i * 0.08} className="flex">
