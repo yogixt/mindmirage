@@ -1,29 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { GUIDANCE_SUBJECTS, SLOTS } from "@/lib/constants";
+import { GUIDANCE_SUBJECTS } from "@/lib/constants";
 import { Field, Select, SubmitButton, TextArea, type SubmitState } from "./FormField";
+import AvailabilityCalendar, { useBlockedDates } from "./AvailabilityCalendar";
+
+const TIME_SLOTS = [
+  { id: "morning-ist", label: "Morning · IST" },
+  { id: "evening-ist", label: "Evening · IST" },
+];
 
 export default function BookingForm() {
   const [state, setState] = useState<SubmitState>("idle");
   const [error, setError] = useState<string | null>(null);
+  const [blocked] = useBlockedDates();
+  const [dates, setDates] = useState<string[]>([]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    if (dates.length === 0) {
+      setError("Pick at least one available (green) date on the calendar.");
+      return;
+    }
     setState("sending");
     const fd = new FormData(e.currentTarget);
-    const dates = SLOTS.flatMap((s) => [s.id]); // unused, just to satisfy TS
-    void dates;
     const data: Record<string, unknown> = {
       ...Object.fromEntries(fd.entries()),
-      preferredDates: [
-        fd.get("date1"),
-        fd.get("date2"),
-        fd.get("date3"),
-        fd.get("date4"),
-        fd.get("date5"),
-      ].filter(Boolean),
+      preferredDates: dates,
     };
     try {
       const res = await fetch("/api/booking", {
@@ -47,8 +51,8 @@ export default function BookingForm() {
       <div className="border border-gold/30 bg-paper-warm px-8 py-5 text-center">
         <p className="display text-3xl text-ink">नमस्ते</p>
         <p className="mt-3 text-base text-ink-soft">
-          Acharya Ji will confirm your dates within 24 hours and share Zoom links for
-          each class.
+          Your dates are with the team — confirmation and Zoom links follow by
+          email within 24 hours.
         </p>
       </div>
     );
@@ -59,7 +63,6 @@ export default function BookingForm() {
       <Field name="name" label="Full name" required autoComplete="name" />
       <Field name="email" type="email" label="Email" required autoComplete="email" />
       <Field name="whatsapp" label="WhatsApp number" required placeholder="+91 …" />
-      <Field name="timezone" label="Timezone" required placeholder="e.g. IST, GMT, ET" />
       <Select
         name="subject"
         label="Subject"
@@ -71,32 +74,34 @@ export default function BookingForm() {
       />
       <Select
         name="slot"
-        label="Time slot"
+        label="Time slot (IST)"
         required
-        options={SLOTS.map((s) => ({
-          value: s.id,
-          label: `${s.label} · ${s.ist} IST`,
-        }))}
+        options={TIME_SLOTS.map((s) => ({ value: s.id, label: s.label }))}
       />
       <div className="sm:col-span-2">
-        <p className="eyebrow mb-3">Preferred dates for your first classes · Acharya Ji confirms or proposes alternatives</p>
-        <div className="grid gap-3 sm:grid-cols-5">
-          {[1, 2, 3, 4, 5].map((n) => (
-            <input
-              key={n}
-              name={`date${n}`}
-              type="date"
-              required={n <= 3}
-              className="rounded-lg border border-ink/15 bg-paper px-3 py-3 text-sm text-ink focus:border-ink focus:outline-none"
-            />
-          ))}
+        <p className="eyebrow mb-3">
+          Pick your dates · green is available, red is blocked
+        </p>
+        <div className="flex justify-center sm:justify-start">
+        <AvailabilityCalendar
+          mode="select"
+          blocked={blocked}
+          selected={dates}
+          maxSelect={5}
+          onSelect={setDates}
+        />
         </div>
+        {dates.length > 0 && (
+          <p className="mt-2 text-xs text-ink-soft">
+            Chosen: {dates.join(" · ")}
+          </p>
+        )}
       </div>
       <div className="sm:col-span-2">
         <TextArea
           name="message"
-          label="Anything Acharya Ji should know in advance? (optional)"
-          rows={4}
+          label="Anything the team should know in advance? (optional)"
+          rows={3}
         />
       </div>
       {error && <p className="sm:col-span-2 text-xs text-saffron">{error}</p>}

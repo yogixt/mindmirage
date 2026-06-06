@@ -25,7 +25,7 @@ export default function CourseCta({ course }: { course: Course }) {
             {formatINR(course.priceINR)}
           </p>
           <p className="mt-2 text-sm text-ink-soft">
-            Lifetime access · personal feedback from Acharya Ji
+            One-time enrolment · no recurring fees
           </p>
         </div>
       </div>
@@ -33,15 +33,15 @@ export default function CourseCta({ course }: { course: Course }) {
       <ul className="mt-7 space-y-2.5 text-sm text-ink-soft">
         <li className="flex gap-3">
           <CheckIcon width={18} height={18} className="text-gold mt-0.5 shrink-0" />
-          <span>Lessons delivered at your pace</span>
+          <span>Confirmation email after enrolment</span>
         </li>
         <li className="flex gap-3">
           <CheckIcon width={18} height={18} className="text-gold mt-0.5 shrink-0" />
-          <span>Handwritten assignments reviewed personally</span>
+          <span>The team handles everything from there</span>
         </li>
         <li className="flex gap-3">
           <CheckIcon width={18} height={18} className="text-gold mt-0.5 shrink-0" />
-          <span>WhatsApp + email access to Acharya Ji</span>
+          <span>Live-class joining link or first lesson by email</span>
         </li>
         <li className="flex gap-3">
           <CheckIcon width={18} height={18} className="text-gold mt-0.5 shrink-0" />

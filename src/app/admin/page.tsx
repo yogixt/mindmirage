@@ -43,6 +43,12 @@ export default async function AdminPage() {
       live: true,
     },
     {
+      href: "/admin/availability",
+      name: "Availability",
+      text: "The booking calendar — block and open dates for classes.",
+      live: true,
+    },
+    {
       href: "#",
       name: "Enrolments",
       text: "Seeker enrolments and payments — coming next.",
