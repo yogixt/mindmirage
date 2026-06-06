@@ -41,8 +41,8 @@ export default function ProgramsPage() {
               Studied <span className="italic text-ink-soft">together.</span>
             </h2>
             <p className="mx-auto mt-2 max-w-xl text-sm text-ink-soft">
-              These run as live cohorts with Acharya Ji on Zoom — and remain
-              available self-paced if you prefer your own rhythm.
+              These run as live cohorts on Zoom — and remain available
+              self-paced if you prefer your own rhythm.
             </p>
           </div>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
