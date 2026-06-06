@@ -111,6 +111,24 @@ export default async function CoursePage(
           />
           <Stat label="Tuition" value={formatINR(course.priceINR)} />
         </div>
+        {course.formats && (
+          <div className="mx-auto mt-4 max-w-3xl">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="eyebrow">Offered as</span>
+              {course.formats.map((f) => (
+                <span
+                  key={f}
+                  className="rounded-full border border-saffron/30 bg-saffron/5 px-4 py-1.5 text-xs font-medium text-saffron"
+                >
+                  {f}
+                </span>
+              ))}
+            </div>
+            <p className="mt-2 text-xs text-ink-faint">
+              Live cohort dates are shared on enrolment — or ask us on WhatsApp.
+            </p>
+          </div>
+        )}
       </section>
 
       <section className="px-6 py-8">

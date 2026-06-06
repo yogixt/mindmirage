@@ -10,7 +10,7 @@ import { COURSES } from "@/lib/constants";
 
 export type SeekerProfile = {
   city?: string;
-  preferredPath?: "yoga" | "vedanta" | "both" | "";
+  preferredPath?: "ashtanga-yoga" | "bhakti-yoga" | "jnana-yoga" | "advaita-vedanta" | "all" | "";
   whyISeek?: string;
 };
 

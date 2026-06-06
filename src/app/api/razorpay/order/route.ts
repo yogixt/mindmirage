@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import Razorpay from "razorpay";
-import { COURSES } from "@/lib/constants";
+import { applyCoupon, COURSES } from "@/lib/constants";
 
 const BodySchema = z.object({
   slugs: z.array(z.string()).min(1),
+  coupon: z.string().max(40).optional().default(""),
 });
 
 export async function POST(req: Request) {
@@ -52,7 +53,19 @@ export async function POST(req: Request) {
     );
   }
 
-  const totalINR = courses.reduce((sum, c) => sum + c.priceINR, 0);
+  const baseINR = courses.reduce((sum, c) => sum + c.priceINR, 0);
+
+  // Server-side coupon validation — the client never controls the amount.
+  const couponCode = parsed.data.coupon.trim().toUpperCase();
+  const couponResult = couponCode ? applyCoupon(baseINR, couponCode) : null;
+  if (couponCode && !couponResult) {
+    return NextResponse.json(
+      { ok: false, error: "invalid_coupon" },
+      { status: 400 },
+    );
+  }
+
+  const totalINR = couponResult ? couponResult.finalINR : baseINR;
   const amountPaise = totalINR * 100;
 
   // Razorpay rejects orders below 100 paise (₹1).
@@ -73,6 +86,10 @@ export async function POST(req: Request) {
       notes: {
         slugs: courses.map((c) => c.slug).join(","),
         titles: courses.map((c) => c.title).join(" | "),
+        ...(couponResult && {
+          coupon: couponCode,
+          discountINR: String(couponResult.discountINR),
+        }),
       },
     });
 

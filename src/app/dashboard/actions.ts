@@ -6,7 +6,7 @@ import { updateSeekerProfile } from "@/lib/auth";
 
 const ProfileSchema = z.object({
   city: z.string().max(120).optional().default(""),
-  preferredPath: z.enum(["yoga", "vedanta", "both", ""]).optional().default(""),
+  preferredPath: z.enum(["ashtanga-yoga", "bhakti-yoga", "jnana-yoga", "advaita-vedanta", "all", ""]).optional().default(""),
   whyISeek: z.string().max(800).optional().default(""),
 });
 

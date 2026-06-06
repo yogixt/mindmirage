@@ -7,9 +7,11 @@ import type { SeekerMetadata } from "@/lib/auth";
 
 const PATHS = [
   { value: "", label: "Choose a path…" },
-  { value: "yoga", label: "Yoga · Aṣṭāṅga" },
-  { value: "vedanta", label: "Vedānta · the non-dual root" },
-  { value: "both", label: "Both — let them weave" },
+  { value: "ashtanga-yoga", label: "Patañjali's Ashtanga Yoga" },
+  { value: "bhakti-yoga", label: "Bhakti Yoga" },
+  { value: "jnana-yoga", label: "Jnana Yoga" },
+  { value: "advaita-vedanta", label: "Advaita Vedanta" },
+  { value: "all", label: "All of the above" },
 ];
 
 export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) {

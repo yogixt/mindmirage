@@ -57,18 +57,19 @@ export const SANSKRIT = {
 /* ────────────  Navigation  ──────────── */
 
 export const NAV_PRIMARY = [
-  { href: "/programs", label: "Programs" },
-  { href: "/personal-guidance", label: "Guidance" },
-  { href: "/blog", label: "Journal" },
+  { href: "/programs", label: "Offerings" },
+  { href: "/sit-with-guruji", label: "Sit with Guruji" },
+  { href: "/journal", label: "Journal" },
   { href: "/about-us", label: "About" },
   { href: "/contact", label: "Reach Us" },
 ] as const;
 
 export const NAV_FOOTER_LEARN = [
   { href: "/programs", label: "Self-Paced Courses" },
-  { href: "/personal-guidance", label: "Personal Guidance" },
+  { href: "/sit-with-guruji", label: "Sit with Guruji" },
   { href: "/live-qa", label: "Live Q&A" },
   { href: "/mentorship", label: "1:1 Mentorship" },
+  { href: "/books", label: "Booklist" },
 ] as const;
 
 export const NAV_FOOTER_ABOUT = [
@@ -85,7 +86,7 @@ export const NAV_FOOTER_RESEARCH = [
 ] as const;
 
 export const NAV_FOOTER_ENGAGE = [
-  { href: "/blog", label: "Journal" },
+  { href: "/journal", label: "Journal" },
   { href: "/internship", label: "Internship" },
   { href: "/volunteer", label: "Seva / Volunteer" },
   { href: "/contact", label: "Contact" },
@@ -108,7 +109,7 @@ export const THREE_PATHS = [
     en: "From the Guru's Lips",
     description:
       "One-to-one sessions with Acharya Ji on Zoom. Personal guidance, direct answers, the warmth of the traditional Guru-Sishya Paramparā.",
-    href: "/personal-guidance",
+    href: "/sit-with-guruji",
   },
   {
     deva: "सत्सङ्ग",
@@ -123,6 +124,8 @@ export const THREE_PATHS = [
 /* ────────────  Courses (self-paced)  ──────────── */
 
 export type Course = {
+  /** Delivery formats — all courses are self-paced; some also run live on Zoom. */
+  formats?: readonly string[];
   slug: string;
   title: string;
   deva: string;
@@ -154,6 +157,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "bhagavad-gita",
+    formats: ["Self-paced", "Live classes on Zoom"],
     title: "Bhagavad Gītā",
     deva: "भगवद्गीता",
     tradition: "Vedānta · Karma Yoga · Bhakti",
@@ -173,6 +177,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "advaita-vedanta",
+    formats: ["Self-paced", "Live classes on Zoom"],
     title: "Advaita Vedānta",
     deva: "अद्वैत वेदान्त",
     tradition: "Adi Shankarācārya",
@@ -244,6 +249,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "lalita-for-women",
+    formats: ["Self-paced", "Live classes on Zoom"],
     title: "Lalitā for Women",
     deva: "ललिता",
     tradition: "Śākta · Śrī Vidyā",
@@ -328,6 +334,55 @@ export const SLOTS = [
 
 /* ────────────  Inquiry subjects  ──────────── */
 
+/* ────────────  Booklist (sold by the ashram)  ────────────
+   Ordered via WhatsApp/form; payment collected on confirmation. */
+
+export type Book = {
+  title: string;
+  deva?: string;
+  author: string;
+  note: string;
+};
+
+export const BOOKS: Book[] = [
+  {
+    title: "Vivekacūḍāmaṇi",
+    deva: "विवेकचूडामणि",
+    author: "Adi Shankarācārya",
+    note: "The crest-jewel of discrimination — the central manual of Advaita sādhanā.",
+  },
+  {
+    title: "Bhagavad Gītā with Śāṅkara Bhāṣya",
+    deva: "भगवद्गीता",
+    author: "Vyāsa · commentary by Shankarācārya",
+    note: "The Gītā with the classical Advaita commentary.",
+  },
+  {
+    title: "Yoga Sūtras of Patañjali",
+    deva: "योगसूत्राणि",
+    author: "Patañjali · with classical commentaries",
+    note: "The 196 aphorisms with Vyāsa's commentary.",
+  },
+  {
+    title: "Upadeśa Sāhasrī",
+    deva: "उपदेशसाहस्री",
+    author: "Adi Shankarācārya",
+    note: "The thousand teachings — Shankarācārya's own systematic prose work.",
+  },
+  {
+    title: "Ātma-bodha & Tattva-bodha",
+    deva: "आत्मबोधः",
+    author: "Adi Shankarācārya",
+    note: "The two beginner texts every seeker starts with at the kuṭīr.",
+  },
+  {
+    title: "Sānkhya Kārikā",
+    deva: "सांख्यकारिका",
+    author: "Īśvarakṛṣṇa",
+    note: "The oldest surviving manual of Sānkhya philosophy.",
+  },
+];
+
 export const INQUIRY_SUBJECTS = [
   "Course inquiry",
   "Personal guidance",
@@ -337,6 +392,23 @@ export const INQUIRY_SUBJECTS = [
   "Volunteer / Seva",
   "Other",
 ] as const;
+
+/* ────────────  Coupons  ────────────
+   Code → percent off. Edit this table to add/retire codes.
+   Codes are case-insensitive at entry. */
+
+export const COUPONS: Record<string, number> = {
+  WELCOME10: 10,
+  SEEKER15: 15,
+  GURUKULAM20: 20,
+};
+
+export function applyCoupon(totalINR: number, code: string) {
+  const percent = COUPONS[code.trim().toUpperCase()];
+  if (!percent) return null;
+  const discountINR = Math.round((totalINR * percent) / 100);
+  return { percent, discountINR, finalINR: totalINR - discountINR };
+}
 
 /* ────────────  Helpers  ──────────── */
 

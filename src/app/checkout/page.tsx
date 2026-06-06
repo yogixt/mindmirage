@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Script from "next/script";
 import { useCart } from "@/lib/cart";
-import { formatINR, SITE } from "@/lib/constants";
+import { applyCoupon, formatINR, SITE } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
@@ -70,10 +70,28 @@ export default function CheckoutPage() {
     "idle" | "creating" | "opening" | "verifying" | "error"
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [couponInput, setCouponInput] = useState("");
+  const [coupon, setCoupon] = useState<string | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.Razorpay) setScriptReady(true);
   }, []);
+
+  const discount = coupon ? applyCoupon(total, coupon) : null;
+  const payable = discount ? discount.finalINR : total;
+
+  const handleApplyCoupon = () => {
+    setCouponError(null);
+    const code = couponInput.trim().toUpperCase();
+    if (!code) return;
+    if (!applyCoupon(total, code)) {
+      setCouponError("That code is not valid.");
+      return;
+    }
+    setCoupon(code);
+    setCouponInput("");
+  };
 
   const handlePay = async () => {
     if (count === 0) return;
@@ -85,7 +103,10 @@ export default function CheckoutPage() {
       const res = await fetch("/api/razorpay/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slugs: courses.map((c) => c.slug) }),
+        body: JSON.stringify({
+          slugs: courses.map((c) => c.slug),
+          coupon: coupon ?? "",
+        }),
       });
       order = (await res.json()) as OrderResponse;
       if (!order.ok) {
@@ -225,12 +246,53 @@ export default function CheckoutPage() {
                 ))}
               </ul>
 
+              {/* Coupon */}
+              <div className="mt-4 border-t border-ink/10 pt-4">
+                {coupon && discount ? (
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-ink">
+                      Coupon <strong>{coupon}</strong> — {discount.percent}% off
+                      <button
+                        type="button"
+                        onClick={() => setCoupon(null)}
+                        className="ml-3 text-xs text-ink-faint underline underline-offset-2 hover:text-ink"
+                      >
+                        remove
+                      </button>
+                    </span>
+                    <span className="text-ink">
+                      −{formatINR(discount.discountINR)}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex gap-2">
+                    <input
+                      value={couponInput}
+                      onChange={(e) => setCouponInput(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleApplyCoupon()}
+                      placeholder="Coupon code"
+                      className="min-w-0 flex-1 rounded-lg border border-ink/15 bg-transparent px-3 py-2.5 text-sm text-ink placeholder-ink-faint focus:outline-none focus:ring-2 focus:ring-ink"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleApplyCoupon}
+                      className="rounded-lg border border-ink/15 px-5 py-2.5 text-sm text-ink transition-colors hover:border-ink"
+                    >
+                      Apply
+                    </button>
+                  </div>
+                )}
+                {couponError && (
+                  <p className="mt-2 text-xs text-saffron">{couponError}</p>
+                )}
+              </div>
+
               <div className="mt-4 flex items-baseline justify-between border-t border-ink/15 pt-5">
                 <span className="text-sm text-ink-soft">
                   Total · payable now
                 </span>
                 <span className="display text-3xl text-ink">
-                  {formatINR(total)}
+                  {formatINR(payable)}
                 </span>
               </div>
 
@@ -243,8 +305,8 @@ export default function CheckoutPage() {
                 {status === "creating" && "Preparing your order…"}
                 {status === "opening" && "Opening Razorpay…"}
                 {status === "verifying" && "Verifying payment…"}
-                {status === "idle" && `Pay ${formatINR(total)} securely`}
-                {status === "error" && `Try again — pay ${formatINR(total)}`}
+                {status === "idle" && `Pay ${formatINR(payable)} securely`}
+                {status === "error" && `Try again — pay ${formatINR(payable)}`}
               </button>
 
               {errorMessage && (

@@ -128,7 +128,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-xl">
-              <p className="eyebrow">Programs · self-paced</p>
+              <p className="eyebrow">Offerings · self-paced</p>
               <h2
                 className="display mt-3 text-4xl text-ink sm:text-5xl"
                 style={{ lineHeight: "1.05", letterSpacing: "-0.02em" }}
@@ -209,7 +209,7 @@ export default function HomePage() {
                 Know more
               </Link>
               <Link
-                href="/personal-guidance"
+                href="/sit-with-guruji"
                 className="rounded-full border border-ink/20 px-8 py-3.5 text-sm text-ink transition-colors hover:border-ink"
               >
                 Sit with her

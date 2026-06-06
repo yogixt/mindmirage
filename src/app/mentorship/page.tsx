@@ -14,7 +14,7 @@ export default function MentorshipPage() {
     <main className="bg-paper">
       <Navbar variant="solid" />
       <PageHero
-        eyebrow="Mentorship · application-based"
+        eyebrow="Sit with Guruji · Mentorship"
         deva="आचार्य संरक्षण"
         title={
           <>

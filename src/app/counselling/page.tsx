@@ -1,0 +1,94 @@
+import type { Metadata } from "next";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
+import Reveal from "@/components/Reveal";
+import BookingForm from "@/components/BookingForm";
+
+export const metadata: Metadata = {
+  title: "Counselling — Spiritual Counselling Online from Rishikesh",
+  description:
+    "Spiritual counselling online with Acharya Bhagyashree Joshi Ji — life's difficulties, practice obstacles, grief, and transition, held through the lens of the teaching.",
+};
+
+const FIELDS = [
+  {
+    deva: "जीवन",
+    name: "Life situations",
+    text: "Career crossroads, relationships, family duty — examined through viveka, not advice-column platitudes.",
+  },
+  {
+    deva: "साधना",
+    name: "Obstacles in practice",
+    text: "Dryness, doubt, restlessness, fear in meditation — the classical antarāyas, met with classical remedies.",
+  },
+  {
+    deva: "शोक",
+    name: "Grief and transition",
+    text: "Loss, endings, and the questions they raise — sat with gently, in the company of the teaching.",
+  },
+];
+
+export default function CounsellingPage() {
+  return (
+    <main className="bg-paper">
+      <Navbar variant="solid" />
+      <PageHero
+        eyebrow="Sit with Guruji · Counselling"
+        deva="परामर्श"
+        title={
+          <>
+            When life needs a <span className="italic text-ink-soft">listening.</span>
+          </>
+        }
+        description={
+          <>
+            One-to-one counselling with Acharya Ji on Zoom — life&apos;s
+            difficulties held through the steady lens of the teaching, with the
+            confidentiality of a private room.
+          </>
+        }
+      />
+
+      <section className="px-6 pb-6">
+        <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
+          {FIELDS.map((f, i) => (
+            <Reveal key={f.name} delay={i * 0.08}>
+              <div className="h-full rounded-2xl border border-ink/8 bg-paper-cream p-5 transition-all duration-300 hover:-translate-y-1 hover:border-ink/20 hover:shadow-[0_18px_60px_-30px_rgba(0,0,0,0.35)]">
+                <p className="deva text-lg text-saffron">{f.deva}</p>
+                <p className="display mt-2 text-lg text-ink">{f.name}</p>
+                <p className="mt-3 text-sm leading-relaxed text-ink-soft">{f.text}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <p className="mx-auto mt-4 max-w-2xl text-center text-xs text-ink-faint">
+          Counselling is contemplative, not clinical — for medical or psychiatric
+          care, please also consult a qualified professional.
+        </p>
+      </section>
+
+      <section className="bg-paper-warm px-6 py-8">
+        <div className="mx-auto max-w-3xl">
+          <div className="text-center">
+            <p className="eyebrow">Request a counselling session</p>
+            <h2
+              className="display mt-4 text-3xl text-ink sm:text-5xl"
+              style={{ lineHeight: "1.05", letterSpacing: "-0.02em" }}
+            >
+              Take the first <span className="italic text-ink-soft">step.</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-sm text-ink-soft">
+              Acharya Ji will confirm or propose alternatives within 24 hours.
+              Zoom links are shared on confirmation.
+            </p>
+          </div>
+          <div className="mt-8">
+            <BookingForm />
+          </div>
+        </div>
+      </section>
+      <Footer />
+    </main>
+  );
+}
