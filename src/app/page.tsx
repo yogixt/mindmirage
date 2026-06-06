@@ -155,8 +155,8 @@ export default function HomePage() {
 
       {/* ──────────  7. ACHARYA JI · full-bleed banner  ────────── */}
       <section className="relative w-full overflow-hidden bg-paper-warm">
-        {/* Photo — bleeds in from the right, melts into cream on the left */}
-        <div className="absolute inset-y-0 right-0 w-full lg:w-[62%]">
+        {/* Photo — stacked on top for mobile; bleeds in from the right on desktop */}
+        <div className="relative h-64 w-full sm:h-80 lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
           <Image
             src="/acharya-ji.jpg"
             alt="Acharya Bhagyashree Joshi Ji by the Ganga in Rishikesh"
@@ -164,13 +164,13 @@ export default function HomePage() {
             sizes="(min-width: 1024px) 62vw, 100vw"
             className="object-cover object-[30%_center]"
           />
-          {/* Blend: soft wash on the left edge only — the photo itself stays full-strength */}
-          <div className="absolute inset-0 bg-gradient-to-r from-paper-warm via-paper-warm/35 via-30% to-transparent to-55% lg:via-paper-warm/20 lg:to-45%" />
+          {/* Blend: desktop-only — soft wash where the text sits */}
+          <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-paper-warm via-paper-warm/20 via-30% to-transparent to-45%" />
         </div>
 
-        {/* Content — left column over the blend */}
+        {/* Content — below the photo on mobile, left column over the blend on desktop */}
         <div className="relative z-10 mx-auto max-w-6xl px-6">
-          <div className="max-w-xl py-10 sm:py-14 lg:py-16">
+          <div className="max-w-xl py-8 sm:py-10 lg:py-16">
             <p className="deva text-2xl text-ink sm:text-3xl">
               आचार्य भाग्यश्री जोशी जी
             </p>
