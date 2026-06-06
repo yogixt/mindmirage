@@ -42,7 +42,7 @@ const FAQS = [
   },
   {
     q: "How do I buy books from the ashram?",
-    a: "The Booklist comes as three sets — Beginner, Intermediate, and Advanced — bought through the secure checkout. The team confirms shipping by email.",
+    a: "The Booklist comes as three sets — Beginner, Intermediate, and Advanced. Purchase from the Booklist page — our team will contact you.",
   },
   {
     q: "Where do I find blogs, news, and announcements from the team?",

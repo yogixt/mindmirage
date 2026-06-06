@@ -26,8 +26,8 @@ export default function BooksPage() {
         }
         description={
           <>
-            Three sets, by stage of study. Buy through the secure checkout — a
-            confirmation email follows, and the team handles shipping.
+            Three sets, by stage of study. Purchase from here — our team will
+            contact you.
           </>
         }
       />

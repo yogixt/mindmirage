@@ -101,7 +101,8 @@ export default function ProgramsPage() {
                 The Booklist — primary texts from the ashram
               </h2>
               <p className="mt-2 max-w-xl text-sm text-ink-soft">
-                Three sets — Beginner, Intermediate, Advanced.
+                Three sets — Beginner, Intermediate, Advanced. Purchase from
+                here — our team will contact you.
               </p>
             </div>
             <Link
