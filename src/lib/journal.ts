@@ -92,3 +92,39 @@ function rowToQuestion(r: any): Question {
     likedByMe: Boolean(Number(r.likedByMe)),
   };
 }
+
+/* ────────────  Official Updates (posted by Team / Guruji)  ──────────── */
+
+export const POST_CATEGORIES = [
+  { value: "announcement", label: "Announcement" },
+  { value: "guidance", label: "Guidance" },
+  { value: "conference", label: "Conference" },
+  { value: "collaboration", label: "Collaboration" },
+] as const;
+
+export type Post = {
+  id: number;
+  author: string;
+  category: string;
+  title: string;
+  body: string;
+  link: string;
+  created_at: string;
+};
+
+export async function listPosts(): Promise<Post[]> {
+  const db = journalDb();
+  if (!db) return [];
+  const rs = await db.execute(
+    "SELECT id, author, category, title, body, link, created_at FROM posts ORDER BY created_at DESC LIMIT 100",
+  );
+  return rs.rows.map((r) => ({
+    id: Number(r.id),
+    author: String(r.author),
+    category: String(r.category),
+    title: String(r.title),
+    body: String(r.body),
+    link: String(r.link),
+    created_at: String(r.created_at),
+  }));
+}

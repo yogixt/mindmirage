@@ -42,7 +42,7 @@ export default async function QuestionPage(
       <article className="px-6 pt-24 pb-10">
         <div className="mx-auto max-w-3xl">
           <Link
-            href="/journal"
+            href="/ask"
             className="text-xs uppercase tracking-[0.2em] text-ink-faint hover:text-ink"
           >
             ← All questions

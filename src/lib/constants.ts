@@ -59,7 +59,8 @@ export const SANSKRIT = {
 export const NAV_PRIMARY = [
   { href: "/programs", label: "Offerings" },
   { href: "/sit-with-guruji", label: "Sit with Guruji" },
-  { href: "/journal", label: "Journal" },
+  { href: "/updates", label: "Updates" },
+  { href: "/ask", label: "Ask" },
   { href: "/about-us", label: "About" },
   { href: "/contact", label: "Reach Us" },
 ] as const;
@@ -86,7 +87,7 @@ export const NAV_FOOTER_RESEARCH = [
 ] as const;
 
 export const NAV_FOOTER_ENGAGE = [
-  { href: "/journal", label: "Journal" },
+  { href: "/updates", label: "Updates" },
   { href: "/internship", label: "Internship" },
   { href: "/volunteer", label: "Seva / Volunteer" },
   { href: "/contact", label: "Contact" },

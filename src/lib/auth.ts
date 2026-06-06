@@ -106,3 +106,16 @@ export async function updateSeekerProfile(profile: SeekerProfile) {
   });
   return true;
 }
+
+/* Admins — Team members and Guruji who may post official Updates.
+   Comma-separated emails in ADMIN_EMAILS. */
+export async function isAdmin(): Promise<boolean> {
+  const allowed = (process.env.ADMIN_EMAILS ?? "")
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+  if (allowed.length === 0) return false;
+  const seeker = await getSeeker();
+  if (!seeker?.email) return false;
+  return allowed.includes(seeker.email.toLowerCase());
+}
