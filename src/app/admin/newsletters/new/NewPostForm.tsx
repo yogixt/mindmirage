@@ -37,7 +37,7 @@ export default function NewPostForm() {
             : "Could not post. Please try again.",
         );
       }
-      router.push("/newsletters");
+      router.push("/admin/newsletters");
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not post.");

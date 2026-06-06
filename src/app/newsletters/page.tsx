@@ -3,7 +3,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
-import { getSeekerUserId, isAdmin } from "@/lib/auth";
+import { getSeekerUserId } from "@/lib/auth";
 import { listPosts } from "@/lib/journal";
 import PostCard from "./FeedClient";
 
@@ -64,7 +64,7 @@ export default async function NewslettersPage() {
     );
   }
 
-  const [posts, admin] = await Promise.all([listPosts(viewerId), isAdmin()]);
+  const posts = await listPosts(viewerId);
 
   return (
     <main className="bg-paper">
@@ -87,17 +87,6 @@ export default async function NewslettersPage() {
 
       <section className="px-6 pb-10">
         <div className="mx-auto max-w-2xl">
-          {admin && (
-            <div className="mb-5 flex justify-end">
-              <Link
-                href="/newsletters/new"
-                className="rounded-lg bg-saffron px-6 py-2.5 text-sm text-paper transition-transform hover:scale-[1.03]"
-              >
-                New post
-              </Link>
-            </div>
-          )}
-
           {posts.length === 0 ? (
             <div className="rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center">
               <p className="display text-xl text-ink">

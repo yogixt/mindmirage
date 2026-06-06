@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -7,14 +9,19 @@ import NewPostForm from "./NewPostForm";
 
 export const dynamic = "force-dynamic";
 
-export default async function NewPostPage() {
-  if (!(await isAdmin())) redirect("/newsletters");
+export const metadata: Metadata = {
+  title: "New Post · Admin",
+  robots: { index: false, follow: false },
+};
+
+export default async function AdminNewPostPage() {
+  if (!(await isAdmin())) redirect("/");
 
   return (
     <main className="bg-paper">
       <Navbar variant="solid" />
       <PageHero
-        eyebrow="Team · backend"
+        eyebrow="Admin · Newsletters"
         deva="नवीन पत्र"
         title={
           <>
@@ -25,6 +32,14 @@ export default async function NewPostPage() {
       />
       <section className="px-6 pb-10">
         <div className="mx-auto max-w-2xl">
+          <div className="mb-5">
+            <Link
+              href="/admin/newsletters"
+              className="text-xs uppercase tracking-[0.2em] text-ink-faint hover:text-ink"
+            >
+              ← All posts
+            </Link>
+          </div>
           <NewPostForm />
         </div>
       </section>
