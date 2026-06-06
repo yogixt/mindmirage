@@ -33,11 +33,45 @@ export default function ProgramsPage() {
           </>
         }
       />
+      {/* Live classes */}
       <section className="px-6 pb-8">
-        <div className="mx-auto max-w-6xl grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {COURSES.map((c, i) => (
-            <CourseCard key={c.slug} course={c} index={i} />
-          ))}
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center">
+            <p className="eyebrow">Live classes · on Zoom</p>
+            <h2 className="display mt-3 text-3xl text-ink sm:text-4xl">
+              Studied <span className="italic text-ink-soft">together.</span>
+            </h2>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-ink-soft">
+              These run as live cohorts with Acharya Ji on Zoom — and remain
+              available self-paced if you prefer your own rhythm.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {COURSES.filter((c) => c.formats).map((c, i) => (
+              <CourseCard key={c.slug} course={c} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Self-paced classes */}
+      <section className="bg-paper-warm px-6 py-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center">
+            <p className="eyebrow">Self-paced · gurukulam rhythm</p>
+            <h2 className="display mt-3 text-3xl text-ink sm:text-4xl">
+              Studied at your <span className="italic text-ink-soft">own pace.</span>
+            </h2>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-ink-soft">
+              One lesson at a time, an assignment by hand, Acharya Ji&apos;s
+              personal reading between each.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {COURSES.filter((c) => !c.formats).map((c, i) => (
+              <CourseCard key={c.slug} course={c} index={i} />
+            ))}
+          </div>
         </div>
       </section>
 

@@ -58,7 +58,6 @@ export const SANSKRIT = {
 
 export const NAV_PRIMARY = [
   { href: "/programs", label: "Offerings" },
-  { href: "/sit-with-guruji", label: "Sit with Guruji" },
   { href: "/newsletters", label: "Newsletters" },
   { href: "/faq", label: "FAQ" },
   { href: "/about-us", label: "About" },
@@ -268,6 +267,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "jyotisha",
+    formats: ["Self-paced", "Live classes on Zoom"],
     title: "Astrology · Jyotiṣa",
     deva: "ज्योतिष",
     tradition: "Vedic",
