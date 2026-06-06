@@ -320,12 +320,12 @@ export const SESSION_COURSES: Course[] = GUIDANCE_SUBJECTS.filter(
   (s) => s.priceINR && s.priceINR > 0,
 ).map((s) => ({
   slug: `1on1-${s.slug}`,
-  title: `${s.name} · 1:1`,
+  title: s.name,
   deva: s.deva ?? "",
-  tradition: "One-to-one · eight live classes",
-  excerpt: `A complete one-to-one course of eight live classes on Zoom with the Mind Mirage team — ${s.name}.`,
+  tradition: "Live on Zoom",
+  excerpt: `Eight live classes on Zoom — ${s.name}.`,
   syllabus: [],
-  duration: "Eight classes · scheduled together after enrolment",
+  duration: "Eight live classes",
   prerequisites: "None.",
   priceINR: s.priceINR as number,
 }));
