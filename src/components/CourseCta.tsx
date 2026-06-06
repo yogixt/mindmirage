@@ -53,14 +53,14 @@ export default function CourseCta({ course }: { course: Course }) {
         <button
           type="button"
           onClick={handleBuyNow}
-          className="flex-1 rounded-lg bg-saffron px-6 py-3.5 text-sm text-paper transition-transform hover:scale-[1.02]"
+          className="flex-1 rounded-lg bg-red-600 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.02] hover:bg-red-700"
         >
           Buy now
         </button>
         {inCart ? (
           <Link
             href="/cart"
-            className="flex-1 inline-flex items-center justify-center gap-2 bg-gold text-ink px-6 py-3.5 text-sm transition-transform hover:scale-[1.02]"
+            className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg border border-green-600 bg-green-50 px-6 py-3.5 text-sm font-medium text-green-700 transition-transform hover:scale-[1.02]"
           >
             <CheckIcon width={16} height={16} />
             In basket — view
@@ -69,14 +69,14 @@ export default function CourseCta({ course }: { course: Course }) {
           <button
             type="button"
             onClick={() => add(course.slug)}
-            className="flex-1 rounded-lg border border-ink/15 px-6 py-3.5 text-sm text-ink hover:bg-ink/5 transition-colors"
+            className="flex-1 rounded-lg bg-green-600 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.02] hover:bg-green-700"
           >
             Add to basket
           </button>
         )}
       </div>
       <p className="mt-4 text-center text-xs text-ink-faint">
-        Acharya Ji reviews every enrolment personally before sending the first lesson.
+        Every enrolment is confirmed by email — the team handles the rest.
       </p>
     </div>
   );

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSeekerUserId } from "@/lib/auth";
+import { canReadNewsletters, getSeekerUserId } from "@/lib/auth";
 import { journalDb } from "@/lib/journal";
 
 /* Toggle like — one per seeker per post. */
@@ -20,6 +20,12 @@ export async function POST(
     return NextResponse.json(
       { ok: false, error: "sign_in_required" },
       { status: 401 },
+    );
+  }
+  if (!(await canReadNewsletters())) {
+    return NextResponse.json(
+      { ok: false, error: "enrolled_only" },
+      { status: 403 },
     );
   }
 

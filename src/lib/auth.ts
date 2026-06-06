@@ -119,3 +119,17 @@ export async function isAdmin(): Promise<boolean> {
   if (!seeker?.email) return false;
   return allowed.includes(seeker.email.toLowerCase());
 }
+
+/* Enrolled seekers — have bought at least one course (their journey has begun). */
+export async function isEnrolledSeeker(): Promise<boolean> {
+  const seeker = await getSeeker();
+  return !!seeker && seeker.enrolledCourses.length > 0;
+}
+
+/* Newsletters readers: enrolled seekers and the team. */
+export async function canReadNewsletters(): Promise<boolean> {
+  const seeker = await getSeeker();
+  if (!seeker) return false;
+  if (seeker.enrolledCourses.length > 0) return true;
+  return isAdmin();
+}

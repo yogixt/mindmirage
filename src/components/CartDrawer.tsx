@@ -102,7 +102,7 @@ export default function CartDrawer() {
                     <button
                       type="button"
                       onClick={() => remove(c.slug)}
-                      className="text-ink-soft hover:text-saffron transition-colors"
+                      className="font-medium text-red-600 hover:text-red-700 transition-colors"
                     >
                       Remove
                     </button>
@@ -124,7 +124,7 @@ export default function CartDrawer() {
             <Link
               href="/checkout"
               onClick={() => setOpen(false)}
-              className="block w-full text-center rounded-lg bg-saffron px-6 py-3.5 text-sm text-paper transition-transform hover:scale-[1.01]"
+              className="block w-full text-center rounded-lg bg-green-600 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.01] hover:bg-green-700"
             >
               Proceed to checkout
             </Link>

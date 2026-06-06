@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "How do the self-paced courses work?",
-    a: "After enrolment, Acharya Ji sends your first lesson — a Zoom recording and a handwritten assignment to complete in a notebook. You submit it on WhatsApp or email; she reads, replies personally, and sends the next lesson when you are ready. No automation, no unlocking timers.",
+    a: "Buy the course through the secure checkout and a confirmation email follows with your first lesson. You study at your own rhythm; the team handles everything from there.",
   },
   {
     q: "Which courses also run as live classes on Zoom?",
@@ -34,7 +34,7 @@ const FAQS = [
   },
   {
     q: "How do payments work?",
-    a: "Course checkout is on this site through Razorpay — UPI, cards, net banking, wallets. Coupon codes apply at checkout. Consultations and books are confirmed personally first; payment follows on confirmation (UPI or bank transfer).",
+    a: "All courses — self-paced, live, and one-to-one — are bought through the site's secure checkout: UPI, cards, net banking, wallets, with coupon codes applied at checkout. Books are confirmed by the team first; payment follows on confirmation.",
   },
   {
     q: "Are the class timings friendly for seekers outside India?",

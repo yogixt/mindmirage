@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import Razorpay from "razorpay";
 import { applyCoupon, CATALOG } from "@/lib/constants";
+import { getSeekerUserId } from "@/lib/auth";
 
 const BodySchema = z.object({
   slugs: z.array(z.string()).min(1),
@@ -21,6 +22,15 @@ export async function POST(req: Request) {
           "Set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in .env.local to enable checkout.",
       },
       { status: 503 },
+    );
+  }
+
+  // Purchases require a signed-in seeker so the enrolment can be recorded.
+  const userId = await getSeekerUserId();
+  if (!userId) {
+    return NextResponse.json(
+      { ok: false, error: "sign_in_required" },
+      { status: 401 },
     );
   }
 

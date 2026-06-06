@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getSeeker, getSeekerUserId } from "@/lib/auth";
+import { canReadNewsletters, getSeeker, getSeekerUserId } from "@/lib/auth";
 import { journalDb, listPostComments } from "@/lib/journal";
 
 const BodySchema = z.object({
@@ -16,6 +16,12 @@ export async function GET(
     return NextResponse.json(
       { ok: false, error: "sign_in_required" },
       { status: 401 },
+    );
+  }
+  if (!(await canReadNewsletters())) {
+    return NextResponse.json(
+      { ok: false, error: "enrolled_only" },
+      { status: 403 },
     );
   }
   const { id } = await params;
@@ -44,6 +50,12 @@ export async function POST(
     return NextResponse.json(
       { ok: false, error: "sign_in_required" },
       { status: 401 },
+    );
+  }
+  if (!(await canReadNewsletters())) {
+    return NextResponse.json(
+      { ok: false, error: "enrolled_only" },
+      { status: 403 },
     );
   }
 

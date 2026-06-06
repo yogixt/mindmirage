@@ -3,7 +3,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
-import { getSeekerUserId } from "@/lib/auth";
+import { canReadNewsletters, getSeekerUserId } from "@/lib/auth";
 import { listPosts } from "@/lib/journal";
 import PostCard from "./FeedClient";
 
@@ -57,6 +57,48 @@ export default async function NewslettersPage() {
                 Create a seeker account
               </Link>
             </p>
+          </div>
+        </section>
+        <Footer />
+      </main>
+    );
+  }
+
+  // Signed in but not yet enrolled — the letters open once the journey begins.
+  if (!(await canReadNewsletters())) {
+    return (
+      <main className="bg-paper">
+        <Navbar variant="solid" />
+        <PageHero
+          eyebrow="Newsletters · पत्रिका"
+          deva="कुटीर पत्रिका"
+          title={
+            <>
+              Letters from the <span className="italic text-ink-soft">kuṭīr.</span>
+            </>
+          }
+          description={
+            <>
+              Blogs and news written by Acharya Ji and the team — for seekers
+              walking with us.
+            </>
+          }
+        />
+        <section className="px-6 pb-14">
+          <div className="mx-auto max-w-md rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center">
+            <p className="display text-2xl text-ink">
+              Begin your journey first.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+              The newsletters open to seekers who have enrolled in a course —
+              once your journey with us begins, the letters are yours.
+            </p>
+            <Link
+              href="/programs"
+              className="mt-6 inline-flex rounded-lg bg-saffron px-8 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
+            >
+              Browse the offerings
+            </Link>
           </div>
         </section>
         <Footer />

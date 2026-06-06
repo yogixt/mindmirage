@@ -5,10 +5,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Divider from "@/components/Divider";
 import CourseCta from "@/components/CourseCta";
-import { COURSES, formatINR } from "@/lib/constants";
+import { CATALOG, formatINR } from "@/lib/constants";
 
 export function generateStaticParams() {
-  return COURSES.map((c) => ({ slug: c.slug }));
+  return CATALOG.map((c) => ({ slug: c.slug }));
 }
 
 /* Per-course search titles and descriptions — each targets the phrases
@@ -60,7 +60,7 @@ export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> },
 ): Promise<Metadata> {
   const { slug } = await params;
-  const course = COURSES.find((c) => c.slug === slug);
+  const course = CATALOG.find((c) => c.slug === slug);
   if (!course) return { title: "Course" };
   const seo = SEO[slug];
   return {
@@ -73,7 +73,7 @@ export default async function CoursePage(
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
-  const course = COURSES.find((c) => c.slug === slug);
+  const course = CATALOG.find((c) => c.slug === slug);
   if (!course) notFound();
 
   return (
@@ -133,25 +133,27 @@ export default async function CoursePage(
 
       <section className="px-6 py-8">
         <div className="mx-auto max-w-3xl">
-          <p className="eyebrow">Syllabus</p>
-          <ul className="mt-6 space-y-3">
-            {course.syllabus.map((s, i) => (
-              <li key={i} className="flex gap-4 text-base text-ink leading-relaxed">
-                <span className="display text-gold w-8 shrink-0">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span>{s}</span>
-              </li>
-            ))}
-          </ul>
+          {course.syllabus.length > 0 && (
+            <>
+              <p className="eyebrow">Syllabus</p>
+              <ul className="mt-6 space-y-3">
+                {course.syllabus.map((s, i) => (
+                  <li key={i} className="flex gap-4 text-base text-ink leading-relaxed">
+                    <span className="display text-gold w-8 shrink-0">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
           <Divider />
           <p className="text-sm text-ink-soft leading-relaxed">
-            <strong className="text-ink">How it works:</strong> Once you submit the
-            form below, Acharya Ji will reach you with payment details (UPI / bank
-            transfer) and the first lesson — a Zoom recording link and a
-            handwritten assignment to complete in a notebook. You submit it via
-            WhatsApp or email; Acharya Ji reads, replies, and sends the next lesson
-            when you are ready.
+            <strong className="text-ink">How it works:</strong> Buy the course
+            through the secure checkout. A confirmation email follows — with
+            your live-class joining link, or your first self-paced lesson. The
+            team handles everything from there.
           </p>
         </div>
       </section>

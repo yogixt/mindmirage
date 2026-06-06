@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getSeeker, getSeekerUserId, isAdmin } from "@/lib/auth";
+import { canReadNewsletters, getSeeker, getSeekerUserId, isAdmin } from "@/lib/auth";
 import { journalDb, listPosts, POST_CATEGORIES } from "@/lib/journal";
 
 const BodySchema = z.object({
@@ -14,12 +14,18 @@ const BodySchema = z.object({
 });
 
 export async function GET() {
-  // Reading the feed requires sign-in.
+  // Reading the feed requires an enrolled seeker (or the team).
   const viewerId = await getSeekerUserId();
   if (!viewerId) {
     return NextResponse.json(
       { ok: false, error: "sign_in_required" },
       { status: 401 },
+    );
+  }
+  if (!(await canReadNewsletters())) {
+    return NextResponse.json(
+      { ok: false, error: "enrolled_only" },
+      { status: 403 },
     );
   }
   const posts = await listPosts(viewerId);

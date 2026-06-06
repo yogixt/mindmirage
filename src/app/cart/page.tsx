@@ -68,7 +68,7 @@ export default function CartPage() {
                         <button
                           type="button"
                           onClick={() => remove(c.slug)}
-                          className="mt-3 text-xs text-ink-soft hover:text-saffron transition-colors"
+                          className="mt-3 rounded-md border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50"
                         >
                           Remove
                         </button>
@@ -81,13 +81,12 @@ export default function CartPage() {
               <div className="mt-6 rounded-2xl border border-ink/10 bg-paper p-5 sm:p-6">
                 <div className="flex items-baseline justify-between">
                   <span className="text-sm text-ink-soft">Total</span>
-                  <span className="display text-3xl text-ink">
-                    {formatINR(total)}
+                  <span className="display text-3xl text-green-700">                    {formatINR(total)}
                   </span>
                 </div>
                 <Link
                   href="/checkout"
-                  className="mt-6 block w-full text-center rounded-lg bg-saffron px-6 py-4 text-sm text-paper transition-transform hover:scale-[1.01]"
+                  className="mt-6 block w-full text-center rounded-lg bg-green-600 px-6 py-4 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.01] hover:bg-green-700"
                 >
                   Proceed to checkout
                 </Link>
