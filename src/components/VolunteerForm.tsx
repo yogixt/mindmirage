@@ -39,7 +39,7 @@ export default function VolunteerForm() {
 
   if (state === "ok") {
     return (
-      <div className="border border-gold/30 bg-paper-warm px-8 py-8 text-center">
+      <div className="border border-gold/30 bg-paper-warm px-8 py-5 text-center">
         <p className="display text-3xl text-ink">नमस्ते</p>
         <p className="mt-3 text-base text-ink-soft">
           Welcome to seva. Acharya Ji will write to you with the next step.

@@ -62,7 +62,7 @@ export default function ResearchPage() {
         }
       />
 
-      <section className="px-6 py-8 sm:py-8">
+      <section className="px-6 py-5 sm:py-5">
         <div className="mx-auto max-w-3xl space-y-10">
           {SECTIONS.map((s) => (
             <div key={s.id} id={s.id} className="scroll-mt-24">
@@ -86,7 +86,7 @@ export default function ResearchPage() {
         </div>
       </section>
 
-      <section id="collaborate" className="scroll-mt-24 px-6 py-8 sm:py-8 bg-paper-warm">
+      <section id="collaborate" className="scroll-mt-24 px-6 py-5 sm:py-5 bg-paper-warm">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">Collaborate</p>
           <h2

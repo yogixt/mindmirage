@@ -90,7 +90,7 @@ export default function FooterHero() {
         </div>
 
         {/* ───────── RIGHT · Written content ───────── */}
-        <div className="relative overflow-hidden bg-paper-deep px-6 sm:px-10 py-8 sm:py-8 flex flex-col lg:col-span-3">
+        <div className="relative overflow-hidden bg-paper-deep px-6 sm:px-10 py-5 sm:py-5 flex flex-col lg:col-span-3">
           {/* Brand badge */}
           <div className="flex items-center justify-between gap-4">
             <Link href="/" className="display text-2xl sm:text-3xl text-ink">

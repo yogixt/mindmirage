@@ -46,7 +46,7 @@ export default function SignUpPage() {
   return (
     <main className="bg-paper">
       <Navbar variant="solid" />
-      <section className="min-h-[calc(100vh-200px)] pt-24 pb-8 px-6 sm:pt-36 flex flex-col items-center">
+      <section className="min-h-[calc(100vh-200px)] pt-24 pb-5 px-6 sm:pt-36 flex flex-col items-center">
         <p className="deva text-xl text-ink-soft">शिष्य पंजीकरण</p>
         <div className="mt-6 w-full flex justify-center">
           <SignUp signInUrl="/sign-in" fallbackRedirectUrl="/dashboard" />

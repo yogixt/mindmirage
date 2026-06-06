@@ -24,7 +24,7 @@ export default async function DashboardPage() {
     <main className="bg-paper">
       <Navbar variant="solid" />
 
-      <section className="pt-24 pb-8 px-6 sm:pt-24">
+      <section className="pt-24 pb-5 px-6 sm:pt-24">
         <div className="mx-auto max-w-5xl">
           <p className="eyebrow animate-fade-rise opacity-0">
             Seeker dashboard
@@ -43,7 +43,7 @@ export default async function DashboardPage() {
       </section>
 
       {/* ──────────  Enrolled programs  ────────── */}
-      <section className="px-6 pb-8">
+      <section className="px-6 pb-5">
         <div className="mx-auto max-w-5xl">
           <div className="flex items-end justify-between border-b border-ink/10 pb-4">
             <h2 className="display text-2xl text-ink sm:text-3xl">
@@ -82,7 +82,7 @@ export default async function DashboardPage() {
               ))}
             </div>
           ) : (
-            <div className="mt-6 border border-dashed border-ink/15 bg-paper-warm/30 px-8 py-8 text-center">
+            <div className="mt-6 border border-dashed border-ink/15 bg-paper-warm/30 px-8 py-5 text-center">
               <p className="deva text-xl text-ink-soft">अथ</p>
               <p className="mt-3 display text-2xl text-ink">
                 Begin where you stand.
@@ -103,7 +103,7 @@ export default async function DashboardPage() {
       </section>
 
       {/* ──────────  Profile  ────────── */}
-      <section className="px-6 pb-8">
+      <section className="px-6 pb-5">
         <div className="mx-auto max-w-5xl">
           <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-14">
             <div>

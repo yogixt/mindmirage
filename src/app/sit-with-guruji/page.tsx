@@ -55,7 +55,7 @@ export default function SitWithGurujiPage() {
         }
       />
 
-      <section className="px-6 pb-10">
+      <section className="px-6 pb-6">
         <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
           {WAYS.map((w, i) => (
             <Reveal key={w.href} delay={i * 0.08} className="flex">

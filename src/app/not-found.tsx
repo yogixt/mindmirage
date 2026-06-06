@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <main className="bg-paper">
       <Navbar variant="solid" />
-      <section className="flex min-h-[70vh] items-center justify-center px-6 py-10">
+      <section className="flex min-h-[70vh] items-center justify-center px-6 py-6">
         <div className="max-w-xl text-center">
           <p className="deva text-2xl text-saffron">नेति नेति</p>
           <h1 className="display mt-6 text-4xl text-ink sm:text-5xl">

@@ -30,7 +30,7 @@ export default function MentorshipPage() {
         }
       />
 
-      <section className="px-6 py-8 sm:py-8 bg-paper-warm">
+      <section className="px-6 py-5 sm:py-5 bg-paper-warm">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">Apply</p>
           <h2
@@ -40,7 +40,7 @@ export default function MentorshipPage() {
             A short letter <span className="italic text-ink-soft">to begin.</span>
           </h2>
         </div>
-        <div className="mx-auto max-w-3xl mt-8">
+        <div className="mx-auto max-w-3xl mt-5">
           <MentorshipForm />
         </div>
       </section>

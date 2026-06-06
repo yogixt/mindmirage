@@ -69,7 +69,7 @@ export default async function AdminPage() {
         }
         description="Manage the kuṭīr's site from one place. Nothing here is visible to seekers."
       />
-      <section className="px-6 pb-10">
+      <section className="px-6 pb-6">
         <div className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-3">
           {SECTIONS.map((s) =>
             s.live ? (

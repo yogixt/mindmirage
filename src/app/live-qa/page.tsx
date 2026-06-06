@@ -79,7 +79,7 @@ export default function LiveQAPage() {
         </p>
       </section>
 
-      <section className="px-6 py-8 sm:py-8">
+      <section className="px-6 py-5 sm:py-5">
         <div className="mx-auto max-w-3xl rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center sm:p-10">
           <p className="eyebrow">Upcoming satsangs</p>
           <p className="display mt-4 text-2xl text-ink">

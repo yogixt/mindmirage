@@ -34,7 +34,7 @@ export default function AboutPage() {
         }
       />
 
-      <section className="px-6 py-8 sm:py-8">
+      <section className="px-6 py-5 sm:py-5">
         <div className="mx-auto max-w-3xl space-y-8">
           <div>
             <p className="eyebrow">Mission</p>
@@ -75,7 +75,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-paper-warm px-6 py-8 sm:py-8">
+      <section className="bg-paper-warm px-6 py-5 sm:py-5">
         <div className="mx-auto max-w-4xl text-center">
           <p className="eyebrow">Paramparā · the unbroken line</p>
           <h2
@@ -85,7 +85,7 @@ export default function AboutPage() {
             How the teaching reaches <span className="italic text-ink-soft">you.</span>
           </h2>
         </div>
-        <div className="mt-6 mx-auto max-w-3xl rounded-2xl border border-ink/10 bg-paper py-8 px-6">
+        <div className="mt-6 mx-auto max-w-3xl rounded-2xl border border-ink/10 bg-paper py-5 px-6">
           <LineageTree />
         </div>
       </section>

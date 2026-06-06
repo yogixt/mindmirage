@@ -45,7 +45,7 @@ export default function InternshipPage() {
         }
       />
 
-      <section className="px-6 py-8 sm:py-8">
+      <section className="px-6 py-5 sm:py-5">
         <div className="mx-auto max-w-4xl grid gap-12 sm:grid-cols-2">
           <div>
             <p className="eyebrow">Roles available</p>
@@ -72,7 +72,7 @@ export default function InternshipPage() {
         </div>
       </section>
 
-      <section className="px-6 py-8 sm:py-8 bg-paper-warm">
+      <section className="px-6 py-5 sm:py-5 bg-paper-warm">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">Apply</p>
           <h2
@@ -85,7 +85,7 @@ export default function InternshipPage() {
             Reviewed personally. A short interview follows.
           </p>
         </div>
-        <div className="mx-auto max-w-3xl mt-8">
+        <div className="mx-auto max-w-3xl mt-5">
           <InternshipForm />
         </div>
       </section>

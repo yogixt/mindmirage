@@ -25,7 +25,7 @@ export default function CartPage() {
           }
         />
 
-        <section className="mx-auto max-w-3xl px-6 pb-8">
+        <section className="mx-auto max-w-3xl px-6 pb-5">
           {courses.length === 0 ? (
             <div className="rounded-2xl border border-ink/10 bg-paper-warm/40 p-8 text-center">
               <p className="deva text-2xl text-ink-soft">शून्य</p>

@@ -16,7 +16,7 @@ export default function Error({
 
   return (
     <main className="bg-paper">
-      <section className="flex min-h-[80vh] items-center justify-center px-6 py-10">
+      <section className="flex min-h-[80vh] items-center justify-center px-6 py-6">
         <div className="max-w-xl text-center">
           <p className="deva text-2xl text-saffron">क्षम्यताम्</p>
           <h1 className="display mt-6 text-4xl text-ink sm:text-5xl">

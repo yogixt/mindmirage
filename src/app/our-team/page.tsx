@@ -38,7 +38,7 @@ export default function OurTeamPage() {
         }
       />
 
-      <section className="px-6 py-8 sm:py-8">
+      <section className="px-6 py-5 sm:py-5">
         <div className="mx-auto max-w-4xl">
           <div className="grid gap-8 sm:grid-cols-5 sm:items-start">
             <div className="sm:col-span-2">

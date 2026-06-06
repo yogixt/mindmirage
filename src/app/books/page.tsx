@@ -32,19 +32,19 @@ export default function BooksPage() {
         }
       />
 
-      <section className="px-6 pb-10">
+      <section className="px-6 pb-6">
         <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
           {BOOK_SETS.map((b, i) => (
             <Reveal key={b.slug} delay={i * 0.08} className="flex">
-              <div className="flex w-full flex-col rounded-2xl border border-ink/8 bg-paper-cream p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-ink/20 hover:shadow-[0_18px_60px_-30px_rgba(0,0,0,0.35)]">
-                <p className="deva text-lg text-saffron">{b.deva}</p>
-                <h2 className="display mt-1 text-2xl text-ink">
+              <div className="flex w-full flex-col rounded-xl border border-ink/8 bg-paper-cream p-4 text-center transition-all duration-300 hover:-translate-y-1 hover:border-ink/20 hover:shadow-[0_18px_60px_-30px_rgba(0,0,0,0.35)]">
+                <p className="deva text-base text-saffron">{b.deva}</p>
+                <h2 className="display mt-0.5 text-xl text-ink">
                   {b.title.split("· ")[1]}
                 </h2>
                 <p className="display mt-4 flex-1 text-3xl text-ink">
                   {formatINR(b.priceINR)}
                 </p>
-                <AddToCartButton slug={b.slug} className="mt-5 w-full" />
+                <AddToCartButton slug={b.slug} className="mt-3 w-full" />
               </div>
             </Reveal>
           ))}

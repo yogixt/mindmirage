@@ -30,7 +30,7 @@ export default async function AdminNewPostPage() {
         }
         description="Blogs, news, photos, links — visible to signed-in seekers the moment you post."
       />
-      <section className="px-6 pb-10">
+      <section className="px-6 pb-6">
         <div className="mx-auto max-w-2xl">
           <div className="mb-5">
             <Link

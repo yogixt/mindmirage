@@ -68,7 +68,7 @@ export default function CounsellingPage() {
         </p>
       </section>
 
-      <section className="bg-paper-warm px-6 py-8">
+      <section className="bg-paper-warm px-6 py-5">
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
             <p className="eyebrow">Request counselling</p>
@@ -83,7 +83,7 @@ export default function CounsellingPage() {
               Zoom links are shared on confirmation.
             </p>
           </div>
-          <div className="mt-8">
+          <div className="mt-5">
             <BookingForm />
           </div>
         </div>

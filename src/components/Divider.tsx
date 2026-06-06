@@ -9,7 +9,7 @@ export default function Divider({ variant = "light", symbol = "✦" }: Props) {
   const sym =
     variant === "dark" ? "text-gold" : "text-saffron";
   return (
-    <div className="mx-auto my-6 flex max-w-xs items-center gap-5">
+    <div className="mx-auto my-3 flex max-w-xs items-center gap-5">
       <div className={`h-px flex-1 ${line}`} />
       <span className={`ornament ${sym}`} aria-hidden>
         {symbol}

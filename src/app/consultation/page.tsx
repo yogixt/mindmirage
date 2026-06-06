@@ -39,7 +39,7 @@ export default function ConsultationPage() {
         }
       />
 
-      <section className="bg-paper-warm px-6 py-8">
+      <section className="bg-paper-warm px-6 py-5">
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
             <p className="eyebrow">Request your classes</p>
@@ -54,7 +54,7 @@ export default function ConsultationPage() {
               Zoom links are shared on confirmation.
             </p>
           </div>
-          <div className="mt-8">
+          <div className="mt-5">
             <BookingForm />
           </div>
         </div>

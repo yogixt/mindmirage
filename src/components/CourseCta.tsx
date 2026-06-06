@@ -17,7 +17,7 @@ export default function CourseCta({ course }: { course: Course }) {
   };
 
   return (
-    <div className="rounded-2xl border border-ink/10 bg-paper-warm/40 p-6">
+    <div className="rounded-2xl border border-ink/10 bg-paper-warm/40 p-5">
       <div className="flex items-baseline justify-between gap-4">
         <div>
           <p className="eyebrow">One-time enrolment</p>

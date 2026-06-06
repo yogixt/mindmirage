@@ -38,7 +38,7 @@ export default function VolunteerPage() {
         }
       />
 
-      <section className="px-6 py-8 sm:py-8">
+      <section className="px-6 py-5 sm:py-5">
         <div className="mx-auto max-w-3xl">
           <p className="eyebrow">Forms of seva</p>
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -58,7 +58,7 @@ export default function VolunteerPage() {
         </div>
       </section>
 
-      <section className="px-6 py-8 sm:py-8 bg-paper-warm">
+      <section className="px-6 py-5 sm:py-5 bg-paper-warm">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">Offer seva</p>
           <h2
@@ -68,7 +68,7 @@ export default function VolunteerPage() {
             A short note <span className="italic text-ink-soft">to begin.</span>
           </h2>
         </div>
-        <div className="mx-auto max-w-3xl mt-8">
+        <div className="mx-auto max-w-3xl mt-5">
           <VolunteerForm />
         </div>
       </section>

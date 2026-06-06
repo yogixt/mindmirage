@@ -24,7 +24,7 @@ export default async function CheckoutSuccessPage({
           description="Your payment has reached us. A confirmation email is on its way — with your live-class joining link or first lesson. The team handles the rest."
         />
 
-        <section className="mx-auto max-w-2xl px-6 pb-8">
+        <section className="mx-auto max-w-2xl px-6 pb-5">
           <div className="rounded-2xl border border-ink/10 bg-paper-warm/40 p-6 sm:p-8 text-center">
             <p className="deva text-2xl text-ink">गुरुर्ब्रह्मा गुरुर्विष्णुः</p>
             <p className="mt-4 text-base text-ink-soft leading-relaxed">

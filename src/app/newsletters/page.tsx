@@ -38,7 +38,7 @@ export default async function NewslettersPage() {
             </>
           }
         />
-        <section className="px-6 pb-14">
+        <section className="px-6 pb-5">
           <div className="mx-auto max-w-md rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center">
             <p className="display text-2xl text-ink">For seekers&apos; eyes.</p>
             <p className="mt-3 text-sm leading-relaxed text-ink-soft">
@@ -84,7 +84,7 @@ export default async function NewslettersPage() {
             </>
           }
         />
-        <section className="px-6 pb-14">
+        <section className="px-6 pb-5">
           <div className="mx-auto max-w-md rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center">
             <p className="display text-2xl text-ink">
               Begin your journey first.
@@ -127,7 +127,7 @@ export default async function NewslettersPage() {
         }
       />
 
-      <section className="px-6 pb-10">
+      <section className="px-6 pb-6">
         <div className="mx-auto max-w-2xl">
           {posts.length === 0 ? (
             <div className="rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center">

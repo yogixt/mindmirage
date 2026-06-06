@@ -80,7 +80,7 @@ export default async function CoursePage(
     <main className="bg-paper">
       <Navbar variant="solid" />
 
-      <section className="relative bg-paper pt-24 pb-8 px-6 sm:pt-24">
+      <section className="relative bg-paper pt-24 pb-3 px-6">
         <div className="mx-auto max-w-3xl">
           <Link
             href="/programs"
@@ -88,21 +88,21 @@ export default async function CoursePage(
           >
             ← All programs
           </Link>
-          <p className="eyebrow mt-6">{course.tradition}</p>
-          <p className="deva mt-6 text-3xl text-ink sm:text-4xl">{course.deva}</p>
+          <p className="eyebrow mt-4">{course.tradition}</p>
+          <p className="deva mt-3 text-3xl text-ink sm:text-4xl">{course.deva}</p>
           <h1
             className="display mt-4 text-4xl text-ink sm:text-6xl"
             style={{ lineHeight: "1.0", letterSpacing: "-0.025em" }}
           >
             {course.title}
           </h1>
-          <p className="mt-6 text-base text-ink-soft leading-relaxed sm:text-lg max-w-2xl">
+          <p className="mt-3 text-base text-ink-soft leading-relaxed sm:text-lg max-w-2xl">
             {course.excerpt}
           </p>
         </div>
       </section>
 
-      <section className="px-6 py-8">
+      <section className="px-6 py-5">
         <div className="mx-auto max-w-3xl grid gap-4 sm:grid-cols-3">
           <Stat label="Pace" value={course.duration.split("·")[0].trim()} />
           <Stat
@@ -131,7 +131,7 @@ export default async function CoursePage(
         )}
       </section>
 
-      <section className="px-6 py-8">
+      <section className="px-6 py-5">
         <div className="mx-auto max-w-3xl">
           {course.syllabus.length > 0 && (
             <>
@@ -159,7 +159,7 @@ export default async function CoursePage(
       </section>
 
       {/* Enroll */}
-      <section className="px-6 py-8 sm:py-8 bg-paper-warm">
+      <section className="px-6 py-5 sm:py-5 bg-paper-warm">
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
             <p className="eyebrow">Enrol</p>
@@ -170,7 +170,7 @@ export default async function CoursePage(
               Begin {course.title}.
             </h2>
           </div>
-          <div className="mt-8">
+          <div className="mt-5">
             <CourseCta course={course} />
           </div>
         </div>
@@ -183,9 +183,9 @@ export default async function CoursePage(
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-ink/8 bg-paper-warm p-4">
+    <div className="rounded-xl border border-ink/8 bg-paper-warm px-4 py-3">
       <p className="eyebrow">{label}</p>
-      <p className="display mt-3 text-2xl text-ink">{value}</p>
+      <p className="display mt-1 text-lg text-ink">{value}</p>
     </div>
   );
 }

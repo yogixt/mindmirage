@@ -74,7 +74,7 @@ export default function FAQPage() {
         }
       />
 
-      <section className="px-6 pb-8">
+      <section className="px-6 pb-5">
         <div className="mx-auto max-w-3xl space-y-3">
           {FAQS.map((f) => (
             <details
@@ -97,7 +97,7 @@ export default function FAQPage() {
           ))}
         </div>
 
-        <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-ink/10 bg-paper-warm p-6 text-center">
+        <div className="mx-auto mt-5 max-w-3xl rounded-2xl border border-ink/10 bg-paper-warm p-6 text-center">
           <p className="display text-xl text-ink">Still wondering?</p>
           <div className="mt-4 flex flex-wrap justify-center gap-3">
             <a

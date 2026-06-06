@@ -215,7 +215,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
           description="A one-time offering for the path ahead. Acharya Ji reviews every enrolment personally."
         />
 
-        <section className="mx-auto max-w-3xl px-6 pb-8">
+        <section className="mx-auto max-w-3xl px-6 pb-5">
           {count === 0 ? (
             <div className="rounded-2xl border border-ink/10 bg-paper-warm/40 p-8 text-center">
               <p className="display text-2xl text-ink">Your basket is empty.</p>

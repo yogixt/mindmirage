@@ -33,7 +33,7 @@ export default function ProgramsPage() {
         }
       />
       {/* Live classes */}
-      <section className="px-6 pb-8">
+      <section className="px-6 pb-5">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
             <p className="eyebrow">Live classes · on Zoom</p>
@@ -54,7 +54,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* Self-paced classes */}
-      <section className="bg-paper-warm px-6 py-8">
+      <section className="bg-paper-warm px-6 py-5">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
             <p className="eyebrow">Self-paced · gurukulam rhythm</p>
@@ -75,7 +75,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* More live courses */}
-      <section className="px-6 py-8">
+      <section className="px-6 py-5">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
             <p className="eyebrow">Live courses · with the team</p>
@@ -92,7 +92,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* Booklist — part of the offerings */}
-      <section className="px-6 pb-10">
+      <section className="px-6 pb-6">
         <div className="mx-auto max-w-6xl rounded-2xl border border-ink/10 bg-paper-warm p-6 sm:p-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>

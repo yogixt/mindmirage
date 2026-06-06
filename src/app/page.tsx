@@ -43,14 +43,14 @@ export default function HomePage() {
             <Divider />
           </div>
 
-          <p className="animate-fade-rise-delay-3 opacity-0 mt-8 text-xs uppercase tracking-[0.25em] text-ink-faint">
+          <p className="animate-fade-rise-delay-3 opacity-0 mt-5 text-xs uppercase tracking-[0.25em] text-ink-faint">
             ↓ scroll
           </p>
         </div>
       </section>
 
       {/* ──────────  2. MANGALĀCHĀRANA  ────────── */}
-      <section className="bg-paper-deep py-6 px-6 sm:py-8">
+      <section className="bg-paper-deep py-6 px-6 sm:py-5">
         <div className="mx-auto max-w-7xl text-center">
           <p className="eyebrow">Mangalāchārana · invocation</p>
           <div className="mt-2 animate-fade-rise opacity-0">
@@ -65,7 +65,7 @@ export default function HomePage() {
       </section>
 
       {/* ──────────  3. LINEAGE  ────────── */}
-      <section className="bg-paper-warm py-8 px-6 sm:py-8">
+      <section className="bg-paper-warm py-5 px-6 sm:py-5">
         <div className="mx-auto max-w-5xl">
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">Paramparā · the unbroken line</p>
@@ -89,7 +89,7 @@ export default function HomePage() {
       </section>
 
       {/* ──────────  4. THREE PATHS  ────────── */}
-      <section className="bg-paper py-8 px-6 sm:py-8">
+      <section className="bg-paper py-5 px-6 sm:py-5">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">Three paths · one journey</p>
@@ -124,7 +124,7 @@ export default function HomePage() {
       </section>
 
       {/* ──────────  5. PROGRAMS  ────────── */}
-      <section className="bg-paper-warm py-8 px-6 sm:py-8" id="programs">
+      <section className="bg-paper-warm py-5 px-6 sm:py-5" id="programs">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-xl">
@@ -170,7 +170,7 @@ export default function HomePage() {
 
         {/* Content — below the photo on mobile, left column over the blend on desktop */}
         <div className="relative z-10 mx-auto max-w-6xl px-6">
-          <div className="max-w-xl py-8 sm:py-10 lg:py-16">
+          <div className="max-w-xl py-5 sm:py-6 lg:py-6">
             <p className="deva text-2xl text-ink sm:text-3xl">
               आचार्य भाग्यश्री जोशी जी
             </p>
@@ -220,7 +220,7 @@ export default function HomePage() {
       </section>
 
       {/* ──────────  8. TAITTIRĪYA QUOTE  ────────── */}
-      <section className="bg-paper-deep py-6 px-6 sm:py-8">
+      <section className="bg-paper-deep py-6 px-6 sm:py-5">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">From the Taittirīya Upaniṣad</p>
           <div className="mt-2">

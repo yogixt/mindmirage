@@ -21,7 +21,7 @@ export default function LineageTree() {
   return (
     <div ref={ref} className="mx-auto w-full max-w-6xl px-4">
       {/* ──────────  Desktop / tablet: horizontal timeline  ────────── */}
-      <div className="relative hidden md:block py-8">
+      <div className="relative hidden md:block py-5">
         {/* The thread */}
         <div className="relative h-3">
           <motion.div

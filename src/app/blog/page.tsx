@@ -32,16 +32,16 @@ export default function BlogPage() {
         }
       />
 
-      <section className="px-6 pb-8 sm:pb-32">
+      <section className="px-6 pb-5 sm:pb-32">
         <div className="mx-auto max-w-3xl">
           {posts.length === 0 ? (
-            <p className="text-center text-sm text-ink-soft py-8">
+            <p className="text-center text-sm text-ink-soft py-5">
               The first writings will appear here soon.
             </p>
           ) : (
             <ul className="divide-y divide-ink/10">
               {posts.map((p) => (
-                <li key={p.slug} className="py-8">
+                <li key={p.slug} className="py-5">
                   <Link href={`/blog/${p.slug}`} className="group block">
                     <p className="eyebrow">
                       {p.frontmatter.type ?? "blog"} ·{" "}

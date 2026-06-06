@@ -34,7 +34,7 @@ export default async function BlogPost(
     <main className="bg-paper">
       <Navbar variant="solid" />
 
-      <article className="px-6 pt-24 pb-8 sm:pt-24">
+      <article className="px-6 pt-24 pb-5 sm:pt-24">
         <div className="mx-auto max-w-2xl">
           <Link
             href="/blog"
