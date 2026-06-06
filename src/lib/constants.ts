@@ -1,0 +1,353 @@
+/**
+ * Mind Mirage — single source of truth for brand, content, and routing.
+ */
+
+export const SITE = {
+  name: "Mind Mirage",
+  tagline: "Step out of the Mind Matrix",
+  domain: "mindmirageindia.com",
+  url: "https://mindmirageindia.com",
+  email: "namaste@mindmirageindia.com",
+  whatsapp: "917302431279",
+  whatsappDisplay: "+91 73024 31279",
+  location: "Advaita Sadhana Kutir Ashram, Rishikesh, India — 249201",
+  founder: "Acharya Bhagyashree Joshi Ji",
+  tradition: "Adi Shankaracharya · Kevala Advaita · Bhāratīya Jñāna Paramparā",
+} as const;
+
+export const VIDEO_HERO_URL =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4";
+
+/* ────────────  Sanskrit  ──────────── */
+
+export const SANSKRIT = {
+  mahavakya: {
+    deva: "तत् त्वम् असि",
+    iast: "Tat Tvam Asi",
+    en: "That thou art",
+    ref: "Chāndogya Upaniṣad 6.8.7 · Sāma Veda",
+  },
+  guruStotram: {
+    deva: "गुरुर्ब्रह्मा गुरुर्विष्णुः गुरुर्देवो महेश्वरः ।\nगुरुः साक्षात् परब्रह्म तस्मै श्री गुरवे नमः ॥",
+    en: "The Guru is Brahmā, the Guru is Viṣṇu, the Guru is Śiva. The Guru is verily the Supreme Brahman — to that Guru, I bow.",
+  },
+  shankara: {
+    deva: "ब्रह्म सत्यं जगन्मिथ्या जीवो ब्रह्मैव नापरः ।",
+    en: "Brahman alone is real, the world is appearance, the individual self is none other than Brahman.",
+    ref: "Adi Shankarācārya",
+  },
+  taittiriya: {
+    deva: "आचार्यात् पादमादत्ते पादं शिष्यः स्वमेधया ।\nपादं सब्रह्मचारिभ्यः पादं कालक्रमेण च ॥",
+    en: "One quarter of knowledge comes from the teacher, one quarter from one's own intellect, one quarter from fellow students, one quarter through time.",
+    ref: "Taittirīya Upaniṣad",
+  },
+  closing: {
+    deva: "ॐ तत् सत्",
+    en: "Om. That is Truth.",
+  },
+  breath: {
+    in: { deva: "श्वास लें…", en: "Breathe in" },
+    hold: { deva: "रोकें…", en: "Hold" },
+    out: { deva: "छोड़ें…", en: "Breathe out" },
+  },
+} as const;
+
+/* ────────────  Navigation  ──────────── */
+
+export const NAV_PRIMARY = [
+  { href: "/programs", label: "Programs" },
+  { href: "/personal-guidance", label: "Guidance" },
+  { href: "/blog", label: "Journal" },
+  { href: "/about-us", label: "About" },
+  { href: "/contact", label: "Reach Us" },
+] as const;
+
+export const NAV_FOOTER_LEARN = [
+  { href: "/programs", label: "Self-Paced Courses" },
+  { href: "/personal-guidance", label: "Personal Guidance" },
+  { href: "/live-qa", label: "Live Q&A" },
+  { href: "/mentorship", label: "1:1 Mentorship" },
+] as const;
+
+export const NAV_FOOTER_ABOUT = [
+  { href: "/about-us", label: "About Us" },
+  { href: "/our-team", label: "Our Team" },
+  { href: "/events", label: "Events & Retreats" },
+] as const;
+
+export const NAV_FOOTER_RESEARCH = [
+  { href: "/research#publications", label: "Publications" },
+  { href: "/research#bibliography", label: "Bibliography" },
+  { href: "/research#collaborate", label: "Collaborate" },
+  { href: "/research", label: "All Research" },
+] as const;
+
+export const NAV_FOOTER_ENGAGE = [
+  { href: "/blog", label: "Journal" },
+  { href: "/internship", label: "Internship" },
+  { href: "/volunteer", label: "Seva / Volunteer" },
+  { href: "/contact", label: "Contact" },
+] as const;
+
+/* ────────────  Three Paths  ──────────── */
+
+export const THREE_PATHS = [
+  {
+    deva: "स्वाध्याय",
+    iast: "Svādhyāya",
+    en: "Self-Paced Study",
+    description:
+      "Study at your own rhythm. Each lesson is sent to you as you complete the last — letting the teaching settle before the next arrives.",
+    href: "/programs",
+  },
+  {
+    deva: "गुरुमुख",
+    iast: "Guru-Mukha",
+    en: "From the Guru's Lips",
+    description:
+      "One-to-one sessions with Acharya Ji on Zoom. Personal guidance, direct answers, the warmth of the traditional Guru-Sishya Paramparā.",
+    href: "/personal-guidance",
+  },
+  {
+    deva: "सत्सङ्ग",
+    iast: "Satsaṅga",
+    en: "In the Company of the Good",
+    description:
+      "Live Q&A and group satsang where seekers gather, listen, ask, and study together — held in the spirit of the gurukulam.",
+    href: "/live-qa",
+  },
+] as const;
+
+/* ────────────  Courses (self-paced)  ──────────── */
+
+export type Course = {
+  slug: string;
+  title: string;
+  deva: string;
+  tradition: string;
+  excerpt: string;
+  syllabus: string[];
+  duration: string;
+  prerequisites: string;
+  priceINR: number;
+};
+
+export const COURSES: Course[] = [
+  {
+    slug: "yoga-sutras",
+    title: "Patañjali's Yoga Sūtras",
+    deva: "योगसूत्राणि",
+    tradition: "Classical Yoga · Aṣṭāṅga",
+    excerpt:
+      "The 196 aphorisms that gave Yoga its grammar — from the stilling of thought to the eight limbs that prepare the mind for absorption.",
+    syllabus: [
+      "Samādhi Pāda — what Yoga is, the modes of mind",
+      "Sādhana Pāda — the eight limbs, the kleśas, kriyā yoga",
+      "Vibhūti Pāda — concentration, contemplation, the powers",
+      "Kaivalya Pāda — liberation, the standalone witness",
+    ],
+    duration: "Self-paced · ~3 months at a gentle rhythm",
+    prerequisites: "None. A quiet hour and a notebook.",
+    priceINR: 4999,
+  },
+  {
+    slug: "bhagavad-gita",
+    title: "Bhagavad Gītā",
+    deva: "भगवद्गीता",
+    tradition: "Vedānta · Karma Yoga · Bhakti",
+    excerpt:
+      "The dialogue between Kṛṣṇa and Arjuna on the battlefield of the inner life — duty without grasping, action without authorship.",
+    syllabus: [
+      "Arjuna's despair and the call to inquiry",
+      "Sāṅkhya Yoga — the field and the knower",
+      "Karma Yoga — action without attachment",
+      "Jñāna Yoga — knowledge as liberation",
+      "Bhakti Yoga — the path of devotion",
+      "The universal form and the surrender of the small self",
+    ],
+    duration: "Self-paced · ~5 months",
+    prerequisites: "Open mind. No Sanskrit required.",
+    priceINR: 5999,
+  },
+  {
+    slug: "advaita-vedanta",
+    title: "Advaita Vedānta",
+    deva: "अद्वैत वेदान्त",
+    tradition: "Adi Shankarācārya",
+    excerpt:
+      "The non-dual teaching at the root of the Indian philosophical tradition. Brahman alone is real; the world is appearance; the self is none other than Brahman.",
+    syllabus: [
+      "Tattva-bodha — the basic vocabulary",
+      "Ātma-bodha — knowledge of the Self",
+      "Vivekacūḍāmaṇi — the crest jewel of discrimination",
+      "Upadeśa Sāhasrī — the thousand teachings",
+      "Methods of inquiry: dṛg-dṛśya, neti-neti, anvaya-vyatireka",
+    ],
+    duration: "Self-paced · ~6 months",
+    prerequisites: "Familiarity with the Gītā helps but is not required.",
+    priceINR: 6999,
+  },
+  {
+    slug: "meditation",
+    title: "Meditation · Dhyāna",
+    deva: "ध्यान",
+    tradition: "Classical & Tantric",
+    excerpt:
+      "Meditation as the natural state, not a technique. Posture, breath, attention, and the quiet recognition of the witness — taught classically.",
+    syllabus: [
+      "Āsana, prāṇāyāma, pratyāhāra",
+      "Dhāraṇā — the gathering of attention",
+      "Dhyāna — sustained, effortless presence",
+      "The five sheaths and the witness behind them",
+      "Trouble-shooting the meditative life",
+    ],
+    duration: "Self-paced · ~2 months",
+    prerequisites: "None.",
+    priceINR: 2999,
+  },
+  {
+    slug: "sankhya-darshan",
+    title: "Sānkhya Darśan",
+    deva: "सांख्य दर्शन",
+    tradition: "Kapila's Cosmology",
+    excerpt:
+      "The oldest enumerative philosophy of India — twenty-five tattvas mapping consciousness, nature, and the spectator who is never bound.",
+    syllabus: [
+      "Puruṣa and Prakṛti",
+      "The three guṇas — sattva, rajas, tamas",
+      "The 24 evolutes of Prakṛti",
+      "Liberation through discriminative knowledge",
+    ],
+    duration: "Self-paced · ~2 months",
+    prerequisites: "None.",
+    priceINR: 3499,
+  },
+  {
+    slug: "buddhism",
+    title: "Buddhism",
+    deva: "बौद्ध दर्शन",
+    tradition: "Theravāda · Madhyamaka",
+    excerpt:
+      "The Four Noble Truths, dependent origination, and Nāgārjuna's middle way — read in conversation with the Vedāntic darśanas.",
+    syllabus: [
+      "The historical Buddha and the first turning",
+      "Four Noble Truths · Eightfold Path",
+      "Dependent origination",
+      "Madhyamaka — emptiness as the middle way",
+      "Vedānta and Buddhism in dialogue",
+    ],
+    duration: "Self-paced · ~3 months",
+    prerequisites: "None.",
+    priceINR: 3999,
+  },
+  {
+    slug: "lalita-for-women",
+    title: "Lalitā for Women",
+    deva: "ललिता",
+    tradition: "Śākta · Śrī Vidyā",
+    excerpt:
+      "A devotional study of the Lalitā Sahasranāma offered for women seekers — the Goddess as the very ground of awareness, beauty, and play.",
+    syllabus: [
+      "Introduction to the Śākta tradition",
+      "Lalitā Sahasranāma — selected names",
+      "The Śrī Cakra and its symbolism",
+      "Daily contemplative practice",
+    ],
+    duration: "Self-paced · ~4 months",
+    prerequisites: "Open to women seekers of any background.",
+    priceINR: 4499,
+  },
+  {
+    slug: "jyotisha",
+    title: "Astrology · Jyotiṣa",
+    deva: "ज्योतिष",
+    tradition: "Vedic",
+    excerpt:
+      "Jyotiṣa as the eye of the Veda — not prediction, but a contemplative map of time, karma, and the rhythm of one's incarnation.",
+    syllabus: [
+      "The 12 rāśis and 27 nakṣatras",
+      "The nine grahas",
+      "Reading a birth chart contemplatively",
+      "Daśās and the timing of life events",
+    ],
+    duration: "Self-paced · ~5 months",
+    prerequisites: "Curiosity. Birth details if you wish to study your own chart.",
+    priceINR: 5499,
+  },
+];
+
+export const formatINR = (paise: number) =>
+  new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(paise);
+
+/* ────────────  Personal Guidance  ──────────── */
+
+export type GuidanceSubject = {
+  slug: string;
+  name: string;
+  deva?: string;
+  priceINR: number;
+  notes?: string;
+};
+
+export const GUIDANCE_SUBJECTS: GuidanceSubject[] = [
+  { slug: "guided-meditation", name: "Guided Meditation", deva: "ध्यान", priceINR: 3000 },
+  { slug: "pranayama", name: "Prāṇāyāma", deva: "प्राणायाम", priceINR: 3000 },
+  { slug: "asanas", name: "Āsanas", deva: "आसन", priceINR: 3000 },
+  { slug: "shatkarma", name: "Shatkarma", deva: "षट्कर्म", priceINR: 3000 },
+  { slug: "ayurveda", name: "Āyurveda", deva: "आयुर्वेद", priceINR: 3000 },
+  { slug: "jyotisha", name: "Jyotiṣa (Astrology)", deva: "ज्योतिष", priceINR: 3000 },
+  { slug: "western-philosophy", name: "Western Philosophy", priceINR: 5000 },
+  { slug: "contemplation", name: "Contemplation", priceINR: 3000 },
+  { slug: "mentorship", name: "1:1 Mentorship", priceINR: 0, notes: "Application-based — custom" },
+];
+
+export const SLOTS = [
+  {
+    id: "A",
+    label: "Slot A — Afternoon",
+    ist: "12:00 PM – 1:00 PM",
+    uk: "7:30 AM",
+    usaET: "2:30 AM",
+    uae: "2:30 PM",
+  },
+  {
+    id: "B",
+    label: "Slot B — Evening",
+    ist: "6:00 PM – 7:00 PM",
+    uk: "1:30 PM",
+    usaET: "8:30 AM",
+    uae: "8:00 PM",
+  },
+] as const;
+
+/* ────────────  Inquiry subjects  ──────────── */
+
+export const INQUIRY_SUBJECTS = [
+  "Course inquiry",
+  "Personal guidance",
+  "Mentorship",
+  "Research collaboration",
+  "Internship",
+  "Volunteer / Seva",
+  "Other",
+] as const;
+
+/* ────────────  Helpers  ──────────── */
+
+export const whatsappLink = (text?: string) => {
+  const msg =
+    text ?? "Namaste.\n\nI have a question about Mind Mirage.";
+  return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(msg)}`;
+};
+
+export const mailtoLink = (subject?: string, body?: string) => {
+  const params = new URLSearchParams();
+  if (subject) params.set("subject", subject);
+  if (body) params.set("body", body);
+  const qs = params.toString();
+  return `mailto:${SITE.email}${qs ? `?${qs}` : ""}`;
+};
