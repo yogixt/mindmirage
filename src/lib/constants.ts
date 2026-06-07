@@ -318,13 +318,13 @@ export const GUIDANCE_SUBJECTS: GuidanceSubject[] = [
   { slug: "western-philosophy", name: "Western Philosophy", priceINR: 5000 },
   { slug: "contemplation", name: "Contemplation", priceINR: 3000 },
   { slug: "mentorship", name: "Mentorship", priceINR: 0, notes: "Application-based — custom" },
-  { slug: "counselling-grihasthashrama", name: "Grihasthāshrama · Couple Counselling", deva: "गृहस्थाश्रम", priceINR: 0, notes: "Application-based — custom" },
-  { slug: "counselling-rajaswala", name: "Rajaswalā · Pre-conception Counselling", deva: "रजस्वला", priceINR: 0, notes: "Application-based — custom" },
-  { slug: "counselling-sadhak", name: "Sādhak · Yogic Life Counselling", deva: "साधक", priceINR: 0, notes: "Application-based — custom" },
-  { slug: "counselling-vairagya", name: "Vairāgya · Post-trauma Counselling", deva: "वैराग्य", priceINR: 0, notes: "Application-based — custom" },
-  { slug: "counselling-stridharma", name: "Strīdharma · Femininity Counselling", deva: "स्त्रीधर्म", priceINR: 0, notes: "Application-based — custom" },
-  { slug: "counselling-purushdharma", name: "Puruṣdharma · Masculinity Counselling", deva: "पुरुषधर्म", priceINR: 0, notes: "Application-based — custom" },
-  { slug: "counselling-balasanskar", name: "Bālasaṁskāra · Child Counselling", deva: "बालसंस्कार", priceINR: 0, notes: "Application-based — custom" },
+  { slug: "counselling-grihasthashrama", name: "Grihasthāshrama · Couple Counselling", deva: "गृहस्थाश्रम", priceINR: 2000 },
+  { slug: "counselling-rajaswala", name: "Rajaswalā · Pre-conception Counselling", deva: "रजस्वला", priceINR: 2000 },
+  { slug: "counselling-sadhak", name: "Sādhak · Yogic Life Counselling", deva: "साधक", priceINR: 2000 },
+  { slug: "counselling-vairagya", name: "Vairāgya · Post-trauma Counselling", deva: "वैराग्य", priceINR: 2000 },
+  { slug: "counselling-stridharma", name: "Strīdharma · Femininity Counselling", deva: "स्त्रीधर्म", priceINR: 2000 },
+  { slug: "counselling-purushdharma", name: "Puruṣdharma · Masculinity Counselling", deva: "पुरुषधर्म", priceINR: 2000 },
+  { slug: "counselling-balasanskar", name: "Bālasaṁskāra · Child Counselling", deva: "बालसंस्कार", priceINR: 2000 },
 ];
 
 /* 1:1 subjects as purchasable items — each is a complete course of eight
@@ -392,6 +392,17 @@ export const CONSULTATION_PRODUCTS: Course[] = [
     duration: "6 × 45 min",
     prerequisites: "Open mind.",
     priceINR: 11000,
+  },
+  {
+    slug: "counselling-all",
+    title: "Counselling · All Fields",
+    deva: "परामर्श",
+    tradition: "One-to-one with Guruji",
+    excerpt: "All seven counselling fields — couple, pre-conception, yogic life, post-trauma, femininity, masculinity, child — at a bundled price.",
+    syllabus: [],
+    duration: "Per session",
+    prerequisites: "Open mind.",
+    priceINR: 7000,
   },
 ];
 
