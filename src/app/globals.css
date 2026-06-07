@@ -85,7 +85,7 @@
 /* Base */
 :root { color-scheme: light; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 16px; -webkit-text-size-adjust: 100%; }
 
 body {
   background: var(--color-paper);
