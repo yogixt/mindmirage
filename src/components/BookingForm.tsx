@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { GUIDANCE_SUBJECTS } from "@/lib/constants";
-import { Field, TextArea, type SubmitState } from "./FormField";
+import { Field, PHONE_PATTERN, TextArea, type SubmitState } from "./FormField";
 import AvailabilityCalendar, { useBlockedDates } from "./AvailabilityCalendar";
 
 /* Booking, step by step — class, time, dates, details. No jargon. */
@@ -274,7 +274,7 @@ export default function BookingForm({
         <div className="mt-2.5 grid gap-3 sm:grid-cols-2">
           <Field name="name" label="Full name" required autoComplete="name" />
           <Field name="email" type="email" label="Email" required autoComplete="email" />
-          <Field name="whatsapp" label="WhatsApp number" required placeholder="+91 …" />
+          <Field name="whatsapp" type="tel" label="WhatsApp number" required pattern={PHONE_PATTERN} placeholder="+91 …" />
           <div className="sm:col-span-1">
             <TextArea
               name="message"

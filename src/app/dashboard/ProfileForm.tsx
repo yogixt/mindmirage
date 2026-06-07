@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
-import { Field, Select, TextArea } from "@/components/FormField";
+import { Field, PHONE_PATTERN, Select, TextArea } from "@/components/FormField";
 import { saveProfileAction, type ProfileFormState } from "./actions";
 import type { SeekerMetadata } from "@/lib/auth";
 
@@ -22,7 +22,7 @@ export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) 
     saveProfileAction,
     { status: "idle" },
   );
-  const hasDetails = !!(metadata.city || metadata.preferredPath || metadata.whyISeek);
+  const hasDetails = !!(metadata.city || metadata.preferredPath || metadata.whyISeek || metadata.phone);
   const [mode, setMode] = useState<"view" | "edit">(hasDetails ? "view" : "edit");
 
   // After a successful save, settle into the display view.
@@ -34,6 +34,10 @@ export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) 
     return (
       <div>
         <dl className="grid gap-3 sm:grid-cols-2">
+          <div>
+            <dt className="eyebrow text-ink-faint">Phone</dt>
+            <dd className="mt-1 text-sm text-ink">{metadata.phone || "—"}</dd>
+          </div>
           <div>
             <dt className="eyebrow text-ink-faint">City</dt>
             <dd className="mt-1 text-sm text-ink">{metadata.city || "—"}</dd>
@@ -67,6 +71,14 @@ export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) 
   return (
     <form action={action} className="grid gap-5 sm:grid-cols-2">
       <Field
+        name="phone"
+        type="tel"
+        label="WhatsApp number"
+        pattern={PHONE_PATTERN}
+        defaultValue={metadata.phone ?? ""}
+        placeholder="+91 …"
+      />
+      <Field
         name="city"
         label="City"
         defaultValue={metadata.city ?? ""}
@@ -84,7 +96,7 @@ export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) 
           name="whyISeek"
           label="Why I seek (optional)"
           defaultValue={metadata.whyISeek ?? ""}
-          placeholder="A line or two for Acharya Ji."
+          placeholder="A line or two for Acharya Ji 🙏"
           rows={4}
         />
       </div>

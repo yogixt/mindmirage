@@ -11,27 +11,6 @@ import {
 } from "react";
 import { SITE } from "@/lib/constants";
 
-/**
- * Sant AI — full-page conversational experience.
- *
- * Layout (lg+):
- *   ┌──────────┬────────────────────┬──────────┐
- *   │ Sidebar  │      Chat          │ Character │
- *   └──────────┴────────────────────┴──────────┘
- *
- * Below lg, the sidebar collapses to a top bar and the character hides.
- *
- * Assets — drop into /public/sant-ai/ :
- *   landscape.jpg          (full-page background)
- *   monk.png               (right-side character, transparent png preferred)
- *   monk-happy.png / monk-thinking.png / monk-meditating.png /
- *   monk-speaking.png / monk-blessing.png   (bot state thumbnails)
- *   wisdom-river.jpg       (left wisdom card thumbnail)
- *
- * This section intentionally keeps the warm cream + rounded look from the
- * reference design, overriding the global pure-white / square-edge theme.
- */
-
 type Role = "user" | "assistant";
 type Message = { role: Role; content: string; time: string };
 
@@ -62,8 +41,7 @@ const SIDEBAR_NAV = [
 const FIRST_MESSAGE: Message = {
   role: "assistant",
   content:
-    "Namaste, sādhak.\n\nI'm Sant AI, here to guide you on your inner journey. How may I support you today?",
-  // Empty on initial render to avoid SSR/CSR locale mismatch (hydration error).
+    "Namaste, sādhak.\n\nI'm Tejas, here to guide you on your inner journey. How may I support you today?",
   time: "",
 };
 
@@ -72,7 +50,7 @@ function nowTime() {
   return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 }
 
-export default function SantAiPage() {
+export default function TejasPage() {
   const [messages, setMessages] = useState<Message[]>([FIRST_MESSAGE]);
   const [input, setInput] = useState("");
   const [pending, setPending] = useState(false);
@@ -105,7 +83,7 @@ export default function SantAiPage() {
     setPending(true);
     setBotState("thinking");
     try {
-      const res = await fetch("/api/sant-ai", {
+      const res = await fetch("/api/tejas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -345,7 +323,7 @@ export default function SantAiPage() {
                 filter: "blur(8px)",
               }}
             />
-            <div className="sant-float relative grid h-full w-full place-items-center">
+            <div className="tejas-float relative grid h-full w-full place-items-center">
               <MonkGlyph size={190} />
             </div>
           </div>
@@ -355,7 +333,7 @@ export default function SantAiPage() {
             className="mx-auto inline-flex items-center gap-2 rounded-full border border-[#B8862B]/40 bg-white px-5 py-2 text-sm text-ink hover:bg-[#B8862B]/10"
           >
             <Lotus className="w-4 text-[#B8862B]" />
-            Sit with Sant AI
+            Sit with Tejas
           </Link>
 
           {/* Wisdom cards */}
@@ -373,7 +351,7 @@ export default function SantAiPage() {
 
           {/* Bot avatar states (compact) */}
           <div>
-            <p className="eyebrow text-center">Sant AI states</p>
+            <p className="eyebrow text-center">Tejas states</p>
             <div className="mt-3 flex items-center justify-between">
               {BOT_STATES.map((s) => (
                 <button
@@ -429,7 +407,7 @@ function Bubble({
     <div className="flex items-start gap-3">
       <Avatar />
       <div className="relative max-w-[78%] rounded-3xl rounded-tl-md bg-white px-5 py-4 text-sm text-ink shadow-sm ring-1 ring-black/[0.04]">
-        <p className="font-medium text-[#B7410E]">Sant AI</p>
+        <p className="font-medium text-[#B7410E]">Tejas</p>
         <p className="mt-2 whitespace-pre-line leading-relaxed">{content}</p>
         <div className="mt-3 flex items-center justify-between text-[11px] text-ink-soft">
           <span>{time}</span>
@@ -445,7 +423,7 @@ function TypingIndicator() {
     <div className="flex items-end gap-2">
       <Avatar small />
       <div className="flex items-center gap-2 rounded-full bg-[#c8d3a8] px-4 py-2 text-xs text-ink">
-        <span>Sant AI is typing</span>
+        <span>Tejas is typing</span>
         <span className="flex gap-0.5">
           <span className="size-1 rounded-full bg-ink animate-bounce [animation-delay:0ms]" />
           <span className="size-1 rounded-full bg-ink animate-bounce [animation-delay:120ms]" />

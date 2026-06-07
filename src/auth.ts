@@ -9,6 +9,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [Google],
   session: { strategy: "jwt" },
   pages: { signIn: "/sign-in" },
+  trustHost: true,
   callbacks: {
     async signIn({ user, account }) {
       // Upsert the sadhak record on every sign-in.

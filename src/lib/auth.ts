@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { journalDb } from "./journal";
+import { journalDb, runMigrations } from "./journal";
 import { COURSES, CATALOG } from "./constants";
 
 /**
@@ -18,6 +18,7 @@ export type SeekerProfile = {
     | "all"
     | "";
   whyISeek?: string;
+  phone?: string;
 };
 
 export type SeekerMetadata = SeekerProfile & {
@@ -53,6 +54,7 @@ type UserRow = {
   city: string;
   preferredPath: string;
   whyISeek: string;
+  phone: string;
 };
 
 async function currentUserRow(): Promise<UserRow | null> {
@@ -70,11 +72,12 @@ async function currentUserRow(): Promise<UserRow | null> {
     city: "",
     preferredPath: "",
     whyISeek: "",
+    phone: "",
   };
   if (db) {
     try {
       const rs = await db.execute({
-        sql: "SELECT email, name, image, enrolled_programs, city, preferred_path, why_i_seek FROM users WHERE id = ?",
+        sql: "SELECT email, name, image, enrolled_programs, city, preferred_path, why_i_seek, phone FROM users WHERE id = ?",
         args: [id],
       });
       if (rs.rows.length) {
@@ -94,6 +97,7 @@ async function currentUserRow(): Promise<UserRow | null> {
           city: r.city ? String(r.city) : "",
           preferredPath: r.preferred_path ? String(r.preferred_path) : "",
           whyISeek: r.why_i_seek ? String(r.why_i_seek) : "",
+          phone: r.phone ? String(r.phone) : "",
         };
       }
     } catch (e) {
@@ -120,6 +124,7 @@ export async function getSeeker(): Promise<SeekerSummary | null> {
       city: row.city,
       preferredPath: (row.preferredPath || "") as SeekerProfile["preferredPath"],
       whyISeek: row.whyISeek,
+      phone: row.phone,
     },
     enrolledCourses: COURSES.filter((c) =>
       row.enrolled.includes(c.slug),
@@ -147,15 +152,17 @@ export async function enrollCurrentSeeker(slug: string): Promise<boolean> {
 }
 
 export async function updateSeekerProfile(profile: SeekerProfile) {
+  await runMigrations();
   const row = await currentUserRow();
   const db = journalDb();
   if (!row || !db) return false;
   await db.execute({
-    sql: "UPDATE users SET city = ?, preferred_path = ?, why_i_seek = ? WHERE id = ?",
+    sql: "UPDATE users SET city = ?, preferred_path = ?, why_i_seek = ?, phone = ? WHERE id = ?",
     args: [
       profile.city ?? "",
       profile.preferredPath ?? "",
       profile.whyISeek ?? "",
+      profile.phone ?? "",
       row.id,
     ],
   });

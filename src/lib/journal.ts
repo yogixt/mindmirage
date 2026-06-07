@@ -1,6 +1,6 @@
 import { createClient, type Client } from "@libsql/client";
 
-/* ────────────  Turso client (Newsletters feed)  ──────────── */
+/* ────────────  Turso client  ──────────── */
 
 let client: Client | null = null;
 
@@ -10,6 +10,22 @@ export function journalDb(): Client | null {
   if (!url || !authToken) return null;
   if (!client) client = createClient({ url, authToken });
   return client;
+}
+
+/* ────────────  Migrations  ──────────── */
+
+let migrated = false;
+
+export async function runMigrations() {
+  if (migrated) return;
+  const db = journalDb();
+  if (!db) return;
+  try {
+    await db.execute("ALTER TABLE users ADD COLUMN phone TEXT NOT NULL DEFAULT ''");
+  } catch {
+    /* column already exists */
+  }
+  migrated = true;
 }
 
 /* ────────────  Newsletters (posted by Team / Guruji)  ────────────

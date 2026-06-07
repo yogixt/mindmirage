@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif, Noto_Serif_Devanagari, Yatra_One, Kalam } from "next/font/google";
 import "./globals.css";
-import SantAi from "@/components/SantAi";
+import Tejas from "@/components/Tejas";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ContributeButton from "@/components/ContributeButton";
 import CartDrawer from "@/components/CartDrawer";
 import { CartProvider } from "@/lib/cart";
 import { SITE } from "@/lib/constants";
@@ -97,14 +98,16 @@ export default function RootLayout({
       className={`${inter.variable} ${instrumentSerif.variable} ${notoDeva.variable} ${yatra.variable} ${kalam.variable}`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
+      style={{ fontSize: 18 }}
     >
-      <body className="bg-paper text-ink antialiased">
+      <body className="bg-paper text-ink antialiased" style={{ fontSize: 18, lineHeight: 1.6 }}>
         <AuthProvider>
           <CartProvider>
             {children}
             <CartDrawer />
-            <SantAi />
+            <Tejas />
             <WhatsAppButton />
+            <ContributeButton />
           </CartProvider>
         </AuthProvider>
       </body>

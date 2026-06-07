@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Field, Select, SubmitButton, TextArea, type SubmitState } from "./FormField";
+import { Field, PHONE_PATTERN, Select, SubmitButton, TextArea, type SubmitState } from "./FormField";
 
 const COLLAB_TYPES = ["Co-author", "Article", "Research paper"];
 
@@ -54,7 +54,7 @@ export default function CollaborationForm() {
     <form onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2">
       <Field name="name" label="Full name" required minLength={2} autoComplete="name" />
       <Field name="email" type="email" label="Email" required autoComplete="email" />
-      <Field name="whatsapp" label="WhatsApp (optional)" />
+      <Field name="whatsapp" type="tel" label="WhatsApp number" required pattern={PHONE_PATTERN} placeholder="+91 …" />
       <Field name="country" label="Country" required minLength={2} autoComplete="country-name" />
       <div className="sm:col-span-2">
         <Select

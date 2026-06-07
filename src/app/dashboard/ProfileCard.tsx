@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
-/* Facebook-style profile: cover photo, overlapping avatar, bio, and
-   sankalpa (intention). Photos change in place; text edits inline. */
+import ImageCropper from "@/components/ImageCropper";
 
 type Profile = {
   bio: string;
@@ -55,8 +53,10 @@ export default function ProfileCard({
   const [bio, setBio] = useState("");
   const [intention, setIntention] = useState("");
   const [saving, setSaving] = useState(false);
-  const coverRef = useRef<HTMLInputElement>(null);
   const avatarRef = useRef<HTMLInputElement>(null);
+  const coverRef = useRef<HTMLInputElement>(null);
+  const [crop, setCrop] = useState<{ src: string; kind: "avatar" | "cover" } | null>(null);
+  const [dropOver, setDropOver] = useState(false);
 
   useEffect(() => {
     fetch("/api/profile")
@@ -91,9 +91,15 @@ export default function ProfileCard({
     }
   };
 
-  const onPhoto = async (file: File, kind: "avatar" | "cover") => {
-    const data = await compress(file, kind === "cover" ? 1600 : 512, kind === "cover" ? 0.8 : 0.85);
-    await save({ [kind]: data } as Partial<Profile>);
+  const onFile = (file: File, kind: "avatar" | "cover") => {
+    const src = URL.createObjectURL(file);
+    setCrop({ src, kind });
+  };
+
+  const onCropDone = async (dataUrl: string, kind: "avatar" | "cover") => {
+    URL.revokeObjectURL(crop?.src ?? "");
+    setCrop(null);
+    await save({ [kind]: dataUrl } as Partial<Profile>);
   };
 
   const avatarSrc = p.avatar ?? fallbackImage;
@@ -101,21 +107,46 @@ export default function ProfileCard({
   return (
     <div className="overflow-hidden rounded-2xl border border-ink/10 bg-paper">
       {/* Cover */}
-      <div className="relative h-36 w-full sm:h-44">
+      <div
+        className={`relative h-36 w-full sm:h-44 transition-colors ${
+          dropOver ? "ring-2 ring-saffron" : ""
+        }`}
+        onDragOver={(e) => { e.preventDefault(); setDropOver(true); }}
+        onDragLeave={() => setDropOver(false)}
+        onDrop={(e) => {
+          e.preventDefault();
+          setDropOver(false);
+          const f = e.dataTransfer.files?.[0];
+          if (f) onFile(f, "cover");
+        }}
+      >
         {p.cover ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={p.cover} alt="" className="h-full w-full object-cover" />
         ) : (
-          <div className="h-full w-full bg-gradient-to-r from-saffron/30 via-gold/30 to-saffron/20" />
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-r from-saffron/30 via-gold/30 to-saffron/20">
+            <span className="text-xs text-ink-faint">Drag a photo here</span>
+          </div>
         )}
-        <button
-          type="button"
-          onClick={() => coverRef.current?.click()}
-          className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-paper/90 px-3 py-1.5 text-[11px] font-semibold text-ink shadow-sm backdrop-blur transition-colors hover:bg-paper"
-        >
-          <CameraIcon />
-          Change cover
-        </button>
+        <div className="absolute right-3 top-3 flex gap-2">
+          <button
+            type="button"
+            onClick={() => coverRef.current?.click()}
+            className="inline-flex items-center gap-1.5 rounded-full bg-paper/90 px-3 py-1.5 text-[11px] font-semibold text-ink shadow-sm backdrop-blur transition-colors hover:bg-paper"
+          >
+            <CameraIcon />
+            {p.cover ? "Change" : "Add cover"}
+          </button>
+          {p.cover && (
+            <button
+              type="button"
+              onClick={() => void save({ cover: null })}
+              className="inline-flex items-center gap-1.5 rounded-full bg-red-500/90 px-3 py-1.5 text-[11px] font-semibold text-white shadow-sm backdrop-blur transition-colors hover:bg-red-600"
+            >
+              Remove
+            </button>
+          )}
+        </div>
         <input
           ref={coverRef}
           type="file"
@@ -123,7 +154,7 @@ export default function ProfileCard({
           className="hidden"
           onChange={(e) => {
             const f = e.target.files?.[0];
-            if (f) void onPhoto(f, "cover");
+            if (f) onFile(f, "cover");
             e.target.value = "";
           }}
         />
@@ -158,7 +189,7 @@ export default function ProfileCard({
               className="hidden"
               onChange={(e) => {
                 const f = e.target.files?.[0];
-                if (f) void onPhoto(f, "avatar");
+                if (f) onFile(f, "avatar");
                 e.target.value = "";
               }}
             />
@@ -192,7 +223,7 @@ export default function ProfileCard({
               onChange={(e) => setBio(e.target.value)}
               rows={3}
               maxLength={600}
-              placeholder="Your bio — a few lines about you and your journey."
+              placeholder="Your bio — a few lines about you and your journey ✨"
               className="w-full rounded-xl border border-ink/15 bg-transparent px-4 py-3 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-ink"
             />
             <input
@@ -224,6 +255,19 @@ export default function ProfileCard({
           </>
         )}
       </div>
+
+      {/* Crop modal */}
+      {crop && (
+        <ImageCropper
+          src={crop.src}
+          aspect={crop.kind === "cover" ? 16 / 5 : 1}
+          onCrop={(dataUrl) => void onCropDone(dataUrl, crop.kind)}
+          onCancel={() => {
+            URL.revokeObjectURL(crop.src);
+            setCrop(null);
+          }}
+        />
+      )}
     </div>
   );
 }

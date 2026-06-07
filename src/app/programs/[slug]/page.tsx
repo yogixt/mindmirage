@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Divider from "@/components/Divider";
 import CourseCta from "@/components/CourseCta";
-import { CATALOG, formatINR } from "@/lib/constants";
+import { CATALOG, MONTHLY_LIVE, formatINR } from "@/lib/constants";
 
 export function generateStaticParams() {
   return CATALOG.map((c) => ({ slug: c.slug }));
@@ -76,6 +76,8 @@ export default async function CoursePage(
   const course = CATALOG.find((c) => c.slug === slug);
   if (!course) notFound();
 
+  const liveVariant = MONTHLY_LIVE.find((l) => l.parentSlug === course.slug);
+
   return (
     <main className="bg-paper">
       <Navbar variant="solid" />
@@ -124,9 +126,24 @@ export default async function CoursePage(
                 </span>
               ))}
             </div>
-            <p className="mt-2 text-xs text-ink-faint">
-              Live cohort dates are shared on enrolment — or ask us on WhatsApp.
-            </p>
+            {liveVariant && (
+              <p className="mt-2 text-xs text-ink-soft">
+                Live classes: <strong>{formatINR(liveVariant.priceINR)}/month</strong>
+                {course.recordedAccess && (
+                  <> · Recorded: <strong>{formatINR(course.priceINR)}</strong> ({course.recordedAccess} access with Zoom storage)</>
+                )}
+              </p>
+            )}
+            {!liveVariant && course.recordedAccess && (
+              <p className="mt-2 text-xs text-ink-soft">
+                {course.recordedAccess} access with Zoom storage
+              </p>
+            )}
+            {!liveVariant && !course.recordedAccess && (
+              <p className="mt-2 text-xs text-ink-faint">
+                Live cohort dates are shared on enrolment — or ask us on WhatsApp.
+              </p>
+            )}
           </div>
         )}
       </section>

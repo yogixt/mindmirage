@@ -17,6 +17,9 @@ type SelectProps = Common &
 const baseField =
   "w-full rounded-xl border border-ink/15 bg-transparent px-4 py-3 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-ink focus:border-transparent transition";
 
+/* E.164 pattern: + followed by country code and number (6–15 digits total). */
+export const PHONE_PATTERN = "\\+[1-9]\\d{4,14}";
+
 export const Field = forwardRef<HTMLInputElement, InputProps>(function Field(
   { label, hint, required, placeholder, className = "", ...rest },
   ref,

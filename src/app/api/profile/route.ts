@@ -3,8 +3,8 @@ import { z } from "zod";
 import { getSeeker } from "@/lib/auth";
 import { journalDb } from "@/lib/journal";
 
-/* Sādhak profile extras — bio, sankalpa (intention), avatar and cover
-   photos. Images arrive as compressed JPEG data URLs from the client. */
+/* Sādhak profile extras — bio, sankalpa (intention), avatar, cover.
+   Images arrive as compressed JPEG data URLs from the client. */
 
 export async function GET() {
   const seeker = await getSeeker();

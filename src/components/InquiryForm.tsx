@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { INQUIRY_SUBJECTS } from "@/lib/constants";
-import { Field, Select, SubmitButton, TextArea, type SubmitState } from "./FormField";
+import { Field, PHONE_PATTERN, Select, SubmitButton, TextArea, type SubmitState } from "./FormField";
 
 export default function InquiryForm() {
   const [state, setState] = useState<SubmitState>("idle");
@@ -45,7 +45,7 @@ export default function InquiryForm() {
     <form onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
       <Field name="name" label="Full name" required autoComplete="name" />
       <Field name="email" type="email" label="Email" required autoComplete="email" />
-      <Field name="whatsapp" label="WhatsApp number" placeholder="optional" />
+      <Field name="whatsapp" type="tel" label="WhatsApp number" required pattern={PHONE_PATTERN} placeholder="+91 …" />
       <Field name="country" label="Country" required autoComplete="country-name" />
       <div className="sm:col-span-2">
         <Select

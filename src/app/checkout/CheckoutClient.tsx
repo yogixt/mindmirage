@@ -9,6 +9,7 @@ import { formatINR, SITE } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import { BookOpen, Video } from "lucide-react";
 
 const CHECKOUT_SCRIPT = "https://checkout.razorpay.com/v1/checkout.js";
 
@@ -64,7 +65,7 @@ declare global {
 
 export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
   const router = useRouter();
-  const { courses, total, count, clear } = useCart();
+  const { courses, items, total, count, clear } = useCart();
   const [scriptReady, setScriptReady] = useState(false);
   const [status, setStatus] = useState<
     "idle" | "creating" | "opening" | "verifying" | "error"
@@ -120,7 +121,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          slugs: courses.map((c) => c.slug),
+          slugs: items.flatMap((item) => Array(item.quantity).fill(item.slug)),
           coupon: coupon ?? "",
         }),
       });
@@ -264,22 +265,60 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
             <div className="rounded-2xl border border-ink/10 bg-paper p-6 sm:p-7">
               <p className="eyebrow">Order summary</p>
               <ul className="mt-4 divide-y divide-ink/10">
-                {courses.map((c) => (
-                  <li
-                    key={c.slug}
-                    className="flex items-baseline justify-between gap-4 py-4"
-                  >
-                    <div className="min-w-0">
-                      <p className="deva text-sm text-ink-soft">{c.deva}</p>
-                      <p className="display text-lg text-ink mt-1">
-                        {c.title}
-                      </p>
-                    </div>
-                    <p className="display text-lg text-ink whitespace-nowrap">
-                      {formatINR(c.priceINR)}
-                    </p>
-                  </li>
-                ))}
+                {courses.map((c) => {
+                  const item = items.find((i) => i.slug === c.slug);
+                  const quantity = item ? item.quantity : 1;
+                  const itemTotal = c.priceINR * quantity;
+                  const isBook = c.slug.startsWith("booklist");
+                  const isSession = c.slug.startsWith("1on1");
+
+                  return (
+                    <li
+                      key={c.slug}
+                      className="flex gap-4 py-4 items-center"
+                    >
+                      {/* Left: Thumbnail image */}
+                      <div className="relative w-14 h-14 rounded-xl border border-ink/5 bg-gradient-to-br from-saffron/10 via-gold/5 to-saffron/5 flex items-center justify-center overflow-hidden shrink-0">
+                        {isBook ? (
+                          <BookOpen className="w-5 h-5 text-saffron/80" />
+                        ) : isSession ? (
+                          <Video className="w-5 h-5 text-saffron/80" />
+                        ) : (
+                          <span className="font-deva text-lg font-bold bg-gradient-to-br from-saffron to-gold bg-clip-text text-transparent select-none">
+                            {c.deva ? c.deva.charAt(0) : "ॐ"}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Center: Details */}
+                      <div className="flex-1 min-w-0">
+                        <p className="eyebrow text-[8px] text-ink-faint tracking-widest uppercase truncate">
+                          {c.tradition}
+                        </p>
+                        <h3 className="display text-base font-bold text-ink mt-0.5 truncate">
+                          {c.title}
+                        </h3>
+                        <div className="mt-1 flex items-center gap-2 text-xs text-ink-soft font-medium">
+                          <span>Qty: {quantity}</span>
+                          <span className="text-ink-faint">·</span>
+                          <span>{isBook ? "Shipped" : isSession ? "Zoom Live" : "Self-paced"}</span>
+                        </div>
+                      </div>
+
+                      {/* Right: Pricing */}
+                      <div className="text-right shrink-0">
+                        <p className="display text-base font-bold text-ink whitespace-nowrap">
+                          {formatINR(itemTotal)}
+                        </p>
+                        {quantity > 1 && (
+                          <p className="text-[10px] text-ink-faint">
+                            {formatINR(c.priceINR)} each
+                          </p>
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
 
               {!signedIn && (
@@ -350,7 +389,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
                 type="button"
                 onClick={handlePay}
                 disabled={busy || !scriptReady || !signedIn}
-                className="mt-4 block w-full rounded-lg bg-green-600 px-6 py-4 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.01] hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="mt-4 block w-full rounded-lg bg-saffron px-6 py-4 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.01] hover:bg-clay disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 {status === "creating" && "Preparing your order…"}
                 {status === "opening" && "Opening Razorpay…"}

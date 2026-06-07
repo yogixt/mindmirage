@@ -168,7 +168,7 @@ export default function ContactHero() {
                         <input name="email" required type="email" placeholder="Email" className={inputCls} autoComplete="email" />
                       </div>
                       <div className="flex flex-col gap-2 sm:flex-row">
-                        <input name="whatsapp" placeholder="WhatsApp (optional)" className={inputCls} />
+                        <input name="whatsapp" type="tel" required pattern="\\+[1-9]\\d{4,14}" placeholder="+91 …" className={inputCls} />
                         <input name="country" required minLength={2} placeholder="Country" className={inputCls} autoComplete="country-name" />
                       </div>
                       <textarea

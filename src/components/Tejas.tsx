@@ -23,9 +23,7 @@ const QUICK_ACTIONS = [
 const FIRST_MESSAGE: Message = {
   role: "assistant",
   content:
-    "Namaste, sādhak.\n\nI'm Sant AI, here to guide you on your inner journey. How may I support you today?",
-  // Left blank to avoid SSR/CSR locale mismatch — the welcome message stays
-  // timeless; sent/received messages get their timestamp on the client.
+    "Namaste, sādhak.\n\nI'm Tejas, here to guide you on your inner journey. How may I support you today?",
   time: "",
 };
 
@@ -33,13 +31,7 @@ function nowTime() {
   return new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 }
 
-/**
- * Floating Sant AI chat — popup panel modelled on the design system spec.
- * Warm cream + rounded look (overrides the global white/square theme for this
- * surface only). Drop monk avatars into /public/sant-ai/ to make the bot
- * states render; missing images hide gracefully.
- */
-export default function SantAi() {
+export default function Tejas() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [messages, setMessages] = useState<Message[]>([FIRST_MESSAGE]);
@@ -79,7 +71,7 @@ export default function SantAi() {
     setPending(true);
     setBotState("thinking");
     try {
-      const res = await fetch("/api/sant-ai", {
+      const res = await fetch("/api/tejas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -123,13 +115,13 @@ export default function SantAi() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Open Sant AI"
+        aria-label="Open Tejas"
         className={`fixed bottom-6 right-6 z-30 transition-all hover:scale-[1.1] ${
           mounted && pastHero && !open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
         }`}
         style={{ transitionDuration: "600ms" }}
       >
-        <span className="sant-float sant-glow block rounded-full ring-2 ring-gold/50">
+        <span className="tejas-float tejas-glow block rounded-full ring-2 ring-gold/50">
           <MonkGlyph size={68} />
         </span>
       </button>
@@ -147,7 +139,7 @@ export default function SantAi() {
         />
         <section
           role="dialog"
-          aria-label="Sant AI"
+          aria-label="Tejas"
           className={`relative flex h-full w-full flex-col overflow-hidden bg-[#FAF3E0] text-ink shadow-2xl ring-1 ring-black/[0.05] transition-transform sm:h-[680px] sm:max-h-[90vh] sm:w-[440px] sm:rounded-3xl ${
             open ? "translate-y-0" : "translate-y-8"
           }`}
@@ -159,7 +151,7 @@ export default function SantAi() {
               <Avatar state={botState} size={40} />
               <div>
                 <p style={{ fontFamily: "var(--font-instrument-serif), serif" }} className="text-lg leading-tight text-ink">
-                  Sant AI
+                  Tejas
                 </p>
                 <p className="text-[10px] uppercase tracking-[0.22em] text-ink-soft">
                   Mind Mirage · Rishikesh
@@ -292,7 +284,7 @@ function Bubble({ role, content, time }: { role: Role; content: string; time: st
     <div className="flex items-start gap-2">
       <Avatar state="happy" size={36} />
       <div className="max-w-[80%] rounded-3xl rounded-tl-md bg-white px-4 py-3 text-sm text-ink shadow-sm ring-1 ring-black/[0.04]">
-        <p className="font-medium text-[#B7410E]">Sant AI</p>
+        <p className="font-medium text-[#B7410E]">Tejas</p>
         <p className="mt-1.5 whitespace-pre-line leading-relaxed">{content}</p>
         <div className="mt-2 flex items-center justify-between text-[10px] text-ink-soft">
           <span>{time || " "}</span>
@@ -308,7 +300,7 @@ function TypingIndicator() {
     <div className="flex items-end gap-2">
       <Avatar state="thinking" size={28} />
       <div className="flex items-center gap-2 rounded-full bg-[#c8d3a8] px-3 py-1.5 text-[11px] text-ink">
-        <span>Sant AI is typing</span>
+        <span>Tejas is typing</span>
         <span className="flex gap-0.5">
           <span className="size-1 rounded-full bg-ink animate-bounce [animation-delay:0ms]" />
           <span className="size-1 rounded-full bg-ink animate-bounce [animation-delay:120ms]" />

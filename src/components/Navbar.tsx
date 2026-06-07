@@ -50,9 +50,9 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm transition-colors ${
+                className={`text-base font-medium transition-colors ${
                   active
-                    ? "text-ink"
+                    ? "text-ink font-semibold"
                     : "text-ink-soft hover:text-ink"
                 }`}
               >
@@ -64,18 +64,26 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
 
         <div className="hidden md:flex md:items-center md:gap-3">
           <CartButton />
-          {session ? (
+          {session?.user ? (
             <>
               <Link
                 href="/dashboard"
-                className="text-sm text-ink-soft hover:text-ink transition-colors"
+                className="flex items-center gap-2 text-base font-medium text-ink-soft hover:text-ink transition-colors"
               >
+                {session.user.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={session.user.image}
+                    alt=""
+                    className="size-7 rounded-full object-cover"
+                  />
+                )}
                 Dashboard
               </Link>
               <button
                 type="button"
                 onClick={() => signOut()}
-                className="rounded-lg border border-ink/15 px-4 py-2 text-sm text-ink transition-colors hover:bg-ink/5"
+                className="rounded-lg border border-ink/15 px-5 py-2.5 text-base font-medium text-ink transition-colors hover:bg-ink/5"
               >
                 Sign out
               </button>
@@ -85,13 +93,13 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
               <button
                 type="button"
                 onClick={() => signIn("google")}
-                className="rounded-lg border border-ink/15 px-4 py-2 text-sm text-ink transition-colors hover:bg-ink/5 hover:border-ink/30"
+                className="rounded-lg border border-ink/15 px-5 py-2.5 text-base font-medium text-ink transition-colors hover:bg-ink/5 hover:border-ink/30"
               >
                 Sign in
               </button>
               <Link
                 href="/programs"
-                className="rounded-lg bg-saffron px-6 py-2.5 text-sm text-paper transition-transform hover:scale-[1.03]"
+                className="rounded-lg bg-saffron px-6 py-2.5 text-base font-semibold text-paper transition-transform hover:scale-[1.03]"
               >
                 Begin Journey
               </Link>
@@ -134,24 +142,32 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="text-base text-ink"
+                className="text-lg font-medium text-ink"
               >
                 {item.label}
               </Link>
             ))}
-            {session ? (
+            {session?.user ? (
               <>
                 <Link
                   href="/dashboard"
                   onClick={() => setOpen(false)}
-                  className="text-base text-ink"
+                  className="flex items-center gap-2 text-lg font-medium text-ink"
                 >
+                  {session.user.image && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={session.user.image}
+                      alt=""
+                      className="size-7 rounded-full object-cover"
+                    />
+                  )}
                   Dashboard
                 </Link>
                 <button
                   type="button"
                   onClick={() => signOut()}
-                  className="mt-3 inline-flex w-fit rounded-lg border border-ink/15 px-6 py-2.5 text-sm text-ink"
+                  className="mt-3 inline-flex w-fit rounded-lg border border-ink/15 px-6 py-2.5 text-base font-semibold text-ink"
                 >
                   Sign out
                 </button>
@@ -161,14 +177,14 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
                 <button
                   type="button"
                   onClick={() => signIn("google")}
-                  className="mt-3 inline-flex w-fit rounded-lg border border-ink/15 px-6 py-2.5 text-sm text-ink hover:bg-ink/5"
+                  className="mt-3 inline-flex w-fit rounded-lg border border-ink/15 px-6 py-2.5 text-base font-semibold text-ink hover:bg-ink/5"
                 >
                   Sign in with Google
                 </button>
                 <Link
                   href="/programs"
                   onClick={() => setOpen(false)}
-                  className="mt-3 inline-flex w-fit rounded-lg bg-saffron px-6 py-2.5 text-sm text-paper"
+                  className="mt-3 inline-flex w-fit rounded-lg bg-saffron px-6 py-2.5 text-base font-semibold text-paper"
                 >
                   Begin Journey
                 </Link>

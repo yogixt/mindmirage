@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Field, Select, SubmitButton, TextArea, type SubmitState } from "./FormField";
+import { Field, PHONE_PATTERN, Select, SubmitButton, TextArea, type SubmitState } from "./FormField";
 
 const ROLES = [
   "Content research",
@@ -53,7 +53,7 @@ export default function InternshipForm() {
     <form onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
       <Field name="name" label="Full name" required autoComplete="name" />
       <Field name="email" type="email" label="Email" required autoComplete="email" />
-      <Field name="whatsapp" label="WhatsApp number" required />
+      <Field name="whatsapp" type="tel" label="WhatsApp number" required pattern={PHONE_PATTERN} placeholder="+91 …" />
       <Field name="country" label="Country" required />
       <Field name="age" type="number" label="Age" required min={16} max={99} />
       <Select

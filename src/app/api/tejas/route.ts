@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { generateText, type ModelMessage } from "ai";
 import { z } from "zod";
 import { selectModel } from "@/lib/ai";
-import { buildSantAiPrompt } from "@/lib/sant-ai-prompt";
+import { buildTejasPrompt } from "@/lib/tejas-prompt";
 
 export const runtime = "nodejs";
 
@@ -37,21 +37,21 @@ export async function POST(req: Request) {
   try {
     const { text } = await generateText({
       model: selectModel(),
-      system: buildSantAiPrompt(),
+      system: buildTejasPrompt(),
       messages,
       maxOutputTokens: 600,
       temperature: 0.6,
     });
     return NextResponse.json({ content: text.trim() });
   } catch (e) {
-    const msg = e instanceof Error ? e.message : "Sant Ai is resting.";
-    console.error("[sant-ai]", msg);
+    const msg = e instanceof Error ? e.message : "Tejas is resting.";
+    console.error("[tejas]", msg);
     return NextResponse.json(
       {
         error:
           process.env.NODE_ENV === "development"
             ? msg
-            : "Sant Ai is resting. Please try again, or write to Acharya Ji.",
+            : "Tejas is resting. Please try again, or write to Acharya Ji.",
       },
       { status: 500 },
     );

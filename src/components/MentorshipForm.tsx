@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Field, SubmitButton, TextArea, type SubmitState } from "./FormField";
+import { Field, PHONE_PATTERN, SubmitButton, TextArea, type SubmitState } from "./FormField";
 
 export default function MentorshipForm() {
   const [state, setState] = useState<SubmitState>("idle");
@@ -47,7 +47,7 @@ export default function MentorshipForm() {
     <form onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
       <Field name="name" label="Full name" required autoComplete="name" />
       <Field name="email" type="email" label="Email" required autoComplete="email" />
-      <Field name="whatsapp" label="WhatsApp number" required />
+      <Field name="whatsapp" type="tel" label="WhatsApp number" required pattern={PHONE_PATTERN} placeholder="+91 …" />
       <Field name="country" label="Country" required />
       <div className="sm:col-span-2">
         <TextArea

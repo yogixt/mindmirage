@@ -8,6 +8,7 @@ const ProfileSchema = z.object({
   city: z.string().max(120).optional().default(""),
   preferredPath: z.enum(["ashtanga-yoga", "bhakti-yoga", "jnana-yoga", "advaita-vedanta", "all", ""]).optional().default(""),
   whyISeek: z.string().max(800).optional().default(""),
+  phone: z.string().regex(/^\+[1-9]\d{4,14}$/).optional().default(""),
 });
 
 export type ProfileFormState =
@@ -23,6 +24,7 @@ export async function saveProfileAction(
     city: formData.get("city"),
     preferredPath: formData.get("preferredPath"),
     whyISeek: formData.get("whyISeek"),
+    phone: formData.get("phone"),
   });
   if (!parsed.success) {
     return { status: "error", message: "Please check your entries." };

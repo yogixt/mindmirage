@@ -18,7 +18,7 @@ export default function CartButton({ tone = "dark" }: { tone?: "dark" | "light" 
     >
       <CartIcon width={22} height={22} />
       {count > 0 && (
-        <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[10px] font-semibold flex items-center justify-center">
+        <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-saffron text-white text-[10px] font-semibold flex items-center justify-center">
           {count}
         </span>
       )}

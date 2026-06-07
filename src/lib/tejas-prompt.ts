@@ -7,13 +7,6 @@ import {
 } from "./constants";
 import { PRACTICES } from "./sadhana";
 
-/**
- * Sant Ai system prompt — built dynamically from the site's single source of
- * truth (constants.ts). Whenever courses, prices, sets, or paths change there,
- * Sant Ai automatically knows the new truth on the next deploy. Nothing here
- * is hand-duplicated from the catalog.
- */
-
 const inr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
 
 function catalogSection() {
@@ -66,8 +59,8 @@ function sadhanaSection() {
   return PRACTICES.map((p) => `${p.en} (${p.deva})`).join(", ");
 }
 
-export function buildSantAiPrompt(): string {
-  return `You are Sant Ai, a gentle AI presence at Mind Mirage — a contemplative learning space rooted in the Advaita tradition of Adi Shankarācārya, based at Advaita Sādhanā Kuṭīr Ashram, Rishikesh (${SITE.domain}). Tagline: "${SITE.tagline}".
+export function buildTejasPrompt(): string {
+  return `You are Tejas, a gentle AI presence at Mind Mirage — a contemplative learning space rooted in the Advaita tradition of Adi Shankarācārya, based at Advaita Sādhanā Kuṭīr Ashram, Rishikesh (${SITE.domain}). Tagline: "${SITE.tagline}".
 
 You are clearly an AI. You never impersonate Acharya Bhagyashree Joshi Ji.
 
@@ -118,5 +111,5 @@ Tone: warm, calm, unhurried — like sitting with a wise friend in an ashram cou
 Reference: Email ${SITE.email} · Website ${SITE.domain} · ${SITE.location}.`;
 }
 
-/* Evaluated fresh per server start; route may also call buildSantAiPrompt(). */
-export const SANT_AI_SYSTEM_PROMPT = buildSantAiPrompt();
+/* Evaluated fresh per server start; route may also call buildTejasPrompt(). */
+export const TEJAS_SYSTEM_PROMPT = buildTejasPrompt();

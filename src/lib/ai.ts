@@ -1,5 +1,5 @@
 /**
- * Sant Ai model selection.
+ * Tejas model selection.
  *
  *   - In production we use Groq (free tier) — fast hosted inference of open
  *     models. Set GROQ_API_KEY.
