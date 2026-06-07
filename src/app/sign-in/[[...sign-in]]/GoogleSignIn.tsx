@@ -1,11 +1,13 @@
 "use client";
 
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function GoogleSignIn() {
   const { data: session } = useSession();
   const router = useRouter();
+  const [busy, setBusy] = useState(false);
 
   if (session) {
     router.push("/dashboard");
@@ -15,10 +17,14 @@ export default function GoogleSignIn() {
   return (
     <button
       type="button"
-      onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-      className="flex w-full items-center justify-center gap-3 rounded-lg border border-ink/15 bg-paper px-6 py-3 text-sm text-ink transition-transform hover:scale-[1.02]"
+      disabled={busy}
+      onClick={() => {
+        setBusy(true);
+        signIn("google", { callbackUrl: "/dashboard" });
+      }}
+      className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-xl border border-ink/20 bg-white px-6 py-3.5 text-sm font-medium text-ink shadow-sm transition-all hover:border-ink/40 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60"
     >
-      <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+      <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" aria-hidden="true">
         <path
           d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
           fill="#4285F4"
@@ -36,7 +42,7 @@ export default function GoogleSignIn() {
           fill="#EA4335"
         />
       </svg>
-      Sign in with Google
+      {busy ? "Redirecting…" : "Sign in with Google"}
     </button>
   );
 }

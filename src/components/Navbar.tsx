@@ -68,7 +68,7 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
             <>
               <Link
                 href="/dashboard"
-                className="ml-1 text-sm text-ink-soft hover:text-ink transition-colors"
+                className="text-sm text-ink-soft hover:text-ink transition-colors"
               >
                 Dashboard
               </Link>
@@ -85,7 +85,7 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
               <button
                 type="button"
                 onClick={() => signIn("google")}
-                className="ml-1 text-sm text-ink-soft hover:text-ink transition-colors"
+                className="rounded-lg border border-ink/15 px-4 py-2 text-sm text-ink transition-colors hover:bg-ink/5 hover:border-ink/30"
               >
                 Sign in
               </button>
@@ -161,9 +161,9 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
                 <button
                   type="button"
                   onClick={() => signIn("google")}
-                  className="text-base text-ink"
+                  className="mt-3 inline-flex w-fit rounded-lg border border-ink/15 px-6 py-2.5 text-sm text-ink hover:bg-ink/5"
                 >
-                  Sign in
+                  Sign in with Google
                 </button>
                 <Link
                   href="/programs"
