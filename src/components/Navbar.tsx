@@ -3,16 +3,15 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Show, UserButton } from "@clerk/nextjs";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { NAV_PRIMARY, SITE } from "@/lib/constants";
 import CartButton from "./CartButton";
-
-const CLERK_ENABLED = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 type Variant = "transparent" | "solid";
 
 export default function Navbar({ variant = "transparent" }: { variant?: Variant }) {
   const pathname = usePathname();
+  const { data: session } = useSession();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -65,50 +64,53 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
 
         <div className="hidden md:flex md:items-center md:gap-3">
           <CartButton />
-          {CLERK_ENABLED && (
+          {session ? (
             <>
-              <Show when="signed-in">
-                <Link
-                  href="/dashboard"
-                  className="ml-1 text-sm text-ink-soft hover:text-ink transition-colors"
-                >
-                  Dashboard
-                </Link>
-                <UserButton
-                  appearance={{
-                    elements: { avatarBox: "w-9 h-9" },
-                  }}
-                />
-              </Show>
-              <Show when="signed-out">
-                <Link
-                  href="/sign-in"
-                  className="ml-1 text-sm text-ink-soft hover:text-ink transition-colors"
-                >
-                  Sign in
-                </Link>
-                <Link
-                  href="/programs"
-                  className="rounded-lg bg-saffron px-6 py-2.5 text-sm text-paper transition-transform hover:scale-[1.03]"
-                >
-                  Begin Journey
-                </Link>
-              </Show>
+              <Link
+                href="/dashboard"
+                className="ml-1 text-sm text-ink-soft hover:text-ink transition-colors"
+              >
+                Dashboard
+              </Link>
+              <button
+                type="button"
+                onClick={() => signOut()}
+                className="rounded-lg border border-ink/15 px-4 py-2 text-sm text-ink transition-colors hover:bg-ink/5"
+              >
+                Sign out
+              </button>
             </>
-          )}
-          {!CLERK_ENABLED && (
-            <Link
-              href="/programs"
-              className="rounded-lg bg-saffron px-6 py-2.5 text-sm text-paper transition-transform hover:scale-[1.03]"
-            >
-              Begin Journey
-            </Link>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={() => signIn("google")}
+                className="ml-1 text-sm text-ink-soft hover:text-ink transition-colors"
+              >
+                Sign in
+              </button>
+              <Link
+                href="/programs"
+                className="rounded-lg bg-saffron px-6 py-2.5 text-sm text-paper transition-transform hover:scale-[1.03]"
+              >
+                Begin Journey
+              </Link>
+            </>
           )}
         </div>
 
-        {/* Mobile right cluster */}
+                {/* Mobile right cluster */}
         <div className="md:hidden flex items-center gap-1">
           <CartButton />
+          {session && (
+            <button
+              type="button"
+              onClick={() => signOut()}
+              className="text-xs text-ink-soft hover:text-ink transition-colors"
+            >
+              Sign out
+            </button>
+          )}
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -137,46 +139,40 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
                 {item.label}
               </Link>
             ))}
-            {CLERK_ENABLED ? (
+            {session ? (
               <>
-                <Show when="signed-in">
-                  <Link
-                    href="/dashboard"
-                    onClick={() => setOpen(false)}
-                    className="text-base text-ink"
-                  >
-                    Dashboard
-                  </Link>
-                  <div className="mt-3 flex items-center gap-3">
-                    <UserButton />
-                    <span className="text-sm text-ink-soft">Account</span>
-                  </div>
-                </Show>
-                <Show when="signed-out">
-                  <Link
-                    href="/sign-in"
-                    onClick={() => setOpen(false)}
-                    className="text-base text-ink"
-                  >
-                    Sign in
-                  </Link>
-                  <Link
-                    href="/programs"
-                    onClick={() => setOpen(false)}
-                    className="mt-3 inline-flex w-fit rounded-lg bg-saffron px-6 py-2.5 text-sm text-paper"
-                  >
-                    Begin Journey
-                  </Link>
-                </Show>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setOpen(false)}
+                  className="text-base text-ink"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => signOut()}
+                  className="mt-3 inline-flex w-fit rounded-lg border border-ink/15 px-6 py-2.5 text-sm text-ink"
+                >
+                  Sign out
+                </button>
               </>
             ) : (
-              <Link
-                href="/programs"
-                onClick={() => setOpen(false)}
-                className="mt-3 inline-flex w-fit rounded-lg bg-saffron px-6 py-2.5 text-sm text-paper"
-              >
-                Begin Journey
-              </Link>
+              <>
+                <button
+                  type="button"
+                  onClick={() => signIn("google")}
+                  className="text-base text-ink"
+                >
+                  Sign in
+                </button>
+                <Link
+                  href="/programs"
+                  onClick={() => setOpen(false)}
+                  className="mt-3 inline-flex w-fit rounded-lg bg-saffron px-6 py-2.5 text-sm text-paper"
+                >
+                  Begin Journey
+                </Link>
+              </>
             )}
           </div>
         </div>

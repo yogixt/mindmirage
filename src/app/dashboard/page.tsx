@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getSeeker, isClerkConfigured } from "@/lib/auth";
+import { getSeeker } from "@/lib/auth";
 import ProfileForm from "./ProfileForm";
 import SadhanaTracker from "./SadhanaTracker";
 import AssignmentsPanel from "./AssignmentsPanel";
@@ -25,7 +25,6 @@ const QUICK_LINKS = [
 ];
 
 export default async function DashboardPage() {
-  if (!isClerkConfigured()) redirect("/sign-in");
   const seeker = await getSeeker();
   if (!seeker) redirect("/sign-in");
 

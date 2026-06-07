@@ -1,29 +1,28 @@
-/**
- * Thin layer over Clerk that lets the rest of the app treat auth as optional.
- *
- * In dev (no CLERK_* env vars) every helper returns "not configured" /
- * unauthenticated and pages render a placeholder. As soon as the keys are
- * filled in, seekers can sign in, enroll, and see their dashboard.
- */
+import { auth } from "@/auth";
+import { journalDb } from "./journal";
+import { COURSES, CATALOG } from "./constants";
 
-import { COURSES } from "@/lib/constants";
+/**
+ * Sadhak identity — Auth.js (Google) for sign-in, Turso for the record.
+ * Profile fields and enrolments live in the `users` table; sessions are
+ * signed JWT cookies. No third-party auth vendor.
+ */
 
 export type SeekerProfile = {
   city?: string;
-  preferredPath?: "ashtanga-yoga" | "bhakti-yoga" | "jnana-yoga" | "advaita-vedanta" | "all" | "";
+  preferredPath?:
+    | "ashtanga-yoga"
+    | "bhakti-yoga"
+    | "jnana-yoga"
+    | "advaita-vedanta"
+    | "all"
+    | "";
   whyISeek?: string;
 };
 
 export type SeekerMetadata = SeekerProfile & {
   enrolledPrograms?: string[];
 };
-
-export function isClerkConfigured() {
-  return (
-    !!process.env.CLERK_SECRET_KEY &&
-    !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-  );
-}
 
 export type SeekerSummary = {
   userId: string;
@@ -36,100 +35,157 @@ export type SeekerSummary = {
   enrolledCourses: typeof COURSES;
 };
 
+/* Auth.js is configured when a secret and Google credentials exist. */
+export function isAuthConfigured() {
+  return !!(
+    process.env.AUTH_SECRET &&
+    process.env.AUTH_GOOGLE_ID &&
+    process.env.AUTH_GOOGLE_SECRET
+  );
+}
+
+type UserRow = {
+  id: string;
+  email: string;
+  name: string | null;
+  image: string | null;
+  enrolled: string[];
+  city: string;
+  preferredPath: string;
+  whyISeek: string;
+};
+
+async function currentUserRow(): Promise<UserRow | null> {
+  const session = await auth().catch(() => null);
+  const id = (session?.user as { id?: string } | undefined)?.id;
+  if (!session?.user || !id) return null;
+
+  const db = journalDb();
+  let row: UserRow = {
+    id,
+    email: session.user.email ?? "",
+    name: session.user.name ?? null,
+    image: session.user.image ?? null,
+    enrolled: [],
+    city: "",
+    preferredPath: "",
+    whyISeek: "",
+  };
+  if (db) {
+    try {
+      const rs = await db.execute({
+        sql: "SELECT email, name, image, enrolled_programs, city, preferred_path, why_i_seek FROM users WHERE id = ?",
+        args: [id],
+      });
+      if (rs.rows.length) {
+        const r = rs.rows[0];
+        let enrolled: string[] = [];
+        try {
+          enrolled = JSON.parse(String(r.enrolled_programs ?? "[]"));
+        } catch {
+          enrolled = [];
+        }
+        row = {
+          id,
+          email: String(r.email ?? row.email),
+          name: r.name ? String(r.name) : row.name,
+          image: r.image ? String(r.image) : row.image,
+          enrolled,
+          city: r.city ? String(r.city) : "",
+          preferredPath: r.preferred_path ? String(r.preferred_path) : "",
+          whyISeek: r.why_i_seek ? String(r.why_i_seek) : "",
+        };
+      }
+    } catch (e) {
+      console.error("[auth] user read failed", e);
+    }
+  }
+  return row;
+}
+
 export async function getSeeker(): Promise<SeekerSummary | null> {
-  if (!isClerkConfigured()) return null;
-  const { currentUser } = await import("@clerk/nextjs/server");
-  const user = await currentUser();
-  if (!user) return null;
-
-  const metadata = (user.publicMetadata ?? {}) as SeekerMetadata;
-  const enrolledSlugs = metadata.enrolledPrograms ?? [];
-  const enrolledCourses = COURSES.filter((c) => enrolledSlugs.includes(c.slug));
-
-  const fullName = [user.firstName, user.lastName].filter(Boolean).join(" ").trim();
-  const email = user.primaryEmailAddress?.emailAddress ?? null;
-
+  const row = await currentUserRow();
+  if (!row) return null;
+  const fullName = row.name || row.email || "Sādhak";
+  const [firstName, ...rest] = fullName.split(" ");
   return {
-    userId: user.id,
-    firstName: user.firstName ?? null,
-    lastName: user.lastName ?? null,
-    fullName: fullName || email || "Sādhak",
-    email,
-    imageUrl: user.imageUrl ?? null,
-    metadata,
-    enrolledCourses,
+    userId: row.id,
+    firstName: firstName || null,
+    lastName: rest.join(" ") || null,
+    fullName,
+    email: row.email || null,
+    imageUrl: row.image,
+    metadata: {
+      enrolledPrograms: row.enrolled,
+      city: row.city,
+      preferredPath: (row.preferredPath || "") as SeekerProfile["preferredPath"],
+      whyISeek: row.whyISeek,
+    },
+    enrolledCourses: COURSES.filter((c) =>
+      row.enrolled.includes(c.slug),
+    ) as unknown as typeof COURSES,
   };
 }
 
 export async function getSeekerUserId(): Promise<string | null> {
-  if (!isClerkConfigured()) return null;
-  const { auth } = await import("@clerk/nextjs/server");
-  const { userId } = await auth();
-  return userId ?? null;
+  const session = await auth().catch(() => null);
+  return (session?.user as { id?: string } | undefined)?.id ?? null;
 }
 
 export async function enrollCurrentSeeker(slug: string): Promise<boolean> {
-  if (!isClerkConfigured()) return false;
-  const { auth, clerkClient } = await import("@clerk/nextjs/server");
-  const { userId } = await auth();
-  if (!userId) return false;
-
-  const client = await clerkClient();
-  const user = await client.users.getUser(userId);
-  const existing =
-    (user.publicMetadata as SeekerMetadata).enrolledPrograms ?? [];
-  if (existing.includes(slug)) return true;
-
-  const next = [...existing, slug];
-  await client.users.updateUser(userId, {
-    publicMetadata: { ...user.publicMetadata, enrolledPrograms: next },
+  if (!CATALOG.some((c) => c.slug === slug)) return false;
+  const row = await currentUserRow();
+  const db = journalDb();
+  if (!row || !db) return false;
+  if (row.enrolled.includes(slug)) return true;
+  const next = [...row.enrolled, slug];
+  await db.execute({
+    sql: "UPDATE users SET enrolled_programs = ? WHERE id = ?",
+    args: [JSON.stringify(next), row.id],
   });
   return true;
 }
 
 export async function updateSeekerProfile(profile: SeekerProfile) {
-  if (!isClerkConfigured()) return false;
-  const { auth, clerkClient } = await import("@clerk/nextjs/server");
-  const { userId } = await auth();
-  if (!userId) return false;
-
-  const client = await clerkClient();
-  const user = await client.users.getUser(userId);
-  const current = (user.publicMetadata ?? {}) as SeekerMetadata;
-  await client.users.updateUser(userId, {
-    publicMetadata: {
-      ...current,
-      city: profile.city ?? current.city ?? "",
-      preferredPath: profile.preferredPath ?? current.preferredPath ?? "",
-      whyISeek: profile.whyISeek ?? current.whyISeek ?? "",
-    },
+  const row = await currentUserRow();
+  const db = journalDb();
+  if (!row || !db) return false;
+  await db.execute({
+    sql: "UPDATE users SET city = ?, preferred_path = ?, why_i_seek = ? WHERE id = ?",
+    args: [
+      profile.city ?? "",
+      profile.preferredPath ?? "",
+      profile.whyISeek ?? "",
+      row.id,
+    ],
   });
   return true;
 }
 
-/* Admins — Team members and Guruji who may post official Updates.
-   Comma-separated emails in ADMIN_EMAILS. */
-export async function isAdmin(): Promise<boolean> {
-  const allowed = (process.env.ADMIN_EMAILS ?? "")
+/* ── Roles ── */
+
+function adminList() {
+  return (process.env.ADMIN_EMAILS ?? "")
     .split(",")
     .map((e) => e.trim().toLowerCase())
     .filter(Boolean);
-  if (allowed.length === 0) return false;
-  const seeker = await getSeeker();
-  if (!seeker?.email) return false;
-  return allowed.includes(seeker.email.toLowerCase());
 }
 
-/* Enrolled seekers — have bought at least one course (their journey has begun). */
+export async function isAdmin(): Promise<boolean> {
+  const session = await auth().catch(() => null);
+  const email = session?.user?.email?.toLowerCase();
+  return !!email && adminList().includes(email);
+}
+
+/* Enrolled sadhaks — have bought at least one course. */
 export async function isEnrolledSeeker(): Promise<boolean> {
-  const seeker = await getSeeker();
-  return !!seeker && seeker.enrolledCourses.length > 0;
+  const row = await currentUserRow();
+  return !!row && row.enrolled.length > 0;
 }
 
-/* Newsletters readers: enrolled seekers and the team. */
 export async function canReadNewsletters(): Promise<boolean> {
-  const seeker = await getSeeker();
-  if (!seeker) return false;
-  if (seeker.enrolledCourses.length > 0) return true;
-  return isAdmin();
+  const row = await currentUserRow();
+  if (!row) return false;
+  if (row.enrolled.length > 0) return true;
+  return adminList().includes(row.email.toLowerCase());
 }

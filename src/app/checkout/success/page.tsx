@@ -2,7 +2,6 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
-import { isClerkConfigured } from "@/lib/auth";
 
 type SearchParams = Promise<{ payment?: string }>;
 
@@ -39,14 +38,12 @@ export default async function CheckoutSuccessPage({
             )}
 
             <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-center">
-              {isClerkConfigured() && (
-                <Link
-                  href="/dashboard"
-                  className="rounded-lg bg-saffron px-7 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
-                >
-                  Open my dashboard
-                </Link>
-              )}
+              <Link
+                href="/dashboard"
+                className="rounded-lg bg-saffron px-7 py-3 text-sm text-paper transition-transform hover:scale-[1.03]"
+              >
+                Open my dashboard
+              </Link>
               <Link
                 href="/programs"
                 className="rounded-lg border border-ink/15 px-7 py-3 text-sm text-ink hover:bg-ink/5 transition-colors"

@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif, Noto_Serif_Devanagari, Yatra_One, Kalam } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import SantAi from "@/components/SantAi";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import CartDrawer from "@/components/CartDrawer";
 import { CartProvider } from "@/lib/cart";
 import { SITE } from "@/lib/constants";
-import { isClerkConfigured } from "@/lib/auth";
+import { AuthProvider } from "./AuthProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -92,7 +91,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const shell = (
+  return (
     <html
       lang="en"
       className={`${inter.variable} ${instrumentSerif.variable} ${notoDeva.variable} ${yatra.variable} ${kalam.variable}`}
@@ -100,44 +99,15 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-paper text-ink antialiased">
-        <CartProvider>
-          {children}
-          <CartDrawer />
-          <SantAi />
-          <WhatsAppButton />
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            {children}
+            <CartDrawer />
+            <SantAi />
+            <WhatsAppButton />
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
-  );
-
-  if (!isClerkConfigured()) return shell;
-
-  return (
-    <ClerkProvider
-      appearance={{
-        variables: {
-          colorPrimary: "#1a1a1a",
-          colorText: "#1a1a1a",
-          colorTextSecondary: "#5a5a5a",
-          colorBackground: "#fafaf7",
-          colorInputBackground: "#fafaf7",
-          colorInputText: "#1a1a1a",
-          fontFamily: "var(--font-inter), system-ui, sans-serif",
-          fontFamilyButtons: "var(--font-inter), system-ui, sans-serif",
-          borderRadius: "0",
-        },
-        elements: {
-          card: "shadow-none border border-ink/10 bg-paper",
-          headerTitle: "display text-3xl text-ink",
-          headerSubtitle: "text-ink-soft",
-          formButtonPrimary:
-            "bg-ink text-paper hover:scale-[1.02] transition-transform ",
-          socialButtonsBlockButton: "border border-ink/15 ",
-          footer: "hidden",
-        },
-      }}
-    >
-      {shell}
-    </ClerkProvider>
   );
 }
