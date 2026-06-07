@@ -106,12 +106,22 @@ export default async function CoursePage(
 
       <section className="px-6 py-4">
         <div className="mx-auto max-w-3xl grid gap-4 sm:grid-cols-3">
-          <Stat label="Pace" value={course.duration.split("·")[0].trim()} />
+          <Stat
+            label="Pace"
+            value={liveVariant ? "Recorded + Live" : course.duration.split("·")[0].trim()}
+          />
           <Stat
             label="Prerequisites"
             value={course.prerequisites === "None." ? "None" : "Light"}
           />
-          <Stat label="Tuition" value={formatINR(course.priceINR)} />
+          <Stat
+            label="Tuition"
+            value={
+              liveVariant
+                ? `${formatINR(course.priceINR)} · ${formatINR(liveVariant.priceINR)}/mo`
+                : formatINR(course.priceINR)
+            }
+          />
         </div>
         {course.formats && (
           <div className="mx-auto mt-4 max-w-3xl">
