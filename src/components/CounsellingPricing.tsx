@@ -8,7 +8,7 @@ export default function CounsellingPricing() {
   const router = useRouter();
   const { has, add } = useCart();
 
-  const handleBuy = (slug: string) => {
+  const handleEnrol = (slug: string) => {
     if (!has(slug)) add(slug);
     router.push("/checkout");
   };
@@ -31,10 +31,10 @@ export default function CounsellingPricing() {
             <div className="mt-6 flex flex-col gap-2">
               <button
                 type="button"
-                onClick={() => handleBuy("consultation-single")}
+                onClick={() => handleEnrol("consultation-single")}
                 className="w-full rounded-lg bg-saffron px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-clay"
               >
-                Buy now
+                Enrol now
               </button>
               <button
                 type="button"
@@ -59,10 +59,10 @@ export default function CounsellingPricing() {
             <div className="mt-6 flex flex-col gap-2">
               <button
                 type="button"
-                onClick={() => handleBuy("consultation-6")}
+                onClick={() => handleEnrol("consultation-6")}
                 className="w-full rounded-lg bg-saffron px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-clay"
               >
-                Buy pack
+                Enrol pack
               </button>
               <button
                 type="button"

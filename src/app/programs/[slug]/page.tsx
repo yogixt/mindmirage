@@ -167,10 +167,10 @@ export default async function CoursePage(
           )}
           <Divider />
           <p className="text-sm text-ink-soft leading-relaxed">
-            <strong className="text-ink">How it works:</strong> Buy the course
-            through the secure checkout. A confirmation email follows — with
-            your live-class joining link, or your first self-paced lesson. The
-            team handles everything from there.
+            <strong className="text-ink">How it works:</strong> Enrol through the
+            secure checkout. A confirmation email follows — with your live-class
+            joining link, or your first self-paced lesson. The team handles
+            everything from there.
           </p>
         </div>
       </section>

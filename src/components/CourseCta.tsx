@@ -52,7 +52,7 @@ export default function CourseCta({ course }: { course: Course }) {
               onClick={() => handleAdd(course.slug)}
               className="mt-5 w-full rounded-lg bg-saffron px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.02] hover:bg-clay"
             >
-              {recordedInCart ? "In basket — go to checkout" : "Buy recorded access"}
+              {recordedInCart ? "In basket — go to checkout" : "Enrol · recorded"}
             </button>
           </div>
 
@@ -138,7 +138,7 @@ export default function CourseCta({ course }: { course: Course }) {
           onClick={() => handleAdd(course.slug)}
           className="flex-1 rounded-lg bg-saffron px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.02] hover:bg-clay"
         >
-          Buy now
+            Enrol now
         </button>
         {inCart ? (
           <Link
