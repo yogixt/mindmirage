@@ -35,7 +35,7 @@ export default function CourseCard({
         {/* Top accent bar */}
         <div className="h-1 w-full bg-gradient-to-r from-saffron via-gold to-saffron opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
 
-        <div className="flex flex-1 flex-col p-6 sm:p-7">
+        <div className="flex flex-1 flex-col p-5 sm:p-6">
           {/* Header row */}
           <div className="flex items-start justify-between gap-3">
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">

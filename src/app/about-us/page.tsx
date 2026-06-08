@@ -53,11 +53,11 @@ export default function AboutPage() {
         }
       />
 
-      <section className="px-6 py-4 sm:py-4">
-        <div className="mx-auto max-w-3xl space-y-8">
+      <section className="px-6 py-3 sm:py-3">
+        <div className="mx-auto max-w-3xl space-y-6">
           <div>
             <p className="eyebrow">Mission</p>
-            <p className="mt-4 text-base text-ink leading-relaxed sm:text-lg">
+            <p className="mt-3 text-sm text-ink leading-relaxed sm:text-base">
               To offer the timeless teaching of Advaita — the non-dual recognition at
               the root of the Indian philosophical tradition — in a way that meets the
               contemporary sādhak without diluting the depth, the language, or the
@@ -69,7 +69,7 @@ export default function AboutPage() {
 
           <div>
             <p className="eyebrow">Tradition</p>
-            <div className="mt-4">
+            <div className="mt-3">
               <SanskritVerse
                 deva={SANSKRIT.shankara.deva}
                 en={SANSKRIT.shankara.en}
@@ -77,7 +77,7 @@ export default function AboutPage() {
                 align="left"
               />
             </div>
-            <p className="mt-4 text-base text-ink leading-relaxed">
+            <p className="mt-3 text-sm text-ink leading-relaxed">
               {SITE.tradition}.
             </p>
           </div>
@@ -86,25 +86,25 @@ export default function AboutPage() {
 
           <div>
             <p className="eyebrow">Location</p>
-            <p className="mt-4 text-base text-ink leading-relaxed">{SITE.location}</p>
-            <p className="mt-3 text-sm text-ink-soft">
+            <p className="mt-3 text-sm text-ink leading-relaxed">{SITE.location}</p>
+            <p className="mt-2 text-xs text-ink-soft">
               Founded by {SITE.founder}.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="bg-paper-warm px-6 py-4 sm:py-4">
+      <section className="bg-paper-warm px-6 py-3 sm:py-3">
         <div className="mx-auto max-w-4xl text-center">
           <p className="eyebrow">Paramparā · the unbroken line</p>
           <h2
-            className="display mt-4 text-3xl text-ink sm:text-5xl"
+            className="display mt-2 text-2xl text-ink sm:text-4xl"
             style={{ lineHeight: "1.05", letterSpacing: "-0.02em" }}
           >
             How the teaching reaches <span className="italic text-ink-soft">you.</span>
           </h2>
         </div>
-        <div className="mt-4 mx-auto max-w-3xl rounded-2xl border border-ink/10 bg-paper py-4 px-6">
+        <div className="mt-3 mx-auto max-w-3xl rounded-2xl border border-ink/10 bg-paper py-3 px-4">
           <LineageTree />
         </div>
       </section>

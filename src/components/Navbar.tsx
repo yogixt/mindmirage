@@ -32,10 +32,10 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
           : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 sm:px-8 sm:py-6">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5 sm:px-8 sm:py-4">
         <Link
           href="/"
-          className="display text-2xl tracking-tight text-ink sm:text-3xl"
+          className="display text-xl tracking-tight text-ink sm:text-2xl"
           onClick={() => setOpen(false)}
         >
           {SITE.name}
