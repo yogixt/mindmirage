@@ -234,7 +234,7 @@ export default function HomePage() {
               priority
             />
             {/* Left-side gradient for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-paper/95 via-paper/80 via-40% to-transparent to-70% sm:from-paper/90 sm:via-paper/60 sm:via-45% sm:to-transparent sm:to-65%" />
+            <div className="absolute inset-0 bg-gradient-to-r from-paper via-paper/90 via-45% to-transparent to-75% sm:from-paper/95 sm:via-paper/80 sm:via-50% sm:to-transparent sm:to-70%" />
           </div>
 
           <div className="relative z-10 mx-auto max-w-6xl px-6 py-16 sm:py-24 lg:py-32">
