@@ -222,35 +222,39 @@ export default function HomePage() {
         </section>
 
         {/* ──────────  6. ACHARYA JI  ────────── */}
-        <section className="relative w-full overflow-hidden bg-paper">
-          <div className="relative h-[460px] w-full sm:h-[520px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[55%]">
+        <section className="relative w-full overflow-hidden">
+          {/* Full-bleed background image — Adiveda-style prominence */}
+          <div className="absolute inset-0">
             <Image
               src="/acharya-ji.jpg"
               alt="Acharya Bhagyashree Joshi Ji — Vedanta teacher at Advaita Sadhana Kutir, Rishikesh"
               fill
-              sizes="(min-width: 1024px) 55vw, 100vw"
-              className="object-cover object-top sm:object-[30%_20%] lg:object-[30%_center]"
+              sizes="100vw"
+              className="object-cover object-[30%_25%] sm:object-[30%_20%]"
               priority
             />
-            <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-paper via-paper/20 via-30% to-transparent to-45%" />
+            {/* Left-side gradient for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-paper/95 via-paper/80 via-40% to-transparent to-70% sm:from-paper/90 sm:via-paper/60 sm:via-45% sm:to-transparent sm:to-65%" />
           </div>
 
-          <div className="relative z-10 mx-auto max-w-6xl px-6">
-            <div className="max-w-xl py-5 sm:py-6 lg:max-w-md lg:py-14 xl:max-w-lg">
-              <p className="deva text-xl text-ink sm:text-2xl">
+          <div className="relative z-10 mx-auto max-w-6xl px-6 py-16 sm:py-24 lg:py-32">
+            <div className="max-w-lg sm:max-w-xl">
+              <p className="deva text-lg text-ink/80 sm:text-xl">
                 आचार्य भाग्यश्री जोशी जी
               </p>
               <h2
-                className="display mt-2 text-4xl text-ink sm:text-5xl lg:text-4xl xl:text-5xl"
-                style={{ lineHeight: "1.0", letterSpacing: "-0.02em" }}
+                className="display mt-2 text-5xl text-ink sm:text-6xl lg:text-7xl"
+                style={{ lineHeight: "0.95", letterSpacing: "-0.02em" }}
               >
                 Acharya
                 <br />
-                <span className="italic">Bhagyashree Joshi Ji</span>
+                <span className="italic">Bhagyashree</span>
+                <br />
+                Joshi Ji
               </h2>
               <svg
                 viewBox="0 0 300 12"
-                className="mt-3 h-2.5 w-48 text-ink/80 sm:w-64"
+                className="mt-4 h-3 w-56 text-ink/70 sm:w-72"
                 aria-hidden
               >
                 <path
@@ -261,21 +265,21 @@ export default function HomePage() {
                   strokeLinecap="round"
                 />
               </svg>
-              <p className="mt-4 text-sm text-ink-soft leading-relaxed sm:text-base">
+              <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft sm:text-lg">
                 A teacher in the Advaita lineage of Adi Shankarācārya —
                 weaving Yoga, Vedānta, and Sanskrit into the contemporary
                 sādhak&apos;s life, in the warmth of the Guru-Śiṣya Paramparā.
               </p>
-              <div className="mt-5 flex flex-wrap items-center gap-3">
+              <div className="mt-7 flex flex-wrap items-center gap-3">
                 <Link
                   href="/our-team"
-                  className="rounded-full bg-saffron px-6 py-2.5 text-sm text-paper transition-transform hover:scale-[1.03]"
+                  className="rounded-full bg-saffron px-7 py-3 text-sm font-medium text-paper transition-transform hover:scale-[1.03]"
                 >
                   Know more
                 </Link>
                 <Link
                   href="/sit-with-guruji"
-                  className="rounded-full border border-ink/20 px-6 py-2.5 text-sm text-ink transition-colors hover:border-ink"
+                  className="rounded-full border border-ink/25 bg-paper/60 px-7 py-3 text-sm font-medium text-ink backdrop-blur-sm transition-colors hover:border-ink/40 hover:bg-paper/80"
                 >
                   Sit with her
                 </Link>
