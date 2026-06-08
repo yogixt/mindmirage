@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getSeeker } from "@/lib/auth";
-import { journalDb } from "@/lib/journal";
+import { mindMirageDb } from "@/lib/db";
 
 /* Client-reported payment outcomes (failed / cancelled). Successes are
    written server-side at verification. Sign-in required — checkout is
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   if (!seeker) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) return NextResponse.json({ ok: true });
 
   let body: unknown;

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSeeker } from "@/lib/auth";
-import { journalDb } from "@/lib/journal";
+import { mindMirageDb } from "@/lib/db";
 import { CATALOG, GUIDANCE_SUBJECTS } from "@/lib/constants";
 
 /* The sādhak's notification log — derived live from their data:
@@ -11,7 +11,7 @@ export async function GET() {
   if (!seeker) {
     return NextResponse.json({ ok: false, error: "sign_in_required" }, { status: 401 });
   }
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) return NextResponse.json({ ok: true, items: [] });
 
   const items: { kind: string; text: string; at: string }[] = [];

@@ -4,28 +4,30 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useCart } from "@/lib/cart";
 import { formatINR } from "@/lib/constants";
-import { CloseIcon } from "./Icon";
-import { 
-  Heart, 
-  Trash2, 
-  Plus, 
-  Minus, 
-  BookOpen, 
-  Video 
+import {
+  Heart,
+  Trash2,
+  Plus,
+  Minus,
+  BookOpen,
+  Video,
+  X,
+  ArrowRight,
+  ShoppingBag,
 } from "lucide-react";
 
 export default function CartDrawer() {
-  const { 
-    open, 
-    setOpen, 
-    courses, 
-    items, 
-    total, 
-    remove, 
-    count, 
-    setQuantity, 
-    toggleFavorite, 
-    isFavorite 
+  const {
+    open,
+    setOpen,
+    courses,
+    items,
+    total,
+    remove,
+    count,
+    setQuantity,
+    toggleFavorite,
+    isFavorite,
   } = useCart();
 
   useEffect(() => {
@@ -43,64 +45,71 @@ export default function CartDrawer() {
 
   return (
     <>
+      {/* Backdrop */}
       <div
         aria-hidden={!open}
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-50 bg-ink/30 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`fixed inset-0 z-50 bg-ink/20 backdrop-blur-md transition-opacity duration-500 ${
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       />
+
+      {/* Drawer */}
       <aside
         aria-hidden={!open}
-        className={`fixed right-0 top-0 z-50 h-full w-full sm:w-[440px] bg-paper shadow-2xl flex flex-col transition-transform duration-300 ${
+        className={`fixed right-0 top-0 z-50 h-full w-full sm:w-[460px] bg-paper shadow-[0_0_80px_-20px_rgba(0,0,0,0.25)] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <header className="flex items-center justify-between px-6 py-5 border-b border-ink/10">
+        {/* Header */}
+        <header className="flex items-center justify-between border-b border-ink/[0.06] px-7 py-6">
           <div>
-            <p className="deva text-sm text-ink-soft">पात्र</p>
-            <h2 className="display text-2xl text-ink">
-              Your basket
-              {count > 0 && (
-                <span className="ml-3 text-base text-ink-faint">
-                  · {count} program{count > 1 ? "s" : ""}
-                </span>
-              )}
-            </h2>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink-faint">
+              पात्र · Your basket
+            </p>
+            {count > 0 && (
+              <p className="mt-1 text-sm text-ink-soft">
+                {count} program{count > 1 ? "s" : ""} selected
+              </p>
+            )}
           </div>
           <button
             type="button"
             aria-label="Close basket"
             onClick={() => setOpen(false)}
-            className="p-2 hover:bg-ink/5 rounded-lg transition-colors text-ink-soft hover:text-ink"
+            className="rounded-xl p-2.5 text-ink-soft transition-all hover:bg-paper-deep hover:text-ink"
           >
-            <CloseIcon />
+            <X strokeWidth={1.5} className="w-5 h-5" />
           </button>
         </header>
 
-        <div className="flex-1 overflow-y-auto px-6 py-5">
+        {/* Body */}
+        <div className="flex-1 overflow-y-auto px-7 py-6">
           {courses.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center">
-              <p className="deva text-2xl text-ink-soft">शून्य</p>
-              <p className="mt-3 display text-xl text-ink">Nothing yet.</p>
-              <p className="mt-2 text-sm text-ink-soft max-w-xs">
-                Add a program to begin. You can browse and add as many as you
-                like; pay once at the door.
+            <div className="flex h-full flex-col items-center justify-center text-center">
+              <div className="grid h-16 w-16 place-items-center rounded-2xl bg-paper-warm">
+                <ShoppingBag strokeWidth={1.2} className="h-7 w-7 text-ink-faint" />
+              </div>
+              <p className="deva mt-6 text-2xl text-ink-soft">शून्य</p>
+              <p className="display mt-2 text-xl text-ink">Your basket is empty</p>
+              <p className="mt-2 max-w-[260px] text-sm leading-relaxed text-ink-soft">
+                Browse our offerings and add courses that call to you. Pay once when
+                you&apos;re ready.
               </p>
               <Link
                 href="/programs"
                 onClick={() => setOpen(false)}
-                className="mt-6 inline-flex rounded-lg bg-saffron px-6 py-2.5 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
+                className="mt-7 inline-flex items-center gap-2 rounded-full bg-saffron px-7 py-3 text-sm font-semibold text-paper transition-transform hover:scale-[1.03]"
               >
-                Browse programs
+                Browse offerings
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
           ) : (
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               {courses.map((c) => {
                 const item = items.find((i) => i.slug === c.slug);
                 const quantity = item ? item.quantity : 1;
-                const originalPrice = Math.round(c.priceINR * 1.25);
                 const isFav = isFavorite(c.slug);
                 const isBook = c.slug.startsWith("booklist");
                 const isSession = c.slug.startsWith("1on1");
@@ -108,85 +117,86 @@ export default function CartDrawer() {
                 return (
                   <li
                     key={c.slug}
-                    className="flex gap-3 p-3.5 rounded-xl border border-ink/8 bg-paper-warm/40 items-stretch"
+                    className="group relative flex gap-4 rounded-2xl border border-ink/[0.05] bg-paper-warm/30 p-4 transition-all duration-300 hover:border-saffron/10 hover:bg-paper-warm/60"
                   >
-                    {/* Left: Thumbnail image */}
-                    <div className="flex items-center shrink-0">
-                      <div className="relative w-16 h-16 rounded-lg border border-ink/5 bg-gradient-to-br from-saffron/10 via-gold/5 to-saffron/5 flex items-center justify-center overflow-hidden">
+                    {/* Thumbnail */}
+                    <div className="flex shrink-0 items-start">
+                      <div className="grid h-[72px] w-[72px] place-items-center overflow-hidden rounded-xl border border-ink/[0.04] bg-gradient-to-br from-saffron/[0.08] via-gold/[0.04] to-saffron/[0.08]">
                         {isBook ? (
-                          <BookOpen className="w-6 h-6 text-saffron/80" />
+                          <BookOpen strokeWidth={1.5} className="h-5 w-5 text-saffron/70" />
                         ) : isSession ? (
-                          <Video className="w-6 h-6 text-saffron/80" />
+                          <Video strokeWidth={1.5} className="h-5 w-5 text-saffron/70" />
                         ) : (
-                          <span className="font-deva text-xl font-bold bg-gradient-to-br from-saffron to-gold bg-clip-text text-transparent select-none">
+                          <span className="deva text-2xl font-bold text-saffron/70">
                             {c.deva ? c.deva.charAt(0) : "ॐ"}
                           </span>
                         )}
                       </div>
                     </div>
 
-                    {/* Center: Details */}
-                    <div className="flex-1 flex flex-col justify-between min-w-0">
+                    {/* Details */}
+                    <div className="flex min-w-0 flex-1 flex-col justify-between">
                       <div>
-                        <p className="eyebrow text-[8px] text-ink-faint tracking-widest uppercase truncate">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-ink-faint">
                           {c.tradition}
                         </p>
-                        <h3 className="display text-base font-bold text-ink mt-0.5 truncate">
+                        <h3 className="display mt-1 text-base font-semibold text-ink">
                           {c.title}
                         </h3>
-                        {/* Price */}
-                        <div className="mt-1 flex items-baseline gap-1.5">
-                          <span className="text-sm font-semibold text-ink">
-                            {formatINR(c.priceINR)}
-                          </span>
-                          <span className="text-[10px] text-ink-faint line-through">
-                            {formatINR(originalPrice)}
-                          </span>
-                        </div>
+                        <p className="mt-0.5 text-xs text-ink-faint">{c.duration}</p>
                       </div>
 
-                      {/* Action links */}
-                      <div className="flex items-center gap-3 mt-2 text-[11px] text-ink-soft">
-                        <button
-                          type="button"
-                          onClick={() => toggleFavorite(c.slug)}
-                          className={`inline-flex items-center gap-1 hover:text-saffron transition-colors ${
-                            isFav ? "text-saffron" : ""
-                          }`}
-                        >
-                          <Heart className={`w-3.5 h-3.5 ${isFav ? "fill-saffron text-saffron" : ""}`} />
-                          {isFav ? "Saved" : "Save"}
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => remove(c.slug)}
-                          className="inline-flex items-center gap-1 hover:text-red-600 transition-colors"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                          Remove
-                        </button>
+                      <div className="mt-3 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <button
+                            type="button"
+                            onClick={() => toggleFavorite(c.slug)}
+                            className={`inline-flex items-center gap-1 text-[11px] transition-colors ${
+                              isFav ? "text-saffron" : "text-ink-faint hover:text-saffron"
+                            }`}
+                          >
+                            <Heart
+                              strokeWidth={1.5}
+                              className={`h-3.5 w-3.5 ${isFav ? "fill-saffron" : ""}`}
+                            />
+                            {isFav ? "Saved" : "Save"}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => remove(c.slug)}
+                            className="inline-flex items-center gap-1 text-[11px] text-ink-faint transition-colors hover:text-red-500"
+                          >
+                            <Trash2 strokeWidth={1.5} className="h-3.5 w-3.5" />
+                            Remove
+                          </button>
+                        </div>
+
+                        {/* Price */}
+                        <span className="display text-base text-ink">
+                          {formatINR(c.priceINR)}
+                        </span>
                       </div>
                     </div>
 
-                    {/* Right: Quantity Selector */}
-                    <div className="flex flex-col items-center justify-center gap-1.5 bg-paper border border-ink/5 rounded-lg py-1 px-0.5 w-8 shrink-0">
+                    {/* Quantity */}
+                    <div className="flex flex-col items-center justify-center gap-1 rounded-xl border border-ink/[0.05] bg-paper px-1 py-1.5">
                       <button
                         type="button"
                         onClick={() => setQuantity(c.slug, quantity - 1)}
                         disabled={quantity <= 1}
-                        className="p-0.5 text-ink-soft hover:text-saffron rounded transition-all disabled:opacity-20 disabled:hover:bg-transparent"
+                        className="rounded-lg p-1 text-ink-soft transition-colors hover:bg-paper-deep hover:text-ink disabled:opacity-25"
                       >
-                        <Minus className="w-3 h-3" />
+                        <Minus className="h-3 w-3" />
                       </button>
-                      <span className="text-xs font-bold text-ink select-none text-center">
+                      <span className="min-w-[1.25rem] text-center text-xs font-bold text-ink">
                         {quantity}
                       </span>
                       <button
                         type="button"
                         onClick={() => setQuantity(c.slug, quantity + 1)}
-                        className="p-0.5 text-ink-soft hover:text-saffron rounded transition-all"
+                        className="rounded-lg p-1 text-ink-soft transition-colors hover:bg-paper-deep hover:text-ink"
                       >
-                        <Plus className="w-3 h-3" />
+                        <Plus className="h-3 w-3" />
                       </button>
                     </div>
                   </li>
@@ -196,32 +206,40 @@ export default function CartDrawer() {
           )}
         </div>
 
+        {/* Footer */}
         {courses.length > 0 && (
-          <footer className="px-6 py-5 border-t border-ink/10 bg-paper-warm/40">
-            <div className="flex items-baseline justify-between mb-4">
-              <span className="text-sm text-ink-soft">Total</span>
-              <span className="display text-2xl text-ink">
-                {formatINR(total)}
-              </span>
+          <footer className="border-t border-ink/[0.06] bg-paper-warm/20 px-7 py-6">
+            {/* Subtotal row */}
+            <div className="flex items-baseline justify-between">
+              <span className="text-sm text-ink-soft">Subtotal</span>
+              <span className="display text-2xl text-ink">{formatINR(total)}</span>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+
+            <p className="mt-1 text-right text-[11px] text-ink-faint">
+              Taxes included · Shipping not applicable
+            </p>
+
+            {/* CTA buttons */}
+            <div className="mt-5 grid grid-cols-[1fr_1.4fr] gap-3">
               <Link
                 href="/cart"
                 onClick={() => setOpen(false)}
-                className="block text-center rounded-lg border border-ink/15 px-4 py-3 text-sm font-semibold text-ink transition-colors hover:bg-paper"
+                className="flex items-center justify-center rounded-xl border border-ink/10 px-4 py-3 text-sm font-semibold text-ink transition-all hover:border-ink/20 hover:bg-paper"
               >
                 View basket
               </Link>
               <Link
                 href="/checkout"
                 onClick={() => setOpen(false)}
-                className="block text-center rounded-lg bg-saffron px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.01] hover:bg-clay"
+                className="flex items-center justify-center gap-2 rounded-xl bg-saffron px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-clay hover:shadow-lg hover:shadow-saffron/20"
               >
-                Checkout
+                Proceed to checkout
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
-            <p className="mt-3 text-center text-xs text-ink-faint">
-              Secure payment via Razorpay · UPI, cards, net banking
+
+            <p className="mt-4 text-center text-[11px] tracking-wide text-ink-faint">
+              Secure payment via Razorpay · UPI · Cards · Net banking
             </p>
           </footer>
         )}

@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/mentorship",
     "/books",
     "/faq",
-    "/newsletters",
+    "/vageshwari",
     "/blog",
     "/research",
     "/events",

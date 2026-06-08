@@ -1,5 +1,5 @@
 import { COUPONS } from "./constants";
-import { journalDb } from "./journal";
+import { mindMirageDb } from "./db";
 
 /* Coupon codes — managed from the admin portal (Turso). The hardcoded
    COUPONS in constants.ts are only a fallback when the DB is unreachable. */
@@ -7,7 +7,7 @@ import { journalDb } from "./journal";
 export async function getCouponPercent(code: string): Promise<number | null> {
   const c = code.trim().toUpperCase();
   if (!c) return null;
-  const db = journalDb();
+  const db = mindMirageDb();
   if (db) {
     try {
       const rs = await db.execute({

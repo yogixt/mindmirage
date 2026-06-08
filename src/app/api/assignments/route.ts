@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getSeeker } from "@/lib/auth";
-import { journalDb } from "@/lib/journal";
+import { mindMirageDb } from "@/lib/db";
 import { COURSES } from "@/lib/constants";
 
 /* Self-paced assignment flow.
@@ -14,7 +14,7 @@ export async function GET() {
   if (!seeker) {
     return NextResponse.json({ ok: false, error: "sign_in_required" }, { status: 401 });
   }
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) return NextResponse.json({ ok: true, courses: [] });
 
   // Assignments apply to the eight main (self-paced) courses only.
@@ -100,7 +100,7 @@ export async function POST(req: Request) {
   if (!seeker) {
     return NextResponse.json({ ok: false, error: "sign_in_required" }, { status: 401 });
   }
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) {
     return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
   }

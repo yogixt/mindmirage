@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getSeeker } from "@/lib/auth";
-import { journalDb } from "@/lib/journal";
+import { mindMirageDb } from "@/lib/db";
 
 /* Sādhak profile extras — bio, sankalpa (intention), avatar, cover.
    Images arrive as compressed JPEG data URLs from the client. */
@@ -11,7 +11,7 @@ export async function GET() {
   if (!seeker) {
     return NextResponse.json({ ok: false, error: "sign_in_required" }, { status: 401 });
   }
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) return NextResponse.json({ ok: true, profile: {} });
   const rs = await db.execute({
     sql: "SELECT bio, intention, avatar, cover FROM sadhak_profiles WHERE user_id = ?",
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
   if (!seeker) {
     return NextResponse.json({ ok: false, error: "sign_in_required" }, { status: 401 });
   }
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) {
     return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
   }

@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { journalDb } from "@/lib/journal";
+import { mindMirageDb } from "@/lib/db";
 
 /* Auth.js — Google sign-in, JWT sessions, user records in Turso.
    No auth vendor: sessions are signed cookies (AUTH_SECRET). */
@@ -14,7 +14,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async signIn({ user, account }) {
       // Upsert the sadhak record on every sign-in.
       try {
-        const db = journalDb();
+        const db = mindMirageDb();
         if (db && account?.providerAccountId) {
           const id = `g_${account.providerAccountId}`;
           await db.execute({

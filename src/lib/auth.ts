@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { journalDb, runMigrations } from "./journal";
+import { mindMirageDb, runMigrations } from "./db";
 import { COURSES, CATALOG } from "./constants";
 
 /**
@@ -62,7 +62,7 @@ async function currentUserRow(): Promise<UserRow | null> {
   const id = (session?.user as { id?: string } | undefined)?.id;
   if (!session?.user || !id) return null;
 
-  const db = journalDb();
+  const db = mindMirageDb();
   let row: UserRow = {
     id,
     email: session.user.email ?? "",
@@ -140,7 +140,7 @@ export async function getSeekerUserId(): Promise<string | null> {
 export async function enrollCurrentSeeker(slug: string): Promise<boolean> {
   if (!CATALOG.some((c) => c.slug === slug)) return false;
   const row = await currentUserRow();
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!row || !db) return false;
   if (row.enrolled.includes(slug)) return true;
   const next = [...row.enrolled, slug];
@@ -154,7 +154,7 @@ export async function enrollCurrentSeeker(slug: string): Promise<boolean> {
 export async function updateSeekerProfile(profile: SeekerProfile) {
   await runMigrations();
   const row = await currentUserRow();
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!row || !db) return false;
   await db.execute({
     sql: "UPDATE users SET city = ?, preferred_path = ?, why_i_seek = ?, phone = ? WHERE id = ?",
@@ -190,7 +190,7 @@ export async function isEnrolledSeeker(): Promise<boolean> {
   return !!row && row.enrolled.length > 0;
 }
 
-export async function canReadNewsletters(): Promise<boolean> {
+export async function canReadVageshwari(): Promise<boolean> {
   const row = await currentUserRow();
   if (!row) return false;
   if (row.enrolled.length > 0) return true;

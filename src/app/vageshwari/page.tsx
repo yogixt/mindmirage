@@ -3,19 +3,19 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
-import { canReadNewsletters, getSeekerUserId } from "@/lib/auth";
-import { listPosts } from "@/lib/journal";
+import { canReadVageshwari, getSeekerUserId } from "@/lib/auth";
+import { listPosts } from "@/lib/db";
 import PostCard from "./FeedClient";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Newsletters — Blogs & News from Guruji and the Team",
+  title: "Vageshwari — Blogs & News from Guruji and the Team",
   description:
     "Blogs, news, photos, and updates written by Acharya Bhagyashree Joshi Ji and the Mind Mirage team — sign in to read, like, and join the conversation.",
 };
 
-export default async function NewslettersPage() {
+export default async function VageshwariPage() {
   const viewerId = await getSeekerUserId();
 
   // Reading requires sign-in — show the gate.
@@ -24,7 +24,7 @@ export default async function NewslettersPage() {
       <main className="bg-paper">
         <Navbar variant="solid" />
         <PageHero
-          eyebrow="Newsletters · पत्रिका"
+          eyebrow="Vageshwari · पत्रिका"
           deva="कुटीर पत्रिका"
           title={
             <>
@@ -42,7 +42,7 @@ export default async function NewslettersPage() {
           <div className="mx-auto max-w-md rounded-2xl border border-ink/10 bg-paper-warm p-8 text-center">
             <p className="display text-2xl text-ink">For sādhaks&apos; eyes.</p>
             <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-              The newsletters are read inside the satsang — sign in (free) to
+              Vageshwari is read inside the satsang — sign in (free) to
               read, like, and comment.
             </p>
             <Link
@@ -65,12 +65,12 @@ export default async function NewslettersPage() {
   }
 
   // Signed in but not yet enrolled — the letters open once the journey begins.
-  if (!(await canReadNewsletters())) {
+  if (!(await canReadVageshwari())) {
     return (
       <main className="bg-paper">
         <Navbar variant="solid" />
         <PageHero
-          eyebrow="Newsletters · पत्रिका"
+          eyebrow="Vageshwari · पत्रिका"
           deva="कुटीर पत्रिका"
           title={
             <>
@@ -90,7 +90,7 @@ export default async function NewslettersPage() {
               Begin your journey first.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-              The newsletters open to sādhaks who have enrolled in a course —
+              Vageshwari opens to sādhaks who have enrolled in a course —
               once your journey with us begins, the letters are yours.
             </p>
             <Link
@@ -112,7 +112,7 @@ export default async function NewslettersPage() {
     <main className="bg-paper">
       <Navbar variant="solid" />
       <PageHero
-        eyebrow="Newsletters · पत्रिका"
+        eyebrow="Vageshwari · पत्रिका"
         deva="कुटीर पत्रिका"
         title={
           <>

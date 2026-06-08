@@ -8,8 +8,27 @@ import Divider from "@/components/Divider";
 import { SANSKRIT, SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: `${SITE.name} — a contemplative learning space rooted in the Advaita tradition of Adi Shankarācārya. Based at Advaita Sādhanā Kuṭīr, Rishikesh.`,
+  title: "About Mind Mirage — Advaita Sadhana Kutir, Rishikesh",
+  description:
+    "Mind Mirage is a contemplative learning space at Advaita Sadhana Kutir, Rishikesh — teaching Advaita Vedanta, Yoga Sutras, Bhagavad Gita & Sanskrit in the living Guru-Shishya tradition of Adi Shankaracharya.",
+  keywords: [
+    "Advaita Sadhana Kutir",
+    "Rishikesh ashram",
+    "Adi Shankaracharya lineage",
+    "Acharya Bhagyashree Joshi",
+    "Vedanta teacher Rishikesh",
+    "Yoga philosophy India",
+    "Guru Shishya Parampara",
+  ],
+  alternates: { canonical: "https://mindmirageindia.com/about-us" },
+  openGraph: {
+    title: "About Mind Mirage — Advaita Sadhana Kutir, Rishikesh",
+    description: "A contemplative learning space rooted in the Advaita tradition of Adi Shankaracharya.",
+    url: "https://mindmirageindia.com/about-us",
+    siteName: "Mind Mirage",
+    type: "website",
+    images: [{ url: "https://mindmirageindia.com/og-about.jpg", width: 1200, height: 630 }],
+  },
 };
 
 export default function AboutPage() {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSeeker } from "@/lib/auth";
-import { journalDb } from "@/lib/journal";
+import { mindMirageDb } from "@/lib/db";
 import { GUIDANCE_SUBJECTS } from "@/lib/constants";
 
 /* The sādhak's own slot requests with their approval status. */
@@ -10,7 +10,7 @@ export async function GET() {
   if (!seeker) {
     return NextResponse.json({ ok: false, error: "sign_in_required" }, { status: 401 });
   }
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) return NextResponse.json({ ok: true, bookings: [] });
   const rs = await db.execute({
     sql: `SELECT subject, slot, preferred_dates, status, approved_date, created_at

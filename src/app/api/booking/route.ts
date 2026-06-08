@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { buildResponse, notify } from "@/lib/notify";
-import { journalDb } from "@/lib/journal";
+import { mindMirageDb } from "@/lib/db";
 import { getSeeker } from "@/lib/auth";
 import { GUIDANCE_SUBJECTS } from "@/lib/constants";
 
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
   }
   // Keep a copy for the admin portal — even if outward notification fails.
   try {
-    const db = journalDb();
+    const db = mindMirageDb();
     if (db) {
       await db.execute({
         sql: `INSERT INTO bookings (name, email, whatsapp, subject, slot, preferred_dates, message, user_id)

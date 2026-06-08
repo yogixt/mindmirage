@@ -59,9 +59,9 @@ export const SANSKRIT = {
 export const NAV_PRIMARY = [
   { href: "/about-us", label: "About" },
   { href: "/collaboration", label: "Collaboration" },
-  { href: "/newsletters", label: "Newsletters" },
   { href: "/programs", label: "Offerings" },
   { href: "/contact", label: "Reach Us" },
+  { href: "/vageshwari", label: "Vageshwari" },
 ] as const;
 
 export const NAV_FOOTER_SIT = [
@@ -84,7 +84,7 @@ export const NAV_FOOTER_RESEARCH = [
 ] as const;
 
 export const NAV_FOOTER_ENGAGE = [
-  { href: "/newsletters", label: "Newsletters" },
+  { href: "/vageshwari", label: "Vageshwari" },
   { href: "/internship", label: "Internship" },
   { href: "/volunteer", label: "Karma Yoga" },
   { href: "/faq", label: "FAQ" },
@@ -330,7 +330,21 @@ export const GUIDANCE_SUBJECTS: GuidanceSubject[] = [
 /* 1:1 subjects as purchasable items — each is a complete course of eight
    classes on Zoom, bought through the same cart/checkout as courses. */
 export const SESSION_COURSES: Course[] = GUIDANCE_SUBJECTS.filter(
-  (s) => s.priceINR && s.priceINR > 0,
+  (s) => s.priceINR && s.priceINR > 0 && !s.slug.startsWith("counselling-"),
+).map((s) => ({
+  slug: `1on1-${s.slug}`,
+  title: s.name,
+  deva: s.deva ?? "",
+  tradition: "Live on Zoom",
+  excerpt: `Eight live classes on Zoom — ${s.name}.`,
+  syllabus: [],
+  duration: "Eight live classes",
+  prerequisites: "None.",
+  priceINR: s.priceINR as number,
+}));
+
+export const COUNSELLING_SESSION_COURSES: Course[] = GUIDANCE_SUBJECTS.filter(
+  (s) => s.priceINR && s.priceINR > 0 && s.slug.startsWith("counselling-"),
 ).map((s) => ({
   slug: `1on1-${s.slug}`,
   title: s.name,
@@ -402,11 +416,11 @@ export const CONSULTATION_PRODUCTS: Course[] = [
     syllabus: [],
     duration: "Per session",
     prerequisites: "Open mind.",
-    priceINR: 7000,
+    priceINR: 11000,
   },
 ];
 
-export const CATALOG: Course[] = [...COURSES, ...MONTHLY_LIVE, ...SESSION_COURSES, ...BOOK_SETS, ...CONSULTATION_PRODUCTS];
+export const CATALOG: Course[] = [...COURSES, ...MONTHLY_LIVE, ...SESSION_COURSES, ...COUNSELLING_SESSION_COURSES, ...BOOK_SETS, ...CONSULTATION_PRODUCTS];
 
 /* Consultation pricing — single session & bulk pack. */
 export const CONSULTATION_SINGLE = { priceINR: 2000, duration: "45 min" };

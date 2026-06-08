@@ -3,7 +3,7 @@ import { createHmac, timingSafeEqual } from "crypto";
 import Razorpay from "razorpay";
 import { z } from "zod";
 import { getSeeker } from "@/lib/auth";
-import { journalDb } from "@/lib/journal";
+import { mindMirageDb } from "@/lib/db";
 import { notify } from "@/lib/notify";
 
 const BodySchema = z.object({
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
 
   const seeker = await getSeeker();
   try {
-    const db = journalDb();
+    const db = mindMirageDb();
     if (db) {
       await db.execute({
         sql: `INSERT OR IGNORE INTO orders (payment_id, order_id, user_id, user_name, email, items, amount_inr)

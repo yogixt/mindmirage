@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCart } from "@/lib/cart";
-import { CheckIcon, ArrowRightIcon } from "./Icon";
+import { Check, ArrowRight, ShoppingBag } from "lucide-react";
 
 export default function AddToCartButton({
   slug,
@@ -10,7 +10,7 @@ export default function AddToCartButton({
   className = "",
 }: {
   slug: string;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "ghost";
   className?: string;
 }) {
   const { has, add } = useCart();
@@ -20,25 +20,29 @@ export default function AddToCartButton({
     return (
       <Link
         href="/cart"
-        className={`inline-flex items-center justify-center gap-2 rounded-lg border border-green-600 bg-green-50 px-5 py-2.5 text-sm font-medium text-green-700 transition-transform hover:scale-[1.02] ${className}`}
+        className={`inline-flex items-center justify-center gap-2 rounded-xl border border-saffron/30 bg-saffron/5 px-6 py-3 text-sm font-semibold text-saffron transition-all hover:bg-saffron/10 ${className}`}
       >
-        <CheckIcon width={16} height={16} />
+        <Check strokeWidth={2} className="h-4 w-4" />
         In basket
-        <ArrowRightIcon width={16} height={16} />
+        <ArrowRight strokeWidth={2} className="h-3.5 w-3.5" />
       </Link>
     );
   }
+
+  const base =
+    variant === "primary"
+      ? "rounded-xl bg-saffron px-7 py-3 text-white shadow-sm hover:bg-clay hover:shadow-md hover:shadow-saffron/15"
+      : variant === "secondary"
+        ? "rounded-xl border border-ink/10 px-6 py-3 text-ink hover:border-saffron/30 hover:text-saffron hover:bg-saffron/[0.03]"
+        : "rounded-xl px-5 py-2.5 text-ink-soft hover:text-ink hover:bg-ink/5";
 
   return (
     <button
       type="button"
       onClick={() => add(slug)}
-      className={`inline-flex items-center justify-center text-sm font-medium transition-all hover:scale-[1.02] ${
-        variant === "primary"
-          ? "rounded-lg bg-green-600 px-7 py-3 text-white shadow-sm hover:bg-green-700"
-          : "rounded-lg border border-green-600 px-5 py-2.5 text-green-700 hover:bg-green-50"
-      } ${className}`}
+      className={`inline-flex items-center justify-center gap-2 text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] ${base} ${className}`}
     >
+      <ShoppingBag strokeWidth={1.5} className="h-4 w-4" />
       Add to basket
     </button>
   );

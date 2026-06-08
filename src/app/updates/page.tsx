@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-/* Updates became the Newsletters feed. */
+/* Updates became the Vageshwari feed. */
 export default function UpdatesRedirect() {
-  redirect("/newsletters");
+  redirect("/vageshwari");
 }

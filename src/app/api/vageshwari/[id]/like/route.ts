@@ -1,16 +1,16 @@
 import { NextResponse } from "next/server";
-import { canReadNewsletters, getSeekerUserId } from "@/lib/auth";
-import { journalDb } from "@/lib/journal";
+import { canReadVageshwari, getSeekerUserId } from "@/lib/auth";
+import { mindMirageDb } from "@/lib/db";
 
 /* Toggle like — one per seeker per post. */
 export async function POST(
   _req: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) {
     return NextResponse.json(
-      { ok: false, error: "newsletters_not_configured" },
+      { ok: false, error: "vageshwari_not_configured" },
       { status: 503 },
     );
   }
@@ -22,7 +22,7 @@ export async function POST(
       { status: 401 },
     );
   }
-  if (!(await canReadNewsletters())) {
+  if (!(await canReadVageshwari())) {
     return NextResponse.json(
       { ok: false, error: "enrolled_only" },
       { status: 403 },

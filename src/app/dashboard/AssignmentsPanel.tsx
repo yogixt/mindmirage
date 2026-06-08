@@ -75,14 +75,24 @@ export default function AssignmentsPanel() {
 
   return (
     <section>
-      <div className="border-b border-ink/10 pb-2">
-        <h2 className="display text-xl text-ink sm:text-2xl">Assignments</h2>
-        <p className="mt-1 text-xs text-ink-soft">
-          After each video lesson, submit your handwritten assignment — the
-          next lesson unlocks once the team reviews it.
-        </p>
+      <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <div className="mb-2 flex items-baseline gap-3">
+            <span className="eyebrow text-saffron">§ 05</span>
+            <span className="text-[11px] tracking-wide text-ink-faint">
+              Practice <span className="deva ml-1 text-saffron">· अभ्यास</span>
+            </span>
+          </div>
+          <h2 className="display text-[1.65rem] leading-[1.1] text-ink sm:text-[1.85rem]">
+            Assignments
+          </h2>
+        </div>
       </div>
-      <div className="mt-3 space-y-3">
+      <p className="mb-4 text-xs leading-relaxed text-ink-soft">
+        After each video lesson, submit your handwritten assignment — the next lesson unlocks
+        once the team reviews it.
+      </p>
+      <div className="space-y-4">
         {courses.map((c) => (
           <CourseAssignment key={c.slug} course={c} onSubmitted={refresh} />
         ))}
@@ -130,134 +140,151 @@ function CourseAssignment({
   const status = course.submissionStatus;
 
   return (
-    <div className="rounded-xl border border-ink/10 bg-paper-warm/40 p-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="display text-base text-ink">{course.title}</p>
-        <p className="text-xs font-semibold uppercase tracking-wider text-saffron">
-          Lesson {course.currentLesson}
-        </p>
-      </div>
+    <div className="overflow-hidden rounded-2xl border border-ink/[0.06] bg-paper transition-all duration-300 hover:border-saffron/15 hover:shadow-[0_12px_40px_-20px_rgba(192,83,31,0.1)]">
+      {/* Saffron accent bar */}
+      <div className="h-1 w-full bg-gradient-to-r from-saffron via-gold to-saffron opacity-40" />
 
-      {/* The video lesson — unlocked automatically for the current lesson */}
-      {course.videoUrl &&
-        (youtubeEmbed(course.videoUrl) ? (
-          <div className="mt-3 overflow-hidden rounded-xl border border-ink/10">
-            <iframe
-              src={youtubeEmbed(course.videoUrl)!}
-              title={`${course.title} — video lesson ${course.currentLesson}`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="aspect-video w-full"
-            />
+      <div className="p-5">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <div className="flex items-center gap-2.5">
+            <span className="grid size-8 place-items-center rounded-full bg-paper-warm">
+              <svg viewBox="0 0 24 24" className="size-3.5 text-ink-soft" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
+              </svg>
+            </span>
+            <p className="display text-base text-ink">{course.title}</p>
           </div>
-        ) : (
-          <a
-            href={course.videoUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="mt-3 inline-flex items-center gap-2 rounded-full bg-saffron px-5 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-clay"
-          >
-            <svg viewBox="0 0 24 24" className="size-3.5" fill="currentColor" aria-hidden>
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            Watch video lesson {course.currentLesson}
-          </a>
-        ))}
-
-      {/* Marks and remarks from the team on the last reviewed lesson */}
-      {course.lastReview && course.lastReview.status === "approved" && (
-        <div className="mt-2 rounded-lg bg-green-50 px-3 py-2 text-xs text-green-800 ring-1 ring-green-200">
-          <span className="font-semibold">
-            Lesson {course.lastReview.lesson} approved
-            {course.lastReview.marks !== null &&
-              ` · Marks: ${course.lastReview.marks}/100`}
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-saffron">
+            Lesson {course.currentLesson}
           </span>
-          {course.lastReview.remarks && (
-            <p className="mt-0.5 italic">“{course.lastReview.remarks}”</p>
-          )}
         </div>
-      )}
 
-      {course.questions && (
-        <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-ink-soft">
-          {course.questions}
-        </p>
-      )}
-      {course.file &&
-        (course.file.startsWith("data:image") ? (
-          <img
-            src={course.file}
-            alt={`Assignment for lesson ${course.currentLesson}`}
-            className="mt-3 max-h-80 rounded-lg border border-ink/10 object-contain"
-          />
-        ) : (
-          <a
-            href={course.file}
-            download={course.fileName ?? "assignment"}
-            className="mt-3 inline-flex items-center gap-2 rounded-full border border-ink/15 px-4 py-2 text-xs font-semibold text-ink transition-colors hover:border-ink"
-          >
-            <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
-            </svg>
-            Download assignment — {course.fileName ?? "file"}
-          </a>
-        ))}
-      {!course.questions && !course.file && (
-        <p className="mt-2 text-sm text-ink-faint">
-          Questions for this lesson are on the way — the team will add them
-          soon.
-        </p>
-      )}
+        {/* The video lesson */}
+        {course.videoUrl &&
+          (youtubeEmbed(course.videoUrl) ? (
+            <div className="mt-4 overflow-hidden rounded-xl border border-ink/[0.06]">
+              <iframe
+                src={youtubeEmbed(course.videoUrl)!}
+                title={`${course.title} — video lesson ${course.currentLesson}`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="aspect-video w-full"
+              />
+            </div>
+          ) : (
+            <a
+              href={course.videoUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mt-4 inline-flex items-center gap-2 rounded-full bg-saffron px-5 py-2.5 text-xs font-medium text-white transition-all hover:scale-[1.03] hover:shadow-md hover:shadow-saffron/20"
+            >
+              <svg viewBox="0 0 24 24" className="size-3.5" fill="currentColor" aria-hidden>
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Watch video lesson {course.currentLesson}
+            </a>
+          ))}
 
-      <div className="mt-3">
-        {status === "pending" ? (
-          <p className="inline-flex items-center gap-2 rounded-full bg-gold-soft/40 px-3 py-1.5 text-xs font-medium text-ink">
-            <span className="size-2 rounded-full bg-gold" aria-hidden />
-            Submitted — under review. Your next lesson unlocks after approval.
-          </p>
-        ) : (
-          <>
-            {status === "returned" && (
-              <div className="mb-2 rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-700 ring-1 ring-red-200">
-                <span className="inline-flex items-center gap-2">
-                  <span className="size-2 rounded-full bg-red-500" aria-hidden />
-                  Returned — please redo and submit again.
-                </span>
-                {course.currentRemarks && (
-                  <p className="mt-0.5 italic">“{course.currentRemarks}”</p>
-                )}
-              </div>
+        {/* Marks and remarks */}
+        {course.lastReview && course.lastReview.status === "approved" && (
+          <div className="mt-3 rounded-xl bg-green-50 px-4 py-3 text-xs text-green-800 ring-1 ring-green-200">
+            <span className="font-semibold">
+              Lesson {course.lastReview.lesson} approved
+              {course.lastReview.marks !== null && ` · Marks: ${course.lastReview.marks}/100`}
+            </span>
+            {course.lastReview.remarks && (
+              <p className="mt-1 italic">&ldquo;{course.lastReview.remarks}&rdquo;</p>
             )}
-            {(course.questions || course.file) && (
-              <div className="flex flex-wrap items-center gap-3">
-                <input
-                  ref={fileRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => {
-                    const f = e.target.files?.[0];
-                    if (f) void submit(f);
-                  }}
-                />
-                <button
-                  type="button"
-                  disabled={sending}
-                  onClick={() => fileRef.current?.click()}
-                  className="rounded-full bg-green-600 px-5 py-2 text-xs font-semibold text-white transition-colors hover:bg-green-700 disabled:opacity-60"
-                >
-                  {sending
-                    ? "Uploading…"
-                    : "Upload handwritten assignment (photo)"}
-                </button>
-                <span className="text-[11px] text-ink-faint">
-                  JPG or PNG — a clear photo of your pages
-                </span>
-              </div>
-            )}
-          </>
+          </div>
         )}
-        {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
+
+        {course.questions && (
+          <div className="mt-3 rounded-xl bg-paper-warm/60 px-4 py-3">
+            <p className="whitespace-pre-line text-sm leading-relaxed text-ink-soft">
+              {course.questions}
+            </p>
+          </div>
+        )}
+        {course.file &&
+          (course.file.startsWith("data:image") ? (
+            <img
+              src={course.file}
+              alt={`Assignment for lesson ${course.currentLesson}`}
+              className="mt-3 max-h-80 rounded-xl border border-ink/[0.06] object-contain"
+            />
+          ) : (
+            <a
+              href={course.file}
+              download={course.fileName ?? "assignment"}
+              className="mt-3 inline-flex items-center gap-2 rounded-full border border-ink/[0.1] px-4 py-2 text-xs font-medium text-ink transition-all hover:border-ink/30"
+            >
+              <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+              </svg>
+              Download assignment — {course.fileName ?? "file"}
+            </a>
+          ))}
+        {!course.questions && !course.file && (
+          <p className="mt-3 text-sm text-ink-faint">
+            Questions for this lesson are on the way — the team will add them soon.
+          </p>
+        )}
+
+        <div className="mt-4">
+          {status === "pending" ? (
+            <p className="inline-flex items-center gap-2 rounded-full bg-gold/[0.08] px-4 py-2 text-xs font-medium text-ink ring-1 ring-gold/20">
+              <span className="size-2 rounded-full bg-gold animate-pulse" aria-hidden />
+              Submitted — under review. Your next lesson unlocks after approval.
+            </p>
+          ) : (
+            <>
+              {status === "returned" && (
+                <div className="mb-3 rounded-xl bg-red-50 px-4 py-3 text-xs font-medium text-red-700 ring-1 ring-red-200">
+                  <span className="inline-flex items-center gap-2">
+                    <span className="size-2 rounded-full bg-red-500" aria-hidden />
+                    Returned — please redo and submit again.
+                  </span>
+                  {course.currentRemarks && (
+                    <p className="mt-1 italic">&ldquo;{course.currentRemarks}&rdquo;</p>
+                  )}
+                </div>
+              )}
+              {(course.questions || course.file) && (
+                <div className="flex flex-wrap items-center gap-3">
+                  <input
+                    ref={fileRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) void submit(f);
+                    }}
+                  />
+                  <button
+                    type="button"
+                    disabled={sending}
+                    onClick={() => fileRef.current?.click()}
+                    className="inline-flex items-center gap-2 rounded-full bg-saffron px-5 py-2.5 text-xs font-medium text-white transition-all hover:scale-[1.03] hover:shadow-md hover:shadow-saffron/20 disabled:opacity-60"
+                  >
+                    <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                    </svg>
+                    {sending ? "Uploading…" : "Upload handwritten assignment"}
+                  </button>
+                  <span className="text-[11px] text-ink-faint">
+                    JPG or PNG — a clear photo of your pages
+                  </span>
+                </div>
+              )}
+            </>
+          )}
+          {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
+        </div>
       </div>
     </div>
   );

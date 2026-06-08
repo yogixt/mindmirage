@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getSeekerUserId } from "@/lib/auth";
-import { journalDb } from "@/lib/journal";
+import { mindMirageDb } from "@/lib/db";
 import { PRACTICE_IDS } from "@/lib/sadhana";
 
 /* Daily sādhanā tracker — each sādhak's own checks, last 7 days. */
@@ -26,7 +26,7 @@ export async function GET(req: Request) {
   if (!userId) {
     return NextResponse.json({ ok: false, error: "sign_in_required" }, { status: 401 });
   }
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) return NextResponse.json({ ok: true, checks: [] });
 
   const today = new URL(req.url).searchParams.get("today") ?? "";
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
   if (!userId) {
     return NextResponse.json({ ok: false, error: "sign_in_required" }, { status: 401 });
   }
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) {
     return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
   }

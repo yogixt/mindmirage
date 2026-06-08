@@ -9,8 +9,8 @@ Live at [mindmirageindia.com](https://mindmirageindia.com).
 ## Stack
 
 - Next.js (App Router) · React · TypeScript · Tailwind CSS
-- Clerk — sadhak accounts and enrolment metadata
-- Turso (libSQL) — newsletters, bookings, assignments, orders, schedules
+- Auth.js (NextAuth v5) — Google sign-in, JWT sessions, and sadhak account profile schema in Turso
+- Turso (libSQL) — vageshwari, bookings, assignments, orders, schedules
 - Razorpay — checkout (UPI, cards, net banking) with coupon support
 - Groq — Sant AI, the resident guide chatbot
 

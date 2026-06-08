@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import type { Post, PostComment } from "@/lib/journal";
+import type { Post, PostComment } from "@/lib/db";
 
 const CATEGORY_STYLE: Record<string, string> = {
   blog: "border-gold/40 bg-gold/10 text-ink",
@@ -34,7 +34,7 @@ export default function PostCard({ post }: { post: Post }) {
     setBusy(true);
     setLike((s) => ({ likes: s.likes + (s.liked ? -1 : 1), liked: !s.liked }));
     try {
-      const res = await fetch(`/api/newsletters/${post.id}/like`, {
+      const res = await fetch(`/api/vageshwari/${post.id}/like`, {
         method: "POST",
       });
       const data = await res.json();
@@ -50,7 +50,7 @@ export default function PostCard({ post }: { post: Post }) {
     setCommentsOpen((o) => !o);
     if (comments === null) {
       try {
-        const res = await fetch(`/api/newsletters/${post.id}/comments`);
+        const res = await fetch(`/api/vageshwari/${post.id}/comments`);
         const data = await res.json();
         if (data.ok) setComments(data.comments);
       } catch {
@@ -208,7 +208,7 @@ function CommentBox({
     if (body.trim().length < 2 || sending) return;
     setSending(true);
     try {
-      const res = await fetch(`/api/newsletters/${postId}/comments`, {
+      const res = await fetch(`/api/vageshwari/${postId}/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ body }),

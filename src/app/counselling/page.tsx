@@ -5,7 +5,6 @@ import PageHero from "@/components/PageHero";
 import BookingForm from "@/components/BookingForm";
 import { getSeeker } from "@/lib/auth";
 import FormCard from "@/components/FormCard";
-import CounsellingPricing from "@/components/CounsellingPricing";
 import CounsellingFields from "@/components/CounsellingFields";
 
 export const metadata: Metadata = {
@@ -38,9 +37,12 @@ export default async function CounsellingPage() {
         }
       />
 
-      <CounsellingPricing />
-
       <CounsellingFields />
+
+      <p className="mx-auto mt-4 max-w-2xl text-center text-xs text-ink-faint px-6 pb-12">
+        Counselling is contemplative, not clinical — for medical or psychiatric
+        care, please also consult a qualified professional.
+      </p>
 
       <section className="bg-paper-warm px-6 py-4">
         <div className="mx-auto max-w-3xl">

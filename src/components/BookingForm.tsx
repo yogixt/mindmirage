@@ -92,10 +92,19 @@ export default function BookingForm({
   };
 
   const chosen = GUIDANCE_SUBJECTS.find((s) => s.slug === subjectSlug);
+  const isCounsellingSubject = subjectSlug.startsWith("counselling-");
+  const hasCounsellingActive =
+    enrolled.includes(`1on1-${subjectSlug}`) ||
+    enrolled.includes("consultation-single") ||
+    enrolled.includes("consultation-6") ||
+    enrolled.includes("counselling-all");
+
   const needsEnrolment = !!(
     chosen &&
     chosen.priceINR > 0 &&
-    !enrolled.includes(`1on1-${chosen.slug}`)
+    (isCounsellingSubject
+      ? !hasCounsellingActive
+      : !enrolled.includes(`1on1-${chosen.slug}`))
   );
 
   if (!signedIn) {
@@ -144,7 +153,10 @@ export default function BookingForm({
             Choose a class…
           </option>
           {GUIDANCE_SUBJECTS.map((s) => {
-            const owned = s.priceINR === 0 || enrolled.includes(`1on1-${s.slug}`);
+            const isCounselling = s.slug.startsWith("counselling-");
+            const owned = isCounselling
+              ? (enrolled.includes(`1on1-${s.slug}`) || enrolled.includes("counselling-all") || enrolled.includes("consultation-single") || enrolled.includes("consultation-6"))
+              : (s.priceINR === 0 || enrolled.includes(`1on1-${s.slug}`));
             return (
               <option key={s.slug} value={s.slug}>
                 {s.name}
@@ -152,24 +164,43 @@ export default function BookingForm({
                   ? s.priceINR
                     ? " · enrolled"
                     : " · application-based"
-                  : ` · ₹${s.priceINR.toLocaleString("en-IN")}/class — enrol first`}
+                  : isCounselling
+                    ? " · buy sessions to book"
+                    : ` · ₹${s.priceINR.toLocaleString("en-IN")}/class — enrol first`}
               </option>
             );
           })}
         </select>
+
         {needsEnrolment && (
           <p className="mt-2 rounded-xl bg-gold-soft/30 px-4 py-2.5 text-xs leading-relaxed text-ink ring-1 ring-gold/30">
-            This is a paid course of eight classes. Please{" "}
-            <a
-              href={`/programs/1on1-${subjectSlug}`}
-              className="font-semibold text-saffron underline underline-offset-2"
-            >
-              enrol first
-            </a>
-            {" "}— after payment, your slot booking opens here automatically.
+            {isCounsellingSubject ? (
+              <>
+                Please purchase a counselling session first.{" "}
+                <a
+                  href="/counselling"
+                  className="font-semibold text-saffron underline underline-offset-2"
+                >
+                  Buy session
+                </a>
+                {" "}— after payment, your slot booking opens here automatically.
+              </>
+            ) : (
+              <>
+                This is a paid course of eight classes. Please{" "}
+                <a
+                  href={`/programs/1on1-${subjectSlug}`}
+                  className="font-semibold text-saffron underline underline-offset-2"
+                >
+                  enrol first
+                </a>
+                {" "}— after payment, your slot booking opens here automatically.
+              </>
+            )}
           </p>
         )}
       </div>
+
 
       {/* ── 2 · Time ── */}
       <div>

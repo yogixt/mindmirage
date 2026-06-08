@@ -4,7 +4,7 @@ import { createClient, type Client } from "@libsql/client";
 
 let client: Client | null = null;
 
-export function journalDb(): Client | null {
+export function mindMirageDb(): Client | null {
   const url = process.env.TURSO_DATABASE_URL;
   const authToken = process.env.TURSO_AUTH_TOKEN;
   if (!url || !authToken) return null;
@@ -18,7 +18,7 @@ let migrated = false;
 
 export async function runMigrations() {
   if (migrated) return;
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) return;
   try {
     await db.execute("ALTER TABLE users ADD COLUMN phone TEXT NOT NULL DEFAULT ''");
@@ -28,7 +28,7 @@ export async function runMigrations() {
   migrated = true;
 }
 
-/* ────────────  Newsletters (posted by Team / Guruji)  ────────────
+/* ────────────  Vageshwari (posted by Team / Guruji)  ────────────
    Team posts blogs, photos, links, news; signed-in seekers read,
    like, and comment. */
 
@@ -64,14 +64,16 @@ export type PostComment = {
 };
 
 export async function listPosts(viewerId?: string | null): Promise<Post[]> {
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) return [];
   const rs = await db.execute({
     sql: `SELECT p.id, p.author, p.category, p.title, p.body, p.link, p.image, p.created_at,
-            (SELECT COUNT(*) FROM post_likes l WHERE l.post_id = p.id) AS likes,
-            (SELECT COUNT(*) FROM post_comments c WHERE c.post_id = p.id) AS comments,
+            COALESCE(l.cnt, 0) AS likes,
+            COALESCE(c.cnt, 0) AS comments,
             EXISTS(SELECT 1 FROM post_likes l2 WHERE l2.post_id = p.id AND l2.user_id = ?) AS likedByMe
           FROM posts p
+          LEFT JOIN (SELECT post_id, COUNT(*) AS cnt FROM post_likes GROUP BY post_id) l ON l.post_id = p.id
+          LEFT JOIN (SELECT post_id, COUNT(*) AS cnt FROM post_comments GROUP BY post_id) c ON c.post_id = p.id
           ORDER BY p.created_at DESC
           LIMIT 100`,
     args: [viewerId ?? ""],
@@ -93,7 +95,7 @@ export async function listPosts(viewerId?: string | null): Promise<Post[]> {
 }
 
 export async function listPostComments(postId: number): Promise<PostComment[]> {
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) return [];
   const rs = await db.execute({
     sql: "SELECT id, author, body, created_at FROM post_comments WHERE post_id = ? ORDER BY created_at ASC LIMIT 200",

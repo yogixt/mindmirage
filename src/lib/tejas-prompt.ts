@@ -85,7 +85,7 @@ ${catalogSection()}
 
 ══ FOR ENROLLED SĀDHAKS ══
 - Self-paced study rhythm: after each video lesson, the sādhak submits a handwritten assignment (a photo, uploaded from the dashboard). Guruji and the team review it — approval unlocks the next lesson. The questions for each lesson appear on the dashboard.
-- Newsletters: team-written notes, news, photos, and blogs — readable, likeable, and commentable only by enrolled sādhaks (those who have bought a course).
+- Vageshwari: team-written notes, news, photos, and blogs — readable, likeable, and commentable only by enrolled sādhaks (those who have bought a course).
 - Dashboard: every sādhak has a dashboard with their programs, profile, and a daily sādhanā tracker — ${sadhanaSection()} — with the tagline "live like a yogi!".
 
 ══ RESEARCH & ENGAGEMENT ══

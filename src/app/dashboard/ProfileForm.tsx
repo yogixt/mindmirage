@@ -25,7 +25,6 @@ export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) 
   const hasDetails = !!(metadata.city || metadata.preferredPath || metadata.whyISeek || metadata.phone);
   const [mode, setMode] = useState<"view" | "edit">(hasDetails ? "view" : "edit");
 
-  // After a successful save, settle into the display view.
   useEffect(() => {
     if (state.status === "ok") setMode("view");
   }, [state.status]);
@@ -33,25 +32,25 @@ export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) 
   if (mode === "view") {
     return (
       <div>
-        <dl className="grid gap-3 sm:grid-cols-2">
+        <dl className="grid gap-4 sm:grid-cols-2">
           <div>
             <dt className="eyebrow text-ink-faint">Phone</dt>
-            <dd className="mt-1 text-sm text-ink">{metadata.phone || "—"}</dd>
+            <dd className="mt-1.5 text-sm text-ink">{metadata.phone || "—"}</dd>
           </div>
           <div>
             <dt className="eyebrow text-ink-faint">City</dt>
-            <dd className="mt-1 text-sm text-ink">{metadata.city || "—"}</dd>
+            <dd className="mt-1.5 text-sm text-ink">{metadata.city || "—"}</dd>
           </div>
-          <div>
+          <div className="sm:col-span-2">
             <dt className="eyebrow text-ink-faint">Preferred path</dt>
-            <dd className="mt-1 text-sm text-ink">
+            <dd className="mt-1.5 text-sm text-ink">
               {PATH_LABEL[metadata.preferredPath ?? ""] || "—"}
             </dd>
           </div>
           {metadata.whyISeek && (
             <div className="sm:col-span-2">
               <dt className="eyebrow text-ink-faint">Why I seek</dt>
-              <dd className="mt-1 whitespace-pre-line text-sm leading-relaxed text-ink-soft">
+              <dd className="mt-1.5 whitespace-pre-line text-sm leading-relaxed text-ink-soft">
                 {metadata.whyISeek}
               </dd>
             </div>
@@ -60,8 +59,12 @@ export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) 
         <button
           type="button"
           onClick={() => setMode("edit")}
-          className="mt-4 rounded-full border border-ink/15 px-5 py-2 text-xs font-semibold text-ink transition-colors hover:border-ink"
+          className="mt-5 inline-flex items-center gap-1.5 rounded-full border border-ink/[0.1] px-5 py-2 text-xs font-medium text-ink transition-all hover:border-ink/30 hover:bg-paper"
         >
+          <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+          </svg>
           Edit details
         </button>
       </div>
@@ -110,7 +113,7 @@ export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) 
         <button
           type="submit"
           disabled={pending}
-          className="rounded-2xl bg-saffron px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-clay disabled:opacity-60"
+          className="inline-flex items-center gap-2 rounded-full bg-saffron px-8 py-3 text-sm font-medium text-white transition-all hover:scale-[1.03] hover:shadow-lg hover:shadow-saffron/20 disabled:opacity-60"
         >
           {pending ? "Saving…" : "Save profile"}
         </button>

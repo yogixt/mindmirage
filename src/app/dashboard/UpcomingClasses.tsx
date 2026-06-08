@@ -18,6 +18,12 @@ function niceDate(d: string) {
   });
 }
 
+function niceDay(d: string) {
+  return new Date(`${d}T00:00:00`).toLocaleDateString("en-IN", {
+    weekday: "long",
+  });
+}
+
 /* Convert an IST date+time to the viewer's local clock. */
 function localTime(date: string, time: string) {
   const iso = `${date}T${time}:00+05:30`;
@@ -50,37 +56,51 @@ export default function UpcomingClasses() {
 
   return (
     <section>
-      <div className="border-b border-ink/10 pb-2">
-        <h2 className="display text-xl text-ink sm:text-2xl">Upcoming classes</h2>
-        <p className="mt-1 text-xs text-ink-soft">
-          Your live classes on Zoom — times in IST.
-        </p>
+      <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <div className="mb-2 flex items-baseline gap-3">
+            <span className="eyebrow text-saffron">§ 03</span>
+            <span className="text-[11px] tracking-wide text-ink-faint">
+              Schedule <span className="deva ml-1 text-saffron">· काल</span>
+            </span>
+          </div>
+          <h2 className="display text-[1.65rem] leading-[1.1] text-ink sm:text-[1.85rem]">
+            Upcoming classes
+          </h2>
+        </div>
       </div>
-      <ul className="mt-3 space-y-2.5">
+      <ul className="space-y-3">
         {classes.map((c, i) => (
           <li
             key={i}
-            className="flex flex-wrap items-center gap-3 rounded-xl border border-ink/10 bg-paper-warm/40 p-3"
+            className="group flex items-center gap-4 rounded-2xl border border-ink/[0.06] bg-paper p-4 transition-all duration-300 hover:border-saffron/15 hover:shadow-[0_12px_40px_-20px_rgba(192,83,31,0.1)]"
           >
-            <span className="grid min-w-[4.5rem] shrink-0 place-items-center rounded-lg bg-paper px-3 py-2 text-center text-xs font-bold text-ink shadow-sm">
-              {niceDate(c.date)}
-            </span>
+            {/* Date pill */}
+            <div className="flex shrink-0 flex-col items-center justify-center rounded-xl bg-paper-warm px-3.5 py-2.5 text-center">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-saffron">
+                {niceDate(c.date)}
+              </span>
+            </div>
+
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold text-ink">{c.course}</p>
-              <p className="text-xs text-ink-faint">
-                {niceTime(c.time)} IST
-                {localTime(c.date, c.time) && ` (${localTime(c.date, c.time)} your time)`}
-                {c.note ? ` · ${c.note}` : ""}
+              <p className="mt-0.5 text-xs text-ink-faint">
+                {niceDay(c.date)} · {niceTime(c.time)} IST
+                {localTime(c.date, c.time) && (
+                  <span className="text-ink-faint/70"> · {localTime(c.date, c.time)} your time</span>
+                )}
+                {c.note ? <span className="text-ink-faint/70"> · {c.note}</span> : ""}
               </p>
             </div>
+
             {c.zoomUrl && (
               <a
                 href={c.zoomUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="shrink-0 rounded-full bg-green-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-green-700"
+                className="shrink-0 rounded-full bg-saffron px-5 py-2 text-xs font-medium text-white transition-all hover:scale-[1.03] hover:shadow-md hover:shadow-saffron/20"
               >
-                Join on Zoom
+                Join
               </a>
             )}
           </li>

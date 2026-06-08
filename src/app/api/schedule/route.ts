@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSeeker } from "@/lib/auth";
-import { journalDb } from "@/lib/journal";
+import { mindMirageDb } from "@/lib/db";
 import { CATALOG } from "@/lib/constants";
 
 /* Upcoming live classes — only for courses this sādhak is enrolled in. */
@@ -10,7 +10,7 @@ export async function GET() {
   if (!seeker) {
     return NextResponse.json({ ok: false, error: "sign_in_required" }, { status: 401 });
   }
-  const db = journalDb();
+  const db = mindMirageDb();
   if (!db) return NextResponse.json({ ok: true, classes: [] });
 
   const enrolled = (seeker.metadata.enrolledPrograms ?? []).filter(Boolean);

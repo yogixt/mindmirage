@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { buildResponse, notify } from "@/lib/notify";
-import { journalDb } from "@/lib/journal";
+import { mindMirageDb } from "@/lib/db";
 
 export const runtime = "nodejs";
 
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
   }
   // Keep a copy for the admin portal.
   try {
-    const db = journalDb();
+    const db = mindMirageDb();
     if (db) {
       await db.execute({
         sql: "INSERT INTO form_entries (kind, name, email, whatsapp, payload) VALUES (?, ?, ?, ?, ?)",

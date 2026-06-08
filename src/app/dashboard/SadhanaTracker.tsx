@@ -14,6 +14,7 @@ function ymd(d: Date) {
 }
 
 const DAY_LETTERS = ["S", "M", "T", "W", "T", "F", "S"];
+const DAY_DEVA = ["र", "सो", "मं", "बु", "गु", "शु", "श"];
 
 export default function SadhanaTracker() {
   const [checks, setChecks] = useState<Set<string>>(new Set());
@@ -71,30 +72,34 @@ export default function SadhanaTracker() {
   };
 
   const doneToday = PRACTICES.filter((p) => checks.has(`${today}:${p.id}`)).length;
+  const progressPct = Math.round((doneToday / PRACTICES.length) * 100);
 
   return (
     <div className="relative mx-auto w-full max-w-2xl">
-      {/* The whiteboard — aluminium frame */}
-      <div className="rounded-xl border-[6px] border-zinc-300 bg-zinc-300 shadow-[0_22px_50px_-20px_rgba(0,0,0,0.35)]">
-        {/* Glossy white surface */}
-        <div className="relative overflow-hidden rounded-md bg-gradient-to-br from-white via-white to-zinc-50 p-5 sm:p-6">
-          {/* Glare streak */}
+      {/* Warm wood-inspired frame — organic, not industrial */}
+      <div className="rounded-2xl border-[5px] border-clay/20 bg-clay/5 shadow-[0_20px_50px_-20px_rgba(156,85,48,0.2)]">
+        {/* Paper surface */}
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-white via-white to-paper-warm p-5 sm:p-6">
+          {/* Subtle warm glow */}
           <div
-            className="pointer-events-none absolute -right-16 -top-24 h-64 w-40 rotate-[25deg] bg-gradient-to-b from-white via-zinc-100/60 to-transparent opacity-70"
+            className="pointer-events-none absolute -right-12 -top-16 h-56 w-32 rotate-[25deg] bg-gradient-to-b from-saffron/[0.04] via-gold/[0.02] to-transparent"
             aria-hidden
           />
 
-          {/* Magnets */}
-          <span className="absolute left-3 top-3 size-3 rounded-full bg-saffron shadow-[inset_0_-1px_2px_rgba(0,0,0,0.3)]" aria-hidden />
-          <span className="absolute right-3 top-3 size-3 rounded-full bg-green-600 shadow-[inset_0_-1px_2px_rgba(0,0,0,0.3)]" aria-hidden />
+          {/* Decorative corner marks */}
+          <span className="absolute left-3 top-3 size-2 rounded-full bg-saffron/30" aria-hidden />
+          <span className="absolute right-3 top-3 size-2 rounded-full bg-gold/40" aria-hidden />
 
-          <div className="flex flex-wrap items-end justify-between gap-2">
+          <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
-              <h3 className="handwritten text-3xl font-bold text-ink">
-                Today&apos;s to-do
-              </h3>
+              <div className="flex items-baseline gap-2">
+                <h3 className="handwritten text-2xl font-bold text-ink sm:text-3xl">
+                  Today&apos;s sādhanā
+                </h3>
+                <span className="deva text-sm text-saffron">साधना</span>
+              </div>
               {/* Marker underline */}
-              <svg viewBox="0 0 200 8" className="h-2 w-40 text-saffron" aria-hidden>
+              <svg viewBox="0 0 200 8" className="h-2 w-36 text-saffron/70" aria-hidden>
                 <path
                   d="M3 5 C 50 2, 120 6, 197 3"
                   stroke="currentColor"
@@ -103,33 +108,47 @@ export default function SadhanaTracker() {
                   strokeLinecap="round"
                 />
               </svg>
-              <p className="handwritten mt-1 text-lg text-green-700">
-                live like a yogi!
-              </p>
             </div>
-            <p className="handwritten text-lg text-ink-soft">
-              today:{" "}
-              <span className={`font-bold ${doneToday === PRACTICES.length ? "text-green-700" : "text-ink"}`}>
-                {doneToday}/{PRACTICES.length}
-              </span>
-            </p>
+            <div className="text-right">
+              <p className="handwritten text-lg text-ink-soft">
+                <span className={`font-bold ${doneToday === PRACTICES.length ? "text-green-700" : "text-ink"}`}>
+                  {doneToday}
+                </span>
+                <span className="text-ink-faint">/{PRACTICES.length}</span>
+              </p>
+              {/* Mini progress bar */}
+              <div className="mt-1 h-1 w-20 overflow-hidden rounded-full bg-ink/10">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-saffron to-gold transition-all duration-700"
+                  style={{ width: `${progressPct}%` }}
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Day letters */}
-          <div className="mt-4 grid grid-cols-[minmax(0,1fr)_repeat(6,1.4rem)_2.5rem] items-center sm:grid-cols-[minmax(0,1fr)_repeat(6,1.7rem)_2.75rem]">
+          {/* Day letters with Devanagari */}
+          <div className="mt-5 grid grid-cols-[minmax(0,1fr)_repeat(6,1.4rem)_2.5rem] items-center sm:grid-cols-[minmax(0,1fr)_repeat(6,1.7rem)_2.75rem]">
             <span />
             {days.map((d) => {
-              const letter = DAY_LETTERS[new Date(`${d}T00:00:00`).getDay()];
+              const idx = new Date(`${d}T00:00:00`).getDay();
+              const isToday = d === today;
               return (
                 <span
                   key={d}
-                  className={`handwritten text-center ${
-                    d === today
+                  className={`text-center ${
+                    isToday
                       ? "text-[11px] font-bold text-saffron"
-                      : "text-[11px] text-ink-faint"
+                      : "text-[10px] text-ink-faint"
                   }`}
                 >
-                  {d === today ? "today" : letter}
+                  {isToday ? (
+                    <span className="handwritten">today</span>
+                  ) : (
+                    <span>
+                      <span className="handwritten">{DAY_LETTERS[idx]}</span>
+                      <span className="deva ml-0.5 text-[8px] opacity-60">{DAY_DEVA[idx]}</span>
+                    </span>
+                  )}
                 </span>
               );
             })}
@@ -155,11 +174,11 @@ export default function SadhanaTracker() {
         </div>
       </div>
 
-      {/* Marker tray */}
-      <div className="mx-auto -mt-0.5 flex h-4 w-44 items-center justify-center gap-3 rounded-b-lg bg-zinc-300 px-3 shadow-sm">
-        <span className="h-1.5 w-10 rounded-full bg-green-600" aria-hidden />
-        <span className="h-1.5 w-10 rounded-full bg-saffron" aria-hidden />
-        <span className="h-2 w-6 rounded-[2px] bg-zinc-400" aria-hidden />
+      {/* Chalk/marker tray — warm tones */}
+      <div className="mx-auto -mt-0.5 flex h-4 w-40 items-center justify-center gap-3 rounded-b-xl bg-clay/15 px-3">
+        <span className="h-1.5 w-9 rounded-full bg-green-600/70" aria-hidden />
+        <span className="h-1.5 w-9 rounded-full bg-saffron/70" aria-hidden />
+        <span className="h-2 w-5 rounded-[2px] bg-ink/15" aria-hidden />
       </div>
     </div>
   );
@@ -180,8 +199,8 @@ function Row({
 }) {
   return (
     <>
-      <span className="flex min-w-0 items-baseline gap-1.5 border-b border-dashed border-ink/15 py-1.5 pr-1">
-        <span className="deva shrink-0 text-[11px] leading-none text-saffron sm:text-xs">{practice.deva}</span>
+      <span className="flex min-w-0 items-baseline gap-1.5 border-b border-dashed border-ink/10 py-1.5 pr-1">
+        <span className="deva shrink-0 text-[10px] leading-none text-saffron sm:text-[11px]">{practice.deva}</span>
         <span className="handwritten whitespace-nowrap text-sm text-ink sm:text-[15px]">{practice.en}</span>
       </span>
       {days.map((d) => {
@@ -189,30 +208,30 @@ function Row({
         const isToday = d === today;
         if (!isToday) {
           return (
-            <span key={d} className="grid h-full place-items-center border-b border-dashed border-ink/15">
+            <span key={d} className="grid h-full place-items-center border-b border-dashed border-ink/10">
               <span
-                className={`size-2 rounded-full ${
-                  done ? "bg-green-600" : "bg-ink/10"
+                className={`size-[7px] rounded-full transition-colors ${
+                  done ? "bg-saffron" : "bg-ink/[0.08]"
                 }`}
               />
             </span>
           );
         }
         return (
-          <span key={d} className="grid h-full place-items-center border-b border-dashed border-ink/15">
+          <span key={d} className="grid h-full place-items-center border-b border-dashed border-ink/10">
             <button
               type="button"
               onClick={onToggle}
               aria-pressed={done}
               aria-label={`${practice.en} — ${done ? "done" : "not done"} today`}
-              className={`grid size-6 place-items-center rounded-full border-2 transition-all ${
+              className={`grid size-6 place-items-center rounded-full border-2 transition-all duration-300 ${
                 done
-                  ? "border-green-700 bg-green-600 text-white"
-                  : "border-ink/30 bg-transparent text-transparent hover:border-green-700"
+                  ? "border-saffron bg-saffron text-white shadow-sm shadow-saffron/20"
+                  : "border-ink/20 bg-transparent text-transparent hover:border-saffron/60"
               }`}
               style={{ borderRadius: "55% 45% 50% 50% / 50% 55% 45% 50%" }}
             >
-              <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="M5 13l4 4L19 7" />
               </svg>
             </button>
