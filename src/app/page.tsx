@@ -222,67 +222,66 @@ export default function HomePage() {
         </section>
 
         {/* ──────────  6. ACHARYA JI  ────────── */}
-        <section className="relative w-full overflow-hidden">
-          {/* Full-bleed background image — Adiveda-style prominence */}
-          <div className="absolute inset-0">
-            <Image
-              src="/acharya-ji.jpg"
-              alt="Acharya Bhagyashree Joshi Ji — Vedanta teacher at Advaita Sadhana Kutir, Rishikesh"
-              fill
-              sizes="100vw"
-              className="object-cover object-[30%_25%] sm:object-[30%_20%]"
-              priority
-            />
-            {/* Left-side gradient for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-paper via-paper/90 via-45% to-transparent to-75% sm:from-paper/95 sm:via-paper/80 sm:via-50% sm:to-transparent sm:to-70%" />
-          </div>
+        <section className="relative w-full overflow-hidden bg-paper">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid lg:grid-cols-2 lg:items-center">
+              {/* Text */}
+              <div className="order-2 px-6 py-10 sm:py-12 lg:order-1 lg:py-16 lg:pr-10">
+                <p className="deva text-lg text-ink sm:text-xl">
+                  आचार्य भाग्यश्री जोशी जी
+                </p>
+                <h2
+                  className="display mt-2 text-4xl text-ink sm:text-5xl"
+                  style={{ lineHeight: "1.0", letterSpacing: "-0.02em" }}
+                >
+                  Acharya
+                  <br />
+                  <span className="italic">Bhagyashree Joshi Ji</span>
+                </h2>
+                <svg
+                  viewBox="0 0 300 12"
+                  className="mt-3 h-2.5 w-48 text-ink/80 sm:w-64"
+                  aria-hidden
+                >
+                  <path
+                    d="M3 8 C 60 2, 150 1, 297 6"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <p className="mt-4 text-sm leading-relaxed text-ink-soft sm:text-base">
+                  A teacher in the Advaita lineage of Adi Shankarācārya —
+                  weaving Yoga, Vedānta, and Sanskrit into the contemporary
+                  sādhak&apos;s life, in the warmth of the Guru-Śiṣya Paramparā.
+                </p>
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <Link
+                    href="/our-team"
+                    className="rounded-full bg-saffron px-6 py-2.5 text-sm text-paper transition-transform hover:scale-[1.03]"
+                  >
+                    Know more
+                  </Link>
+                  <Link
+                    href="/sit-with-guruji"
+                    className="rounded-full border border-ink/20 px-6 py-2.5 text-sm text-ink transition-colors hover:border-ink"
+                  >
+                    Sit with her
+                  </Link>
+                </div>
+              </div>
 
-          <div className="relative z-10 mx-auto max-w-6xl px-6 py-16 sm:py-24 lg:py-32">
-            <div className="max-w-lg sm:max-w-xl">
-              <p className="deva text-lg text-ink/80 sm:text-xl">
-                आचार्य भाग्यश्री जोशी जी
-              </p>
-              <h2
-                className="display mt-2 text-5xl text-ink sm:text-6xl lg:text-7xl"
-                style={{ lineHeight: "0.95", letterSpacing: "-0.02em" }}
-              >
-                Acharya
-                <br />
-                <span className="italic">Bhagyashree</span>
-                <br />
-                Joshi Ji
-              </h2>
-              <svg
-                viewBox="0 0 300 12"
-                className="mt-4 h-3 w-56 text-ink/70 sm:w-72"
-                aria-hidden
-              >
-                <path
-                  d="M3 8 C 60 2, 150 1, 297 6"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  fill="none"
-                  strokeLinecap="round"
+              {/* Image — contained, face always visible */}
+              <div className="order-1 relative h-[420px] w-full sm:h-[500px] lg:order-2 lg:h-[580px]">
+                <Image
+                  src="/acharya-ji.jpg"
+                  alt="Acharya Bhagyashree Joshi Ji — Vedanta teacher at Advaita Sadhana Kutir, Rishikesh"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover object-top"
+                  priority
                 />
-              </svg>
-              <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft sm:text-lg">
-                A teacher in the Advaita lineage of Adi Shankarācārya —
-                weaving Yoga, Vedānta, and Sanskrit into the contemporary
-                sādhak&apos;s life, in the warmth of the Guru-Śiṣya Paramparā.
-              </p>
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <Link
-                  href="/our-team"
-                  className="rounded-full bg-saffron px-7 py-3 text-sm font-medium text-paper transition-transform hover:scale-[1.03]"
-                >
-                  Know more
-                </Link>
-                <Link
-                  href="/sit-with-guruji"
-                  className="rounded-full border border-ink/25 bg-paper/60 px-7 py-3 text-sm font-medium text-ink backdrop-blur-sm transition-colors hover:border-ink/40 hover:bg-paper/80"
-                >
-                  Sit with her
-                </Link>
               </div>
             </div>
           </div>
