@@ -7,7 +7,7 @@ import SanskritVerse from "@/components/SanskritVerse";
 import LineageTree from "@/components/LineageTree";
 import CourseCard from "@/components/CourseCard";
 import Divider from "@/components/Divider";
-import HeroCTA from "@/components/HeroCTA";
+
 import EditorialHeader from "@/components/EditorialHeader";
 import { SANSKRIT, THREE_PATHS, COURSES } from "@/lib/constants";
 import { JsonLd } from "@/components/JsonLd";
@@ -92,7 +92,14 @@ export default function HomePage() {
               <Divider />
             </div>
 
-            <HeroCTA />
+            <div className="animate-fade-rise-delay-3 opacity-0 mt-5">
+              <Link
+                href="#offerings"
+                className="text-xs uppercase tracking-[0.25em] text-ink-faint transition-colors hover:text-ink"
+              >
+                ↓ scroll
+              </Link>
+            </div>
           </div>
         </section>
 
