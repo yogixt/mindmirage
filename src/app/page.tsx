@@ -223,13 +223,13 @@ export default function HomePage() {
 
         {/* ──────────  6. ACHARYA JI  ────────── */}
         <section className="relative w-full overflow-hidden bg-paper">
-          <div className="relative h-[360px] w-full sm:h-[400px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
+          <div className="relative h-[460px] w-full sm:h-[520px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[55%]">
             <Image
               src="/acharya-ji.jpg"
               alt="Acharya Bhagyashree Joshi Ji — Vedanta teacher at Advaita Sadhana Kutir, Rishikesh"
               fill
-              sizes="(min-width: 1024px) 62vw, 100vw"
-              className="object-cover object-[30%_center]"
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              className="object-cover object-top sm:object-[30%_20%] lg:object-[30%_center]"
               priority
             />
             <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-paper via-paper/20 via-30% to-transparent to-45%" />
