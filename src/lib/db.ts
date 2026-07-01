@@ -26,6 +26,15 @@ export async function runMigrations() {
     /* column already exists */
   }
 
+  /* Name/nick + password accounts (alongside Google sign-in). */
+  for (const col of ["handle TEXT", "password_hash TEXT"]) {
+    try {
+      await db.execute(`ALTER TABLE users ADD COLUMN ${col}`);
+    } catch {
+      /* column already exists */
+    }
+  }
+
   /* Ensure the bookings table matches the shared schema. */
   try {
     await db.execute(`CREATE TABLE IF NOT EXISTS bookings (

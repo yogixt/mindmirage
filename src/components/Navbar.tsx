@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { NAV_PRIMARY, SITE } from "@/lib/constants";
 import CartButton from "./CartButton";
 
@@ -90,13 +90,12 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
             </>
           ) : (
             <>
-              <button
-                type="button"
-                onClick={() => signIn("google")}
+              <Link
+                href="/sign-in"
                 className="rounded-lg border border-ink/15 px-5 py-2.5 text-base font-medium text-ink transition-colors hover:bg-ink/5 hover:border-ink/30"
               >
                 Sign in
-              </button>
+              </Link>
               <Link
                 href="/programs"
                 className="rounded-lg bg-saffron px-6 py-2.5 text-base font-semibold text-paper transition-transform hover:scale-[1.03]"
@@ -174,13 +173,13 @@ export default function Navbar({ variant = "transparent" }: { variant?: Variant 
               </>
             ) : (
               <>
-                <button
-                  type="button"
-                  onClick={() => signIn("google")}
+                <Link
+                  href="/sign-in"
+                  onClick={() => setOpen(false)}
                   className="mt-3 inline-flex w-fit rounded-lg border border-ink/15 px-6 py-2.5 text-base font-semibold text-ink hover:bg-ink/5"
                 >
-                  Sign in with Google
-                </button>
+                  Sign in
+                </Link>
                 <Link
                   href="/programs"
                   onClick={() => setOpen(false)}
