@@ -32,7 +32,7 @@ export default function LineageTree() {
                 "linear-gradient(to right, transparent 0%, rgba(201,162,39,0.7) 10%, rgba(201,162,39,0.7) 90%, transparent 100%)",
               transformOrigin: "left",
             }}
-            initial={{ scaleX: 0 }}
+            initial={{ scaleX: 0.01 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 1.4, ease: EASE }}
           />
@@ -44,7 +44,7 @@ export default function LineageTree() {
                 <motion.span
                   aria-hidden
                   className="relative inline-block h-2.5 w-2.5 rounded-full bg-gold"
-                  initial={{ scale: 0, opacity: 0 }}
+                  initial={{ scale: 0.5, opacity: 0.5 }}
                   animate={inView ? { scale: 1, opacity: 1 } : {}}
                   transition={{
                     delay: 0.35 + i * 0.28,
@@ -83,14 +83,14 @@ export default function LineageTree() {
                 aria-hidden
                 className="block w-px bg-gradient-to-b from-gold/60 to-gold/0"
                 style={{ height: 28, transformOrigin: "top" }}
-                initial={{ scaleY: 0 }}
+                initial={{ scaleY: 0.01 }}
                 animate={inView ? { scaleY: 1 } : {}}
                 transition={{ delay: 0.55 + i * 0.28, duration: 0.45, ease: EASE }}
               />
 
               <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
+                initial={{ y: 8 }}
+                animate={inView ? { y: 0 } : {}}
                 transition={{ delay: 0.7 + i * 0.28, duration: 0.6, ease: EASE }}
                 whileHover={{ y: -3 }}
                 className="w-full rounded-xl border border-ink/15 bg-paper px-4 py-4 text-center shadow-[0_12px_40px_-24px_rgba(0,0,0,0.35)] transition-shadow hover:shadow-[0_18px_50px_-22px_rgba(0,0,0,0.45)]"
@@ -124,8 +124,8 @@ export default function LineageTree() {
             className="relative flex flex-col items-center text-center"
           >
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              initial={{ y: 8 }}
+              animate={inView ? { y: 0 } : {}}
               transition={{ delay: 0.15 + i * 0.18, duration: 0.5, ease: EASE }}
               className="relative z-10 w-full max-w-sm rounded-xl border border-ink/15 bg-paper px-6 py-4 shadow-[0_8px_30px_-20px_rgba(0,0,0,0.25)]"
             >

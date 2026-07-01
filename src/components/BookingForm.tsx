@@ -1,21 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { GUIDANCE_SUBJECTS } from "@/lib/constants";
+import { useEffect, useMemo, useState } from "react";
+import { GUIDANCE_SUBJECTS, scheduleForSubject } from "@/lib/constants";
 import { Field, PHONE_PATTERN, TextArea, type SubmitState } from "./FormField";
-import AvailabilityCalendar, { useBlockedDates } from "./AvailabilityCalendar";
+import SlotCalendar from "./SlotCalendar";
 
 /* Booking, step by step — class, time, dates, details. No jargon. */
-
-/* IST slot windows shown in the seeker's own timezone. */
-function localWindow(istStartHour: number, istEndHour: number) {
-  const fmt = (h: number) => {
-    const d = new Date();
-    const utc = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), h - 5, -30);
-    return new Date(utc).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-  };
-  return `${fmt(istStartHour)} – ${fmt(istEndHour)}`;
-}
 
 function StepLabel({ n, text }: { n: number; text: string }) {
   return (
@@ -46,32 +36,39 @@ export default function BookingForm({
   const [subjectSlug, setSubjectSlug] = useState("");
   const [state, setState] = useState<SubmitState>("idle");
   const [error, setError] = useState<string | null>(null);
-  const [blocked] = useBlockedDates();
   const [dates, setDates] = useState<string[]>([]);
-  const [slot, setSlot] = useState<"morning-ist" | "evening-ist" | "">("");
-  const [abroad, setAbroad] = useState(false);
+  const [preferredTime, setPreferredTime] = useState("");
 
-  useEffect(() => {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (tz && tz !== "Asia/Kolkata" && tz !== "Asia/Calcutta") setAbroad(true);
-  }, []);
+  const subject = useMemo(
+    () => GUIDANCE_SUBJECTS.find((s) => s.slug === subjectSlug),
+    [subjectSlug],
+  );
+  const schedule = useMemo(() => scheduleForSubject(subjectSlug), [subjectSlug]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
-    if (!slot) {
-      setError("Please choose Morning or Evening (step 2).");
+    if (!subjectSlug) {
+      setError("Please choose a class (step 1).");
       return;
     }
     if (dates.length === 0) {
-      setError("Please tap at least one date on the calendar (step 3).");
+      setError("Please pick at least one date on the calendar (step 2).");
       return;
     }
     setState("sending");
     const fd = new FormData(e.currentTarget);
+    const message = String(fd.get("message") ?? "");
+    const fullMessage = preferredTime.trim()
+      ? message
+        ? `${message}\n\nPreferred IST time slot: ${preferredTime.trim()}`
+        : `Preferred IST time slot: ${preferredTime.trim()}`
+      : message;
+    fd.set("message", fullMessage);
     const data: Record<string, unknown> = {
       ...Object.fromEntries(fd.entries()),
-      slot,
+      subject: subjectSlug,
+      slot: schedule.id,
       preferredDates: dates,
     };
     try {
@@ -91,20 +88,27 @@ export default function BookingForm({
     }
   };
 
-  const chosen = GUIDANCE_SUBJECTS.find((s) => s.slug === subjectSlug);
   const isCounsellingSubject = subjectSlug.startsWith("counselling-");
+  const isMonthlyLive = subjectSlug === "bhagavad-gita-live";
+
+  function isEnrolledFor(slug: string) {
+    if (enrolled.includes(slug)) return true;
+    if (enrolled.includes(`1on1-${slug}`)) return true;
+    return false;
+  }
+
   const hasCounsellingActive =
-    enrolled.includes(`1on1-${subjectSlug}`) ||
+    isEnrolledFor(subjectSlug) ||
     enrolled.includes("consultation-single") ||
     enrolled.includes("consultation-6") ||
     enrolled.includes("counselling-all");
 
   const needsEnrolment = !!(
-    chosen &&
-    chosen.priceINR > 0 &&
+    subject &&
+    subject.priceINR > 0 &&
     (isCounsellingSubject
       ? !hasCounsellingActive
-      : !enrolled.includes(`1on1-${chosen.slug}`))
+      : !isEnrolledFor(subjectSlug))
   );
 
   if (!signedIn) {
@@ -146,7 +150,10 @@ export default function BookingForm({
           name="subject"
           required
           value={subjectSlug}
-          onChange={(e) => setSubjectSlug(e.target.value)}
+          onChange={(e) => {
+            setSubjectSlug(e.target.value);
+            setDates([]);
+          }}
           className="mt-2.5 w-full rounded-xl border border-ink/15 bg-transparent px-4 py-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-ink"
         >
           <option value="" disabled>
@@ -155,8 +162,11 @@ export default function BookingForm({
           {GUIDANCE_SUBJECTS.map((s) => {
             const isCounselling = s.slug.startsWith("counselling-");
             const owned = isCounselling
-              ? (enrolled.includes(`1on1-${s.slug}`) || enrolled.includes("counselling-all") || enrolled.includes("consultation-single") || enrolled.includes("consultation-6"))
-              : (s.priceINR === 0 || enrolled.includes(`1on1-${s.slug}`));
+              ? (isEnrolledFor(s.slug) ||
+                  enrolled.includes("counselling-all") ||
+                  enrolled.includes("consultation-single") ||
+                  enrolled.includes("consultation-6"))
+              : (s.priceINR === 0 || isEnrolledFor(s.slug));
             return (
               <option key={s.slug} value={s.slug}>
                 {s.name}
@@ -166,19 +176,21 @@ export default function BookingForm({
                     : " · application-based"
                   : isCounselling
                     ? " · buy sessions to book"
-                    : ` · ₹${s.priceINR.toLocaleString("en-IN")}/class — enrol first`}
+                    : s.priceINR
+                      ? ` · ₹${s.priceINR.toLocaleString("en-IN")}/class — enrol first`
+                      : " — enrol first"}
               </option>
             );
-          })}
+          })},
         </select>
 
         {needsEnrolment && (
           <p className="mt-2 rounded-xl bg-gold-soft/30 px-4 py-2.5 text-xs leading-relaxed text-ink ring-1 ring-gold/30">
             {isCounsellingSubject ? (
               <>
-                Please purchase a counselling session first.{" "}
+                Please purchase a session first.{" "}
                 <a
-                  href="/counselling"
+                  href="/consultation"
                   className="font-semibold text-saffron underline underline-offset-2"
                 >
                   Buy session
@@ -201,103 +213,89 @@ export default function BookingForm({
         )}
       </div>
 
-
       {/* ── 2 · Time ── */}
-      <div>
-        <StepLabel n={2} text="Morning or evening?" />
-        <div className="mt-2.5 grid grid-cols-2 gap-3">
-          {(
-            [
-              { id: "morning-ist", title: "Morning", ist: "7 – 11 am IST", win: [7, 11] },
-              { id: "evening-ist", title: "Evening", ist: "5 – 9 pm IST", win: [17, 21] },
-            ] as const
-          ).map((s) => (
-            <button
-              key={s.id}
-              type="button"
-              onClick={() => setSlot(s.id)}
-              className={`rounded-2xl border-2 px-4 py-4 text-left transition-all ${
-                slot === s.id
-                  ? "border-green-600 bg-green-50"
-                  : "border-ink/10 bg-paper hover:border-ink/30"
-              }`}
-            >
-              <span className="flex items-center gap-2 text-sm font-bold text-ink">
-                {s.id === "morning-ist" ? (
-                  <svg viewBox="0 0 24 24" className="size-4 text-gold" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
-                    <circle cx="12" cy="12" r="4" />
-                    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
-                  </svg>
-                ) : (
-                  <svg viewBox="0 0 24 24" className="size-4 text-saffron" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                    <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-                  </svg>
-                )}
-                {s.title}
-                {slot === s.id && (
-                  <svg viewBox="0 0 24 24" className="ml-auto size-4 text-green-600" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                    <path d="M5 13l4 4L19 7" />
-                  </svg>
-                )}
-              </span>
-              <span className="mt-1 block text-xs text-ink-soft">{s.ist}</span>
-              {abroad && (
-                <span className="mt-0.5 block text-[11px] text-ink-faint">
-                  = {localWindow(s.win[0], s.win[1])} your time
-                </span>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* ── 3 · Dates ── */}
-      <div>
-        <StepLabel n={3} text="Tap the dates that suit you (up to 5)" />
-        <div className="mt-2.5 flex flex-col items-center gap-3 sm:flex-row sm:items-start sm:gap-6">
-          <AvailabilityCalendar
-            mode="select"
-            blocked={blocked}
-            selected={dates}
-            maxSelect={5}
-            onSelect={setDates}
-          />
-          <div className="w-full sm:flex-1">
-            {dates.length === 0 ? (
-              <p className="text-xs leading-relaxed text-ink-faint">
-                Green days are open. Red days are unavailable. Tap a day to
-                pick it — tap again to remove.
+      {subjectSlug && (
+        <div>
+          <StepLabel n={2} text="Your time slot" />
+          <div className="mt-2.5 rounded-2xl border border-ink/8 bg-paper-cream p-4">
+            {schedule.flexible ? (
+              <p className="text-sm text-ink-soft">
+                <span className="font-semibold text-ink">{schedule.label}</span>
+                {" — "}{schedule.ist}. The team will coordinate the exact time with you after booking.
               </p>
             ) : (
               <>
-                <p className="text-xs font-semibold text-ink">
-                  Your dates ({dates.length}/5):
-                </p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {dates.map((d) => (
-                    <span
-                      key={d}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 text-xs font-semibold text-green-800 ring-1 ring-green-200"
-                    >
-                      {niceDay(d)}
-                      <button
-                        type="button"
-                        onClick={() => setDates(dates.filter((x) => x !== d))}
-                        aria-label={`Remove ${d}`}
-                        className="grid size-4 place-items-center rounded-full text-green-700 hover:bg-red-100 hover:text-red-700"
-                      >
-                        <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
-                          <path d="M6 6l12 12M18 6L6 18" />
-                        </svg>
-                      </button>
+                <p className="text-sm font-semibold text-ink">{schedule.label}</p>
+                <p className="mt-1 text-2xl font-light text-ink">{schedule.ist}</p>
+                {schedule.days && (
+                  <p className="mt-2 text-xs text-ink-soft">
+                    Available on{" "}
+                    <span className="font-medium text-ink">
+                      {schedule.days.map((d) => ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d]).join(", ")}
                     </span>
-                  ))}
-                </div>
+                    {" "}only.
+                  </p>
+                )}
+                {schedule.allowPreference && (
+                  <div className="mt-4">
+                    <label htmlFor="preferred-time" className="block text-xs font-semibold text-ink-soft">
+                      Your preferred IST time slot (optional)
+                    </label>
+                    <input
+                      id="preferred-time"
+                      type="text"
+                      value={preferredTime}
+                      onChange={(e) => setPreferredTime(e.target.value)}
+                      placeholder="e.g. 6:30 – 7:30 PM IST"
+                      className="mt-1.5 w-full rounded-xl border border-ink/15 bg-white px-4 py-2.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-ink"
+                    />
+                    <p className="mt-1 text-[11px] text-ink-faint">
+                      Default is {schedule.ist}. Share your preference and the team will try to accommodate.
+                    </p>
+                  </div>
+                )}
               </>
             )}
           </div>
         </div>
-      </div>
+      )}
+
+      {/* ── 3 · Dates ── */}
+      {subjectSlug && (
+        <div>
+          <StepLabel n={3} text="Pick your preferred dates" />
+          <div className="mt-2.5">
+            <SlotCalendar
+              allowedDaysOfWeek={schedule.days}
+              selected={dates}
+              maxSelect={5}
+              onSelect={setDates}
+            />
+            {dates.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {dates.map((d) => (
+                  <span
+                    key={d}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 text-xs font-semibold text-green-800 ring-1 ring-green-200"
+                  >
+                    {niceDay(d)}
+                    <button
+                      type="button"
+                      onClick={() => setDates(dates.filter((x) => x !== d))}
+                      aria-label={`Remove ${d}`}
+                      className="grid size-4 place-items-center rounded-full text-green-700 hover:bg-red-100 hover:text-red-700"
+                    >
+                      <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
+                        <path d="M6 6l12 12M18 6L6 18" />
+                      </svg>
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* ── 4 · Details ── */}
       <div>

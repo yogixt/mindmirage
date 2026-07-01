@@ -53,61 +53,80 @@ export default function AboutPage() {
         }
       />
 
-      <section className="px-6 py-3 sm:py-3">
-        <div className="mx-auto max-w-3xl space-y-6">
-          <div>
-            <p className="eyebrow">Mission</p>
-            <p className="mt-3 text-sm text-ink leading-relaxed sm:text-base">
-              To offer the timeless teaching of Advaita — the non-dual recognition at
-              the root of the Indian philosophical tradition — in a way that meets the
-              contemporary sādhak without diluting the depth, the language, or the
-              human relationship at its heart.
-            </p>
+      {/* ──────────  MISSION  ────────── */}
+      <section className="px-6 py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl">
+          <div className="flex items-center gap-3">
+            <div className="h-px w-10 bg-saffron" />
+            <p className="eyebrow text-saffron">Mission</p>
           </div>
-
-          <Divider />
-
-          <div>
-            <p className="eyebrow">Tradition</p>
-            <div className="mt-3">
-              <SanskritVerse
-                deva={SANSKRIT.shankara.deva}
-                en={SANSKRIT.shankara.en}
-                citation={SANSKRIT.shankara.ref}
-                align="left"
-              />
-            </div>
-            <p className="mt-3 text-sm text-ink leading-relaxed">
-              {SITE.tradition}.
-            </p>
-          </div>
-
-          <Divider />
-
-          <div>
-            <p className="eyebrow">Location</p>
-            <p className="mt-3 text-sm text-ink leading-relaxed">{SITE.location}</p>
-            <p className="mt-2 text-xs text-ink-soft">
-              Founded by {SITE.founder}.
-            </p>
-          </div>
+          <p className="mt-6 text-lg leading-relaxed text-ink sm:text-xl">
+            To offer the timeless teaching of Advaita — the non-dual recognition at
+            the root of the Indian philosophical tradition — in a way that meets the
+            contemporary sādhak without diluting the depth, the language, or the
+            human relationship at its heart.
+          </p>
         </div>
       </section>
 
-      <section className="bg-paper-warm px-6 py-3 sm:py-3">
+      <Divider />
+
+      {/* ──────────  TRADITION  ────────── */}
+      <section className="bg-paper-warm px-6 py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl">
+          <div className="flex items-center gap-3">
+            <div className="h-px w-10 bg-saffron" />
+            <p className="eyebrow text-saffron">Tradition</p>
+          </div>
+          <div className="mt-6">
+            <SanskritVerse
+              deva={SANSKRIT.shankara.deva}
+              en={SANSKRIT.shankara.en}
+              citation={SANSKRIT.shankara.ref}
+              align="left"
+            />
+          </div>
+          <p className="mt-6 text-base leading-relaxed text-ink sm:text-lg">
+            {SITE.tradition}.
+          </p>
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* ──────────  LOCATION  ────────── */}
+      <section className="px-6 py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl">
+          <div className="flex items-center gap-3">
+            <div className="h-px w-10 bg-saffron" />
+            <p className="eyebrow text-saffron">Location</p>
+          </div>
+          <p className="mt-6 text-base leading-relaxed text-ink sm:text-lg">
+            {SITE.location}
+          </p>
+          <p className="mt-3 text-sm text-ink-soft">
+            Founded by {SITE.founder}.
+          </p>
+        </div>
+      </section>
+
+      {/* ──────────  PARAMPARĀ  ────────── */}
+      <section className="bg-paper-warm border-y border-ink/[0.04] px-6 py-16 sm:py-20">
         <div className="mx-auto max-w-4xl text-center">
           <p className="eyebrow">Paramparā · the unbroken line</p>
           <h2
-            className="display mt-2 text-2xl text-ink sm:text-4xl"
-            style={{ lineHeight: "1.05", letterSpacing: "-0.02em" }}
+            className="display mt-4 text-3xl text-ink sm:text-5xl lg:text-6xl"
+            style={{ lineHeight: "1.0", letterSpacing: "-0.02em" }}
           >
-            How the teaching reaches <span className="italic text-ink-soft">you.</span>
+            How the teaching reaches{" "}
+            <span className="italic text-ink-soft">you.</span>
           </h2>
         </div>
-        <div className="mt-3 mx-auto max-w-3xl rounded-2xl border border-ink/10 bg-paper py-3 px-4">
+        <div className="mx-auto mt-10 max-w-4xl rounded-2xl border border-ink/10 bg-paper p-6 sm:p-8">
           <LineageTree />
         </div>
       </section>
+
       <Footer />
     </main>
   );

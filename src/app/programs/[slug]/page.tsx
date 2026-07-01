@@ -137,12 +137,28 @@ export default async function CoursePage(
               ))}
             </div>
             {liveVariant && (
-              <p className="mt-2 text-xs text-ink-soft">
-                Live classes: <strong>{formatINR(liveVariant.priceINR)}/month</strong>
-                {course.recordedAccess && (
-                  <> · Recorded: <strong>{formatINR(course.priceINR)}</strong> ({course.recordedAccess} access with Zoom storage)</>
+              <>
+                {liveVariant.slug === "bhagavad-gita-live" && (
+                  <div className="mt-4 rounded-2xl border border-saffron/20 bg-saffron/5 px-5 py-4 ring-1 ring-saffron/10">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-saffron">
+                      Live class timing
+                    </p>
+                    <p className="mt-1 text-xl font-semibold text-ink">
+                      Tuesday & Thursday · 7:00 – 8:00 PM IST
+                    </p>
+                    <p className="mt-1 text-xs text-ink-soft">
+                      Enrol in the live monthly cohort and book your seat for the
+                      upcoming sessions.
+                    </p>
+                  </div>
                 )}
-              </p>
+                <p className="mt-3 text-xs text-ink-soft">
+                  Live classes: <strong>{formatINR(liveVariant.priceINR)}/month</strong>
+                  {course.recordedAccess && (
+                    <> · Recorded: <strong>{formatINR(course.priceINR)}</strong> ({course.recordedAccess} access with Zoom storage)</>
+                  )}
+                </p>
+              </>
             )}
             {!liveVariant && course.recordedAccess && (
               <p className="mt-2 text-xs text-ink-soft">

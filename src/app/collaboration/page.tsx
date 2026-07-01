@@ -45,25 +45,54 @@ export default function CollaborationPage() {
         description="Co-author a work, contribute an article, or join a research paper."
       />
 
-      <section className="px-6 pb-4">
-        <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
-          {WAYS.map((w, i) => (
-            <Reveal key={w.name} delay={i * 0.08}>
-              <div className="h-full rounded-2xl border border-ink/8 bg-paper p-5 transition-all duration-300 hover:-translate-y-1 hover:border-ink/20 hover:shadow-[0_18px_60px_-30px_rgba(0,0,0,0.35)]">
-                <p className="deva bg-gradient-to-r from-saffron via-gold to-saffron bg-clip-text text-lg text-transparent">
-                  {w.deva}
-                </p>
-                <p className="display mt-2 text-lg text-ink">{w.name}</p>
-                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{w.text}</p>
-              </div>
-            </Reveal>
-          ))}
+      {/* ──────────  THREE WAYS  ────────── */}
+      <section className="px-6 py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10 text-center">
+            <p className="eyebrow">Three ways to collaborate</p>
+            <h2
+              className="display mt-3 text-3xl text-ink sm:text-4xl"
+              style={{ lineHeight: "1.05", letterSpacing: "-0.02em" }}
+            >
+              Write, research,{" "}
+              <span className="italic text-saffron">co-create.</span>
+            </h2>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-3">
+            {WAYS.map((w, i) => (
+              <Reveal key={w.name} delay={i * 0.08}>
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-ink/[0.06] bg-paper transition-all duration-500 hover:-translate-y-2 hover:border-saffron/20 hover:shadow-[0_24px_80px_-32px_rgba(192,83,31,0.15)]">
+                  {/* Top accent bar */}
+                  <div className="h-1 w-full bg-gradient-to-r from-saffron via-gold to-saffron opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="p-6 sm:p-7">
+                    <p className="deva bg-gradient-to-r from-saffron via-gold to-saffron bg-clip-text text-2xl text-transparent">
+                      {w.deva}
+                    </p>
+                    <p className="display mt-2 text-xl text-ink">{w.name}</p>
+                    <p className="mt-3 text-base leading-relaxed text-ink-soft">
+                      {w.text}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-paper-warm px-6 py-4">
+      {/* ──────────  FORM  ────────── */}
+      <section className="bg-paper-warm border-t border-ink/[0.04] px-6 py-16 sm:py-20">
         <div className="mx-auto max-w-3xl">
-          <FormCard subtitle="Propose a collaboration">
+          <div className="mb-8 text-center">
+            <p className="eyebrow">Propose a collaboration</p>
+            <h2
+              className="display mt-3 text-2xl text-ink sm:text-3xl"
+              style={{ lineHeight: "1.05", letterSpacing: "-0.02em" }}
+            >
+              Begin the <span className="italic text-saffron">conversation.</span>
+            </h2>
+          </div>
+          <FormCard subtitle="Tell us what brings you">
             <CollaborationForm />
           </FormCard>
         </div>

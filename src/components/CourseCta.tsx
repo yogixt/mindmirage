@@ -17,9 +17,15 @@ export default function CourseCta({ course }: { course: Course }) {
     router.push("/checkout");
   };
 
+  const useBookingFlow =
+    course.slug.startsWith("1on1-") ||
+    course.slug.startsWith("consultation-") ||
+    course.slug.startsWith("counselling-") ||
+    course.slug === "bhagavad-gita-live" ||
+    course.slug === "lalita-for-women";
+
   if (liveVariant) {
     const recordedInCart = has(course.slug);
-    const liveInCart = has(liveVariant.slug);
 
     return (
       <div className="rounded-2xl border border-ink/10 bg-paper-warm/40 p-5">
@@ -80,13 +86,12 @@ export default function CourseCta({ course }: { course: Course }) {
                 <span>Cancel anytime</span>
               </li>
             </ul>
-            <button
-              type="button"
-              onClick={() => handleAdd(liveVariant.slug)}
-              className="mt-5 w-full rounded-lg border border-saffron bg-saffron/5 px-4 py-3 text-sm font-semibold text-saffron shadow-sm transition-all hover:scale-[1.02] hover:bg-saffron/10"
+            <Link
+              href={`/book/${liveVariant.slug}`}
+              className="mt-5 inline-flex w-full items-center justify-center rounded-lg border border-saffron bg-saffron/5 px-4 py-3 text-sm font-semibold text-saffron shadow-sm transition-all hover:scale-[1.02] hover:bg-saffron/10"
             >
-              {liveInCart ? "In basket — go to checkout" : "Join live · ₹800/month"}
-            </button>
+              Join live · ₹800/month
+            </Link>
           </div>
         </div>
 
@@ -133,29 +138,40 @@ export default function CourseCta({ course }: { course: Course }) {
       </ul>
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-        <button
-          type="button"
-          onClick={() => handleAdd(course.slug)}
-          className="flex-1 rounded-lg bg-saffron px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.02] hover:bg-clay"
-        >
-            Enrol now
-        </button>
-        {inCart ? (
+        {useBookingFlow ? (
           <Link
-            href="/cart"
-            className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg border border-saffron bg-saffron/5 px-6 py-3.5 text-sm font-semibold text-saffron transition-transform hover:scale-[1.02]"
+            href={`/book/${course.slug}`}
+            className="flex-1 rounded-lg bg-saffron px-6 py-3.5 text-center text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.02] hover:bg-clay"
           >
-            <CheckIcon width={16} height={16} />
-            In basket — view
+            Enrol now
           </Link>
         ) : (
-          <button
-            type="button"
-            onClick={() => handleAdd(course.slug)}
-            className="flex-1 rounded-lg border border-ink/15 bg-transparent px-6 py-3.5 text-sm font-semibold text-ink shadow-sm transition-all hover:scale-[1.02] hover:bg-paper-warm"
-          >
-            Add to basket
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={() => handleAdd(course.slug)}
+              className="flex-1 rounded-lg bg-saffron px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.02] hover:bg-clay"
+            >
+              Enrol now
+            </button>
+            {inCart ? (
+              <Link
+                href="/cart"
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg border border-saffron bg-saffron/5 px-6 py-3.5 text-sm font-semibold text-saffron transition-transform hover:scale-[1.02]"
+              >
+                <CheckIcon width={16} height={16} />
+                In basket — view
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={() => handleAdd(course.slug)}
+                className="flex-1 rounded-lg border border-ink/15 bg-transparent px-6 py-3.5 text-sm font-semibold text-ink shadow-sm transition-all hover:scale-[1.02] hover:bg-paper-warm"
+              >
+                Add to basket
+              </button>
+            )}
+          </>
         )}
       </div>
       <p className="mt-4 text-center text-xs text-ink-faint">

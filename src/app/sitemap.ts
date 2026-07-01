@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/programs",
     "/sit-with-guruji",
     "/consultation",
-    "/counselling",
     "/live-qa",
     "/mentorship",
     "/books",

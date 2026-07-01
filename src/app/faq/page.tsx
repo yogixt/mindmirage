@@ -25,8 +25,8 @@ const FAQS = [
     a: "Each subject — meditation, prāṇāyāma, āsanas, shatkarma, āyurveda, jyotiṣa, western philosophy, contemplation — is taken as a course of eight classes on Zoom. Browse the fields under Offerings, add a subject to your basket, and check out — timings are scheduled together after enrolment.",
   },
   {
-    q: "What is the difference between Mentorship, Counselling, and Consultation?",
-    a: "Mentorship is a long-form relationship in the gurukulam rhythm, by application. Counselling is for life's difficulties — grief, transitions, obstacles in practice — held through the lens of the teaching. Consultation is subject-based one-to-one study in eight-class courses. All three live under Sit with Guruji.",
+    q: "What is the difference between Mentorship and Consultation?",
+    a: "Mentorship is a long-form relationship in the gurukulam rhythm, by application. Consultation covers both subject-based one-to-one study and personal guidance — life's difficulties, transitions, and obstacles in practice — held through the lens of the teaching. Both live under Sit with Guruji.",
   },
   {
     q: "Do I need to know Sanskrit?",

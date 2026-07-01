@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import VideoHero from "@/components/VideoHero";
 import FooterHero from "@/components/FooterHero";
 import SanskritVerse from "@/components/SanskritVerse";
-import LineageTree from "@/components/LineageTree";
+import EventHighlights from "@/components/EventHighlights";
 import CourseCard from "@/components/CourseCard";
 import Divider from "@/components/Divider";
 
@@ -71,16 +71,16 @@ export default function HomePage() {
             className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 text-center"
             style={{ paddingTop: "8rem", paddingBottom: "6rem" }}
           >
-            <p className="eyebrow animate-fade-rise opacity-0 mt-4">
+            <p className="eyebrow animate-fade-rise mt-4">
               Mind Mirage · Rishikesh · est. {new Date().getFullYear() - 4}
             </p>
 
-            <p className="deva animate-fade-rise opacity-0 mt-6 text-3xl text-ink sm:text-4xl">
+            <p className="deva animate-fade-rise mt-6 text-3xl text-ink sm:text-4xl">
               {SANSKRIT.mahavakya.deva}
             </p>
 
             <h1
-              className="display animate-fade-rise-delay opacity-0 mt-6 max-w-7xl text-5xl text-ink sm:text-7xl md:text-8xl"
+              className="display animate-fade-rise-delay mt-6 max-w-7xl text-5xl text-ink sm:text-7xl md:text-8xl"
               style={{ lineHeight: "0.95", letterSpacing: "-2.46px" }}
             >
               Beyond the mind,
@@ -88,11 +88,11 @@ export default function HomePage() {
               <span className="italic text-saffron">the seer</span> remains.
             </h1>
 
-            <div className="animate-fade-rise-delay-2 opacity-0 mt-6 mb-2">
+            <div className="animate-fade-rise-delay-2 mt-6 mb-2">
               <Divider />
             </div>
 
-            <div className="animate-fade-rise-delay-3 opacity-0 mt-5">
+            <div className="animate-fade-rise-delay-3 mt-5">
               <Link
                 href="#offerings"
                 className="text-xs uppercase tracking-[0.25em] text-ink-faint transition-colors hover:text-ink"
@@ -103,46 +103,10 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ──────────  2. MANGALĀCHĀRANA  ────────── */}
-        <section className="bg-paper-deep py-4 px-6">
-          <div className="mx-auto max-w-7xl text-center">
-            <p className="eyebrow">Mangalāchārana · invocation</p>
-            <div className="mt-2 animate-fade-rise opacity-0">
-              <p
-                className="deva animate-om-glow whitespace-pre-line text-xl font-bold text-black sm:text-2xl lg:text-3xl"
-                style={{ letterSpacing: "0.04em", lineHeight: 1.7 }}
-              >
-                {SANSKRIT.guruStotram.deva}
-              </p>
-            </div>
-          </div>
-        </section>
+        {/* ──────────  2. EVENT HIGHLIGHTS  ────────── */}
+        <EventHighlights />
 
-        {/* ──────────  3. LINEAGE  ────────── */}
-        <section className="bg-paper-warm py-4 px-6">
-          <div className="mx-auto max-w-5xl">
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="eyebrow">Paramparā · the unbroken line</p>
-              <h2
-                className="display mt-2 text-3xl text-ink sm:text-4xl"
-                style={{ lineHeight: "1.05", letterSpacing: "-0.02em" }}
-              >
-                From Adi Shankarācārya to <span className="italic text-ink-soft">you,</span>
-                <br />a single thread.
-              </h2>
-              <p className="mt-3 text-sm text-ink-soft leading-relaxed">
-                {SANSKRIT.shankara.deva}
-                <br />
-                <span className="sanskrit-italic">— {SANSKRIT.shankara.en}</span>
-              </p>
-            </div>
-            <div className="mt-3 rounded-2xl border border-ink/10 bg-paper-warm py-4 px-4">
-              <LineageTree />
-            </div>
-          </div>
-        </section>
-
-        {/* ──────────  4. THREE PATHS  ────────── */}
+        {/* ──────────  3. THREE PATHS  ────────── */}
         <section className="relative overflow-hidden bg-paper py-10 px-6 sm:py-14">
           <div className="mx-auto max-w-6xl">
             <EditorialHeader
@@ -222,66 +186,81 @@ export default function HomePage() {
         </section>
 
         {/* ──────────  6. ACHARYA JI  ────────── */}
-        <section className="relative w-full overflow-hidden bg-paper">
-          <div className="mx-auto max-w-6xl">
-            <div className="grid lg:grid-cols-2 lg:items-center">
-              {/* Text */}
-              <div className="order-2 px-6 py-10 sm:py-12 lg:order-1 lg:py-16 lg:pr-10">
-                <p className="deva text-lg text-ink sm:text-xl">
-                  आचार्य भाग्यश्री जोशी जी
-                </p>
-                <h2
-                  className="display mt-2 text-4xl text-ink sm:text-5xl"
-                  style={{ lineHeight: "1.0", letterSpacing: "-0.02em" }}
-                >
-                  Acharya
-                  <br />
-                  <span className="italic">Bhagyashree Joshi Ji</span>
-                </h2>
-                <svg
-                  viewBox="0 0 300 12"
-                  className="mt-3 h-2.5 w-48 text-ink/80 sm:w-64"
-                  aria-hidden
-                >
-                  <path
-                    d="M3 8 C 60 2, 150 1, 297 6"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                    fill="none"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <p className="mt-4 text-sm leading-relaxed text-ink-soft sm:text-base">
-                  A teacher in the Advaita lineage of Adi Shankarācārya —
-                  weaving Yoga, Vedānta, and Sanskrit into the contemporary
-                  sādhak&apos;s life, in the warmth of the Guru-Śiṣya Paramparā.
-                </p>
-                <div className="mt-6 flex flex-wrap items-center gap-3">
-                  <Link
-                    href="/our-team"
-                    className="rounded-full bg-saffron px-6 py-2.5 text-sm text-paper transition-transform hover:scale-[1.03]"
-                  >
-                    Know more
-                  </Link>
-                  <Link
-                    href="/sit-with-guruji"
-                    className="rounded-full border border-ink/20 px-6 py-2.5 text-sm text-ink transition-colors hover:border-ink"
-                  >
-                    Sit with her
-                  </Link>
-                </div>
-              </div>
+        <section className="relative w-full overflow-hidden bg-paper lg:min-h-[820px]">
+          {/* Background image container — stacks vertically on mobile, full-bleed on desktop */}
+          <div className="relative h-[400px] w-full sm:h-[500px] lg:absolute lg:inset-0 lg:h-full">
+            <Image
+              src="/acharya-ji.jpg"
+              alt="Acharya Bhagyashree Joshi Ji — Vedanta teacher at Advaita Sadhana Kutir, Rishikesh"
+              fill
+              sizes="100vw"
+              className="object-cover"
+              style={{ objectPosition: "28% 15%" }}
+              priority
+            />
+            {/* Smooth desktop gradient — fades from white on the right (text side) to transparent on the left (subject side) */}
+            <div
+              className="absolute inset-0 hidden lg:block"
+              style={{
+                background:
+                  "linear-gradient(to left, #FFFFFF 0%, #FFFFFF 30%, rgba(255,255,255,0.85) 38%, rgba(255,255,255,0.5) 48%, rgba(255,255,255,0.15) 56%, transparent 64%)",
+              }}
+            />
+          </div>
 
-              {/* Image — contained, face always visible */}
-              <div className="order-1 relative h-[420px] w-full sm:h-[500px] lg:order-2 lg:h-[580px]">
-                <Image
-                  src="/acharya-ji.jpg"
-                  alt="Acharya Bhagyashree Joshi Ji — Vedanta teacher at Advaita Sadhana Kutir, Rishikesh"
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover object-top"
-                  priority
+          {/* Text content — stacks below image on mobile, overlays and aligns to the right on desktop */}
+          <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-center px-6 py-12 sm:py-16 lg:absolute lg:inset-0 lg:items-end lg:py-0">
+            <div className="max-w-lg sm:max-w-xl">
+              {/* Devanagari — subtle offset above heading */}
+              <p className="deva pl-16 text-xl text-ink/90 sm:pl-24 sm:text-2xl lg:pl-28 lg:text-[1.65rem]">
+                आचार्य भाग्यश्री जोशी जी
+              </p>
+
+              <h2
+                className="display mt-1 text-[3.5rem] leading-[0.88] text-ink sm:text-7xl lg:text-[5.5rem]"
+                style={{ letterSpacing: "-0.03em" }}
+              >
+                Acharya
+                <br />
+                <span className="italic text-saffron">Bhagyashree</span>
+                <br />
+                <span className="italic">Joshi Ji</span>
+              </h2>
+
+              {/* Brush stroke underline */}
+              <svg
+                viewBox="0 0 320 14"
+                className="mt-4 h-3.5 w-64 text-saffron/70 sm:w-80"
+                aria-hidden
+              >
+                <path
+                  d="M2 10 Q 80 2, 160 4 T 318 7"
+                  stroke="currentColor"
+                  strokeWidth="5"
+                  fill="none"
+                  strokeLinecap="round"
                 />
+              </svg>
+
+              <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft sm:text-lg">
+                A teacher in the Advaita lineage of Adi Shankarācārya —
+                weaving Yoga, Vedānta, and Sanskrit into the contemporary
+                sādhak&apos;s life, in the warmth of the Guru-Śiṣya Paramparā.
+              </p>
+
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/our-team"
+                  className="rounded-full bg-saffron px-8 py-3.5 text-sm font-medium text-paper transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-saffron/20"
+                >
+                  Know more
+                </Link>
+                <Link
+                  href="/sit-with-guruji"
+                  className="rounded-full border border-ink/20 bg-white/60 px-8 py-3.5 text-sm text-ink backdrop-blur-sm transition-all duration-300 hover:border-saffron hover:text-saffron"
+                >
+                  Sit with her
+                </Link>
               </div>
             </div>
           </div>

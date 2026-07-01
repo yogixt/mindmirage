@@ -66,7 +66,6 @@ export const NAV_PRIMARY = [
 
 export const NAV_FOOTER_SIT = [
   { href: "/mentorship", label: "Mentorship" },
-  { href: "/counselling", label: "Counselling" },
   { href: "/consultation", label: "Consultation" },
 ] as const;
 
@@ -309,6 +308,7 @@ export type GuidanceSubject = {
 };
 
 export const GUIDANCE_SUBJECTS: GuidanceSubject[] = [
+  { slug: "bhagavad-gita-live", name: "Bhagavad Gītā · Live Monthly", deva: "भगवद्गीता", priceINR: 0, notes: "Monthly live cohort — Tue/Thu 7 pm IST" },
   { slug: "guided-meditation", name: "Guided Meditation", deva: "ध्यान", priceINR: 3000 },
   { slug: "pranayama", name: "Prāṇāyāma", deva: "प्राणायाम", priceINR: 3000 },
   { slug: "asanas", name: "Āsanas", deva: "आसन", priceINR: 3000 },
@@ -426,6 +426,56 @@ export const CATALOG: Course[] = [...COURSES, ...MONTHLY_LIVE, ...SESSION_COURSE
 export const CONSULTATION_SINGLE = { priceINR: 2000, duration: "45 min" };
 export const CONSULTATION_6_PACK = { priceINR: 11000, sessions: 6, slug: "consultation-6" };
 
+/* Slot / scheduling rules for the consultation booking calendar.
+   - days: array of weekday numbers (0=Sun … 6=Sat). If omitted, all available days.
+   - flexible: the team and seeker decide the time together. */
+export type ScheduleRule = {
+  id: string;
+  label: string;
+  ist: string;
+  days?: number[];
+  flexible?: boolean;
+  allowPreference?: boolean;
+};
+
+export const SUBJECT_SCHEDULES: Record<string, ScheduleRule> = {
+  "bhagavad-gita-live": {
+    id: "gita-live-7pm",
+    label: "Gītā Live",
+    ist: "7:00 PM – 8:00 PM IST",
+    days: [2, 4], // Tuesday, Thursday
+  },
+  pranayama: {
+    id: "pranayama-flexible",
+    label: "Prāṇāyāma 1-1",
+    ist: "Decide with teacher",
+    flexible: true,
+  },
+  asanas: {
+    id: "asanas-flexible",
+    label: "Āsanas 1-1",
+    ist: "Decide with teacher",
+    flexible: true,
+  },
+  "lalita-for-women": {
+    id: "lalita-8pm",
+    label: "Lalitā for Women",
+    ist: "8:00 PM – 9:00 PM IST",
+    allowPreference: true,
+  },
+  default: {
+    id: "consultation-8pm",
+    label: "Evening Consultation",
+    ist: "8:00 PM – 9:00 PM IST",
+    allowPreference: true,
+  },
+};
+
+export function scheduleForSubject(slug: string): ScheduleRule {
+  return SUBJECT_SCHEDULES[slug] ?? SUBJECT_SCHEDULES.default;
+}
+
+/* @deprecated — kept for old references; use scheduleForSubject(). */
 export const SLOTS = [
   {
     id: "A",

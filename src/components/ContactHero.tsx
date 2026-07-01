@@ -69,7 +69,7 @@ export default function ContactHero() {
 
   return (
     <div className="min-h-screen bg-paper p-3 pt-20 sm:p-4 sm:pt-22 md:p-6 md:pt-24">
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl min-h-[calc(100vh-104px)] md:min-h-[calc(100vh-120px)]">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl min-h-[calc(100vh-104px)] md:min-h-[calc(100vh-120px)] border border-ink/[0.04]">
         {/* Video background */}
         <video
           ref={videoRef}
@@ -91,7 +91,7 @@ export default function ContactHero() {
 
           {/* Bottom row: headline + form card */}
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <p className="shrink-0 text-3xl font-medium leading-tight text-white drop-shadow-lg sm:text-4xl xl:text-5xl lg:max-w-lg xl:max-w-2xl">
+            <p className="shrink-0 text-4xl font-medium leading-tight text-white drop-shadow-lg sm:text-5xl xl:text-6xl lg:max-w-lg xl:max-w-2xl">
               Begin a quiet
               <br />
               <span
@@ -104,13 +104,16 @@ export default function ContactHero() {
 
             {/* Form card */}
             <div className="w-full shrink-0 lg:w-[min(480px,45%)]">
-              <div className="flex flex-col gap-4 overflow-hidden rounded-2xl bg-paper p-4 shadow-2xl sm:rounded-3xl sm:p-6">
+              <div className="flex flex-col gap-5 overflow-hidden rounded-2xl bg-paper p-5 shadow-2xl sm:rounded-3xl sm:p-8">
                 <h2 className="text-xl font-semibold tracking-tight text-ink sm:text-2xl">
                   Say namaste
                 </h2>
+                <p className="text-sm text-ink-soft">
+                  We reply within a day.
+                </p>
 
                 {/* Email + quick channels */}
-                <div className="flex flex-row items-center justify-between gap-3 rounded-2xl bg-paper-deep/60 px-4 py-2.5">
+                <div className="flex flex-row items-center justify-between gap-3 rounded-2xl bg-paper-deep/60 px-4 py-3">
                   <div className="min-w-0">
                     <p className="text-[11px] text-ink-faint">Drop us a line</p>
                     <a
@@ -207,7 +210,7 @@ export default function ContactHero() {
                       <button
                         type="submit"
                         disabled={sending}
-                        className="w-full rounded-2xl bg-saffron py-3 text-sm font-semibold text-white transition-colors hover:bg-clay disabled:opacity-60"
+                        className="w-full rounded-full bg-saffron py-3.5 text-sm font-semibold text-white transition-all hover:scale-[1.02] hover:shadow-lg hover:shadow-saffron/20 disabled:opacity-60"
                       >
                         {sending ? "Sending…" : "Send my message"}
                       </button>

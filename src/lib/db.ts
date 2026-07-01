@@ -25,6 +25,77 @@ export async function runMigrations() {
   } catch {
     /* column already exists */
   }
+
+  /* Ensure the bookings table matches the shared schema. */
+  try {
+    await db.execute(`CREATE TABLE IF NOT EXISTS bookings (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      email TEXT,
+      whatsapp TEXT,
+      subject TEXT,
+      slot TEXT,
+      preferred_dates TEXT,
+      message TEXT,
+      status TEXT DEFAULT 'new',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      user_id TEXT,
+      approved_date TEXT,
+      paid INTEGER DEFAULT 0
+    )`);
+  } catch {
+    /* table already exists */
+  }
+
+  /* Booking + payment linkage for the slot-first checkout wizard. */
+  const bookingCols = [
+    "order_id TEXT",
+    "payment_id TEXT",
+    "amount_inr INTEGER",
+    "item_slug TEXT",
+    "expires_at TEXT",
+  ];
+  for (const col of bookingCols) {
+    try {
+      await db.execute(`ALTER TABLE bookings ADD COLUMN ${col}`);
+    } catch {
+      /* column already exists */
+    }
+  }
+
+  /* Calendar blocking + live class schedule shared with the admin portal. */
+  try {
+    await db.execute(`CREATE TABLE blocked_dates (
+      date TEXT PRIMARY KEY,
+      reason TEXT
+    )`);
+  } catch { /* exists */ }
+
+  try {
+    await db.execute(`CREATE TABLE class_schedule (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      course_slug TEXT NOT NULL,
+      on_date TEXT NOT NULL,
+      at_time TEXT,
+      zoom_url TEXT,
+      note TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )`);
+  } catch { /* exists */ }
+
+  /* WhatsApp-contact clicks from event pages (leads), shared with admin. */
+  try {
+    await db.execute(`CREATE TABLE whatsapp_clicks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      program TEXT,
+      name TEXT,
+      email TEXT,
+      phone TEXT,
+      context TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )`);
+  } catch { /* exists */ }
+
   migrated = true;
 }
 

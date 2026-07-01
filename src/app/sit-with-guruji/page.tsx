@@ -6,9 +6,9 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Sit with Guruji — Mentorship, Counselling & Consultation",
+  title: "Sit with Guruji — Mentorship & Consultation",
   description:
-    "Three ways to sit with Acharya Bhagyashree Joshi Ji one-to-one — long-form mentorship, spiritual counselling, and consultation classes on Zoom from Rishikesh.",
+    "Two ways to sit with Acharya Bhagyashree Joshi Ji one-to-one — long-form mentorship and consultation on Zoom from Rishikesh.",
 };
 
 const WAYS = [
@@ -20,17 +20,10 @@ const WAYS = [
     cta: "Apply for mentorship",
   },
   {
-    href: "/counselling",
-    deva: "परामर्श",
-    name: "Counselling",
-    text: "When life needs a listening — difficulties, grief, obstacles in practice, held through the steady lens of the teaching.",
-    cta: "Request counselling",
-  },
-  {
     href: "/consultation",
     deva: "मार्गदर्शन",
     name: "Consultation",
-    text: "Live classes on Zoom — every subject a complete eight-class course. Add a subject to your basket under Offerings.",
+    text: "Live classes and one-to-one guidance on Zoom — every subject taken with care, in the warmth of the Guru-Śiṣya Paramparā.",
     cta: "Book a consultation",
   },
 ];
@@ -56,7 +49,7 @@ export default function SitWithGurujiPage() {
       />
 
       <section className="px-6 pb-4">
-        <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
+        <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-2">
           {WAYS.map((w, i) => (
             <Reveal key={w.href} delay={i * 0.08} className="flex">
               <Link

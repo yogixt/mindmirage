@@ -3,7 +3,7 @@ import { createHmac, timingSafeEqual } from "crypto";
 import Razorpay from "razorpay";
 import { z } from "zod";
 import { enrollCurrentSeeker, getSeeker } from "@/lib/auth";
-import { mindMirageDb } from "@/lib/db";
+import { mindMirageDb, runMigrations } from "@/lib/db";
 import { notify } from "@/lib/notify";
 
 const BodySchema = z.object({
@@ -11,9 +11,11 @@ const BodySchema = z.object({
   razorpay_payment_id: z.string().min(1),
   razorpay_signature: z.string().min(1),
   slugs: z.array(z.string()).min(1),
+  bookingId: z.number().int().optional(),
 });
 
 export async function POST(req: Request) {
+  await runMigrations();
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
   if (!keySecret) {
     return NextResponse.json(
@@ -40,7 +42,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature, slugs } =
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature, slugs, bookingId } =
     parsed.data;
 
   const expected = createHmac("sha256", keySecret)
@@ -77,6 +79,23 @@ export async function POST(req: Request) {
   for (const slug of slugs) {
     const ok = await enrollCurrentSeeker(slug);
     if (ok) enrolled.push(slug);
+  }
+
+  // For slot-first bookings, mark the pending booking as paid and confirmed.
+  if (bookingId) {
+    try {
+      const db = mindMirageDb();
+      if (db) {
+        await db.execute({
+          sql: `UPDATE bookings
+                SET status = 'new', paid = 1, payment_id = ?
+                WHERE id = ?`,
+          args: [razorpay_payment_id, bookingId],
+        });
+      }
+    } catch (e) {
+      console.error("[verify] booking update failed", e);
+    }
   }
 
   // Record the purchase for the admin portal — amount and coupon read back
