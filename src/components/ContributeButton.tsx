@@ -85,16 +85,79 @@ export default function ContributeButton() {
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md overflow-hidden rounded-2xl bg-paper shadow-2xl ring-1 ring-black/5">
-            <div className="border-b border-ink/5 px-6 py-5 text-center">
-              <p className="display mt-1.5 text-xl text-ink">Support the Word</p>
-              <p className="mt-2 text-xs leading-relaxed text-ink-soft">
-                What is given freely is sustained freely. Your support keeps this
-                work alive — no strings, no fine print, just the teaching.
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/50 p-4 backdrop-blur-sm"
+          onClick={() => { setOpen(false); setError(null); }}
+        >
+          <div
+            className="w-full max-w-md overflow-hidden rounded-[28px] bg-paper shadow-2xl ring-1 ring-black/5 animate-fade-rise"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Hero */}
+            <div
+              className="relative overflow-hidden px-6 pb-6 pt-8 text-center"
+              style={{ background: "radial-gradient(120% 100% at 50% 0%, #FBF1D7 0%, #F8EFDC 45%, #FFFFFF 100%)" }}
+            >
+              {/* decorative sparks */}
+              <span className="pointer-events-none absolute left-8 top-6 size-1.5 rounded-full bg-gold/50" />
+              <span className="pointer-events-none absolute right-10 top-10 size-1 rounded-full bg-gold/40" />
+              <span className="pointer-events-none absolute right-16 top-4 text-gold/50">✦</span>
+
+              {/* Emblem — a diya flame */}
+              <div className="mx-auto flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-[#E7C463] to-[#C9A227] shadow-lg shadow-gold/30 ring-4 ring-white/70">
+                <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" aria-hidden="true">
+                  <path d="M12 2.5c1.7 3.2 4.3 4.7 4.3 8.4a4.3 4.3 0 1 1-8.6 0c0-1.7.8-3 1.7-4.1C10.6 8 12 6 12 2.5z" fill="#FFF6DE" />
+                  <path d="M12 8c.9 1.7 2.1 2.6 2.1 4.5a2.1 2.1 0 1 1-4.2 0c0-1 .6-1.9 1.2-2.6.5-.6.9-1.1.9-1.9z" fill="#EFA636" />
+                </svg>
+              </div>
+
+              <p className="display mt-4 text-2xl text-ink">Support the Word</p>
+              <p className="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-ink-soft">
+                What is given freely is sustained freely — no strings, no fine
+                print, just the teaching.
               </p>
             </div>
-            <div className="space-y-4 px-6 py-5">
+
+            {/* Body */}
+            <div className="space-y-5 px-6 pt-5">
+              <div>
+                <label className="eyebrow text-ink-faint">Choose an offering</label>
+                <div className="mt-2 grid grid-cols-4 gap-2">
+                  {[100, 500, 1000, 5000].map((v) => {
+                    const active = amount === String(v);
+                    return (
+                      <button
+                        key={v}
+                        type="button"
+                        onClick={() => setAmount(String(v))}
+                        className={`rounded-xl border px-1 py-2.5 text-[13px] font-bold transition-all ${
+                          active
+                            ? "border-transparent bg-gradient-to-br from-[#E7C463] to-[#C9A227] text-white shadow-md shadow-gold/30"
+                            : "border-ink/10 bg-paper-warm text-ink hover:-translate-y-0.5 hover:border-gold/50"
+                        }`}
+                      >
+                        ₹{v.toLocaleString("en-IN")}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <label className="eyebrow text-ink-faint">Or enter an amount</label>
+                <div className="relative mt-2">
+                  <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-base font-semibold text-ink-faint">₹</span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value.replace(/[^0-9]/g, ""))}
+                    placeholder="500"
+                    className="w-full rounded-xl border border-ink/10 bg-paper-warm py-3 pl-9 pr-4 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-gold/40"
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="eyebrow text-ink-faint">Your name</label>
                 <input
@@ -102,47 +165,23 @@ export default function ContributeButton() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Arjun"
-                  className="mt-1.5 w-full rounded-xl border border-ink/10 bg-paper-warm px-4 py-3 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-gold/40"
+                  className="mt-2 w-full rounded-xl border border-ink/10 bg-paper-warm px-4 py-3 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-gold/40"
                 />
               </div>
-              <div>
-                <label className="eyebrow text-ink-faint">Offering (₹)</label>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value.replace(/[^0-9]/g, ""))}
-                  placeholder="e.g. 500"
-                  className="mt-1.5 w-full rounded-xl border border-ink/10 bg-paper-warm px-4 py-3 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-gold/40"
-                />
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {[100, 500, 1000, 5000].map((v) => (
-                  <button
-                    key={v}
-                    type="button"
-                    onClick={() => setAmount(String(v))}
-                    className={`rounded-full border px-4 py-1.5 text-xs font-semibold transition-colors ${
-                      amount === String(v)
-                        ? "border-gold bg-gold/10 text-gold"
-                        : "border-ink/10 text-ink-faint hover:border-ink/30"
-                    }`}
-                  >
-                    ₹{v.toLocaleString("en-IN")}
-                  </button>
-                ))}
-              </div>
+
               {error && (
                 <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-700 ring-1 ring-red-200">
                   {error}
                 </p>
               )}
             </div>
-            <div className="flex items-center justify-between border-t border-ink/5 px-6 py-4">
+
+            {/* Footer */}
+            <div className="mt-5 flex items-center justify-between gap-3 border-t border-ink/5 px-6 py-4">
               <button
                 type="button"
                 onClick={() => { setOpen(false); setError(null); }}
-                className="text-xs text-ink-faint hover:text-ink transition-colors"
+                className="text-sm text-ink-faint transition-colors hover:text-ink"
               >
                 Maybe later
               </button>
@@ -150,9 +189,18 @@ export default function ContributeButton() {
                 type="button"
                 onClick={pay}
                 disabled={busy}
-                className="rounded-full bg-gold px-6 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-gold/85 disabled:opacity-60"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-[#E7C463] to-[#C9A227] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-gold/30 transition-transform hover:scale-[1.03] disabled:opacity-60"
               >
-                {busy ? "Please wait…" : `Offer ${amount ? `₹${parseInt(amount, 10).toLocaleString("en-IN")}` : ""}`}
+                {busy ? (
+                  "Please wait…"
+                ) : (
+                  <>
+                    Offer{amount ? ` ₹${parseInt(amount, 10).toLocaleString("en-IN")}` : ""}
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </>
+                )}
               </button>
             </div>
           </div>
