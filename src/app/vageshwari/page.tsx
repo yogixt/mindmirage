@@ -10,7 +10,7 @@ import PostCard from "./FeedClient";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Vageshwari — Blogs & News from Guruji and the Team",
+  title: "Brahmavadini — Blogs & News from Guruji and the Team",
   description:
     "Blogs, news, photos, and updates written by Acharya Bhagyashree Joshi Ji and the Mind Mirage team — sign in to read, like, and join the conversation.",
 };
@@ -69,7 +69,7 @@ export default async function VageshwariPage() {
       <main className="bg-paper">
         <Navbar variant="solid" />
         <PageHero
-          eyebrow="Vageshwari · पत्रिका"
+          eyebrow="Brahmavadini · पत्रिका"
           deva="कुटीर पत्रिका"
           title={
             <>
@@ -86,7 +86,7 @@ export default async function VageshwariPage() {
         <GateCard
           deva="कुटीर पत्रिका"
           heading="For sādhaks' eyes."
-          body="Vageshwari is read inside the satsang — sign in (free) to read, like, and comment."
+          body="Brahmavadini is read inside the satsang — sign in (free) to read, like, and comment."
           ctaHref="/sign-in"
           ctaLabel="Sign in to read"
           footer={
@@ -112,7 +112,7 @@ export default async function VageshwariPage() {
       <main className="bg-paper">
         <Navbar variant="solid" />
         <PageHero
-          eyebrow="Vageshwari · पत्रिका"
+          eyebrow="Brahmavadini · पत्रिका"
           deva="कुटीर पत्रिका"
           title={
             <>
@@ -129,7 +129,7 @@ export default async function VageshwariPage() {
         <GateCard
           deva="कुटीर पत्रिका"
           heading="Begin your journey first."
-          body="Vageshwari opens to sādhaks who have enrolled in a course — once your journey with us begins, the letters are yours."
+          body="Brahmavadini opens to sādhaks who have enrolled in a course — once your journey with us begins, the letters are yours."
           ctaHref="/programs"
           ctaLabel="Browse the offerings"
         />
@@ -144,7 +144,7 @@ export default async function VageshwariPage() {
     <main className="bg-paper">
       <Navbar variant="solid" />
       <PageHero
-        eyebrow="Vageshwari · पत्रिका"
+        eyebrow="Brahmavadini · पत्रिका"
         deva="कुटीर पत्रिका"
         title={
           <>

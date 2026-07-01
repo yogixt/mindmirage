@@ -99,7 +99,7 @@ export async function runMigrations() {
   migrated = true;
 }
 
-/* ────────────  Vageshwari (posted by Team / Guruji)  ────────────
+/* ────────────  Brahmavadini (posted by Team / Guruji)  ────────────
    Team posts blogs, photos, links, news; signed-in seekers read,
    like, and comment. */
 

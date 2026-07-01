@@ -46,7 +46,7 @@ const FAQS = [
   },
   {
     q: "Where do I find blogs, news, and announcements from the team?",
-    a: "In Vageshwari — blogs, news, photos, and announcements posted by Acharya Ji and the team. Sign in to read, like, and comment. Retreats and gatherings are also announced to the WhatsApp sādhaks' list first.",
+    a: "In Brahmavadini — blogs, news, photos, and announcements posted by Acharya Ji and the team. Sign in to read, like, and comment. Retreats and gatherings are also announced to the WhatsApp sādhaks' list first.",
   },
   {
     q: "I have a question that isn't answered here.",

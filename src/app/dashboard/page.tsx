@@ -21,7 +21,7 @@ export const dynamic = "force-dynamic";
 const QUICK_LINKS = [
   {
     href: "/vageshwari",
-    title: "Vageshwari",
+    title: "Brahmavadini",
     deva: "वागेश्वरी",
     text: "Notes and news from the kuṭīr.",
   },

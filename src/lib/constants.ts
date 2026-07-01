@@ -61,7 +61,7 @@ export const NAV_PRIMARY = [
   { href: "/collaboration", label: "Collaboration" },
   { href: "/programs", label: "Offerings" },
   { href: "/contact", label: "Reach Us" },
-  { href: "/vageshwari", label: "Vageshwari" },
+  { href: "/vageshwari", label: "Brahmavadini" },
 ] as const;
 
 export const NAV_FOOTER_SIT = [
@@ -83,7 +83,7 @@ export const NAV_FOOTER_RESEARCH = [
 ] as const;
 
 export const NAV_FOOTER_ENGAGE = [
-  { href: "/vageshwari", label: "Vageshwari" },
+  { href: "/vageshwari", label: "Brahmavadini" },
   { href: "/internship", label: "Internship" },
   { href: "/volunteer", label: "Karma Yoga" },
   { href: "/faq", label: "FAQ" },
