@@ -67,12 +67,12 @@ const THEME = {
     watermark: "rgba(110,139,91,0.16)",
   },
   teal: {
-    bg: "linear-gradient(135deg, #E7EEEE 0%, #D5E2E1 55%, #C2D6D3 100%)",
-    text: "#2E3E3C",
-    soft: "rgba(46,62,60,0.72)",
+    bg: "linear-gradient(135deg, #F1EBD7 0%, #E5DCC0 55%, #D6CBA4 100%)",
+    text: "#463A2A",
+    soft: "rgba(70,58,42,0.72)",
     accent: "#C0531F",
-    cta: "#3B534F",
-    watermark: "rgba(70,120,112,0.16)",
+    cta: "#6E7355",
+    watermark: "rgba(176,134,42,0.18)",
   },
 } as const;
 

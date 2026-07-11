@@ -5,9 +5,10 @@ import Script from "next/script";
 
 /* ────────────────────────────────────────────────────────────
    Ashtanga Hridayam · Sutrasthana — course landing + booking /
-   payment. Ayurveda "core scripture series" identity: deep
-   forest green, temple gold and cream (Cormorant Garamond +
-   Mukta). Self-contained palette so the section keeps its own
+   payment. Ayurveda "core scripture series" identity: luminous
+   ivory-cream, temple gold and muted sage-olive drawn from the
+   hero artwork (Cormorant Garamond + Mukta). Self-contained
+   palette so the section keeps its own
    look inside the site chrome (Navbar / Footer). Fonts arrive as
    CSS variables from app/ashtanga-hridayam/page.tsx.
    ──────────────────────────────────────────────────────────── */
@@ -15,14 +16,18 @@ import Script from "next/script";
 const SERIF = "var(--font-cormorant), var(--font-noto-deva), Georgia, serif";
 const BODY = "var(--font-mukta), var(--font-noto-deva), system-ui, sans-serif";
 
-const GREEN = "#14432E";
-const GREEN_SOFT = "#2E5B44";
+/* Palette drawn from the hero artwork: luminous ivory-cream, temple gold,
+   the figure's muted sage-olive, blush-lotus accent, warm-brown ink.
+   (GREEN/GREEN_SOFT are the sage-olive used for interactive elements.) */
+const GREEN = "#6E7355";
+const GREEN_SOFT = "#585D42";
 const GOLD = "#B0862A";
-const CREAM = "#F4EEDF";
-const CREAM_CARD = "#FBF6E9";
-const INK = "#2F3A2B";
-const MUTED = "#6B6A54";
-const BORDER = "#E3DBC1";
+const BLUSH = "#C98C82";
+const CREAM = "#F4EDE0";
+const CREAM_CARD = "#FBF6EC";
+const INK = "#463A2A";
+const MUTED = "#7A6E56";
+const BORDER = "#E7DEC9";
 
 const FACTS = [
   { big: "40", small: "Minutes per session" },
@@ -92,7 +97,7 @@ export default function AshtangaHridayamBanner() {
   useEffect(() => {
     const img = new window.Image();
     img.onload = () => setPosterOk(true);
-    img.src = "/ashtanga/poster.jpg";
+    img.src = "/ashtanga/hero.png";
   }, []);
 
   useEffect(() => {
@@ -264,7 +269,7 @@ export default function AshtangaHridayamBanner() {
           background: "linear-gradient(135deg, #F8F2E2 0%, #EEE7CF 100%)",
           borderRadius: 28,
           overflow: "hidden",
-          boxShadow: "0 30px 70px -42px rgba(20,67,46,0.5)",
+          boxShadow: "0 30px 70px -42px rgba(88,93,66,0.5)",
           padding: 40,
           border: `1px solid ${BORDER}`,
         }}
@@ -318,7 +323,7 @@ export default function AshtangaHridayamBanner() {
               marginTop: 4,
             }}
           >
-            Sutrasthāna — the heart of Ayurveda
+            Sutrasthāna — Ayurveda&apos;s root scripture
           </div>
           <p style={{ fontSize: 16, color: MUTED, lineHeight: 1.6, margin: "18px 0 0", maxWidth: 480 }}>
             An unhurried study of Ayurveda&apos;s foundational scripture — three
@@ -364,7 +369,7 @@ export default function AshtangaHridayamBanner() {
               display: "inline-flex",
               alignItems: "center",
               gap: 10,
-              boxShadow: "0 14px 30px -14px rgba(20,67,46,0.9)",
+              boxShadow: "0 14px 30px -14px rgba(88,93,66,0.9)",
               whiteSpace: "nowrap",
             }}
           >
@@ -383,14 +388,14 @@ export default function AshtangaHridayamBanner() {
           {posterOk ? (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
-              src="/ashtanga/poster.jpg"
-              alt="Ashtanga Hridayam · Sutrasthana — Ayurveda Core Scripture Series, Rishikesh"
+              src="/ashtanga/hero.png"
+              alt="Ashtanga Hridayam · Sutrasthana — The Heart of Ayurveda"
               style={{
                 width: "100%",
                 maxWidth: 380,
                 borderRadius: 20,
                 display: "block",
-                boxShadow: "0 24px 60px -30px rgba(20,67,46,0.6)",
+                boxShadow: "0 24px 60px -30px rgba(88,93,66,0.6)",
                 border: `1px solid ${BORDER}`,
               }}
             />
@@ -402,7 +407,7 @@ export default function AshtangaHridayamBanner() {
                 aspectRatio: "3 / 4",
                 borderRadius: 20,
                 background:
-                  "radial-gradient(120% 120% at 50% 0%, #1E5A3C 0%, #14432E 100%)",
+                  "radial-gradient(120% 120% at 50% 0%, #7C7F5A 0%, #565B41 100%)",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -474,11 +479,11 @@ export default function AshtangaHridayamBanner() {
                   width: 34,
                   height: 34,
                   borderRadius: "50%",
-                  background: "#E7EBDB",
+                  background: "#F1E2DB",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: GREEN_SOFT,
+                  color: BLUSH,
                   fontSize: 12,
                 }}
               >
@@ -544,7 +549,7 @@ export default function AshtangaHridayamBanner() {
       <section style={{ width: "100%", maxWidth: 1160 }}>
         <div
           style={{
-            background: "linear-gradient(135deg, #14432E 0%, #1E5A3C 100%)",
+            background: "linear-gradient(135deg, #6E7355 0%, #565B41 100%)",
             borderRadius: 28,
             padding: "40px 44px",
             textAlign: "center",
@@ -633,7 +638,7 @@ export default function AshtangaHridayamBanner() {
               background: CREAM_CARD,
               borderRadius: 22,
               padding: 28,
-              boxShadow: "0 20px 50px -32px rgba(20,67,46,0.5)",
+              boxShadow: "0 20px 50px -32px rgba(88,93,66,0.5)",
               display: "flex",
               flexDirection: "column",
               gap: 16,
@@ -714,7 +719,7 @@ export default function AshtangaHridayamBanner() {
                     fontSize: 17,
                     padding: 16,
                     borderRadius: 14,
-                    boxShadow: "0 14px 30px -14px rgba(20,67,46,0.9)",
+                    boxShadow: "0 14px 30px -14px rgba(88,93,66,0.9)",
                     opacity: submitting ? 0.7 : 1,
                   }}
                 >

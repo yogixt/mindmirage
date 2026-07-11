@@ -34,13 +34,13 @@ export const metadata: Metadata = {
 
 export default function AshtangaHridayamPage() {
   return (
-    <main className={`${cormorant.variable} ${mukta.variable}`} style={{ background: "#F4EEDF" }}>
+    <main className={`${cormorant.variable} ${mukta.variable}`} style={{ background: "#F4EDE0" }}>
       <Navbar variant="solid" />
       <div className="pt-16">
         <div className="mx-auto max-w-[1200px] px-5 pt-5">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-[#E3DBC1] bg-[#FBF6E9] px-4 py-2 text-sm font-semibold text-[#2F3A2B] transition-colors hover:border-[#14432E] hover:text-[#14432E]"
+            className="inline-flex items-center gap-2 rounded-full border border-[#E7DEC9] bg-[#FBF6EC] px-4 py-2 text-sm font-semibold text-[#463A2A] transition-colors hover:border-[#6E7355] hover:text-[#6E7355]"
           >
             <span aria-hidden>←</span> Back
           </Link>
