@@ -40,6 +40,11 @@ export async function POST(req: Request) {
   const email = parsed.data.email || "";
   const handleKey = handle.toLowerCase();
 
+  // The users.email column is UNIQUE NOT NULL (shared with Google sign-in).
+  // For accounts created without an email, store a per-account synthetic
+  // placeholder so multiple email-less sadhaks don't collide on "".
+  const NO_EMAIL_HOST = "@no-email.mindmirage";
+
   await runMigrations();
   const db = mindMirageDb();
   if (!db) return NextResponse.json({ ok: false, error: "db_not_configured" }, { status: 503 });
@@ -59,11 +64,12 @@ export async function POST(req: Request) {
   }
 
   const id = `c_${randomBytes(9).toString("hex")}`;
+  const emailToStore = email || `${id}${NO_EMAIL_HOST}`;
   try {
     await db.execute({
       sql: `INSERT INTO users (id, email, name, handle, password_hash, enrolled_programs)
             VALUES (?, ?, ?, ?, ?, '[]')`,
-      args: [id, email, handle, handleKey, hashPassword(password)],
+      args: [id, emailToStore, handle, handleKey, hashPassword(password)],
     });
   } catch (e) {
     console.error("[account/signup] insert failed", e);

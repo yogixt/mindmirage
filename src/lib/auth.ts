@@ -107,17 +107,24 @@ async function currentUserRow(): Promise<UserRow | null> {
   return row;
 }
 
+/* Placeholder emails minted for accounts created without one (see
+   api/account/signup) — treat them as "no email" for display purposes. */
+function realEmail(email: string): string {
+  return email.endsWith("@no-email.mindmirage") ? "" : email;
+}
+
 export async function getSeeker(): Promise<SeekerSummary | null> {
   const row = await currentUserRow();
   if (!row) return null;
-  const fullName = row.name || row.email || "Sādhak";
+  const email = realEmail(row.email);
+  const fullName = row.name || email || "Sādhak";
   const [firstName, ...rest] = fullName.split(" ");
   return {
     userId: row.id,
     firstName: firstName || null,
     lastName: rest.join(" ") || null,
     fullName,
-    email: row.email || null,
+    email: email || null,
     imageUrl: row.image,
     metadata: {
       enrolledPrograms: row.enrolled,
