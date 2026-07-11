@@ -1,10 +1,11 @@
 import Link from "next/link";
 
 /* ────────────────────────────────────────────────────────────
-   Homepage event highlights — two wide cards in the
+   Homepage event highlights — three cards in the
    adiveda-social style: a left title + rule + description,
-   then two landscape cards (Meditation, Yoga) with a Devanagari
-   watermark and a "Watch now →"-style call to action.
+   then landscape cards (Meditation, Yoga, Ashtanga Hridayam)
+   with a Devanagari watermark and a "Watch now →"-style
+   call to action.
    ──────────────────────────────────────────────────────────── */
 
 type EventCard = {
@@ -14,7 +15,8 @@ type EventCard = {
   title: string;
   blurb: string;
   cta: string;
-  theme: "warm" | "green";
+  theme: "warm" | "green" | "teal";
+  external?: boolean;
 };
 
 const EVENTS: EventCard[] = [
@@ -36,6 +38,15 @@ const EVENTS: EventCard[] = [
     cta: "Reserve your spot",
     theme: "green",
   },
+  {
+    href: "/ashtanga-hridayam",
+    eyebrow: "Series 03 · 2 months · Starts 15 July",
+    deva: "आयुर्वेद",
+    title: "Ashtanga Hridayam",
+    blurb: "The Ayurveda core scripture — Sutrasthāna, studied 3 days a week, 40 min a session. Offline in Rishikesh or on Zoom. ₹8,000.",
+    cta: "Reserve your seat",
+    theme: "teal",
+  },
 ];
 
 const THEME = {
@@ -55,6 +66,14 @@ const THEME = {
     cta: "#4A5A3E",
     watermark: "rgba(110,139,91,0.16)",
   },
+  teal: {
+    bg: "linear-gradient(135deg, #E7EEEE 0%, #D5E2E1 55%, #C2D6D3 100%)",
+    text: "#2E3E3C",
+    soft: "rgba(46,62,60,0.72)",
+    accent: "#C0531F",
+    cta: "#3B534F",
+    watermark: "rgba(70,120,112,0.16)",
+  },
 } as const;
 
 export default function EventHighlights() {
@@ -73,29 +92,26 @@ export default function EventHighlights() {
           </h2>
           <div className="hidden w-px self-stretch bg-ink/15 sm:block" />
           <p className="max-w-2xl text-lg leading-relaxed text-ink-soft sm:text-xl">
-            Two ways to start right now — a guided meditation course and an ongoing
-            yoga sādhanā, online or at our Rishikesh ashram. Choose one and reserve
-            your place.
+            Three ways to start right now — a guided meditation course, an ongoing
+            yoga sādhanā, and the Ashtanga Hridayam scripture series, online or at
+            our Rishikesh ashram. Choose one and reserve your place.
           </p>
         </div>
 
         {/* Cards */}
-        <div className="mt-10 grid gap-5 lg:grid-cols-2 lg:gap-6">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {EVENTS.map((ev) => {
             const t = THEME[ev.theme];
-            return (
-              <Link
-                key={ev.title}
-                href={ev.href}
-                className="group relative flex aspect-[16/11] overflow-hidden rounded-3xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_70px_-40px_rgba(70,69,62,0.6)] sm:aspect-[16/9]"
-                style={{ background: t.bg }}
-              >
+            const cardClass =
+              "group relative flex min-h-[300px] overflow-hidden rounded-3xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_70px_-40px_rgba(70,69,62,0.6)] sm:min-h-[320px]";
+            const content = (
+              <>
                 {/* Devanagari watermark */}
                 <span
                   className="pointer-events-none absolute -bottom-6 -right-2 select-none leading-none"
                   style={{
                     fontFamily: "var(--font-noto-deva)",
-                    fontSize: "clamp(140px, 26vw, 260px)",
+                    fontSize: "clamp(120px, 22vw, 220px)",
                     color: t.watermark,
                   }}
                   aria-hidden
@@ -104,7 +120,7 @@ export default function EventHighlights() {
                 </span>
 
                 {/* Content */}
-                <div className="relative z-10 flex w-full flex-col justify-between p-7 sm:p-9">
+                <div className="relative z-10 flex w-full flex-col justify-between gap-8 p-7 sm:p-8">
                   <div
                     className="text-xs font-semibold uppercase tracking-[0.2em]"
                     style={{ color: t.accent }}
@@ -117,19 +133,19 @@ export default function EventHighlights() {
                       {ev.deva}
                     </p>
                     <h3
-                      className="display mt-1 text-5xl sm:text-6xl"
+                      className="display mt-1 text-4xl sm:text-5xl"
                       style={{ color: t.text, letterSpacing: "-0.02em" }}
                     >
                       {ev.title}
                     </h3>
                     <p
-                      className="mt-3 max-w-md text-sm leading-relaxed sm:text-base"
+                      className="mt-3 max-w-md text-sm leading-relaxed"
                       style={{ color: t.soft }}
                     >
                       {ev.blurb}
                     </p>
                     <span
-                      className="mt-5 inline-flex items-center gap-2 text-sm font-semibold sm:text-base"
+                      className="mt-5 inline-flex items-center gap-2 text-sm font-semibold"
                       style={{ color: t.cta }}
                     >
                       {ev.cta}
@@ -151,6 +167,28 @@ export default function EventHighlights() {
                     </span>
                   </div>
                 </div>
+              </>
+            );
+
+            return ev.external ? (
+              <a
+                key={ev.title}
+                href={ev.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={cardClass}
+                style={{ background: t.bg }}
+              >
+                {content}
+              </a>
+            ) : (
+              <Link
+                key={ev.title}
+                href={ev.href}
+                className={cardClass}
+                style={{ background: t.bg }}
+              >
+                {content}
               </Link>
             );
           })}
