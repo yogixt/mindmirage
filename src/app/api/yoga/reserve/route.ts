@@ -3,7 +3,7 @@ import { z } from "zod";
 import { mindMirageDb, runMigrations } from "@/lib/db";
 import { notify } from "@/lib/notify";
 
-/* Yoga Asana Classes — reservation only (no online payment). Records the
+/* Iyengar Yoga — reservation only (no online payment). Records the
    reservation and emails the team, who follow up with fee/payment details. */
 
 const Body = z.object({
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       await db.execute({
         sql: `INSERT INTO bookings
               (user_id, name, email, whatsapp, subject, slot, preferred_dates, message, status, item_slug)
-              VALUES (NULL, ?, ?, ?, 'Yoga Asana Classes', ?, '05 July 2026 · 2–4 PM', ?, 'new', 'yoga-asana')`,
+              VALUES (NULL, ?, ?, ?, 'Iyengar Yoga', ?, '05 July 2026 · 2–4 PM', ?, 'new', 'yoga-asana')`,
         args: [name, email, phone, modeLabel, `Experience: ${expLabel}`],
       });
     }
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
   try {
     await notify({
       _kind: "Booking",
-      course: "Yoga Asana Classes",
+      course: "Iyengar Yoga",
       sadhak: name,
       email,
       phone,

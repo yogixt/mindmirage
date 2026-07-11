@@ -21,12 +21,12 @@ const mukta = Mukta({
 });
 
 export const metadata: Metadata = {
-  title: "Yoga Asana Classes",
+  title: "Iyengar Yoga",
   description:
-    "Yoga Asana Classes at the Advaita Sādhanā Kuṭīr, Rishikesh — āsana, prāṇāyāma and the eight limbs. Regular classes from 05 July, 2–4 PM. Online or at the ashram.",
+    "Iyengar Yoga at the Advaita Sādhanā Kuṭīr, Rishikesh — alignment-based āsana with props, prāṇāyāma and the eight limbs. Regular classes from 05 July, 2–4 PM. Online or at the ashram.",
   openGraph: {
-    title: "Yoga Asana Classes — Mind Mirage",
-    description: "Strength · Flexibility · Balance. Regular classes from 05 July · 2–4 PM.",
+    title: "Iyengar Yoga — Mind Mirage",
+    description: "Alignment · Precision · Balance. Regular classes from 05 July · 2–4 PM.",
     type: "website",
   },
 };

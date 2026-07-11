@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { whatsappLink } from "@/lib/constants";
 
 /* ────────────────────────────────────────────────────────────
-   Yoga Asana Classes — landing + reservation (no online payment).
+   Iyengar Yoga — landing + reservation (no online payment).
    Mirrors the Meditation page's layout and warm palette so the two
    event pages feel identical; only the content and the booking
    action differ (Yoga reserves + connects on WhatsApp).
@@ -25,13 +25,13 @@ const AUDIENCES = ["Beginners", "All ages", "All levels"];
 
 const INCLUSIONS = [
   "Warm-up & Breathing Practices",
-  "Asana Practice",
+  "Precise Asana in the Iyengar Method",
+  "Props for Alignment — belts, blocks & bolsters",
   "Flexibility & Strength Building",
   "Pranayama",
   "Relaxation & Meditation",
-  "Alignment Guidance",
+  "Detailed Alignment Guidance",
   "Personal Attention",
-  "Holistic Wellness",
 ];
 
 const BENEFITS = [
@@ -75,7 +75,7 @@ export default function YogaBanner() {
   const nameGreeting = form.name ? ", " + form.name.split(" ")[0] : "";
 
   const waHref = whatsappLink(
-    `Namaste! I'd like to join the Yoga Asana Classes (${modeLabel} · ${expLabel})${
+    `Namaste! I'd like to join the Iyengar Yoga (${modeLabel} · ${expLabel})${
       form.name ? `, I'm ${form.name.split(" ")[0]}` : ""
     }. Please share the fee and how to confirm my spot.`,
   );
@@ -195,7 +195,7 @@ export default function YogaBanner() {
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
             src="/yoga/yoga-hero.jpg"
-            alt="Yoga Asana Classes — Mind Mirage India"
+            alt="Iyengar Yoga — Mind Mirage India"
             style={{ width: "100%", display: "block" }}
           />
         ) : (
@@ -218,13 +218,13 @@ export default function YogaBanner() {
               Mind Mirage India · Rishikesh
             </div>
             <div style={{ fontFamily: SERIF, fontWeight: 700, fontStyle: "italic", fontSize: "clamp(40px, 7vw, 72px)", lineHeight: 1, color: "#46453E" }}>
-              Yoga Āsana Classes
+              Iyengar Yoga
             </div>
             <div style={{ fontFamily: BODY, fontWeight: 700, fontSize: "clamp(18px, 2.6vw, 26px)", letterSpacing: "2px", color: "#C97A45" }}>
               योग आसन
             </div>
             <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "clamp(16px, 2.4vw, 22px)", color: "#6A6A5E", marginTop: 4 }}>
-              Strength · Flexibility · Balance
+              Alignment · Precision · Balance
             </div>
           </div>
         )}
@@ -247,7 +247,7 @@ export default function YogaBanner() {
                 योग
               </span>
               <span style={{ display: "inline-block", background: "transparent", border: "1.5px solid #C97A45", color: "#C97A45", fontWeight: 600, fontSize: 12, letterSpacing: "2.5px", padding: "6px 14px", borderRadius: 100 }}>
-                YOGA ASANA · CLASSES
+                IYENGAR YOGA · CLASSES
               </span>
             </div>
             <div style={{ fontSize: 16, color: "#6A6A5E" }}>
@@ -332,7 +332,7 @@ export default function YogaBanner() {
           {/* FORM */}
           <div style={{ position: "relative" }}>
             <div style={{ fontWeight: 600, fontSize: 12, letterSpacing: "2.5px", textTransform: "uppercase", color: "#C97A45", marginBottom: 6 }}>Reserve your spot</div>
-            <h2 style={{ margin: "0 0 22px", fontFamily: SERIF, fontWeight: 700, fontSize: 40, lineHeight: 1, letterSpacing: "-0.5px" }}>Join Yoga Asana Classes</h2>
+            <h2 style={{ margin: "0 0 22px", fontFamily: SERIF, fontWeight: 700, fontSize: 40, lineHeight: 1, letterSpacing: "-0.5px" }}>Join Iyengar Yoga</h2>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <label style={{ display: "flex", flexDirection: "column", gap: 7, fontWeight: 600, fontSize: 13, color: "#6A6A5E" }}>
@@ -370,7 +370,7 @@ export default function YogaBanner() {
                 <div style={{ width: 66, height: 66, borderRadius: "50%", background: "#C97A45", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 34, color: "#FBF6E9" }}>✓</div>
                 <h3 style={{ margin: 0, fontFamily: SERIF, fontWeight: 700, fontSize: 30 }}>Spot reserved</h3>
                 <p style={{ margin: 0, fontSize: 15, color: "#6A6A5E", lineHeight: 1.55 }}>
-                  Thank you{nameGreeting}. We&apos;ve saved your place in <b>Yoga Asana Classes</b> ({modeLabel}).
+                  Thank you{nameGreeting}. We&apos;ve saved your place in <b>Iyengar Yoga</b> ({modeLabel}).
                   Our team will WhatsApp you the fee &amp; payment details and confirm your start on <b>05 July</b>.
                 </p>
                 <div style={{ fontFamily: SERIF, fontStyle: "italic", fontWeight: 600, fontSize: 22, color: "#C97A45" }}>Namaste 🙏</div>
@@ -389,7 +389,7 @@ export default function YogaBanner() {
               <>
                 <div style={{ fontWeight: 600, fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", color: "#8C9E7C" }}>Your reservation</div>
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: 15, color: "#6A6A5E" }}>
-                  <span>Yoga Asana Classes</span><span style={{ fontWeight: 600, color: "#46453E" }}>{expLabel}</span>
+                  <span>Iyengar Yoga</span><span style={{ fontWeight: 600, color: "#46453E" }}>{expLabel}</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, color: "#9a9280" }}>
                   <span>Starts 05 July</span><span>2:00–4:00 PM</span>
