@@ -137,6 +137,21 @@ export type Course = {
   parentSlug?: string;
   /** Info about recorded-access period (e.g. "1.5 years"). */
   recordedAccess?: string;
+  /* ── Rich course-page content (optional; from the website content spec) ── */
+  /** Hero sub-headline shown under the title on the course page. */
+  subhead?: string;
+  /** Short format tags for the hero (e.g. "Live · 1-on-1 · 11 sessions"). */
+  formatTags?: readonly string[];
+  /** "Why this path" opening — one or more paragraphs. */
+  whyThisPath?: readonly string[];
+  /** "What you'll learn" bullet points. */
+  whatYoullLearn?: readonly string[];
+  /** "Who this course is for" paragraph. */
+  whoFor?: string;
+  /** "Guided by" — the teacher and their lineage note. */
+  guidedBy?: string;
+  /** "A note before you begin" closing paragraph. */
+  noteBeforeBegin?: string;
 };
 
 export const COURSES: Course[] = [
@@ -159,12 +174,15 @@ export const COURSES: Course[] = [
   },
   {
     slug: "bhagavad-gita",
-    formats: ["Recorded", "Live classes on Zoom"],
+    formats: ["Live classes on Zoom", "Recorded"],
     title: "Bhagavad Gītā",
     deva: "भगवद्गीता",
     tradition: "Vedānta · Karma Yoga · Bhakti",
     excerpt:
-      "The dialogue between Kṛṣṇa and Arjuna on the battlefield of the inner life — duty without grasping, action without authorship.",
+      "Spoken on a battlefield, for your own crossroads — all eighteen chapters, shloka by shloka, in the traditional understanding received through Guru-Shishya Paramparā.",
+    subhead:
+      "The Gītā is not merely a scripture to be read — it is a dialogue to be lived. A journey through all eighteen chapters, shloka by shloka, so Kṛṣṇa's counsel to Arjuna becomes a living guide for your own life, choices, and inner stillness.",
+    formatTags: ["Live sessions with Guruji", "Recorded classes", "No prior Sanskrit required"],
     syllabus: [
       "Arjuna's despair and the call to inquiry",
       "Sāṅkhya Yoga — the field and the knower",
@@ -173,19 +191,42 @@ export const COURSES: Course[] = [
       "Bhakti Yoga — the path of devotion",
       "The universal form and the surrender of the small self",
     ],
-    duration: "Recorded · 1.5 years access with Zoom storage",
+    whyThisPath: [
+      "The Bhagavad Gītā addresses the very battles each of us carries within: doubt, duty, fear, and the search for purpose. It was not spoken in a temple or a place of ease — it was spoken on the battlefield of Kurukṣetra, to a man who wanted to put down his bow and walk away. That is precisely why it endures.",
+      "For over five thousand years, the Gītā has been turned to in moments of confusion and crossroads — by kings, renunciates, freedom fighters, and householders alike. What makes it timeless is not that it offers easy answers, but that it teaches how to stand in the questions of life without being shaken by them.",
+      "This is not an academic reading of the text, but a contemplative unfolding — approaching each shloka with the intention it was meant to carry, honouring the lineage of inquiry through which it has been received and taught for generations.",
+    ],
+    whatYoullLearn: [
+      "The philosophical foundations of the Gītā — Karma Yoga, Bhakti Yoga, and Jñāna Yoga as paths to liberation",
+      "How the Gītā's teachings on duty (dharma), detachment, and equanimity apply to everyday life and decision-making",
+      "The deeper metaphysical teachings on the nature of the Self (Ātman), the field and the knower of the field, and the three guṇas",
+      "A shloka-by-shloka understanding, rooted in traditional interpretation rather than modern reinterpretation alone",
+      "The historical and devotional context in which the Gītā was received",
+      "Practical reflection and contemplative practices to integrate each chapter's teaching into daily life",
+      "How to hold the Gītā not as a book you finish, but as a text you return to at every stage of life",
+    ],
+    whoFor:
+      "Whether you are new to Indian philosophical texts or have studied the Gītā before, this course welcomes all sincere seekers. No prior Sanskrit knowledge is required — each verse is explained with clarity, context, and devotion.",
+    guidedBy:
+      "Dr. Bhagyashree Joshi, who received this knowledge directly through Guru-Shishya Paramparā, now shares it as a bridge between traditional teaching and the modern seeker.",
+    noteBeforeBegin:
+      "This course asks not for perfection, but for presence. Come as you are — with your questions, your restlessness, your seeking — and let the Gītā meet you there, as it has met every sādhak before you.",
+    duration: "Live or recorded · 12 months",
     prerequisites: "Open mind. No Sanskrit required.",
     priceINR: 18000,
-    recordedAccess: "1.5 years",
+    recordedAccess: "12 months",
   },
   {
     slug: "advaita-vedanta",
-    formats: ["Self-paced", "Live classes on Zoom"],
+    formats: ["Live classes on Zoom", "Recorded"],
     title: "Advaita Vedānta",
     deva: "अद्वैत वेदान्त",
     tradition: "Adi Shankarācārya",
     excerpt:
-      "The non-dual teaching at the root of the Indian philosophical tradition. Brahman alone is real; the world is appearance; the self is none other than Brahman.",
+      "The path of non-dual wisdom — not something to acquire, but something to recognise: that the Self within you and the ultimate reality are not two, but one.",
+    subhead:
+      "Not something to acquire, but something to recognise — that the Self within you and the ultimate reality are not two, but one. A steady, patient inquiry into who you truly are beneath the roles, thoughts, and identities you carry.",
+    formatTags: ["Live sessions with Guruji", "Recorded classes", "No prior Sanskrit required"],
     syllabus: [
       "Tattva-bodha — the basic vocabulary",
       "Ātma-bodha — knowledge of the Self",
@@ -193,7 +234,27 @@ export const COURSES: Course[] = [
       "Upadeśa Sāhasrī — the thousand teachings",
       "Methods of inquiry: dṛg-dṛśya, neti-neti, anvaya-vyatireka",
     ],
-    duration: "Self-paced · ~6 months",
+    whyThisPath: [
+      "Advaita Vedānta stands as the crown of Indian philosophical thought — the teaching of non-duality. It is a philosophy that does not ask for blind belief, but for direct inquiry: a steady, patient unravelling of who we truly are.",
+      "Adi Shankarācārya, who systematised this teaching, did not ask his students to acquire something new — but to recognise what has never been absent. This course walks that same path, slowly dismantling assumption after assumption, until only the unshakeable ground of awareness remains.",
+      "Advaita is often called the most subtle of Indian philosophical systems — not because it is complicated, but because what it points to is closer to us than thought itself.",
+    ],
+    whatYoullLearn: [
+      "The foundational texts of Advaita Vedānta — Tattva Bodha, Ātma Bodha, Sādhana Pañcakam, and key commentaries in the tradition of Adi Shankarācārya",
+      "Core concepts: Brahman, Ātman, Māyā, and the nature of consciousness",
+      "The method of Vedāntic self-inquiry (Ātma Vichāra) as a practical tool, not just theory",
+      "How to discern between the Self and the mind, body, and ego — the classical practice of neti neti",
+      "The three states of consciousness — waking, dreaming, and deep sleep — and the witness behind all three",
+      "How the concept of Māyā explains the nature of the world without denying its reality",
+      "How non-dual understanding transforms one's relationship with suffering, identity, and daily life",
+    ],
+    whoFor:
+      "This course is suited for sincere seekers who wish to move beyond surface-level spirituality into deep philosophical inquiry. Some familiarity with foundational Indian philosophy (such as the Gītā or basic Yoga philosophy) is helpful, though not mandatory — Dr. Ji builds each concept from the ground up.",
+    guidedBy:
+      "Dr. Bhagyashree Joshi (Acharya Ji). She teaches directly from her own realisation and the transmission received through her Guru — making this one of the few offerings led personally by Dr. Ji herself.",
+    noteBeforeBegin:
+      "Advaita is not learned in a single sitting — it is realised gradually, through sustained reflection and grace. This course offers you the structure and companionship for that unfolding, at the pace your own understanding allows.",
+    duration: "Live or recorded · ~6 months",
     prerequisites: "Familiarity with the Gītā helps but is not required.",
     priceINR: 6999,
   },
@@ -217,19 +278,41 @@ export const COURSES: Course[] = [
   },
   {
     slug: "sankhya-darshan",
-    formats: ["Recorded"],
+    formats: ["Live classes on Zoom", "Recorded"],
     title: "Sānkhya Darśan",
     deva: "सांख्य दर्शन",
     tradition: "Kapila's Cosmology",
     excerpt:
-      "The oldest enumerative philosophy of India — twenty-five tattvas mapping consciousness, nature, and the spectator who is never bound.",
+      "The grammar beneath Yoga, Ayurveda, and Vedānta — so ancient that even the Bhagavad Gītā draws upon its framework to explain the Self and the world.",
+    subhead:
+      "Where other paths begin with devotion or ritual, Sānkhya begins with discernment — a precise enumeration of the twenty-five tattvas that compose all of manifest existence.",
+    formatTags: ["Live sessions with Guruji", "Recorded classes"],
     syllabus: [
       "Puruṣa and Prakṛti",
       "The three guṇas — sattva, rajas, tamas",
       "The 24 evolutes of Prakṛti",
       "Liberation through discriminative knowledge",
     ],
-    duration: "Recorded · 1.5 years access with Zoom storage",
+    whyThisPath: [
+      "At its heart, Sānkhya rests on one luminous distinction: Puruṣa and Prakṛti — the conscious spectator and the ever-changing nature that unfolds before it. Prakṛti, in her three guṇas of sattva, rajas, and tamas, gives rise to mind, intellect, ego, the senses, and the elements — the entire theatre of experience. Puruṣa, by contrast, is the silent witness — untouched, unchanging, never truly bound by what it observes.",
+      "The suffering we experience, Sānkhya teaches, arises not because the Self is entangled in the world, but because we have forgotten this distinction. Liberation (Kaivalya) is simply the clear recognition of the spectator as separate from the spectacle.",
+      "This course approaches Sānkhya not as a relic of ancient metaphysics, but as a living map — one that quietly underlies much of Yoga philosophy, Ayurveda, and Vedānta itself.",
+    ],
+    whatYoullLearn: [
+      "The twenty-five tattvas of Sānkhya — from Prakṛti and Mahat down through ego, mind, the senses, and the five elements",
+      "The foundational distinction between Puruṣa (consciousness) and Prakṛti (nature), and why this discernment is central to liberation",
+      "The three guṇas — sattva, rajas, and tamas — and how their interplay shapes thought, action, and experience",
+      "How Sānkhya's framework of causation (Satkāryavāda) differs from other Indian philosophical systems",
+      "The relationship between Sānkhya and Yoga — often studied as sister systems (Sānkhya as theory, Yoga as practice)",
+      "How to apply Sānkhya's discernment (viveka) as a daily practice of separating the witnessing Self from the fluctuations of mind and body",
+    ],
+    whoFor:
+      "Best suited for sādhaks who already have some grounding in Indian philosophy — perhaps through the Gītā, Yoga Sūtras, or Advaita — and are ready to study the systematic framework that underlies much of what they've encountered. That said, Dr. Ji introduces each tattva with enough clarity that a sincere beginner will also find a firm footing here.",
+    guidedBy:
+      "Dr. Bhagyashree Joshi, carrying forward the classical understanding of Sānkhya received through her Guru-Shishya lineage, and presenting it with the precision and clarity this ancient system demands.",
+    noteBeforeBegin:
+      "Sānkhya asks for patience more than any other darśan — it builds understanding layer by layer, tattva by tattva. But for the sādhak who stays with it, it offers something rare: not just a philosophy to believe, but a discernment that can be used, in every moment, to remember what is truly unbound.",
+    duration: "Live or recorded · ~4 months",
     prerequisites: "None.",
     priceINR: 18000,
     recordedAccess: "1.5 years",
@@ -272,21 +355,89 @@ export const COURSES: Course[] = [
   },
   {
     slug: "jyotisha",
-    formats: ["Self-paced", "Live classes on Zoom"],
-    title: "Astrology · Jyotiṣa",
+    formats: ["Live · 1-on-1 on Zoom"],
+    title: "Jyotiṣa · Vedic Astrology",
     deva: "ज्योतिष",
-    tradition: "Vedic",
+    tradition: "Vedic · The eye of the Veda",
     excerpt:
-      "Jyotiṣa as the eye of the Veda — not prediction, but a contemplative map of time, karma, and the rhythm of one's incarnation.",
+      "The sky not as fate, but as a mirror — one of the six Vedāṅgas, a contemplative map of time and karma. Designed for complete beginners, taught entirely one-on-one.",
+    subhead:
+      "Jyotiṣa is one of the six Vedāṅgas — a contemplative map of time, of karma, of the rhythm in which each soul takes form. Not the art of prediction it is often reduced to, but a tool for meaningful self-understanding. Designed for complete beginners, taught entirely one-on-one.",
+    formatTags: ["Live · 1-on-1 via Zoom", "11 sessions · two per week", "Beginner — no prior knowledge"],
     syllabus: [
-      "The 12 rāśis and 27 nakṣatras",
-      "The nine grahas",
-      "Reading a birth chart contemplatively",
-      "Daśās and the timing of life events",
+      "Foundations — what Jyotiṣa is, and how it differs from prediction",
+      "The twelve Rāśis — tattva, puruṣārtha, rulership and nature",
+      "The twelve Bhāvas (houses) and the four puruṣārthas",
+      "The nine grahas — nature, strength, uccha-neecha",
+      "Planetary Dṛṣṭi (aspects) and their interplay",
+      "Reading a full Kundali — a guided birth-chart walkthrough",
     ],
-    duration: "Self-paced · ~5 months",
-    prerequisites: "Curiosity. Birth details if you wish to study your own chart.",
+    whyThisPath: [
+      "Jyotiṣa is known as the “eye of the Veda” — one of the six Vedāṅgas, the auxiliary sciences that allow the Vedas to be rightly seen and understood. But in its truest sense, Jyotiṣa is a contemplative map — of time, of karma, of the rhythm in which each soul takes form and moves through its incarnation. To study it is to read the sky not as fate written in stone, but as a mirror reflecting the karmic tendencies we carry, and the possibilities we are here to work through.",
+      "Designed specifically for beginners, this is a live course — every session conducted individually with you, at a pace suited to your own understanding. There is no rushing to keep up with a group, and no concept left unclear for lack of time.",
+    ],
+    whatYoullLearn: [
+      "The foundations of Jyotiṣa — what it is, why it has been studied for millennia, and how it differs from prediction-based astrology",
+      "The twelve Rāśis (zodiac signs) — their tattva (elemental nature) and puruṣārtha (life-goal orientation)",
+      "The nature, rulership, gender, and speed of each Rāśi and its lord",
+      "The twelve Bhāvas (houses) and how they map onto dharma, artha, kāma, and mokṣa",
+      "A detailed understanding of each house and what it signifies in a birth chart",
+      "The nine planets (Navagraha) — their nature, strength, and uccha-neecha (exaltation and debilitation)",
+      "Planetary Dṛṣṭi (aspects) and how planets influence one another within a chart",
+      "How to read and interpret a birth chart (Kundali) as a whole",
+      "A guided walkthrough of an actual Kundali analysis, applying everything learned",
+    ],
+    whoFor:
+      "Designed for complete beginners who are curious about Vedic Astrology and want a structured, personalized introduction — whether out of spiritual interest, self-understanding, or simply a wish to read one's own chart with clarity. No prior background is needed; Divyangana Ji builds each concept from the very beginning.",
+    guidedBy:
+      "Divyangana Ji, who shares the wisdom of Vedic Astrology with seekers, helping them understand its principles and apply them meaningfully in their personal and spiritual journeys.",
+    noteBeforeBegin:
+      "Jyotiṣa is best learned slowly and personally — which is exactly why this course is held one-on-one. Come with your questions, your own chart, and your curiosity about the rhythm of your own life; this course is built entirely around your pace of understanding.",
+    duration: "Live · 1-on-1 · 11 sessions",
+    prerequisites: "None. Birth details if you wish to study your own chart.",
     priceINR: 5499,
+  },
+  {
+    slug: "ayurveda",
+    formats: ["Live classes on Zoom", "Recorded"],
+    title: "Ayurveda · Aṣṭāṅga Hṛdayam",
+    deva: "आयुर्वेद",
+    tradition: "Aṣṭāṅga Hṛdayam · Vāgbhaṭa",
+    excerpt:
+      "Not the disease, but the constitution — a complete philosophy of living in harmony with your own nature (Prakṛti), rooted in the Aṣṭāṅga Hṛdayam.",
+    subhead:
+      "Where modern medicine often treats the symptom, Ayurveda asks a deeper question: what is the constitution of this particular being, and what balance does it need to thrive? A complete philosophy of living in harmony with your own nature and the rhythms of the world around you.",
+    formatTags: ["Live sessions with Guruji", "Recorded classes", "No background required"],
+    syllabus: [
+      "Tridoṣa — Vāta, Pitta, Kapha",
+      "Introduction to the Aṣṭāṅga Hṛdayam",
+      "Prakṛti (constitution) and Vikṛti (imbalance)",
+      "Dinacharyā and Ṛtucharyā — daily and seasonal routine",
+      "Agni — the digestive fire and its role in health",
+      "Ayurveda and Yoga as complementary sciences",
+    ],
+    whyThisPath: [
+      "Ayurveda, the “science of life,” is one of the oldest healing systems known to humankind — not merely a system of medicine, but a complete philosophy of living in harmony with one's own nature and the rhythms of the world.",
+      "This course is rooted in the study of the Aṣṭāṅga Hṛdayam — one of the most revered classical texts of Ayurveda, composed by Vāgbhaṭa. A masterful synthesis of the Charaka and Sushruta Samhitas, it presents Ayurvedic knowledge across all eight branches with rare clarity and precision. Dr. Ji brings this text to sādhaks not as a historical curiosity, but as a living body of knowledge, carried forward through her own Guru-Shishya lineage.",
+    ],
+    whatYoullLearn: [
+      "The foundational principles of Ayurveda — the Tridoṣa theory (Vāta, Pitta, Kapha) and how they govern the body and mind",
+      "An introduction to the Aṣṭāṅga Hṛdayam — its structure, significance, and place among the classical texts",
+      "The concept of Prakṛti (individual constitution) and Vikṛti (current imbalance), and how to recognise these in oneself",
+      "The principles of Dinacharyā (daily routine) and Ṛtucharyā (seasonal routine) as tools for sustained wellbeing",
+      "The Ayurvedic understanding of Agni (digestive fire) and its central role in health and disease",
+      "How diet, lifestyle, and daily habits are understood through an Ayurvedic lens",
+      "The relationship between Ayurveda and Yoga as complementary sciences of body and consciousness",
+    ],
+    whoFor:
+      "Welcomes sincere seekers interested in understanding their own body and mind through a traditional, text-rooted lens — whether for personal wellbeing or as a foundation for deeper study. No prior background in Ayurveda is required; Dr. Ji introduces each concept from its classical roots.",
+    guidedBy:
+      "Dr. Bhagyashree Joshi, teaching from the Aṣṭāṅga Hṛdayam and the broader Ayurvedic tradition, as received through her Guru-Shishya Paramparā.",
+    noteBeforeBegin:
+      "Ayurveda is not a set of rules to follow, but a way of listening — to one's own body, its rhythms, and its needs. This course offers the classical foundation for that listening, so the wisdom of the Aṣṭāṅga Hṛdayam becomes not just knowledge, but a practice woven into daily life.",
+    duration: "Live or recorded · Aṣṭāṅga Hṛdayam",
+    prerequisites: "None. No background required.",
+    priceINR: 8000,
   },
 ];
 
@@ -314,7 +465,6 @@ export const GUIDANCE_SUBJECTS: GuidanceSubject[] = [
   { slug: "asanas", name: "Āsanas", deva: "आसन", priceINR: 3000 },
   { slug: "shatkarma", name: "Shatkarma", deva: "षट्कर्म", priceINR: 3000 },
   { slug: "ayurveda", name: "Āyurveda", deva: "आयुर्वेद", priceINR: 3000 },
-  { slug: "jyotisha", name: "Jyotiṣa (Astrology)", deva: "ज्योतिष", priceINR: 3000 },
   { slug: "western-philosophy", name: "Western Philosophy", priceINR: 5000 },
   { slug: "contemplation", name: "Contemplation", priceINR: 3000 },
   { slug: "mentorship", name: "Mentorship", priceINR: 0, notes: "Application-based — custom" },

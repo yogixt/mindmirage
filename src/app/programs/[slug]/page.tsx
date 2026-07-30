@@ -50,9 +50,14 @@ const SEO: Record<string, { title: string; description: string }> = {
       "Lalita for Women — a spiritual course for women in India and worldwide. Shakti, feminine wisdom, and sādhanā, taught online from Rishikesh.",
   },
   jyotisha: {
-    title: "Vedic Astrology Course Online — Jyotisha Classes",
+    title: "Vedic Astrology Course — Jyotisha 1-on-1 Online",
     description:
-      "Learn Vedic astrology online — Jyotisha classes from Rishikesh, India, rooted in primary texts and taught with a traditional teacher's attention.",
+      "Learn Vedic astrology one-on-one online — Jyotiṣa for complete beginners, 11 live sessions on Zoom from Rishikesh, taught personally by Divyangana Ji.",
+  },
+  ayurveda: {
+    title: "Ayurveda Course Online — Aṣṭāṅga Hṛdayam from Rishikesh",
+    description:
+      "Study Ayurveda online through the Aṣṭāṅga Hṛdayam — Tridoṣa, Prakṛti, Dinacharyā and daily living — live or recorded, taught from Rishikesh, India.",
   },
 };
 
@@ -99,8 +104,20 @@ export default async function CoursePage(
             {course.title}
           </h1>
           <p className="mt-3 text-base text-ink-soft leading-relaxed sm:text-lg max-w-2xl">
-            {course.excerpt}
+            {course.subhead ?? course.excerpt}
           </p>
+          {course.formatTags && (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {course.formatTags.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full border border-saffron/30 bg-saffron/5 px-3.5 py-1.5 text-xs font-medium text-saffron"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -174,11 +191,39 @@ export default async function CoursePage(
         )}
       </section>
 
+      {course.whyThisPath && (
+        <section className="px-6 py-4">
+          <div className="mx-auto max-w-3xl">
+            <p className="eyebrow">Why this path</p>
+            <div className="mt-4 space-y-4">
+              {course.whyThisPath.map((p, i) => (
+                <p key={i} className="text-base leading-relaxed text-ink-soft">
+                  {p}
+                </p>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="px-6 py-4">
         <div className="mx-auto max-w-3xl">
+          {course.whatYoullLearn && (
+            <div className="mb-8">
+              <p className="eyebrow">What you&apos;ll learn</p>
+              <ul className="mt-4 space-y-2.5">
+                {course.whatYoullLearn.map((s, i) => (
+                  <li key={i} className="flex gap-3 text-base text-ink leading-relaxed">
+                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-saffron" aria-hidden />
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           {course.syllabus.length > 0 && (
             <>
-              <p className="eyebrow">Syllabus</p>
+              <p className="eyebrow">{course.whatYoullLearn ? "Course outline" : "Syllabus"}</p>
               <ul className="mt-4 space-y-3">
                 {course.syllabus.map((s, i) => (
                   <li key={i} className="flex gap-4 text-base text-ink leading-relaxed">
@@ -191,6 +236,30 @@ export default async function CoursePage(
               </ul>
             </>
           )}
+
+          {course.whoFor && (
+            <div className="mt-8">
+              <p className="eyebrow">Who this is for</p>
+              <p className="mt-3 text-base leading-relaxed text-ink-soft">{course.whoFor}</p>
+            </div>
+          )}
+
+          {course.guidedBy && (
+            <div className="mt-8 rounded-2xl border border-ink/8 bg-paper-warm px-5 py-5">
+              <p className="eyebrow">Guided by</p>
+              <p className="mt-3 text-base leading-relaxed text-ink">{course.guidedBy}</p>
+            </div>
+          )}
+
+          {course.noteBeforeBegin && (
+            <div className="mt-8">
+              <p className="eyebrow">A note before you begin</p>
+              <p className="mt-3 text-base italic leading-relaxed text-ink-soft">
+                {course.noteBeforeBegin}
+              </p>
+            </div>
+          )}
+
           <Divider />
           <p className="text-sm text-ink-soft leading-relaxed">
             <strong className="text-ink">How it works:</strong> Enrol through the
