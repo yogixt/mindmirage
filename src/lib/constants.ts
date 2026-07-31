@@ -121,6 +121,15 @@ export const THREE_PATHS = [
 
 /* ────────────  Courses (self-paced)  ──────────── */
 
+/** One purchasable level of a multi-level program (e.g. Jyotiṣa Level 1–3). */
+export type CourseLevel = {
+  slug: string;
+  label: string;
+  priceINR: number;
+  priceForeignINR?: number;
+  note?: string;
+};
+
 export type Course = {
   /** Delivery formats — all courses are self-paced; some also run live on Zoom. */
   formats?: readonly string[];
@@ -155,6 +164,12 @@ export type Course = {
   guidedBy?: string;
   /** "A note before you begin" closing paragraph. */
   noteBeforeBegin?: string;
+  /** Multi-level program — each level is separately purchasable. When set, the
+     course page shows the levels instead of a single enrolment price. */
+  levels?: readonly CourseLevel[];
+  /** Marks a generated per-level catalog item (used only for cart/pricing,
+     not a standalone browsable page). */
+  isLevel?: boolean;
 };
 
 export const COURSES: Course[] = [
@@ -251,7 +266,10 @@ export const COURSES: Course[] = [
     deva: "ध्यान",
     tradition: "Classical & Tantric",
     excerpt:
-      "Meditation as the natural state, not a technique. Posture, breath, attention, and the quiet recognition of the witness — taught classically.",
+      "Meditation as the natural state, not a technique. Posture, breath, attention, and the quiet recognition of the witness — taught classically across three progressive levels.",
+    subhead:
+      "A graded path into stillness — three levels, from settling the body and breath, through sustained attention, to the quiet recognition of the witness. Each level builds on the last.",
+    formatTags: ["Live sessions", "Three levels · Level 1–3", "All levels welcome"],
     syllabus: [
       "Āsana, prāṇāyāma, pratyāhāra",
       "Dhāraṇā — the gathering of attention",
@@ -259,9 +277,14 @@ export const COURSES: Course[] = [
       "The five sheaths and the witness behind them",
       "Trouble-shooting the meditative life",
     ],
-    duration: "Self-paced · ~2 months",
+    duration: "Live · three levels",
     prerequisites: "None.",
-    priceINR: 2999,
+    priceINR: 8000,
+    levels: [
+      { slug: "meditation-l1", label: "Level 1", priceINR: 8000, note: "Foundations — posture, breath and settling the mind" },
+      { slug: "meditation-l2", label: "Level 2", priceINR: 8000, note: "Concentration — dhāraṇā and sustained attention" },
+      { slug: "meditation-l3", label: "Level 3", priceINR: 8000, note: "Dhyāna — the witness and the five sheaths" },
+    ],
   },
   {
     slug: "sankhya-darshan",
@@ -359,7 +382,7 @@ export const COURSES: Course[] = [
       "The sky not as fate, but as a mirror — one of the six Vedāṅgas, a contemplative map of time and karma. Designed for complete beginners, taught entirely one-on-one.",
     subhead:
       "Jyotiṣa is one of the six Vedāṅgas — a contemplative map of time, of karma, of the rhythm in which each soul takes form. Not the art of prediction it is often reduced to, but a tool for meaningful self-understanding. Designed for complete beginners, taught entirely one-on-one.",
-    formatTags: ["Live · 1-on-1 via Zoom", "11 sessions · two per week", "Beginner — no prior knowledge"],
+    formatTags: ["Live · 1-on-1 via Zoom", "Three levels · Level 1–3", "Beginner — no prior knowledge"],
     syllabus: [
       "Foundations — what Jyotiṣa is, and how it differs from prediction",
       "The twelve Rāśis — tattva, puruṣārtha, rulership and nature",
@@ -389,9 +412,14 @@ export const COURSES: Course[] = [
       "Divyangana Ji, who shares the wisdom of Vedic Astrology with seekers, helping them understand its principles and apply them meaningfully in their personal and spiritual journeys.",
     noteBeforeBegin:
       "Jyotiṣa is best learned slowly and personally — which is exactly why this course is held one-on-one. Come with your questions, your own chart, and your curiosity about the rhythm of your own life; this course is built entirely around your pace of understanding.",
-    duration: "Live · 1-on-1 · 11 sessions",
+    duration: "Live · 1-on-1 · three levels",
     prerequisites: "None. Birth details if you wish to study your own chart.",
-    priceINR: 5499,
+    priceINR: 8000,
+    levels: [
+      { slug: "jyotisha-l1", label: "Level 1", priceINR: 8000, note: "Foundations — signs, houses and the birth chart" },
+      { slug: "jyotisha-l2", label: "Level 2", priceINR: 8000, note: "The grahas, aspects and chart interpretation" },
+      { slug: "jyotisha-l3", label: "Level 3", priceINR: 8000, note: "Daśās, timing and full Kundali analysis" },
+    ],
   },
   {
     slug: "ayurveda",
@@ -595,7 +623,26 @@ export const CONSULTATION_PRODUCTS: Course[] = [
   },
 ];
 
-export const CATALOG: Course[] = [...COURSES, ...MONTHLY_LIVE, ...SESSION_COURSES, ...COUNSELLING_SESSION_COURSES, ...BOOK_SETS, ...CONSULTATION_PRODUCTS];
+/* Per-level items for multi-level programs (Jyotiṣa/Meditation Level 1–3),
+   generated so each level is separately purchasable through the same cart. */
+export const LEVEL_COURSES: Course[] = COURSES.flatMap((c) =>
+  (c.levels ?? []).map((lv) => ({
+    slug: lv.slug,
+    title: `${c.title} · ${lv.label}`,
+    deva: c.deva,
+    tradition: c.tradition,
+    excerpt: lv.note ?? `${lv.label} of ${c.title}.`,
+    syllabus: [],
+    duration: lv.note ?? lv.label,
+    prerequisites: c.prerequisites,
+    priceINR: lv.priceINR,
+    priceForeignINR: lv.priceForeignINR,
+    parentSlug: c.slug,
+    isLevel: true,
+  })),
+);
+
+export const CATALOG: Course[] = [...COURSES, ...MONTHLY_LIVE, ...SESSION_COURSES, ...COUNSELLING_SESSION_COURSES, ...BOOK_SETS, ...CONSULTATION_PRODUCTS, ...LEVEL_COURSES];
 
 /* Consultation pricing — single session & bulk pack. */
 export const CONSULTATION_SINGLE = { priceINR: 2000, duration: "45 min" };

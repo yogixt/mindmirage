@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -9,7 +9,8 @@ import { CATALOG, MONTHLY_LIVE } from "@/lib/constants";
 import RegionPrice from "@/components/RegionPrice";
 
 export function generateStaticParams() {
-  return CATALOG.map((c) => ({ slug: c.slug }));
+  // Per-level items are purchasable but not standalone pages.
+  return CATALOG.filter((c) => !c.isLevel).map((c) => ({ slug: c.slug }));
 }
 
 /* Per-course search titles and descriptions — each targets the phrases
@@ -81,6 +82,8 @@ export default async function CoursePage(
   const { slug } = await params;
   const course = CATALOG.find((c) => c.slug === slug);
   if (!course) notFound();
+  // A per-level item isn't a page of its own — send it to the parent program.
+  if (course.isLevel && course.parentSlug) redirect(`/programs/${course.parentSlug}`);
 
   const liveVariant = MONTHLY_LIVE.find((l) => l.parentSlug === course.slug);
 
@@ -135,7 +138,15 @@ export default async function CoursePage(
           <Stat
             label="Tuition"
             value={
-              liveVariant ? (
+              course.levels && course.levels.length > 0 ? (
+                <>
+                  <RegionPrice
+                    inr={course.levels[0].priceINR}
+                    foreignInr={course.levels[0].priceForeignINR}
+                    suffix=" / level"
+                  />
+                </>
+              ) : liveVariant ? (
                 <>
                   <RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} />
                   {" · "}

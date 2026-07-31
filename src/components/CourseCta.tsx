@@ -25,6 +25,47 @@ export default function CourseCta({ course }: { course: Course }) {
     course.slug === "bhagavad-gita-live" ||
     course.slug === "lalita-for-women";
 
+  if (course.levels && course.levels.length > 0) {
+    return (
+      <div className="rounded-2xl border border-ink/10 bg-paper-warm/40 p-5">
+        <p className="eyebrow">Enrol level by level</p>
+        <p className="mt-1 text-sm text-ink-soft">
+          Each level is taken and paid for on its own — begin at Level 1 and
+          progress at your own pace.
+        </p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {course.levels.map((lv) => {
+            const levelInCart = has(lv.slug);
+            return (
+              <div
+                key={lv.slug}
+                className="flex flex-col rounded-xl border border-saffron/20 bg-paper p-4"
+              >
+                <p className="eyebrow text-saffron">{lv.label}</p>
+                {lv.note && (
+                  <p className="mt-1.5 flex-1 text-xs leading-relaxed text-ink-soft">{lv.note}</p>
+                )}
+                <p className="display mt-3 text-2xl text-ink">
+                  <RegionPrice inr={lv.priceINR} foreignInr={lv.priceForeignINR} />
+                </p>
+                <button
+                  type="button"
+                  onClick={() => handleAdd(lv.slug)}
+                  className="mt-3 w-full rounded-lg bg-saffron px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.02] hover:bg-clay"
+                >
+                  {levelInCart ? "In basket — checkout" : "Enrol"}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+        <p className="mt-4 text-center text-xs text-ink-faint">
+          Every enrolment is confirmed by email — the team handles the rest.
+        </p>
+      </div>
+    );
+  }
+
   if (liveVariant) {
     const recordedInCart = has(course.slug);
 
