@@ -349,7 +349,7 @@ export const COURSES: Course[] = [
     ],
     duration: "Self-paced · ~3 months",
     prerequisites: "None.",
-    priceINR: 3999,
+    priceINR: 5000,
   },
   {
     slug: "lalita-for-women",
@@ -509,14 +509,15 @@ export type GuidanceSubject = {
   name: string;
   deva?: string;
   priceINR: number;
+  priceForeignINR?: number;
   notes?: string;
 };
 
 export const GUIDANCE_SUBJECTS: GuidanceSubject[] = [
   { slug: "bhagavad-gita-live", name: "Bhagavad Gītā · Live Monthly", deva: "भगवद्गीता", priceINR: 0, notes: "Monthly live cohort — Tue/Thu 7 pm IST" },
-  { slug: "pranayama", name: "Prāṇāyāma", deva: "प्राणायाम", priceINR: 3000 },
-  { slug: "asanas", name: "Āsanas", deva: "आसन", priceINR: 3000 },
-  { slug: "shatkarma", name: "Shatkarma", deva: "षट्कर्म", priceINR: 3000 },
+  { slug: "pranayama", name: "Prāṇāyāma", deva: "प्राणायाम", priceINR: 7000, priceForeignINR: 10000 },
+  { slug: "asanas", name: "Āsanas", deva: "आसन", priceINR: 7000, priceForeignINR: 10000 },
+  { slug: "shatkarma", name: "Shatkarma", deva: "षट्कर्म", priceINR: 5000 },
   { slug: "western-philosophy", name: "Western Philosophy", priceINR: 5000 },
   { slug: "mentorship", name: "Mentorship", priceINR: 0, notes: "Application-based — custom" },
   { slug: "counselling-grihasthashrama", name: "Grihasthāshrama · Couple Counselling", deva: "गृहस्थाश्रम", priceINR: 2000 },
@@ -542,6 +543,7 @@ export const SESSION_COURSES: Course[] = GUIDANCE_SUBJECTS.filter(
   duration: "Eight live classes",
   prerequisites: "None.",
   priceINR: s.priceINR as number,
+  priceForeignINR: s.priceForeignINR,
 }));
 
 export const COUNSELLING_SESSION_COURSES: Course[] = GUIDANCE_SUBJECTS.filter(
