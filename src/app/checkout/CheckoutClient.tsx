@@ -8,6 +8,7 @@ import { useCart } from "@/lib/cart";
 import { formatINR, SITE } from "@/lib/constants";
 import { priceFor } from "@/lib/region";
 import { useRegion } from "@/lib/useRegion";
+import IndianAbroadNote from "@/components/IndianAbroadNote";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
@@ -412,6 +413,8 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
                 UPI · cards · net banking · wallets — Razorpay encrypts every
                 transaction.
               </p>
+
+              <IndianAbroadNote />
             </div>
           )}
         </section>

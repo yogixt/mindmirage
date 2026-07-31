@@ -7,6 +7,7 @@ import { priceFor } from "@/lib/region";
 import { useRegion } from "@/lib/useRegion";
 import { Field, PHONE_PATTERN, TextArea, type SubmitState } from "./FormField";
 import SlotCalendar from "./SlotCalendar";
+import IndianAbroadNote from "./IndianAbroadNote";
 
 /* Slot-first checkout wizard for a single catalog item.
    1. Choose dates (and optional preferred time).
@@ -345,6 +346,7 @@ export default function BookWizard({
         {!razorpayReady && state !== "sending" && (
           <p className="text-center text-xs text-ink-soft">Loading secure checkout…</p>
         )}
+        <IndianAbroadNote context={item.title} />
       </form>
     </>
   );
