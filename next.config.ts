@@ -30,6 +30,12 @@ const nextConfig: NextConfig = {
         destination: "/consultation",
         permanent: true,
       },
+      // Yoga Sūtras merged into the Sānkhya Darśan + Yoga Sūtras course.
+      {
+        source: "/programs/yoga-sutras",
+        destination: "/programs/sankhya-darshan",
+        permanent: true,
+      },
     ];
   },
 };

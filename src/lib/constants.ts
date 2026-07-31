@@ -156,23 +156,6 @@ export type Course = {
 
 export const COURSES: Course[] = [
   {
-    slug: "yoga-sutras",
-    title: "Patañjali's Yoga Sūtras",
-    deva: "योगसूत्राणि",
-    tradition: "Classical Yoga · Aṣṭāṅga",
-    excerpt:
-      "The 196 aphorisms that gave Yoga its grammar — from the stilling of thought to the eight limbs that prepare the mind for absorption.",
-    syllabus: [
-      "Samādhi Pāda — what Yoga is, the modes of mind",
-      "Sādhana Pāda — the eight limbs, the kleśas, kriyā yoga",
-      "Vibhūti Pāda — concentration, contemplation, the powers",
-      "Kaivalya Pāda — liberation, the standalone witness",
-    ],
-    duration: "Self-paced · ~3 months at a gentle rhythm",
-    prerequisites: "None. A quiet hour and a notebook.",
-    priceINR: 4999,
-  },
-  {
     slug: "bhagavad-gita",
     formats: ["Live classes on Zoom", "Recorded"],
     title: "Bhagavad Gītā",
@@ -279,19 +262,21 @@ export const COURSES: Course[] = [
   {
     slug: "sankhya-darshan",
     formats: ["Live classes on Zoom", "Recorded"],
-    title: "Sānkhya Darśan",
-    deva: "सांख्य दर्शन",
-    tradition: "Kapila's Cosmology",
+    title: "Sānkhya Darśan + Yoga Sūtras",
+    deva: "सांख्य दर्शन · योगसूत्राणि",
+    tradition: "Kapila's Sānkhya · Patañjali's Yoga",
     excerpt:
-      "The grammar beneath Yoga, Ayurveda, and Vedānta — so ancient that even the Bhagavad Gītā draws upon its framework to explain the Self and the world.",
+      "The sister systems studied together — Sānkhya as theory and Yoga as practice. A one-year course through the twenty-five tattvas and Patañjali's 196 aphorisms, with booklist and study material included.",
     subhead:
-      "Where other paths begin with devotion or ritual, Sānkhya begins with discernment — a precise enumeration of the twenty-five tattvas that compose all of manifest existence.",
-    formatTags: ["Live sessions with Guruji", "Recorded classes"],
+      "Where other paths begin with devotion or ritual, Sānkhya begins with discernment — the twenty-five tattvas that compose all of manifest existence — and Patañjali's Yoga Sūtras give that discernment its practice. Studied together over a full year, with booklist and study material included.",
+    formatTags: ["Live sessions with Guruji", "Recorded classes", "1 year · booklist + study material"],
     syllabus: [
-      "Puruṣa and Prakṛti",
+      "Sānkhya — Puruṣa and Prakṛti",
       "The three guṇas — sattva, rajas, tamas",
-      "The 24 evolutes of Prakṛti",
-      "Liberation through discriminative knowledge",
+      "The 24 evolutes of Prakṛti; liberation through discrimination",
+      "Yoga Sūtras · Samādhi Pāda — the modes of mind",
+      "Sādhana Pāda — the eight limbs, the kleśas, kriyā yoga",
+      "Vibhūti & Kaivalya Pāda — contemplation, the powers, and the standalone witness",
     ],
     whyThisPath: [
       "At its heart, Sānkhya rests on one luminous distinction: Puruṣa and Prakṛti — the conscious spectator and the ever-changing nature that unfolds before it. Prakṛti, in her three guṇas of sattva, rajas, and tamas, gives rise to mind, intellect, ego, the senses, and the elements — the entire theatre of experience. Puruṣa, by contrast, is the silent witness — untouched, unchanging, never truly bound by what it observes.",
@@ -303,19 +288,20 @@ export const COURSES: Course[] = [
       "The foundational distinction between Puruṣa (consciousness) and Prakṛti (nature), and why this discernment is central to liberation",
       "The three guṇas — sattva, rajas, and tamas — and how their interplay shapes thought, action, and experience",
       "How Sānkhya's framework of causation (Satkāryavāda) differs from other Indian philosophical systems",
-      "The relationship between Sānkhya and Yoga — often studied as sister systems (Sānkhya as theory, Yoga as practice)",
-      "How to apply Sānkhya's discernment (viveka) as a daily practice of separating the witnessing Self from the fluctuations of mind and body",
+      "The relationship between Sānkhya and Yoga — studied here together as sister systems (Sānkhya as theory, Yoga as practice)",
+      "Patañjali's Yoga Sūtras across all four pādas — the modes of mind, the eight limbs, the kleśas, and kaivalya",
+      "How to apply this discernment (viveka) as a daily practice of separating the witnessing Self from the fluctuations of mind and body",
     ],
     whoFor:
       "Best suited for sādhaks who already have some grounding in Indian philosophy — perhaps through the Gītā, Yoga Sūtras, or Advaita — and are ready to study the systematic framework that underlies much of what they've encountered. That said, Dr. Ji introduces each tattva with enough clarity that a sincere beginner will also find a firm footing here.",
     guidedBy:
       "Dr. Bhagyashree Joshi, carrying forward the classical understanding of Sānkhya received through her Guru-Shishya lineage, and presenting it with the precision and clarity this ancient system demands.",
     noteBeforeBegin:
-      "Sānkhya asks for patience more than any other darśan — it builds understanding layer by layer, tattva by tattva. But for the sādhak who stays with it, it offers something rare: not just a philosophy to believe, but a discernment that can be used, in every moment, to remember what is truly unbound.",
-    duration: "Live or recorded · ~4 months",
-    prerequisites: "None.",
-    priceINR: 18000,
-    recordedAccess: "1.5 years",
+      "Sānkhya asks for patience more than any other darśan — it builds understanding layer by layer, tattva by tattva; Patañjali then turns that map into a practice. For the sādhak who stays with both, they offer something rare: not just a philosophy to believe, but a discernment that can be used, in every moment, to remember what is truly unbound.",
+    duration: "Live or recorded · 1 year",
+    prerequisites: "None. Booklist and study material included.",
+    priceINR: 36000,
+    recordedAccess: "1 year",
   },
   {
     slug: "buddhism",

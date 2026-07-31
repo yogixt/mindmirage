@@ -48,15 +48,15 @@ export function JsonLd() {
     {
       "@context": "https://schema.org",
       "@type": "Course",
-      name: "Patañjali's Yoga Sūtras",
+      name: "Sānkhya Darśan + Yoga Sūtras",
       description:
-        "The 196 aphorisms that gave Yoga its grammar — from the stilling of thought to the eight limbs that prepare the mind for absorption.",
+        "The sister systems studied together — the twenty-five tattvas of Sānkhya and Patañjali's 196 Yoga Sūtras — over one year, with booklist and study material.",
       provider: { "@type": "Organization", name: "Mind Mirage", sameAs: "https://mindmirageindia.com" },
-      url: "https://mindmirageindia.com/programs/yoga-sutras",
+      url: "https://mindmirageindia.com/programs/sankhya-darshan",
       courseMode: "online",
       educationalCredentialAwarded: "Certificate of Completion",
       inLanguage: ["English", "Sanskrit"],
-      teaches: "Classical Yoga, Ashtanga, Samadhi, Sadhana, Kaivalya",
+      teaches: "Sankhya, Puruṣa, Prakṛti, Classical Yoga, Ashtanga, Samadhi, Kaivalya",
     },
     {
       "@context": "https://schema.org",

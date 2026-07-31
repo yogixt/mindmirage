@@ -14,11 +14,6 @@ export function generateStaticParams() {
 /* Per-course search titles and descriptions — each targets the phrases
    sādhaks actually type (e.g. "Bhagavad Gita course online"). */
 const SEO: Record<string, { title: string; description: string }> = {
-  "yoga-sutras": {
-    title: "Yoga Sutras Course Online — Classical Yoga Philosophy",
-    description:
-      "Study Patañjali's Yoga Sūtras online with a traditional teacher from Rishikesh. Self-paced classical yoga philosophy classes — all four pādas, with personal guidance.",
-  },
   "bhagavad-gita": {
     title: "Bhagavad Gita Course Online — Study with a Teacher in India",
     description:
@@ -35,9 +30,9 @@ const SEO: Record<string, { title: string; description: string }> = {
       "A guided meditation course online from Rishikesh, India — posture, breath, and classical dhyāna in the Indian tradition, taught at your own pace.",
   },
   "sankhya-darshan": {
-    title: "Sankhya Philosophy Course — Sankhya Darshan Online",
+    title: "Sankhya Darshan + Yoga Sutras Course Online — 1 Year",
     description:
-      "Study Sankhya Darshan online — Kapila's cosmology, puruṣa and prakṛti, the twenty-five tattvas — Indian philosophy taught from Rishikesh.",
+      "Study Sānkhya Darśan and Patañjali's Yoga Sūtras together online — the twenty-five tattvas and all four pādas over one year, with booklist and study material, from Rishikesh.",
   },
   buddhism: {
     title: "Buddhist Philosophy Course Online — Contemplative Study",
