@@ -22,7 +22,7 @@ const FAQS = [
   },
   {
     q: "How do the one-to-one classes work?",
-    a: "Each subject — meditation, prāṇāyāma, āsanas, shatkarma, āyurveda, jyotiṣa, western philosophy, contemplation — is taken as a course of eight classes on Zoom. Browse the fields under Offerings, add a subject to your basket, and check out — timings are scheduled together after enrolment.",
+    a: "Each subject — prāṇāyāma, āsanas, shatkarma, western philosophy — is taken as a course of eight classes on Zoom. Browse the fields under Offerings, add a subject to your basket, and check out — timings are scheduled together after enrolment.",
   },
   {
     q: "What is the difference between Mentorship and Consultation?",

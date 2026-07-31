@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Divider from "@/components/Divider";
 import CourseCta from "@/components/CourseCta";
+import CourseWhatsAppCta from "@/components/CourseWhatsAppCta";
 import { CATALOG, MONTHLY_LIVE } from "@/lib/constants";
 import RegionPrice from "@/components/RegionPrice";
 
@@ -306,6 +307,7 @@ export default async function CoursePage(
           </div>
           <div className="mt-4">
             <CourseCta course={course} />
+            <CourseWhatsAppCta title={course.title} slug={course.slug} />
           </div>
         </div>
       </section>

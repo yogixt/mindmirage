@@ -42,6 +42,18 @@ const nextConfig: NextConfig = {
         destination: "/programs/meditation",
         permanent: true,
       },
+      // 1-on-1 Āyurveda retired — replaced by the Ayurveda (Aṣṭāṅga Hṛdayam) course.
+      {
+        source: "/programs/1on1-ayurveda",
+        destination: "/programs/ayurveda",
+        permanent: true,
+      },
+      // Contemplation 1-on-1 retired.
+      {
+        source: "/programs/1on1-contemplation",
+        destination: "/programs",
+        permanent: true,
+      },
     ];
   },
 };
