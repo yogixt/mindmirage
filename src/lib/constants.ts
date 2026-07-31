@@ -512,7 +512,6 @@ export type GuidanceSubject = {
 
 export const GUIDANCE_SUBJECTS: GuidanceSubject[] = [
   { slug: "bhagavad-gita-live", name: "Bhagavad Gītā · Live Monthly", deva: "भगवद्गीता", priceINR: 0, notes: "Monthly live cohort — Tue/Thu 7 pm IST" },
-  { slug: "guided-meditation", name: "Guided Meditation", deva: "ध्यान", priceINR: 3000 },
   { slug: "pranayama", name: "Prāṇāyāma", deva: "प्राणायाम", priceINR: 3000 },
   { slug: "asanas", name: "Āsanas", deva: "आसन", priceINR: 3000 },
   { slug: "shatkarma", name: "Shatkarma", deva: "षट्कर्म", priceINR: 3000 },

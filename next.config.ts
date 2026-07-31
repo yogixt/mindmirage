@@ -36,6 +36,12 @@ const nextConfig: NextConfig = {
         destination: "/programs/sankhya-darshan",
         permanent: true,
       },
+      // 1-on-1 Guided Meditation retired — replaced by the 3-level Meditation course.
+      {
+        source: "/programs/1on1-guided-meditation",
+        destination: "/programs/meditation",
+        permanent: true,
+      },
     ];
   },
 };
