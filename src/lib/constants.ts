@@ -133,6 +133,9 @@ export type Course = {
   duration: string;
   prerequisites: string;
   priceINR: number;
+  /** Fee for participants paying from outside India (INR). Falls back to
+     priceINR until the India / Outside-India toggle is wired into checkout. */
+  priceForeignINR?: number;
   /** Slug of the recorded variant if this is a live-only monthly option. */
   parentSlug?: string;
   /** Info about recorded-access period (e.g. "1.5 years"). */
@@ -197,6 +200,7 @@ export const COURSES: Course[] = [
     duration: "Live or recorded · 12 months",
     prerequisites: "Open mind. No Sanskrit required.",
     priceINR: 18000,
+    priceForeignINR: 24000,
     recordedAccess: "12 months",
   },
   {
@@ -301,6 +305,7 @@ export const COURSES: Course[] = [
     duration: "Live or recorded · 1 year",
     prerequisites: "None. Booklist and study material included.",
     priceINR: 36000,
+    priceForeignINR: 54000,
     recordedAccess: "1 year",
   },
   {
@@ -323,21 +328,26 @@ export const COURSES: Course[] = [
   },
   {
     slug: "lalita-for-women",
-    formats: ["Live classes on Zoom"],
+    formats: ["Live classes on Zoom", "Recorded"],
     title: "Lalitā for Women",
     deva: "ललिता",
     tradition: "Śākta · Śrī Vidyā",
     excerpt:
-      "A devotional study of the Lalitā Sahasranāma offered for women sādhaks — the Goddess as the very ground of awareness, beauty, and play.",
+      "A devotional study of the Lalitā Sahasranāma offered for women sādhaks — the Goddess as the very ground of awareness, beauty, and play. A two-year membership; live, with earlier recordings shared.",
+    subhead:
+      "A two-year membership in the study of the Goddess — the Lalitā Sahasranāma name by name, the Śrī Cakra, and daily contemplative practice, held for women sādhakas. Live sessions, with earlier recordings shared.",
+    formatTags: ["Live sessions on Zoom", "Recordings shared", "2-year membership", "For women sādhakas"],
     syllabus: [
       "Introduction to the Śākta tradition",
-      "Lalitā Sahasranāma — selected names",
+      "Lalitā Sahasranāma — the thousand names",
       "The Śrī Cakra and its symbolism",
       "Daily contemplative practice",
     ],
-    duration: "Live on Zoom · ₹800/month",
+    duration: "2-year membership · Live + recordings",
     prerequisites: "Open to women sādhaks of any background.",
-    priceINR: 800,
+    priceINR: 30000,
+    priceForeignINR: 50000,
+    recordedAccess: "2 years",
   },
   {
     slug: "jyotisha",
@@ -424,6 +434,34 @@ export const COURSES: Course[] = [
     duration: "Live or recorded · Aṣṭāṅga Hṛdayam",
     prerequisites: "None. No background required.",
     priceINR: 8000,
+  },
+  {
+    slug: "yoga-therapy",
+    formats: ["Live · 1-on-1 on Zoom"],
+    title: "Yoga Therapy",
+    deva: "योग चिकित्सा",
+    tradition: "Therapeutic Yoga · Cikitsā",
+    excerpt:
+      "A structured therapeutic programme of twenty guided sessions — āsana, prāṇāyāma, and relaxation applied to your own body, breath, and needs, one-on-one.",
+    subhead:
+      "Yoga not as a class to keep up with, but as therapy shaped to you — twenty guided one-on-one sessions applying āsana, prāṇāyāma, and deep relaxation to your own constitution, concerns, and pace.",
+    formatTags: ["Live · 1-on-1 via Zoom", "20 sessions", "All levels"],
+    syllabus: [
+      "Assessment — your body, breath, and concerns",
+      "Foundational āsana with precise alignment and support",
+      "Prāṇāyāma for the nervous system",
+      "Therapeutic sequences shaped to your needs",
+      "Deep relaxation, yoga nidra, and rest",
+      "A sustainable home practice you can carry forward",
+    ],
+    whoFor:
+      "For anyone seeking a personal, therapeutic yoga practice — whether recovering, managing a specific concern, or simply wanting steady one-on-one guidance rather than a group class. All levels welcome.",
+    noteBeforeBegin:
+      "Therapy is not performance. Come as your body is today; each session meets you there and builds gently, at a pace your own healing allows.",
+    duration: "Live · 1-on-1 · 20 sessions",
+    prerequisites: "None. All levels welcome.",
+    priceINR: 30000,
+    priceForeignINR: 45000,
   },
 ];
 
@@ -517,6 +555,7 @@ export const MONTHLY_LIVE: Course[] = [
     duration: "Monthly · ₹800/month",
     prerequisites: "Open mind. No Sanskrit required.",
     priceINR: 800,
+    priceForeignINR: 2000,
   },
 ];
 

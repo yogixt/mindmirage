@@ -54,6 +54,11 @@ const SEO: Record<string, { title: string; description: string }> = {
     description:
       "Study Ayurveda online through the Aṣṭāṅga Hṛdayam — Tridoṣa, Prakṛti, Dinacharyā and daily living — live or recorded, taught from Rishikesh, India.",
   },
+  "yoga-therapy": {
+    title: "Yoga Therapy Online — 20 One-on-One Sessions from Rishikesh",
+    description:
+      "Personal yoga therapy online — twenty guided one-on-one sessions of āsana, prāṇāyāma and relaxation shaped to your body and needs, from Rishikesh, India.",
+  },
 };
 
 export async function generateMetadata(
