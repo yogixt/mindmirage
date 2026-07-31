@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useCart } from "@/lib/cart";
 import { formatINR } from "@/lib/constants";
+import RegionPrice from "./RegionPrice";
 import {
   Heart,
   Trash2,
@@ -173,7 +174,7 @@ export default function CartDrawer() {
 
                         {/* Price */}
                         <span className="display text-base text-ink">
-                          {formatINR(c.priceINR)}
+                          <RegionPrice inr={c.priceINR} foreignInr={c.priceForeignINR} />
                         </span>
                       </div>
                     </div>

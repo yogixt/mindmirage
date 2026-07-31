@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useCart } from "@/lib/cart";
 import { formatINR, type Course } from "@/lib/constants";
+import { priceFor } from "@/lib/region";
+import { useRegion } from "@/lib/useRegion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
@@ -26,9 +28,10 @@ export default function CartPage() {
     remove, 
     count, 
     setQuantity, 
-    toggleFavorite, 
-    isFavorite 
+    toggleFavorite,
+    isFavorite
   } = useCart();
+  const region = useRegion();
 
   const [toast, setToast] = useState<{ message: string; show: boolean }>({
     message: "",
@@ -94,7 +97,8 @@ export default function CartPage() {
                 {courses.map((c) => {
                   const item = items.find((i) => i.slug === c.slug);
                   const quantity = item ? item.quantity : 1;
-                  const originalPrice = Math.round(c.priceINR * 1.25);
+                  const unitPrice = priceFor(c, region);
+                  const originalPrice = Math.round(unitPrice * 1.25);
                   const isFav = isFavorite(c.slug);
                   const isBook = c.slug.startsWith("booklist");
                   const isSession = c.slug.startsWith("1on1");
@@ -135,7 +139,7 @@ export default function CartPage() {
                           {/* Price & Original Price */}
                           <div className="mt-2 flex items-baseline gap-2">
                             <span className="text-base font-bold text-ink">
-                              {formatINR(c.priceINR)}
+                              {formatINR(unitPrice)}
                             </span>
                             <span className="text-xs text-ink-faint line-through">
                               {formatINR(originalPrice)}

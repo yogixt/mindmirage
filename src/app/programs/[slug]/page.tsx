@@ -5,7 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Divider from "@/components/Divider";
 import CourseCta from "@/components/CourseCta";
-import { CATALOG, MONTHLY_LIVE, formatINR } from "@/lib/constants";
+import { CATALOG, MONTHLY_LIVE } from "@/lib/constants";
+import RegionPrice from "@/components/RegionPrice";
 
 export function generateStaticParams() {
   return CATALOG.map((c) => ({ slug: c.slug }));
@@ -134,9 +135,19 @@ export default async function CoursePage(
           <Stat
             label="Tuition"
             value={
-              liveVariant
-                ? `${formatINR(course.priceINR)} · ${formatINR(liveVariant.priceINR)}/mo`
-                : formatINR(course.priceINR)
+              liveVariant ? (
+                <>
+                  <RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} />
+                  {" · "}
+                  <RegionPrice
+                    inr={liveVariant.priceINR}
+                    foreignInr={liveVariant.priceForeignINR}
+                    suffix="/mo"
+                  />
+                </>
+              ) : (
+                <RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} />
+              )
             }
           />
         </div>
@@ -170,9 +181,9 @@ export default async function CoursePage(
                   </div>
                 )}
                 <p className="mt-3 text-xs text-ink-soft">
-                  Live classes: <strong>{formatINR(liveVariant.priceINR)}/month</strong>
+                  Live classes: <strong><RegionPrice inr={liveVariant.priceINR} foreignInr={liveVariant.priceForeignINR} suffix="/month" /></strong>
                   {course.recordedAccess && (
-                    <> · Recorded: <strong>{formatINR(course.priceINR)}</strong> ({course.recordedAccess} access with Zoom storage)</>
+                    <> · Recorded: <strong><RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} /></strong> ({course.recordedAccess} access with Zoom storage)</>
                   )}
                 </p>
               </>
@@ -293,7 +304,7 @@ export default async function CoursePage(
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="rounded-xl border border-ink/8 bg-paper-warm px-4 py-3">
       <p className="eyebrow">{label}</p>

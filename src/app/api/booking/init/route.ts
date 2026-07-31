@@ -4,6 +4,7 @@ import Razorpay from "razorpay";
 import { getSeekerUserId } from "@/lib/auth";
 import { mindMirageDb, runMigrations } from "@/lib/db";
 import { CATALOG, GUIDANCE_SUBJECTS, scheduleForSubject } from "@/lib/constants";
+import { priceFor, regionFromCountry } from "@/lib/region";
 
 const Body = z.object({
   itemSlug: z.string().min(1),
@@ -63,7 +64,12 @@ export async function POST(req: Request) {
 
   const catalogItem = CATALOG.find((c) => c.slug === itemSlug);
   const guidanceItem = GUIDANCE_SUBJECTS.find((s) => s.slug === itemSlug);
-  const amountINR = catalogItem?.priceINR ?? guidanceItem?.priceINR ?? 0;
+  // Region from the edge geo header (never client-trusted) so the booking is
+  // charged the same figure the visitor was shown.
+  const region = regionFromCountry(req.headers.get("x-vercel-ip-country"));
+  const amountINR = catalogItem
+    ? priceFor(catalogItem, region)
+    : (guidanceItem?.priceINR ?? 0);
   if (amountINR <= 0) {
     return NextResponse.json({ ok: false, error: "item_not_priced" }, { status: 400 });
   }

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import Script from "next/script";
 import { useCart } from "@/lib/cart";
 import { formatINR, SITE } from "@/lib/constants";
+import { priceFor } from "@/lib/region";
+import { useRegion } from "@/lib/useRegion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
@@ -66,6 +68,7 @@ declare global {
 export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
   const router = useRouter();
   const { courses, items, total, count, clear } = useCart();
+  const region = useRegion();
   const [scriptReady, setScriptReady] = useState(false);
   const [status, setStatus] = useState<
     "idle" | "creating" | "opening" | "verifying" | "error"
@@ -268,7 +271,8 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
                 {courses.map((c) => {
                   const item = items.find((i) => i.slug === c.slug);
                   const quantity = item ? item.quantity : 1;
-                  const itemTotal = c.priceINR * quantity;
+                  const unitPrice = priceFor(c, region);
+                  const itemTotal = unitPrice * quantity;
                   const isBook = c.slug.startsWith("booklist");
                   const isSession = c.slug.startsWith("1on1");
 
@@ -312,7 +316,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
                         </p>
                         {quantity > 1 && (
                           <p className="text-[10px] text-ink-faint">
-                            {formatINR(c.priceINR)} each
+                            {formatINR(unitPrice)} each
                           </p>
                         )}
                       </div>

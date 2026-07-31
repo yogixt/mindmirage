@@ -4,6 +4,7 @@ import Razorpay from "razorpay";
 import { CATALOG } from "@/lib/constants";
 import { discountFor, getCouponPercent } from "@/lib/coupons";
 import { getSeekerUserId } from "@/lib/auth";
+import { priceFor, regionFromCountry } from "@/lib/region";
 
 const BodySchema = z.object({
   slugs: z.array(z.string()).min(1),
@@ -64,7 +65,11 @@ export async function POST(req: Request) {
     );
   }
 
-  const baseINR = courses.reduce((sum, c) => sum + c.priceINR, 0);
+  // Region is derived from Vercel's edge geo header — never trusted from the
+  // client — so the amount matches what the visitor was shown and can't be
+  // swapped to the cheaper region from the browser.
+  const region = regionFromCountry(req.headers.get("x-vercel-ip-country"));
+  const baseINR = courses.reduce((sum, c) => sum + priceFor(c, region), 0);
 
   // Server-side coupon validation — the client never controls the amount.
   const couponCode = parsed.data.coupon.trim().toUpperCase();

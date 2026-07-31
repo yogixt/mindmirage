@@ -3,8 +3,9 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useCart } from "@/lib/cart";
-import { formatINR, type Course, MONTHLY_LIVE } from "@/lib/constants";
+import { type Course, MONTHLY_LIVE } from "@/lib/constants";
 import { CheckIcon } from "./Icon";
+import RegionPrice from "./RegionPrice";
 
 export default function CourseCta({ course }: { course: Course }) {
   const router = useRouter();
@@ -34,7 +35,7 @@ export default function CourseCta({ course }: { course: Course }) {
           <div className="rounded-xl border border-saffron/20 bg-paper p-5">
             <p className="eyebrow text-saffron">Full Recorded Access</p>
             <p className="display mt-2 text-3xl text-ink sm:text-4xl">
-              {formatINR(course.priceINR)}
+              <RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} />
             </p>
             <p className="mt-1 text-xs text-ink-soft">
               One-time · {course.recordedAccess ?? "lifetime"} access with Zoom storage
@@ -66,7 +67,7 @@ export default function CourseCta({ course }: { course: Course }) {
           <div className="rounded-xl border border-ink/10 bg-paper p-5">
             <p className="eyebrow">Monthly Live Classes</p>
             <p className="display mt-2 text-3xl text-ink sm:text-4xl">
-              {formatINR(liveVariant.priceINR)}
+              <RegionPrice inr={liveVariant.priceINR} foreignInr={liveVariant.priceForeignINR} />
               <span className="text-base text-ink-soft">/month</span>
             </p>
             <p className="mt-1 text-xs text-ink-soft">
@@ -90,7 +91,7 @@ export default function CourseCta({ course }: { course: Course }) {
               href={`/book/${liveVariant.slug}`}
               className="mt-5 inline-flex w-full items-center justify-center rounded-lg border border-saffron bg-saffron/5 px-4 py-3 text-sm font-semibold text-saffron shadow-sm transition-all hover:scale-[1.02] hover:bg-saffron/10"
             >
-              Join live · ₹800/month
+              Join live · <RegionPrice inr={liveVariant.priceINR} foreignInr={liveVariant.priceForeignINR} suffix="/month" />
             </Link>
           </div>
         </div>
@@ -110,7 +111,7 @@ export default function CourseCta({ course }: { course: Course }) {
         <div>
           <p className="eyebrow">One-time enrolment</p>
           <p className="display mt-2 text-4xl text-ink sm:text-5xl">
-            {formatINR(course.priceINR)}
+            <RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} />
           </p>
           <p className="mt-2 text-sm text-ink-soft">
             One-time enrolment · no recurring fees

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { Course } from "@/lib/constants";
 import { motion } from "framer-motion";
+import RegionPrice from "./RegionPrice";
 
 export default function CourseCard({
   course,
@@ -13,13 +14,6 @@ export default function CourseCard({
   index?: number;
   showPrice?: boolean;
 }) {
-  const formatPrice = (n: number) =>
-    new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(n);
-
   return (
     <motion.div
       initial={{ y: 16 }}
@@ -85,7 +79,7 @@ export default function CourseCard({
             {showPrice ? (
               <div className="flex flex-col">
                 <span className="display text-xl text-ink">
-                  {formatPrice(course.priceINR)}
+                  <RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} />
                 </span>
                 <span className="text-[11px] text-ink-faint">{course.duration}</span>
               </div>

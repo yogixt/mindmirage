@@ -10,6 +10,8 @@ import {
   type ReactNode,
 } from "react";
 import { CATALOG, type Course } from "@/lib/constants";
+import { priceFor } from "@/lib/region";
+import { useRegion } from "@/lib/useRegion";
 
 const STORAGE_KEY = "mindmirage:cart:v1";
 const FAVORITES_KEY = "mindmirage:favorites:v1";
@@ -143,13 +145,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [items],
   );
 
+  const region = useRegion();
   const total = useMemo(
     () =>
       courses.reduce((sum, c) => {
         const item = items.find((i) => i.slug === c.slug);
-        return sum + c.priceINR * (item?.quantity ?? 1);
+        return sum + priceFor(c, region) * (item?.quantity ?? 1);
       }, 0),
-    [courses, items],
+    [courses, items, region],
   );
 
   const count = useMemo(

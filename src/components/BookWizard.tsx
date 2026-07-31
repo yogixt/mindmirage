@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import Script from "next/script";
 import { type Course, GUIDANCE_SUBJECTS, scheduleForSubject } from "@/lib/constants";
+import { priceFor } from "@/lib/region";
+import { useRegion } from "@/lib/useRegion";
 import { Field, PHONE_PATTERN, TextArea, type SubmitState } from "./FormField";
 import SlotCalendar from "./SlotCalendar";
 
@@ -72,6 +74,8 @@ export default function BookWizard({
 
   const subjectSlug = useMemo(() => subjectSlugFor(item), [item]);
   const schedule = useMemo(() => scheduleForSubject(subjectSlug), [subjectSlug]);
+  const region = useRegion();
+  const priceINR = priceFor(item, region);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -219,7 +223,7 @@ export default function BookWizard({
           <h1 className="mt-1 display text-2xl text-ink">{item.title}</h1>
           {item.deva && <p className="text-sm text-ink-soft">{item.deva}</p>}
           <p className="mt-3 text-lg font-medium text-saffron">
-            ₹{item.priceINR.toLocaleString("en-IN")}
+            ₹{priceINR.toLocaleString("en-IN")}
             <span className="ml-2 text-sm font-normal text-ink-soft">{item.duration}</span>
           </p>
         </div>
@@ -336,7 +340,7 @@ export default function BookWizard({
           disabled={state === "sending" || !razorpayReady}
           className="w-full rounded-2xl bg-saffron py-3.5 text-sm font-semibold text-white transition-colors hover:bg-clay disabled:opacity-60"
         >
-          {state === "sending" ? "Please wait…" : `Pay ₹${item.priceINR.toLocaleString("en-IN")} & request booking`}
+          {state === "sending" ? "Please wait…" : `Pay ₹${priceINR.toLocaleString("en-IN")} & request booking`}
         </button>
         {!razorpayReady && state !== "sending" && (
           <p className="text-center text-xs text-ink-soft">Loading secure checkout…</p>
