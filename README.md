@@ -4,7 +4,9 @@ The web platform of Advaita Sadhana Kutir, Rishikesh — courses in Yoga,
 Vedanta, Sanskrit, and the Indian knowledge systems, founded by Acharya
 Bhagyashree Joshi Ji.
 
-Live at [mindmirageindia.com](https://mindmirageindia.com).
+**Live:** [mindmirageindia.com](https://mindmirageindia.com)
+
+![Mind Mirage homepage](docs/screenshot.png)
 
 ## Stack
 
