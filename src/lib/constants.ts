@@ -388,7 +388,7 @@ export const COURSES: Course[] = [
     formatTags: [
       "Live · 1-on-1 via Zoom",
       "Three levels · Level 1–3",
-      "10 classes + 1 extra class + chart reading per level",
+      "10 classes + 1 extra class with chart reading per level",
       "Beginner — no prior knowledge",
     ],
     syllabus: [
@@ -424,9 +424,9 @@ export const COURSES: Course[] = [
     prerequisites: "None. Birth details if you wish to study your own chart.",
     priceINR: 8000,
     levels: [
-      { slug: "jyotisha-l1", label: "Level 1", priceINR: 8000, note: "Foundations — signs, houses and the birth chart · 10 classes + 1 extra class + chart reading" },
-      { slug: "jyotisha-l2", label: "Level 2", priceINR: 8000, note: "The grahas, aspects and chart interpretation · 10 classes + 1 extra class + chart reading" },
-      { slug: "jyotisha-l3", label: "Level 3", priceINR: 8000, note: "Daśās, timing and full Kundali analysis · 10 classes + 1 extra class + chart reading" },
+      { slug: "jyotisha-l1", label: "Level 1", priceINR: 8000, note: "Foundations — signs, houses and the birth chart · 10 classes + 1 extra class with chart reading" },
+      { slug: "jyotisha-l2", label: "Level 2", priceINR: 8000, note: "The grahas, aspects and chart interpretation · 10 classes + 1 extra class with chart reading" },
+      { slug: "jyotisha-l3", label: "Level 3", priceINR: 8000, note: "Daśās, timing and full Kundali analysis · 10 classes + 1 extra class with chart reading" },
     ],
   },
   {
