@@ -43,7 +43,7 @@ export async function POST(req: Request) {
       amount: amountPaise,
       currency: "INR",
       receipt: `contrib_${Date.now()}`,
-      notes: { kind: "contribution", name },
+      notes: { kind: "contribution", name, userId },
     });
 
     return NextResponse.json({

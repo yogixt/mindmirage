@@ -6,10 +6,17 @@ import { discountFor, getCouponPercent } from "@/lib/coupons";
 import { getSeekerUserId } from "@/lib/auth";
 import { priceFor, regionFromCountry } from "@/lib/region";
 
-const BodySchema = z.object({
-  slugs: z.array(z.string()).min(1),
-  coupon: z.string().max(40).optional().default(""),
-});
+const BodySchema = z
+  .object({
+    slugs: z.array(z.string()).min(1),
+    coupon: z.string().max(40).optional().default(""),
+    forSelf: z.boolean().optional().default(true),
+    forName: z.string().max(120).optional().default(""),
+    forEmail: z.string().email().optional().or(z.literal("")).default(""),
+  })
+  .refine((b) => b.forSelf || (b.forName.trim() && b.forEmail.trim()), {
+    message: "for_beneficiary_required",
+  });
 
 export async function POST(req: Request) {
   const keyId = process.env.RAZORPAY_KEY_ID;
@@ -102,8 +109,14 @@ export async function POST(req: Request) {
       currency: "INR",
       receipt: `mm_${Date.now()}`,
       notes: {
+        userId,
         slugs: courses.map((c) => c.slug).join(","),
         titles: courses.map((c) => c.title).join(" | "),
+        forSelf: parsed.data.forSelf ? "1" : "0",
+        ...(!parsed.data.forSelf && {
+          forName: parsed.data.forName.trim(),
+          forEmail: parsed.data.forEmail.trim(),
+        }),
         ...(couponResult && {
           coupon: couponCode,
           discountINR: String(couponResult.discountINR),

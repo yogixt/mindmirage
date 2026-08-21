@@ -72,6 +72,7 @@ export default function BookWizard({
   const [preferredTime, setPreferredTime] = useState("");
   const [state, setState] = useState<SubmitState>("idle");
   const [error, setError] = useState<string | null>(null);
+  const [forSelf, setForSelf] = useState(true);
 
   const subjectSlug = useMemo(() => subjectSlugFor(item), [item]);
   const schedule = useMemo(() => scheduleForSubject(subjectSlug), [subjectSlug]);
@@ -98,6 +99,7 @@ export default function BookWizard({
       email: String(fd.get("email") ?? "").trim(),
       whatsapp: String(fd.get("whatsapp") ?? "").trim(),
       message: String(fd.get("message") ?? "").trim(),
+      forSelf,
     };
 
     try {
@@ -161,7 +163,7 @@ export default function BookWizard({
         theme: { color: "#9c4b21" },
         modal: {
           ondismiss: () => {
-            if (state === "sending") setState("idle");
+            setState((s) => (s === "sending" ? "idle" : s));
           },
         },
       });
@@ -319,12 +321,63 @@ export default function BookWizard({
         <div>
           <p className="flex items-center gap-2.5 text-sm font-semibold text-ink">
             <span className="grid size-6 shrink-0 place-items-center rounded-full bg-saffron text-xs font-bold text-white">3</span>
-            Your details
+            Who is this booking for?
           </p>
-          <div className="mt-2.5 grid gap-3 sm:grid-cols-2">
-            <Field id="book-name" name="name" label="Full name" required autoComplete="name" defaultValue={user?.name ?? ""} />
-            <Field id="book-email" name="email" type="email" label="Email" required autoComplete="email" defaultValue={user?.email ?? ""} />
-            <Field id="book-whatsapp" name="whatsapp" type="tel" label="WhatsApp number" required pattern={PHONE_PATTERN} placeholder="+91 …" defaultValue={user?.phone ?? ""} />
+          <div className="mt-2.5 flex gap-2">
+            <button
+              type="button"
+              onClick={() => setForSelf(true)}
+              className={`flex-1 rounded-xl border px-4 py-2.5 text-sm font-semibold transition-colors ${
+                forSelf
+                  ? "border-saffron bg-saffron/10 text-saffron"
+                  : "border-ink/10 bg-paper-cream text-ink-soft hover:border-ink/20"
+              }`}
+            >
+              Myself
+            </button>
+            <button
+              type="button"
+              onClick={() => setForSelf(false)}
+              className={`flex-1 rounded-xl border px-4 py-2.5 text-sm font-semibold transition-colors ${
+                !forSelf
+                  ? "border-saffron bg-saffron/10 text-saffron"
+                  : "border-ink/10 bg-paper-cream text-ink-soft hover:border-ink/20"
+              }`}
+            >
+              Someone else
+            </button>
+          </div>
+          <p className="mt-2.5 text-sm font-semibold text-ink">
+            {forSelf ? "Your details" : "Their details — the team will coordinate directly with them"}
+          </p>
+          <div key={forSelf ? "self" : "other"} className="mt-2.5 grid gap-3 sm:grid-cols-2">
+            <Field
+              id="book-name"
+              name="name"
+              label="Full name"
+              required
+              autoComplete="name"
+              defaultValue={forSelf ? user?.name ?? "" : ""}
+            />
+            <Field
+              id="book-email"
+              name="email"
+              type="email"
+              label="Email"
+              required
+              autoComplete="email"
+              defaultValue={forSelf ? user?.email ?? "" : ""}
+            />
+            <Field
+              id="book-whatsapp"
+              name="whatsapp"
+              type="tel"
+              label="WhatsApp number"
+              required
+              pattern={PHONE_PATTERN}
+              placeholder="+91 …"
+              defaultValue={forSelf ? user?.phone ?? "" : ""}
+            />
             <div className="sm:col-span-2">
               <TextArea name="message" label="Anything for the team? (optional)" rows={2} />
             </div>

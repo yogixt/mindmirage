@@ -79,6 +79,9 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
   const [coupon, setCoupon] = useState<string | null>(null);
   const [couponPercent, setCouponPercent] = useState<number | null>(null);
   const [couponError, setCouponError] = useState<string | null>(null);
+  const [forSelf, setForSelf] = useState(true);
+  const [forName, setForName] = useState("");
+  const [forEmail, setForEmail] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.Razorpay) setScriptReady(true);
@@ -116,6 +119,10 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
 
   const handlePay = async () => {
     if (count === 0) return;
+    if (!forSelf && (!forName.trim() || !forEmail.trim())) {
+      setErrorMessage("Add their name and email so we know who to enrol.");
+      return;
+    }
     setStatus("creating");
     setErrorMessage(null);
 
@@ -127,6 +134,9 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
         body: JSON.stringify({
           slugs: items.flatMap((item) => Array(item.quantity).fill(item.slug)),
           coupon: coupon ?? "",
+          forSelf,
+          forName: forSelf ? "" : forName.trim(),
+          forEmail: forSelf ? "" : forEmail.trim(),
         }),
       });
       order = (await res.json()) as OrderResponse;
@@ -337,6 +347,58 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
                   >
                     Sign in to continue
                   </Link>
+                </div>
+              )}
+
+              {/* Who is this for */}
+              {signedIn && (
+                <div className="mt-4 border-t border-ink/10 pt-4">
+                  <p className="text-sm font-semibold text-ink">Who is this for?</p>
+                  <div className="mt-2 flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setForSelf(true)}
+                      className={`flex-1 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors ${
+                        forSelf
+                          ? "border-saffron bg-saffron/10 text-saffron"
+                          : "border-ink/15 text-ink-soft hover:border-ink/30"
+                      }`}
+                    >
+                      Myself
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setForSelf(false)}
+                      className={`flex-1 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors ${
+                        !forSelf
+                          ? "border-saffron bg-saffron/10 text-saffron"
+                          : "border-ink/15 text-ink-soft hover:border-ink/30"
+                      }`}
+                    >
+                      Someone else
+                    </button>
+                  </div>
+                  {!forSelf && (
+                    <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                      <input
+                        value={forName}
+                        onChange={(e) => setForName(e.target.value)}
+                        placeholder="Their full name"
+                        className="min-w-0 rounded-lg border border-ink/15 bg-transparent px-3 py-2.5 text-sm text-ink placeholder-ink-faint focus:outline-none focus:ring-2 focus:ring-ink"
+                      />
+                      <input
+                        value={forEmail}
+                        onChange={(e) => setForEmail(e.target.value)}
+                        type="email"
+                        placeholder="Their email"
+                        className="min-w-0 rounded-lg border border-ink/15 bg-transparent px-3 py-2.5 text-sm text-ink placeholder-ink-faint focus:outline-none focus:ring-2 focus:ring-ink"
+                      />
+                      <p className="text-xs text-ink-faint sm:col-span-2">
+                        If they already have an account with this email, they&apos;re enrolled
+                        instantly. If not, they get access the moment they sign up with it.
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 

@@ -3,6 +3,7 @@ import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { mindMirageDb } from "@/lib/db";
 import { verifyPassword } from "@/lib/password";
+import { resolvePendingGrantsForEmail } from "@/lib/auth";
 
 /* Auth.js — Google sign-in + name/nick & password accounts, JWT sessions,
    user records in Turso. No auth vendor: sessions are signed cookies. */
@@ -64,6 +65,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                     image = COALESCE(excluded.image, users.image)`,
             args: [id, user.email ?? "", user.name ?? null, user.image ?? null],
           });
+          if (user.email) {
+            await resolvePendingGrantsForEmail(user.email, id).catch((e) =>
+              console.error("[auth] pending grant resolve failed", e),
+            );
+          }
         }
       } catch (e) {
         console.error("[auth] user upsert failed", e);

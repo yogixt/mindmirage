@@ -16,6 +16,10 @@ const Body = z.object({
   email: z.string().email(),
   whatsapp: z.string().min(5).max(40),
   message: z.string().max(2000).optional().default(""),
+  // False when the signed-in payer is booking this for someone else — in
+  // that case name/email/whatsapp above are the beneficiary's own contact
+  // details, not the payer's.
+  forSelf: z.boolean().optional().default(true),
 });
 
 function minutesFromNow(minutes: number) {
@@ -59,7 +63,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "db_not_configured" }, { status: 503 });
   }
 
-  const { itemSlug, subject, slot, preferredDates, preferredTime, name, email, whatsapp, message } =
+  const { itemSlug, subject, slot, preferredDates, preferredTime, name, email, whatsapp, message, forSelf } =
     parsed.data;
 
   const catalogItem = CATALOG.find((c) => c.slug === itemSlug);
@@ -82,9 +86,9 @@ export async function POST(req: Request) {
 
   const insert = await db.execute({
     sql: `INSERT INTO bookings
-          (user_id, name, email, whatsapp, subject, slot, preferred_dates, message, status, item_slug, amount_inr, expires_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending_payment', ?, ?, ?)`,
-    args: [userId, name, email, whatsapp, subject, slotLabel, preferred, message, itemSlug, amountINR, minutesFromNow(30)],
+          (user_id, name, email, whatsapp, subject, slot, preferred_dates, message, status, item_slug, amount_inr, expires_at, for_self)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending_payment', ?, ?, ?, ?)`,
+    args: [userId, name, email, whatsapp, subject, slotLabel, preferred, message, itemSlug, amountINR, minutesFromNow(30), forSelf ? 1 : 0],
   });
   const bookingId = Number(insert.lastInsertRowid);
 

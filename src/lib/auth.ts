@@ -158,6 +158,70 @@ export async function enrollCurrentSeeker(slug: string): Promise<boolean> {
   return true;
 }
 
+/* Session-independent enrolment — used by the Razorpay webhook, which runs
+   server-to-server with no browser session to read enrollCurrentSeeker's
+   identity from. */
+export async function enrollUserById(userId: string, slug: string): Promise<boolean> {
+  if (!CATALOG.some((c) => c.slug === slug)) return false;
+  const db = mindMirageDb();
+  if (!db) return false;
+  const rs = await db.execute({
+    sql: "SELECT enrolled_programs FROM users WHERE id = ?",
+    args: [userId],
+  });
+  if (!rs.rows.length) return false;
+  let enrolled: string[] = [];
+  try {
+    enrolled = JSON.parse(String(rs.rows[0].enrolled_programs ?? "[]"));
+  } catch {
+    enrolled = [];
+  }
+  if (enrolled.includes(slug)) return true;
+  const next = [...enrolled, slug];
+  await db.execute({
+    sql: "UPDATE users SET enrolled_programs = ? WHERE id = ?",
+    args: [JSON.stringify(next), userId],
+  });
+  return true;
+}
+
+export async function findUserIdByEmail(email: string): Promise<string | null> {
+  const trimmed = email.trim().toLowerCase();
+  if (!trimmed) return null;
+  const db = mindMirageDb();
+  if (!db) return null;
+  const rs = await db.execute({
+    sql: "SELECT id FROM users WHERE lower(email) = ? LIMIT 1",
+    args: [trimmed],
+  });
+  return rs.rows.length ? String(rs.rows[0].id) : null;
+}
+
+/* Someone paid for a course before the beneficiary had an account — their
+   enrollment_grants row sat with granted_user_id = NULL ("pending"). Called
+   on every sign-in/sign-up so the moment that email shows up with an
+   account, they get the access that was already paid for. */
+export async function resolvePendingGrantsForEmail(email: string, userId: string): Promise<void> {
+  const trimmed = email.trim().toLowerCase();
+  if (!trimmed) return;
+  await runMigrations();
+  const db = mindMirageDb();
+  if (!db) return;
+  const rs = await db.execute({
+    sql: "SELECT id, slug FROM enrollment_grants WHERE lower(for_email) = ? AND granted_user_id IS NULL",
+    args: [trimmed],
+  });
+  for (const row of rs.rows) {
+    const slug = String(row.slug);
+    const ok = await enrollUserById(userId, slug);
+    if (!ok) continue;
+    await db.execute({
+      sql: "UPDATE enrollment_grants SET granted_user_id = ?, granted_at = datetime('now') WHERE id = ?",
+      args: [userId, row.id],
+    });
+  }
+}
+
 export async function updateSeekerProfile(profile: SeekerProfile) {
   await runMigrations();
   const row = await currentUserRow();

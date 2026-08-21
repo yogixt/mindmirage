@@ -63,6 +63,7 @@ export async function runMigrations() {
     "amount_inr INTEGER",
     "item_slug TEXT",
     "expires_at TEXT",
+    "for_self INTEGER NOT NULL DEFAULT 1",
   ];
   for (const col of bookingCols) {
     try {
@@ -103,6 +104,78 @@ export async function runMigrations() {
       context TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
+  } catch { /* exists */ }
+
+  /* Recorded purchases — one row per payment, read by the admin Orders page. */
+  try {
+    await db.execute(`CREATE TABLE IF NOT EXISTS orders (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      payment_id TEXT NOT NULL UNIQUE,
+      order_id TEXT NOT NULL,
+      user_id TEXT,
+      user_name TEXT,
+      email TEXT,
+      items TEXT NOT NULL,
+      amount_inr INTEGER NOT NULL,
+      coupon TEXT,
+      created_at TEXT DEFAULT (datetime('now'))
+    )`);
+  } catch { /* exists */ }
+
+  /* Every payment attempt — success, failed, cancelled — read by the admin
+     Orders page's "Payment log". */
+  try {
+    await db.execute(`CREATE TABLE IF NOT EXISTS payment_events (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      status TEXT NOT NULL,
+      payment_id TEXT,
+      order_id TEXT,
+      user_name TEXT,
+      email TEXT,
+      reason TEXT,
+      created_at TEXT DEFAULT (datetime('now'))
+    )`);
+  } catch { /* exists */ }
+
+  /* Lets the client-side verify route and the server-side webhook both write
+     the "success" event for the same payment without racing into a duplicate. */
+  try {
+    await db.execute(
+      `CREATE UNIQUE INDEX IF NOT EXISTS ux_payment_events_payment_status
+       ON payment_events(payment_id, status) WHERE payment_id IS NOT NULL`,
+    );
+  } catch { /* exists */ }
+
+  /* Who has course access, one row per (payment, course) — separate from
+     `orders` (the revenue ledger) because a single payment can name a
+     beneficiary who never has to be the payer: someone buying a course for
+     a friend or family member who doesn't have an account yet. Read by the
+     admin "Enrolments" page. granted_user_id stays NULL — "pending" — until
+     that person's email matches an account, at which point signing in
+     resolves it (see resolvePendingGrantsForEmail in lib/auth.ts). */
+  try {
+    await db.execute(`CREATE TABLE IF NOT EXISTS enrollment_grants (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      payment_id TEXT NOT NULL,
+      slug TEXT NOT NULL,
+      title TEXT,
+      payer_user_id TEXT,
+      payer_name TEXT,
+      payer_email TEXT,
+      for_name TEXT,
+      for_email TEXT,
+      for_self INTEGER NOT NULL DEFAULT 1,
+      granted_user_id TEXT,
+      granted_at TEXT,
+      created_at TEXT DEFAULT (datetime('now'))
+    )`);
+  } catch { /* exists */ }
+
+  try {
+    await db.execute(
+      `CREATE UNIQUE INDEX IF NOT EXISTS ux_enrollment_grants_payment_slug
+       ON enrollment_grants(payment_id, slug)`,
+    );
   } catch { /* exists */ }
 
   migrated = true;

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { randomBytes } from "crypto";
 import { mindMirageDb, runMigrations } from "@/lib/db";
 import { hashPassword } from "@/lib/password";
+import { resolvePendingGrantsForEmail } from "@/lib/auth";
 import { MIN_PASSWORD_LENGTH } from "@/lib/password-strength";
 
 /* Create a name/nick + password account. Email is optional.
@@ -74,6 +75,12 @@ export async function POST(req: Request) {
   } catch (e) {
     console.error("[account/signup] insert failed", e);
     return NextResponse.json({ ok: false, error: "server_error" }, { status: 500 });
+  }
+
+  if (email) {
+    await resolvePendingGrantsForEmail(email, id).catch((e) =>
+      console.error("[account/signup] pending grant resolve failed", e),
+    );
   }
 
   return NextResponse.json({ ok: true, id });
