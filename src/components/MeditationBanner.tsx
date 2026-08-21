@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Script from "next/script";
+import Link from "next/link";
+import { COURSES } from "@/lib/constants";
 
 /* ────────────────────────────────────────────────────────────
-   Meditation · Level 01 — course landing + booking / payment.
-   Converted from the "Meditation Banner" Claude Design.
-   Palette and type are self-contained (warm sand / terracotta,
-   Cormorant Garamond + Mukta) so the section keeps its own
-   identity inside the site chrome (Navbar / Footer).
+   Meditation · Dhyāna — course landing (three levels).
+   Mirrors Yoga/Ashtanga Hridayam's hero + facts + benefits +
+   inclusions layout. The actual enrolment/payment always happens
+   on /programs/meditation (CourseCta) — this page never talks to
+   Razorpay directly, so pricing/region logic has one source of
+   truth instead of drifting out of sync with the catalog.
    Fonts are provided as CSS variables by app/meditation/page.tsx.
    ──────────────────────────────────────────────────────────── */
 
@@ -16,10 +18,10 @@ const SERIF = "var(--font-cormorant), var(--font-noto-deva), Georgia, serif";
 const BODY = "var(--font-mukta), var(--font-noto-deva), system-ui, sans-serif";
 
 const FACTS = [
+  { big: "3", small: "Progressive levels" },
   { big: "10", small: "Hours of guided practice" },
-  { big: "8", small: "Days · 05–12 July" },
   { big: "2", small: "Modes · Online & Ashram" },
-  { big: "₹8k / ₹12k", small: "India / Overseas fee" },
+  { big: "All", small: "Levels welcome" },
 ];
 
 const BENEFITS = [
@@ -42,46 +44,10 @@ const INCLUSIONS = [
   { name: "Online Class (Live Interactive Sessions)", isNew: true },
 ];
 
-type Residency = "india" | "abroad";
-type Mode = "offline" | "online";
-type Slot = "morning" | "evening";
-
-type RazorpayResponse = {
-  razorpay_order_id: string;
-  razorpay_payment_id: string;
-  razorpay_signature: string;
-};
-type RazorpayOptions = {
-  key: string;
-  amount: number | string;
-  currency: string;
-  name: string;
-  description?: string;
-  order_id: string;
-  prefill?: { name?: string; email?: string; contact?: string };
-  theme?: { color?: string };
-  handler?: (r: RazorpayResponse) => void;
-  modal?: { ondismiss?: () => void };
-};
-type RazorpayInstance = { open: () => void; on: (event: string, cb: () => void) => void };
-type RazorpayCtor = new (options: RazorpayOptions) => RazorpayInstance;
-
-function getRazorpay(): RazorpayCtor | undefined {
-  return (window as unknown as { Razorpay?: RazorpayCtor }).Razorpay;
-}
-
 export default function MeditationBanner() {
-  const [residency, setResidency] = useState<Residency>("india");
-  const [mode, setMode] = useState<Mode>("offline");
-  const [slot, setSlot] = useState<Slot>("morning");
-  const [paid, setPaid] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [rzpReady, setRzpReady] = useState(false);
   // Default to the self-contained typographic hero; swap in the exported
   // artwork only once we confirm it loads (SSR-safe — never shows a broken img).
   const [heroImgOk, setHeroImgOk] = useState(false);
-  const [form, setForm] = useState({ name: "", phone: "", email: "", upi: "", card: "" });
 
   useEffect(() => {
     const img = new window.Image();
@@ -90,126 +56,7 @@ export default function MeditationBanner() {
   }, []);
 
   const bookingRef = useRef<HTMLElement | null>(null);
-
-  const setField = (k: keyof typeof form, v: string) =>
-    setForm((f) => ({ ...f, [k]: v }));
-
-  const price = residency === "abroad" ? 12000 : 8000;
-  const priceLabel = "₹" + price.toLocaleString("en-IN");
-  const resLabel = residency === "abroad" ? "Overseas participant" : "India resident";
-  const modeLabel = mode === "offline" ? "Offline · Ashram" : "Online · Live";
-  const slotLabel = slot === "morning" ? "Morning" : "Evening";
-  const nameGreeting = form.name ? ", " + form.name.split(" ")[0] : "";
-
-  // choice pill (residency / mode / slot)
-  const tab = (active: boolean): React.CSSProperties => ({
-    border: active ? "none" : "1px solid #E0D6BC",
-    cursor: "pointer",
-    flex: 1,
-    padding: "13px 10px",
-    borderRadius: 12,
-    fontWeight: 600,
-    fontSize: 14,
-    transition: "all .15s ease",
-    background: active ? "#C97A45" : "#FBF6E9",
-    color: active ? "#FBF6E9" : "#6A6A5E",
-  });
-
-  const input: React.CSSProperties = {
-    border: "1.5px solid #E0D6BC",
-    background: "#FBF6E9",
-    borderRadius: 12,
-    padding: "13px 14px",
-    fontSize: 15,
-    color: "#46453E",
-    fontFamily: BODY,
-    width: "100%",
-  };
-
-  // If the checkout script was already cached/loaded, mark ready.
-  useEffect(() => {
-    if (getRazorpay()) setRzpReady(true);
-  }, []);
-
-  async function handlePay() {
-    setErrorMsg("");
-    const name = form.name.trim();
-    const email = form.email.trim();
-    const phone = form.phone.trim();
-    if (!name || !email || !phone) {
-      setErrorMsg("Please fill in your name, email and phone above.");
-      return;
-    }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      setErrorMsg("Please enter a valid email address.");
-      return;
-    }
-    const Razorpay = getRazorpay();
-    if (!Razorpay) {
-      setErrorMsg("Secure checkout is still loading — please try again in a moment.");
-      return;
-    }
-
-    setSubmitting(true);
-    try {
-      const res = await fetch("/api/meditation/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ residency, mode, slot, name, email, phone }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error(data.error || `Checkout failed (${res.status}).`);
-
-      const rp = new Razorpay({
-        key: data.keyId,
-        amount: data.amount,
-        currency: data.currency,
-        name: "Mind Mirage",
-        description: data.title,
-        order_id: data.orderId,
-        prefill: { name, email, contact: phone },
-        theme: { color: "#C97A45" },
-        handler: async (r) => {
-          try {
-            const vr = await fetch("/api/meditation/verify", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                razorpay_order_id: r.razorpay_order_id,
-                razorpay_payment_id: r.razorpay_payment_id,
-                razorpay_signature: r.razorpay_signature,
-                bookingId: data.bookingId ?? null,
-                name,
-                email,
-                phone,
-                residency,
-                mode,
-                slot,
-              }),
-            });
-            const v = await vr.json();
-            if (!vr.ok || !v.ok) throw new Error(v.error || "verification_failed");
-            setPaid(true);
-          } catch {
-            setErrorMsg(
-              "Payment went through but confirmation failed. Please message us on WhatsApp with your payment id.",
-            );
-          } finally {
-            setSubmitting(false);
-          }
-        },
-        modal: { ondismiss: () => setSubmitting(false) },
-      });
-      rp.on("payment.failed", () => {
-        setErrorMsg("Payment failed or was cancelled. Please try again.");
-        setSubmitting(false);
-      });
-      rp.open();
-    } catch (e) {
-      setErrorMsg(e instanceof Error ? e.message : "Something went wrong. Please try again.");
-      setSubmitting(false);
-    }
-  }
+  const levels = COURSES.find((c) => c.slug === "meditation")?.levels ?? [];
 
   return (
     <div
@@ -233,14 +80,9 @@ export default function MeditationBanner() {
         .mm-meditation input::placeholder { color: #A99F86; }
         .mm-lift { transition: transform .15s ease; }
         .mm-lift:hover { transform: translateY(-2px); }
+        .mm-level-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+        .mm-level-card:hover { transform: translateY(-4px); border-color: #C97A45; box-shadow: 0 18px 34px -16px rgba(192,83,31,0.5); }
       `}</style>
-
-      {/* Razorpay checkout script */}
-      <Script
-        src="https://checkout.razorpay.com/v1/checkout.js"
-        strategy="afterInteractive"
-        onLoad={() => setRzpReady(true)}
-      />
 
       {/* ============ HERO BANNER ============ */}
       <section
@@ -344,11 +186,11 @@ export default function MeditationBanner() {
                   borderRadius: 100,
                 }}
               >
-                MEDITATION · LEVEL 01
+                MEDITATION · THREE LEVELS
               </span>
             </div>
             <div style={{ fontSize: 16, color: "#6A6A5E" }}>
-              A 10-hour guided course over 8 days · Online or at our Rishikesh ashram
+              A graded path into stillness · Online or at our Rishikesh ashram
             </div>
           </div>
           <button
@@ -374,7 +216,7 @@ export default function MeditationBanner() {
               whiteSpace: "nowrap",
             }}
           >
-            Reserve Your Seat &nbsp;·&nbsp; from ₹8,000
+            Choose Your Level
             <span style={{ fontSize: 18 }}>→</span>
           </button>
         </div>
@@ -524,13 +366,12 @@ export default function MeditationBanner() {
         </div>
       </section>
 
-      {/* ============ CHECKOUT / PAYMENT ============ */}
+      {/* ============ CHOOSE YOUR LEVEL ============ */}
       <section
         ref={bookingRef}
         style={{ width: "100%", maxWidth: 1160, scrollMarginTop: 88 }}
       >
         <div
-          className="grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr]"
           style={{
             position: "relative",
             background: "#EEE7D3",
@@ -540,8 +381,7 @@ export default function MeditationBanner() {
             padding: 40,
           }}
         >
-          {/* FORM */}
-          <div style={{ position: "relative" }}>
+          <div style={{ textAlign: "center", marginBottom: 8 }}>
             <div
               style={{
                 fontWeight: 600,
@@ -552,210 +392,82 @@ export default function MeditationBanner() {
                 marginBottom: 6,
               }}
             >
-              Reserve your seat
+              Enrol level by level
             </div>
-            <h2
-              style={{
-                margin: "0 0 22px",
-                fontFamily: SERIF,
-                fontWeight: 700,
-                fontSize: 40,
-                lineHeight: 1,
-                letterSpacing: "-0.5px",
-              }}
-            >
-              Book Meditation · Level 01
+            <h2 style={{ margin: 0, fontFamily: SERIF, fontWeight: 700, fontSize: 40, lineHeight: 1, letterSpacing: "-0.5px" }}>
+              Choose your level
             </h2>
-
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <label style={{ display: "flex", flexDirection: "column", gap: 7, fontWeight: 600, fontSize: 13, color: "#6A6A5E" }}>
-                Full name
-                <input
-                  value={form.name}
-                  onChange={(e) => setField("name", e.target.value)}
-                  placeholder="Your name"
-                  style={input}
-                />
-              </label>
-              <label style={{ display: "flex", flexDirection: "column", gap: 7, fontWeight: 600, fontSize: 13, color: "#6A6A5E" }}>
-                Phone
-                <input
-                  value={form.phone}
-                  onChange={(e) => setField("phone", e.target.value)}
-                  placeholder="+91 ..."
-                  style={input}
-                />
-              </label>
-              <label
-                className="sm:col-span-2"
-                style={{ display: "flex", flexDirection: "column", gap: 7, fontWeight: 600, fontSize: 13, color: "#6A6A5E" }}
-              >
-                Email
-                <input
-                  value={form.email}
-                  onChange={(e) => setField("email", e.target.value)}
-                  placeholder="you@email.com"
-                  style={input}
-                />
-              </label>
-            </div>
-
-            <div style={{ fontWeight: 600, fontSize: 13, color: "#6A6A5E", margin: "22px 0 9px" }}>
-              Where are you joining from?
-            </div>
-            <div style={{ display: "flex", gap: 12 }}>
-              <button type="button" onClick={() => setResidency("india")} style={tab(residency !== "abroad")}>
-                India · ₹8,000
-              </button>
-              <button type="button" onClick={() => setResidency("abroad")} style={tab(residency === "abroad")}>
-                Outside India · ₹12,000
-              </button>
-            </div>
-
-            <div style={{ fontWeight: 600, fontSize: 13, color: "#6A6A5E", margin: "22px 0 9px" }}>
-              How would you like to attend?
-            </div>
-            <div style={{ display: "flex", gap: 12 }}>
-              <button type="button" onClick={() => setMode("offline")} style={tab(mode === "offline")}>
-                Offline · Ashram
-              </button>
-              <button type="button" onClick={() => setMode("online")} style={tab(mode === "online")}>
-                Online · Live
-              </button>
-            </div>
-
-            <div style={{ fontWeight: 600, fontSize: 13, color: "#6A6A5E", margin: "22px 0 9px" }}>
-              Preferred slot
-            </div>
-            <div style={{ display: "flex", gap: 12 }}>
-              <button type="button" onClick={() => setSlot("morning")} style={tab(slot === "morning")}>
-                Morning
-              </button>
-              <button type="button" onClick={() => setSlot("evening")} style={tab(slot === "evening")}>
-                Evening
-              </button>
-            </div>
+            <p style={{ margin: "10px auto 0", maxWidth: 520, fontSize: 15, color: "#6A6A5E", lineHeight: 1.55 }}>
+              Each level is taken and enrolled on its own — begin at Level 1 and progress at
+              your own pace.
+            </p>
           </div>
 
-          {/* SUMMARY / PAY */}
-          <div
-            style={{
-              position: "relative",
-              background: "#FBF6E9",
-              borderRadius: 22,
-              padding: 28,
-              boxShadow: "0 20px 50px -32px rgba(70,69,62,0.5)",
-              display: "flex",
-              flexDirection: "column",
-              gap: 16,
-            }}
-          >
-            {paid ? (
-              <div
+          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
+            {levels.map((lv, i) => (
+              <Link
+                key={lv.slug}
+                href={`/programs/meditation?level=${lv.slug}#enrol`}
+                className="mm-level-card"
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
-                  textAlign: "center",
-                  gap: 14,
-                  padding: "22px 4px",
+                  gap: 10,
+                  background: "#FBF6E9",
+                  border: "1.5px solid #E7DEC6",
+                  borderRadius: 20,
+                  padding: 24,
+                  textDecoration: "none",
+                  boxShadow: "0 8px 24px -16px rgba(70,45,20,0.3)",
                 }}
               >
-                <div
+                <span
                   style={{
-                    width: 66,
-                    height: 66,
+                    width: 40,
+                    height: 40,
                     borderRadius: "50%",
-                    background: "#C97A45",
+                    background: "linear-gradient(135deg, #C97A45, #C9A227)",
+                    color: "#FBF6E9",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: 34,
-                    color: "#FBF6E9",
+                    fontFamily: SERIF,
+                    fontWeight: 700,
+                    fontSize: 18,
+                    boxShadow: "0 6px 16px -4px rgba(192,83,31,0.65)",
                   }}
                 >
-                  ✓
+                  {i + 1}
+                </span>
+                <div style={{ fontFamily: SERIF, fontWeight: 700, fontSize: 24, color: "#46453E" }}>
+                  {lv.label}
                 </div>
-                <h3 style={{ margin: 0, fontFamily: SERIF, fontWeight: 700, fontSize: 30 }}>
-                  Seat reserved
-                </h3>
-                <p style={{ margin: 0, fontSize: 15, color: "#6A6A5E", lineHeight: 1.55 }}>
-                  Thank you{nameGreeting}. Your spot for <b>Meditation · Level 01</b> is confirmed.
-                  We&apos;ll WhatsApp your joining details for <b>{modeLabel}</b> · <b>{slotLabel}</b> slot
-                  shortly.
-                </p>
-                <div style={{ fontFamily: SERIF, fontStyle: "italic", fontWeight: 600, fontSize: 22, color: "#C97A45" }}>
-                  Namaste 🙏
-                </div>
-              </div>
-            ) : (
-              <>
-                <div style={{ fontWeight: 600, fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", color: "#8C9E7C" }}>
-                  Order summary
-                </div>
-
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 15, color: "#6A6A5E" }}>
-                  <span>Meditation · Level 01</span>
-                  <span style={{ fontWeight: 600, color: "#46453E" }}>{priceLabel}</span>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, color: "#9a9280" }}>
-                  <span>{resLabel} · {modeLabel}</span>
-                  <span>8 days</span>
-                </div>
-                <div style={{ height: 1, background: "#E7DEC6" }} />
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                  <span style={{ fontWeight: 600, fontSize: 16 }}>Total</span>
-                  <span style={{ fontFamily: SERIF, fontWeight: 700, fontSize: 34, color: "#46453E" }}>
-                    {priceLabel}
-                  </span>
-                </div>
-
-                {errorMsg && (
-                  <div
-                    style={{
-                      fontSize: 13,
-                      color: "#B23B2E",
-                      background: "#FBEAE6",
-                      border: "1px solid #F1C9C1",
-                      borderRadius: 10,
-                      padding: "10px 12px",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {errorMsg}
-                  </div>
+                {lv.note && (
+                  <p style={{ margin: 0, flex: 1, fontSize: 13.5, lineHeight: 1.55, color: "#6A6A5E" }}>
+                    {lv.note}
+                  </p>
                 )}
-
-                <button
-                  type="button"
-                  onClick={handlePay}
-                  disabled={submitting}
-                  className="mm-lift"
+                <span
                   style={{
-                    border: "none",
-                    cursor: submitting ? "wait" : "pointer",
-                    background: "#C97A45",
-                    color: "#FBF6E9",
+                    marginTop: 6,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
                     fontWeight: 600,
-                    fontSize: 17,
-                    padding: 16,
-                    borderRadius: 14,
-                    boxShadow: "0 14px 30px -14px rgba(201,122,69,0.9)",
-                    opacity: submitting ? 0.7 : 1,
+                    fontSize: 14,
+                    color: "#C97A45",
                   }}
                 >
-                  {submitting
-                    ? "Processing…"
-                    : rzpReady
-                      ? `Pay ${priceLabel} securely`
-                      : "Loading secure checkout…"}
-                </button>
-                <div style={{ textAlign: "center", fontSize: 12, color: "#A99F86" }}>
-                  🔒 UPI · Cards · Netbanking · Powered by Razorpay
-                </div>
-              </>
-            )}
+                  Enrol in {lv.label}
+                  <span aria-hidden>→</span>
+                </span>
+              </Link>
+            ))}
           </div>
+
+          <p style={{ marginTop: 24, textAlign: "center", fontSize: 12, color: "#A99F86" }}>
+            Secure checkout · UPI · Cards · Netbanking — Powered by Razorpay
+          </p>
         </div>
       </section>
 

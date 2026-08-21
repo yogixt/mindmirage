@@ -5,7 +5,7 @@ import Link from "next/link";
    adiveda-social style: a left title + rule + description,
    then landscape cards (Meditation, Yoga, Ashtanga Hridayam)
    with a Devanagari watermark and a "Watch now →"-style
-   call to action.
+   call to action. All three share one plain single-CTA style.
    ──────────────────────────────────────────────────────────── */
 
 type EventCard = {
@@ -22,11 +22,11 @@ type EventCard = {
 const EVENTS: EventCard[] = [
   {
     href: "/meditation",
-    eyebrow: "Course · Level 01 · 8 days",
+    eyebrow: "Course · Three levels",
     deva: "ध्यान",
     title: "Meditation",
-    blurb: "A 10-hour guided course — five-element balancing, yoga nidra, mantra and more. Online or at the ashram.",
-    cta: "Reserve your seat",
+    blurb: "A graded path into stillness — posture, breath and attention, taught across three progressive levels. Online or at the ashram.",
+    cta: "Choose your level",
     theme: "warm",
   },
   {
@@ -43,7 +43,7 @@ const EVENTS: EventCard[] = [
     eyebrow: "Series 03 · 2 months · Starts 15 July",
     deva: "आयुर्वेद",
     title: "Ashtanga Hridayam",
-    blurb: "The Ayurveda core scripture — Sutrasthāna, studied 3 days a week, 40 min a session. Offline in Rishikesh or on Zoom. ₹8,000.",
+    blurb: "The Ayurveda core scripture — Sutrasthāna, studied 3 days a week, 40 min a session. Offline in Rishikesh or on Zoom.",
     cta: "Reserve your seat",
     theme: "teal",
   },

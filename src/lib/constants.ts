@@ -282,10 +282,11 @@ export const COURSES: Course[] = [
     duration: "Live · three levels",
     prerequisites: "None.",
     priceINR: 8000,
+    priceForeignINR: 12000,
     levels: [
-      { slug: "meditation-l1", label: "Level 1", priceINR: 8000, note: "Foundations — posture, breath and settling the mind" },
-      { slug: "meditation-l2", label: "Level 2", priceINR: 8000, note: "Concentration — dhāraṇā and sustained attention" },
-      { slug: "meditation-l3", label: "Level 3", priceINR: 8000, note: "Dhyāna — the witness and the five sheaths" },
+      { slug: "meditation-l1", label: "Level 1", priceINR: 8000, priceForeignINR: 12000, note: "Foundations — posture, breath and settling the mind" },
+      { slug: "meditation-l2", label: "Level 2", priceINR: 8000, priceForeignINR: 12000, note: "Concentration — dhāraṇā and sustained attention" },
+      { slug: "meditation-l3", label: "Level 3", priceINR: 8000, priceForeignINR: 12000, note: "Dhyāna — the witness and the five sheaths" },
     ],
   },
   {
@@ -384,7 +385,12 @@ export const COURSES: Course[] = [
       "The sky not as fate, but as a mirror — one of the six Vedāṅgas, a contemplative map of time and karma. Designed for complete beginners, taught entirely one-on-one.",
     subhead:
       "Jyotiṣa is one of the six Vedāṅgas — a contemplative map of time, of karma, of the rhythm in which each soul takes form. Not the art of prediction it is often reduced to, but a tool for meaningful self-understanding. Designed for complete beginners, taught entirely one-on-one.",
-    formatTags: ["Live · 1-on-1 via Zoom", "Three levels · Level 1–3", "Beginner — no prior knowledge"],
+    formatTags: [
+      "Live · 1-on-1 via Zoom",
+      "Three levels · Level 1–3",
+      "10 classes + 1 extra class + chart reading per level",
+      "Beginner — no prior knowledge",
+    ],
     syllabus: [
       "Foundations — what Jyotiṣa is, and how it differs from prediction",
       "The twelve Rāśis — tattva, puruṣārtha, rulership and nature",
@@ -418,9 +424,9 @@ export const COURSES: Course[] = [
     prerequisites: "None. Birth details if you wish to study your own chart.",
     priceINR: 8000,
     levels: [
-      { slug: "jyotisha-l1", label: "Level 1", priceINR: 8000, note: "Foundations — signs, houses and the birth chart" },
-      { slug: "jyotisha-l2", label: "Level 2", priceINR: 8000, note: "The grahas, aspects and chart interpretation" },
-      { slug: "jyotisha-l3", label: "Level 3", priceINR: 8000, note: "Daśās, timing and full Kundali analysis" },
+      { slug: "jyotisha-l1", label: "Level 1", priceINR: 8000, note: "Foundations — signs, houses and the birth chart · 10 classes + 1 extra class + chart reading" },
+      { slug: "jyotisha-l2", label: "Level 2", priceINR: 8000, note: "The grahas, aspects and chart interpretation · 10 classes + 1 extra class + chart reading" },
+      { slug: "jyotisha-l3", label: "Level 3", priceINR: 8000, note: "Daśās, timing and full Kundali analysis · 10 classes + 1 extra class + chart reading" },
     ],
   },
   {

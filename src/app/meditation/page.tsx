@@ -21,13 +21,13 @@ const mukta = Mukta({
 });
 
 export const metadata: Metadata = {
-  title: "Meditation · Level 01",
+  title: "Meditation · Dhyāna — Three Levels",
   description:
-    "A 10-hour guided meditation course over 8 days — online or at the Advaita Sādhanā Kuṭīr ashram in Rishikesh. Reserve your seat.",
+    "A graded meditation course in three progressive levels — online or at the Advaita Sādhanā Kuṭīr ashram in Rishikesh. Choose your level.",
   openGraph: {
-    title: "Meditation · Level 01 — Mind Mirage",
+    title: "Meditation · Dhyāna — Mind Mirage",
     description:
-      "A 10-hour guided meditation course over 8 days · Online or at our Rishikesh ashram.",
+      "A graded path into stillness across three progressive levels · Online or at our Rishikesh ashram.",
     type: "website",
   },
 };

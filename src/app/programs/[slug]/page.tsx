@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Divider from "@/components/Divider";
 import CourseCta from "@/components/CourseCta";
+import CourseCtaLevelReader from "@/components/CourseCtaLevelReader";
 import CourseWhatsAppCta from "@/components/CourseWhatsAppCta";
 import { CATALOG, MONTHLY_LIVE } from "@/lib/constants";
-import RegionPrice from "@/components/RegionPrice";
 
 export function generateStaticParams() {
   // Per-level items are purchasable but not standalone pages.
@@ -127,7 +128,7 @@ export default async function CoursePage(
       </section>
 
       <section className="px-6 py-4">
-        <div className="mx-auto max-w-3xl grid gap-4 sm:grid-cols-3">
+        <div className="mx-auto max-w-3xl grid gap-4 sm:grid-cols-2">
           <Stat
             label="Pace"
             value={liveVariant ? "Recorded + Live" : course.duration.split("·")[0].trim()}
@@ -135,32 +136,6 @@ export default async function CoursePage(
           <Stat
             label="Prerequisites"
             value={course.prerequisites === "None." ? "None" : "Light"}
-          />
-          <Stat
-            label="Tuition"
-            value={
-              course.levels && course.levels.length > 0 ? (
-                <>
-                  <RegionPrice
-                    inr={course.levels[0].priceINR}
-                    foreignInr={course.levels[0].priceForeignINR}
-                    suffix=" / level"
-                  />
-                </>
-              ) : liveVariant ? (
-                <>
-                  <RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} />
-                  {" · "}
-                  <RegionPrice
-                    inr={liveVariant.priceINR}
-                    foreignInr={liveVariant.priceForeignINR}
-                    suffix="/mo"
-                  />
-                </>
-              ) : (
-                <RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} />
-              )
-            }
           />
         </div>
         {course.formats && (
@@ -193,9 +168,9 @@ export default async function CoursePage(
                   </div>
                 )}
                 <p className="mt-3 text-xs text-ink-soft">
-                  Live classes: <strong><RegionPrice inr={liveVariant.priceINR} foreignInr={liveVariant.priceForeignINR} suffix="/month" /></strong>
+                  Live classes: monthly
                   {course.recordedAccess && (
-                    <> · Recorded: <strong><RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} /></strong> ({course.recordedAccess} access with Zoom storage)</>
+                    <> · Recorded: {course.recordedAccess} access with Zoom storage</>
                   )}
                 </p>
               </>
@@ -294,7 +269,7 @@ export default async function CoursePage(
       </section>
 
       {/* Enroll */}
-      <section className="px-6 py-4 sm:py-4 bg-paper-warm">
+      <section id="enrol" className="scroll-mt-24 px-6 py-4 sm:py-4 bg-paper-warm">
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
             <p className="eyebrow">Enrol</p>
@@ -306,7 +281,9 @@ export default async function CoursePage(
             </h2>
           </div>
           <div className="mt-4">
-            <CourseCta course={course} />
+            <Suspense fallback={<CourseCta course={course} />}>
+              <CourseCtaLevelReader course={course} />
+            </Suspense>
             <CourseWhatsAppCta title={course.title} slug={course.slug} />
           </div>
         </div>

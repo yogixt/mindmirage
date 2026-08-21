@@ -5,9 +5,14 @@ import Link from "next/link";
 import { useCart } from "@/lib/cart";
 import { type Course, MONTHLY_LIVE } from "@/lib/constants";
 import { CheckIcon } from "./Icon";
-import RegionPrice from "./RegionPrice";
 
-export default function CourseCta({ course }: { course: Course }) {
+export default function CourseCta({
+  course,
+  initialLevel,
+}: {
+  course: Course;
+  initialLevel?: string;
+}) {
   const router = useRouter();
   const { has, add } = useCart();
 
@@ -33,25 +38,37 @@ export default function CourseCta({ course }: { course: Course }) {
           Each level is taken and paid for on its own — begin at Level 1 and
           progress at your own pace.
         </p>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          {course.levels.map((lv) => {
+        <div className="mt-4 grid gap-3.5 sm:grid-cols-3">
+          {course.levels.map((lv, i) => {
             const levelInCart = has(lv.slug);
+            const isSelected = lv.slug === initialLevel;
             return (
               <div
                 key={lv.slug}
-                className="flex flex-col rounded-xl border border-saffron/20 bg-paper p-4"
+                className={`relative flex flex-col overflow-hidden rounded-2xl border bg-paper p-4 shadow-[0_4px_16px_-8px_rgba(70,45,20,0.2)] transition-all duration-300 ${
+                  isSelected
+                    ? "border-saffron shadow-[0_16px_36px_-16px_rgba(192,83,31,0.5)]"
+                    : "border-ink/[0.07] hover:border-saffron/30 hover:shadow-[0_16px_32px_-16px_rgba(192,83,31,0.35)]"
+                }`}
               >
-                <p className="eyebrow text-saffron">{lv.label}</p>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="flex size-8 items-center justify-center rounded-full bg-gradient-to-br from-saffron to-gold text-[13px] font-bold text-white shadow-[0_4px_12px_-3px_rgba(192,83,31,0.65)]">
+                    {i + 1}
+                  </span>
+                  {isSelected && (
+                    <span className="rounded-full bg-saffron px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                      Selected
+                    </span>
+                  )}
+                </div>
+                <p className="eyebrow mt-3 text-saffron">{lv.label}</p>
                 {lv.note && (
                   <p className="mt-1.5 flex-1 text-xs leading-relaxed text-ink-soft">{lv.note}</p>
                 )}
-                <p className="display mt-3 text-2xl text-ink">
-                  <RegionPrice inr={lv.priceINR} foreignInr={lv.priceForeignINR} />
-                </p>
                 <button
                   type="button"
                   onClick={() => handleAdd(lv.slug)}
-                  className="mt-3 w-full rounded-lg bg-saffron px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.02] hover:bg-clay"
+                  className="mt-3 w-full rounded-lg bg-gradient-to-br from-saffron to-clay px-4 py-2.5 text-sm font-semibold text-white shadow-[0_6px_16px_-6px_rgba(192,83,31,0.6)] transition-all hover:scale-[1.02] hover:shadow-[0_10px_22px_-8px_rgba(192,83,31,0.7)]"
                 >
                   {levelInCart ? "In basket — checkout" : "Enrol"}
                 </button>
@@ -75,10 +92,7 @@ export default function CourseCta({ course }: { course: Course }) {
           {/* Recorded option */}
           <div className="rounded-xl border border-saffron/20 bg-paper p-5">
             <p className="eyebrow text-saffron">Full Recorded Access</p>
-            <p className="display mt-2 text-3xl text-ink sm:text-4xl">
-              <RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} />
-            </p>
-            <p className="mt-1 text-xs text-ink-soft">
+            <p className="mt-2 text-xs text-ink-soft">
               One-time · {course.recordedAccess ?? "lifetime"} access with Zoom storage
             </p>
             <ul className="mt-4 space-y-2 text-xs text-ink-soft">
@@ -107,11 +121,7 @@ export default function CourseCta({ course }: { course: Course }) {
           {/* Live monthly option */}
           <div className="rounded-xl border border-ink/10 bg-paper p-5">
             <p className="eyebrow">Monthly Live Classes</p>
-            <p className="display mt-2 text-3xl text-ink sm:text-4xl">
-              <RegionPrice inr={liveVariant.priceINR} foreignInr={liveVariant.priceForeignINR} />
-              <span className="text-base text-ink-soft">/month</span>
-            </p>
-            <p className="mt-1 text-xs text-ink-soft">
+            <p className="mt-2 text-xs text-ink-soft">
               No long-term commitment
             </p>
             <ul className="mt-4 space-y-2 text-xs text-ink-soft">
@@ -132,7 +142,7 @@ export default function CourseCta({ course }: { course: Course }) {
               href={`/book/${liveVariant.slug}`}
               className="mt-5 inline-flex w-full items-center justify-center rounded-lg border border-saffron bg-saffron/5 px-4 py-3 text-sm font-semibold text-saffron shadow-sm transition-all hover:scale-[1.02] hover:bg-saffron/10"
             >
-              Join live · <RegionPrice inr={liveVariant.priceINR} foreignInr={liveVariant.priceForeignINR} suffix="/month" />
+              Join live monthly classes
             </Link>
           </div>
         </div>
@@ -151,9 +161,6 @@ export default function CourseCta({ course }: { course: Course }) {
       <div className="flex items-baseline justify-between gap-4">
         <div>
           <p className="eyebrow">One-time enrolment</p>
-          <p className="display mt-2 text-4xl text-ink sm:text-5xl">
-            <RegionPrice inr={course.priceINR} foreignInr={course.priceForeignINR} />
-          </p>
           <p className="mt-2 text-sm text-ink-soft">
             One-time enrolment · no recurring fees
           </p>

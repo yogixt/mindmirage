@@ -179,7 +179,7 @@ export default function HomePage() {
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {COURSES.slice(0, 6).map((c, i) => (
-                <CourseCard key={c.slug} course={c} index={i} showPrice={false} />
+                <CourseCard key={c.slug} course={c} index={i} />
               ))}
             </div>
           </div>
