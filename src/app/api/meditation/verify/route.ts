@@ -1,11 +1,17 @@
 import { NextResponse } from "next/server";
 import { createHmac, timingSafeEqual } from "crypto";
+import Razorpay from "razorpay";
 import { z } from "zod";
-import { mindMirageDb } from "@/lib/db";
 import { notify } from "@/lib/notify";
+import { recordCapturedPayment } from "@/lib/payments";
 
-/* Verifies the Razorpay signature for a guest meditation booking, marks the
-   booking paid, and emails the team. Amount is never trusted from the client. */
+/* Verifies the Razorpay signature for a guest meditation booking, then defers
+   to the same recordCapturedPayment the webhook and reconcile sweep use
+   (fetched fresh from Razorpay, never trusted from the client) so the
+   booking gets marked paid AND an orders/enrollment_grants row is written.
+   Previously this route only flipped the booking's paid flag and emailed the
+   team — it never touched orders, so every meditation guest payment was
+   invisible in the admin portal even on the happy path. */
 
 const Body = z.object({
   razorpay_order_id: z.string().min(1),
@@ -55,16 +61,26 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "signature_mismatch" }, { status: 400 });
   }
 
-  // Mark the booking paid — best effort.
+  // Record the payment — marks the booking paid, writes orders/payment_events,
+  // and grants course access. Best effort: the webhook/reconcile sweep will
+  // pick this up if this in-request write fails; don't fail the payment for
+  // the paying seeker over it.
   if (bookingId) {
     try {
-      const db = mindMirageDb();
-      await db?.execute({
-        sql: "UPDATE bookings SET status = 'new', paid = 1, payment_id = ? WHERE id = ?",
-        args: [razorpay_payment_id, bookingId],
-      });
+      const keyId = process.env.RAZORPAY_KEY_ID ?? process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+      if (keyId) {
+        const rzp = new Razorpay({ key_id: keyId, key_secret: keySecret });
+        const payment = await rzp.payments.fetch(razorpay_payment_id);
+        await recordCapturedPayment({
+          id: payment.id,
+          order_id: payment.order_id ?? null,
+          amount: Number(payment.amount),
+          email: payment.email,
+          notes: payment.notes as Record<string, string> | undefined,
+        });
+      }
     } catch (e) {
-      console.error("[meditation/verify] booking update failed", e);
+      console.error("[meditation/verify] record failed", e);
     }
   }
 
