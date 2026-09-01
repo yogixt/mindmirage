@@ -1,4 +1,5 @@
 import type { Client } from "@libsql/client";
+import Razorpay from "razorpay";
 import { mindMirageDb } from "./db";
 import { enrollUserById, findUserIdByEmail } from "./auth";
 import { notify } from "./notify";
@@ -278,4 +279,88 @@ export async function recordCapturedPayment(
 
   console.warn("[payments] captured payment with unrecognized notes", paymentId, notes);
   return null;
+}
+
+export type SweepResult = {
+  windowDays: number;
+  capturedPaymentsChecked: number;
+  newlyRecorded: { paymentId: string; email: string; amountINR: number; items: string }[];
+};
+
+/* Sweeps Razorpay's own payment history against our `orders`/enrollment_grants
+   tables and backfills anything the webhook (and before it, the client-side
+   /verify calls) never recorded. Shared by the on-demand /api/razorpay/reconcile
+   route (triggered from the admin portal) and the daily /api/cron/reconcile
+   job — money already captured by Razorpay is the ground truth here, and this
+   makes our DB catch up regardless of who or what asked it to. */
+export async function sweepMissingPayments(days: number): Promise<SweepResult | null> {
+  const keyId = process.env.RAZORPAY_KEY_ID;
+  const keySecret = process.env.RAZORPAY_KEY_SECRET;
+  if (!keyId || !keySecret) return null;
+
+  const db = mindMirageDb();
+  if (!db) return null;
+
+  const rzp = new Razorpay({ key_id: keyId, key_secret: keySecret });
+  const from = Math.floor(Date.now() / 1000) - days * 86400;
+
+  const missing: SweepResult["newlyRecorded"] = [];
+  let checked = 0;
+  let skip = 0;
+  const count = 100;
+
+  for (;;) {
+    const page = await rzp.payments.all({ from, count, skip });
+    if (page.items.length === 0) break;
+
+    for (const payment of page.items) {
+      if (payment.status !== "captured") continue;
+      checked += 1;
+
+      // "Already recorded" has to mean fully recorded — the orders row and
+      // the enrollment_grants rows are two separate tables, and a payment
+      // that landed in orders before enrollment_grants existed (or before a
+      // webhook delivery completed the grant step) still needs this sweep
+      // to run for it. Contributions never write enrollment_grants (they
+      // don't grant a course), so orders is the right check for those.
+      const notes = (payment.notes ?? {}) as Record<string, string>;
+      const checkTable = notes.kind === "contribution" ? "orders" : "enrollment_grants";
+      const existing = await db.execute({
+        sql: `SELECT 1 FROM ${checkTable} WHERE payment_id = ?`,
+        args: [payment.id],
+      });
+      if (existing.rows.length > 0) continue;
+
+      const result = await recordCapturedPayment({
+        id: payment.id,
+        order_id: payment.order_id ?? null,
+        amount: Number(payment.amount),
+        email: payment.email,
+        notes: payment.notes as Record<string, string> | undefined,
+      }).catch((e) => {
+        console.error("[sweepMissingPayments] record failed", payment.id, e);
+        return null;
+      });
+
+      // The skip check above already ensures we only get here for a payment
+      // that was missing its order row, its enrollment_grants rows, or both
+      // — so any non-null result here is genuinely new backfill work, not
+      // just recordCapturedPayment's own internal "did I just insert the
+      // payment_events row" signal (which stays false for a payment whose
+      // order existed but whose grants didn't).
+      if (result) {
+        missing.push({
+          paymentId: payment.id,
+          email: result.email,
+          amountINR: result.amountINR,
+          items: result.items,
+        });
+      }
+    }
+
+    if (page.items.length < count) break;
+    skip += count;
+  }
+
+  return { windowDays: days, capturedPaymentsChecked: checked, newlyRecorded: missing };
 }

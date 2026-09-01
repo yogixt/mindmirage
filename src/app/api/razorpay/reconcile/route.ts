@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import { timingSafeEqual } from "crypto";
-import Razorpay from "razorpay";
 import { z } from "zod";
-import { mindMirageDb, runMigrations } from "@/lib/db";
-import { recordCapturedPayment } from "@/lib/payments";
+import { runMigrations } from "@/lib/db";
+import { sweepMissingPayments } from "@/lib/payments";
 
 /* Sweeps Razorpay's own payment history against our `orders` table and
    backfills anything the webhook (and before it, the client-side /verify
@@ -36,12 +35,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
   }
 
-  const keyId = process.env.RAZORPAY_KEY_ID;
-  const keySecret = process.env.RAZORPAY_KEY_SECRET;
-  if (!keyId || !keySecret) {
-    return NextResponse.json({ ok: false, error: "razorpay_not_configured" }, { status: 503 });
-  }
-
   let body: unknown = {};
   try {
     body = await req.json();
@@ -52,79 +45,12 @@ export async function POST(req: Request) {
   if (!parsed.success) {
     return NextResponse.json({ ok: false, error: "invalid_body" }, { status: 400 });
   }
-  const { days } = parsed.data;
 
   await runMigrations();
-  const db = mindMirageDb();
-  if (!db) {
-    return NextResponse.json({ ok: false, error: "db_not_configured" }, { status: 503 });
+  const result = await sweepMissingPayments(parsed.data.days);
+  if (!result) {
+    return NextResponse.json({ ok: false, error: "razorpay_or_db_not_configured" }, { status: 503 });
   }
 
-  const rzp = new Razorpay({ key_id: keyId, key_secret: keySecret });
-  const from = Math.floor(Date.now() / 1000) - days * 86400;
-
-  const missing: { paymentId: string; email: string; amountINR: number; items: string }[] = [];
-  let checked = 0;
-  let skip = 0;
-  const count = 100;
-
-  for (;;) {
-    const page = await rzp.payments.all({ from, count, skip });
-    if (page.items.length === 0) break;
-
-    for (const payment of page.items) {
-      if (payment.status !== "captured") continue;
-      checked += 1;
-
-      // "Already recorded" has to mean fully recorded — the orders row and
-      // the enrollment_grants rows are two separate tables, and a payment
-      // that landed in orders before enrollment_grants existed (or before a
-      // webhook delivery completed the grant step) still needs this sweep
-      // to run for it. Contributions never write enrollment_grants (they
-      // don't grant a course), so orders is the right check for those.
-      const notes = (payment.notes ?? {}) as Record<string, string>;
-      const checkTable = notes.kind === "contribution" ? "orders" : "enrollment_grants";
-      const existing = await db.execute({
-        sql: `SELECT 1 FROM ${checkTable} WHERE payment_id = ?`,
-        args: [payment.id],
-      });
-      if (existing.rows.length > 0) continue;
-
-      const result = await recordCapturedPayment({
-        id: payment.id,
-        order_id: payment.order_id ?? null,
-        amount: Number(payment.amount),
-        email: payment.email,
-        notes: payment.notes as Record<string, string> | undefined,
-      }).catch((e) => {
-        console.error("[razorpay/reconcile] record failed", payment.id, e);
-        return null;
-      });
-
-      // The skip check above already ensures we only get here for a payment
-      // that was missing its order row, its enrollment_grants rows, or both
-      // — so any non-null result here is genuinely new backfill work, not
-      // just recordCapturedPayment's own internal "did I just insert the
-      // payment_events row" signal (which stays false for a payment whose
-      // order existed but whose grants didn't).
-      if (result) {
-        missing.push({
-          paymentId: payment.id,
-          email: result.email,
-          amountINR: result.amountINR,
-          items: result.items,
-        });
-      }
-    }
-
-    if (page.items.length < count) break;
-    skip += count;
-  }
-
-  return NextResponse.json({
-    ok: true,
-    windowDays: days,
-    capturedPaymentsChecked: checked,
-    newlyRecorded: missing,
-  });
+  return NextResponse.json({ ok: true, ...result });
 }
