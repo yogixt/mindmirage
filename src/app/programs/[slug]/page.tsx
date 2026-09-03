@@ -19,49 +19,49 @@ export function generateStaticParams() {
    sādhaks actually type (e.g. "Bhagavad Gita course online"). */
 const SEO: Record<string, { title: string; description: string }> = {
   "bhagavad-gita": {
-    title: "Bhagavad Gita Course Online — Study with a Teacher in India",
+    title: "Bhagavad Gita Course Online, Study with a Teacher in India",
     description:
-      "A self-paced Bhagavad Gita course online with an Advaita teacher from Rishikesh, India. Verse-by-verse study, handwritten assignments, personal replies.",
+      "A self paced Bhagavad Gita course online with an Advaita teacher from Rishikesh, India. Verse by verse study, handwritten assignments, personal replies.",
   },
   "advaita-vedanta": {
-    title: "Advaita Vedanta Course Online — Non-Duality Classes",
+    title: "Advaita Vedanta Course Online, Nondual Classes",
     description:
-      "Learn Advaita Vedanta online with a teacher in the lineage of Adi Shankaracharya, Rishikesh. Non-duality classes from Tattva-bodha to Vivekacūḍāmaṇi.",
+      "Learn Advaita Vedanta online with a teacher in the lineage of Adi Shankaracharya, Rishikesh. Nondual classes from Tattva Bodha to Vivekacūḍāmaṇi.",
   },
   meditation: {
-    title: "Meditation Course from Rishikesh — Dhyāna Online",
+    title: "Meditation Course from Rishikesh, Dhyāna Online",
     description:
-      "A guided meditation course online from Rishikesh, India — posture, breath, and classical dhyāna in the Indian tradition, taught at your own pace.",
+      "A guided meditation course online from Rishikesh, India. Posture, breath, and classical dhyāna in the Indian tradition, taught at your own pace.",
   },
   "sankhya-darshan": {
-    title: "Sankhya Darshan + Yoga Sutras Course Online — 1 Year",
+    title: "Sankhya Darshan + Yoga Sutras Course Online, 1 Year",
     description:
-      "Study Sānkhya Darśan and Patañjali's Yoga Sūtras together online — the twenty-five tattvas and all four pādas over one year, with booklist and study material, from Rishikesh.",
+      "Study Sānkhya Darśan and Patañjali's Yoga Sūtras together online. The twenty five tattvas and all four pādas over one year, with booklist and study material, from Rishikesh.",
   },
   buddhism: {
-    title: "Buddhist Philosophy Course Online — Contemplative Study",
+    title: "Buddhist Philosophy Course Online, Contemplative Study",
     description:
-      "A contemplative Buddhist philosophy course online — the Buddha's teaching, meditation, and its conversation with Vedānta — from a Rishikesh teacher.",
+      "A contemplative Buddhist philosophy course online. The Buddha's teaching, meditation, and its conversation with Vedānta, from a Rishikesh teacher.",
   },
   "lalita-for-women": {
-    title: "Spiritual Course for Women — Lalita & Feminine Wisdom",
+    title: "Spiritual Course for Women, Lalita & Feminine Wisdom",
     description:
-      "Lalita for Women — a spiritual course for women in India and worldwide. Shakti, feminine wisdom, and sādhanā, taught online from Rishikesh.",
+      "Lalita for Women, a spiritual course for women in India and worldwide. Shakti, feminine wisdom, and sādhanā, taught online from Rishikesh.",
   },
   jyotisha: {
-    title: "Vedic Astrology Course — Jyotisha 1-on-1 Online",
+    title: "Vedic Astrology Course, Jyotisha 1 on 1 Online",
     description:
-      "Learn Vedic astrology one-on-one online — Jyotiṣa for complete beginners, 11 live sessions on Zoom from Rishikesh, taught personally by Divyangana Ji.",
+      "Learn Vedic astrology one on one online. Jyotiṣa for complete beginners, 11 live sessions on Zoom from Rishikesh, taught personally by Divyangana Ji.",
   },
   ayurveda: {
-    title: "Ayurveda Course Online — Aṣṭāṅga Hṛdayam from Rishikesh",
+    title: "Ayurveda Course Online, Aṣṭāṅga Hṛdayam from Rishikesh",
     description:
-      "Study Ayurveda online through the Aṣṭāṅga Hṛdayam — Tridoṣa, Prakṛti, Dinacharyā and daily living — live or recorded, taught from Rishikesh, India.",
+      "Study Ayurveda online through the Aṣṭāṅga Hṛdayam. Tridoṣa, Prakṛti, Dinacharyā and daily living, live or recorded, taught from Rishikesh, India.",
   },
   "yoga-therapy": {
-    title: "Yoga Therapy Online — 20 One-on-One Sessions from Rishikesh",
+    title: "Yoga Therapy Online, 20 One on One Sessions from Rishikesh",
     description:
-      "Personal yoga therapy online — twenty guided one-on-one sessions of āsana, prāṇāyāma and relaxation shaped to your body and needs, from Rishikesh, India.",
+      "Personal yoga therapy online, twenty guided one on one sessions of āsana, prāṇāyāma and relaxation shaped to your body and needs, from Rishikesh, India.",
   },
 };
 
@@ -182,7 +182,7 @@ export default async function CoursePage(
             )}
             {!liveVariant && !course.recordedAccess && (
               <p className="mt-2 text-xs text-ink-faint">
-                Live cohort dates are shared on enrolment — or ask us on WhatsApp.
+                Live cohort dates are shared on enrolment, or ask us on WhatsApp.
               </p>
             )}
           </div>
@@ -235,6 +235,34 @@ export default async function CoursePage(
             </>
           )}
 
+          {course.textComparison && course.textComparison.length > 0 && (
+            <div className="mt-8">
+              <p className="eyebrow">The three core texts</p>
+              <div className="mt-4 overflow-x-auto rounded-2xl border border-ink/8">
+                <table className="w-full min-w-[560px] text-left text-sm">
+                  <thead>
+                    <tr className="border-b border-ink/8 bg-paper-warm text-xs uppercase tracking-wider text-ink-faint">
+                      <th className="px-5 py-3 font-semibold">Text</th>
+                      <th className="px-5 py-3 font-semibold">Primary focus</th>
+                      <th className="px-5 py-3 font-semibold">Best used for</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {course.textComparison.map((row, i) => (
+                      <tr key={row.text} className={i > 0 ? "border-t border-ink/8" : ""}>
+                        <td className="px-5 py-4 align-top font-semibold text-ink">
+                          {i + 1}. {row.text}
+                        </td>
+                        <td className="px-5 py-4 align-top text-ink-soft">{row.focus}</td>
+                        <td className="px-5 py-4 align-top text-ink-soft">{row.bestFor}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
           {course.whoFor && (
             <div className="mt-8">
               <p className="eyebrow">Who this is for</p>
@@ -261,8 +289,8 @@ export default async function CoursePage(
           <Divider />
           <p className="text-sm text-ink-soft leading-relaxed">
             <strong className="text-ink">How it works:</strong> Enrol through the
-            secure checkout. A confirmation email follows — with your live-class
-            joining link, or your first self-paced lesson. The team handles
+            secure checkout. A confirmation email follows, with your live class
+            joining link, or your first self paced lesson. The team handles
             everything from there.
           </p>
         </div>

@@ -170,6 +170,8 @@ export type Course = {
   /** Marks a generated per-level catalog item (used only for cart/pricing,
      not a standalone browsable page). */
   isLevel?: boolean;
+  /** Comparison table of core texts studied in the course. */
+  textComparison?: readonly { text: string; focus: string; bestFor: string }[];
 };
 
 export const COURSES: Course[] = [
@@ -225,42 +227,59 @@ export const COURSES: Course[] = [
     deva: "अद्वैत वेदान्त",
     tradition: "Adi Shankarācārya",
     excerpt:
-      "The path of non-dual wisdom — not something to acquire, but something to recognise: that the Self within you and the ultimate reality are not two, but one.",
+      "The path of nondual wisdom. Not something to acquire, but something to recognise: that the Self within you and the ultimate reality are not two, but one.",
     subhead:
-      "Not something to acquire, but something to recognise — that the Self within you and the ultimate reality are not two, but one. A steady, patient inquiry into who you truly are beneath the roles, thoughts, and identities you carry.",
+      "Not something to acquire, but something to recognise: that the Self within you and the ultimate reality are not two, but one. A steady, patient inquiry into who you truly are beneath the roles, thoughts, and identities you carry.",
     formatTags: ["Live sessions with Guruji", "Recorded classes", "No prior Sanskrit required"],
     syllabus: [
-      "Tattva-bodha — the basic vocabulary",
-      "Ātma-bodha — knowledge of the Self",
-      "Vivekacūḍāmaṇi — the crest jewel of discrimination",
-      "Upadeśa Sāhasrī — the thousand teachings",
-      "Methods of inquiry: dṛg-dṛśya, neti-neti, anvaya-vyatireka",
+      "Tattva Bodha, the basic vocabulary",
+      "Ātma Bodha, knowledge of the Self",
+      "Vivekacūḍāmaṇi, the crest jewel of discrimination",
+      "Upadeśa Sāhasrī, the thousand teachings",
+      "Methods of inquiry: dṛg dṛśya, neti neti, anvaya vyatireka",
     ],
     whyThisPath: [
-      "Advaita Vedānta stands as the crown of Indian philosophical thought — the teaching of non-duality. It is a philosophy that does not ask for blind belief, but for direct inquiry: a steady, patient unravelling of who we truly are.",
-      "Adi Shankarācārya, who systematised this teaching, did not ask his students to acquire something new — but to recognise what has never been absent. This course walks that same path, slowly dismantling assumption after assumption, until only the unshakeable ground of awareness remains.",
-      "Advaita is often called the most subtle of Indian philosophical systems — not because it is complicated, but because what it points to is closer to us than thought itself.",
+      "Advaita Vedānta stands as the crown of Indian philosophical thought, the teaching of nonduality. It is a philosophy that does not ask for blind belief, but for direct inquiry: a steady, patient unravelling of who we truly are.",
+      "Adi Shankarācārya, who systematised this teaching, did not ask his students to acquire something new, but to recognise what has never been absent. This course walks that same path, slowly dismantling assumption after assumption, until only the unshakeable ground of awareness remains.",
+      "Advaita is often called the most subtle of Indian philosophical systems, not because it is complicated, but because what it points to is closer to us than thought itself.",
     ],
     whatYoullLearn: [
-      "The foundational texts of Advaita Vedānta — Tattva Bodha, Ātma Bodha, Sādhana Pañcakam, and key commentaries in the tradition of Adi Shankarācārya",
+      "The foundational texts of Advaita Vedānta: Tattva Bodha, Ātma Bodha, Sādhana Pañcakam, and key commentaries in the tradition of Adi Shankarācārya",
       "Core concepts: Brahman, Ātman, Māyā, and the nature of consciousness",
-      "The method of Vedāntic self-inquiry (Ātma Vichāra) as a practical tool, not just theory",
-      "How to discern between the Self and the mind, body, and ego — the classical practice of neti neti",
-      "The three states of consciousness — waking, dreaming, and deep sleep — and the witness behind all three",
+      "The method of Vedāntic self inquiry (Ātma Vichāra) as a practical tool, not just theory",
+      "How to discern between the Self and the mind, body, and ego: the classical practice of neti neti",
+      "The three states of consciousness: waking, dreaming, and deep sleep, and the witness behind all three",
       "How the concept of Māyā explains the nature of the world without denying its reality",
-      "How non-dual understanding transforms one's relationship with suffering, identity, and daily life",
+      "How nondual understanding transforms one's relationship with suffering, identity, and daily life",
     ],
     whoFor:
-      "This course is suited for sincere seekers who wish to move beyond surface-level spirituality into deep philosophical inquiry. Some familiarity with foundational Indian philosophy (such as the Gītā or basic Yoga philosophy) is helpful, though not mandatory — Dr. Ji builds each concept from the ground up.",
+      "This course is suited for sincere seekers who wish to move beyond surface level spirituality into deep philosophical inquiry. Some familiarity with foundational Indian philosophy, such as the Gītā or basic Yoga philosophy, is helpful, though not mandatory. Dr. Ji builds each concept from the ground up.",
     guidedBy:
-      "Dr. Bhagyashree Joshi (Acharya Ji). She teaches directly from her own realisation and the transmission received through her Guru — making this one of the few offerings led personally by Dr. Ji herself.",
+      "Dr. Bhagyashree Joshi (Acharya Ji). She teaches directly from her own realisation and the transmission received through her Guru, making this one of the few offerings led personally by Dr. Ji herself.",
     noteBeforeBegin:
-      "Advaita is not learned in a single sitting — it is realised gradually, through sustained reflection and grace. This course offers you the structure and companionship for that unfolding, at the pace your own understanding allows.",
+      "Advaita is not learned in a single sitting. It is realised gradually, through sustained reflection and grace. This course offers you the structure and companionship for that unfolding, at the pace your own understanding allows.",
     duration: "Live or recorded · ~6 months",
     prerequisites: "Familiarity with the Gītā helps but is not required.",
     priceINR: 18000,
     priceForeignINR: 24000,
     recordedAccess: "12 months",
+    textComparison: [
+      {
+        text: "Sadhana Pancakam",
+        focus: "The Practice (Blueprint for living)",
+        bestFor: "Step by step instructions on daily habits, mental discipline, and the path to qualification.",
+      },
+      {
+        text: "Tattva Bodha",
+        focus: "The Vocabulary (The dictionary)",
+        bestFor: "Defining terms like the three bodies, five sheaths, three gunas, and the nature of the Self.",
+      },
+      {
+        text: "Atma Bodha",
+        focus: "The Realization (The final vision)",
+        bestFor: "Verses rich with metaphor that explain how knowledge destroys ignorance and reveals the Self.",
+      },
+    ],
   },
   {
     slug: "meditation",
@@ -575,7 +594,7 @@ export const BOOK_SETS: Course[] = [
 ];
 
 /* Everything that can be added to the basket. */
-/* Monthly live-class variants — linked to a parent recorded course. */
+/* Monthly live class variants, linked to a parent recorded course. */
 export const MONTHLY_LIVE: Course[] = [
   {
     slug: "bhagavad-gita-live",
@@ -585,27 +604,31 @@ export const MONTHLY_LIVE: Course[] = [
     deva: "भगवद्गीता",
     tradition: "Vedānta · Karma Yoga · Bhakti",
     excerpt:
-      "Monthly live classes on Zoom — study the Gītā directly with the teacher, alongside fellow sādhaks.",
+      "Monthly live classes on Zoom. Study the Gītā directly with the teacher, alongside fellow sādhaks.",
     syllabus: [],
     duration: "Monthly · ₹800/month",
     prerequisites: "Open mind. No Sanskrit required.",
     priceINR: 800,
     priceForeignINR: 2000,
   },
+];
+
+/* Fixed term membership variants, linked to a parent recorded course. */
+export const ANNUAL_MEMBERSHIP: Course[] = [
   {
-    slug: "advaita-vedanta-live",
+    slug: "advaita-vedanta-membership",
     parentSlug: "advaita-vedanta",
-    formats: ["Live classes on Zoom"],
-    title: "Advaita Vedānta · Live Monthly",
+    formats: ["Live classes on Zoom", "Recorded"],
+    title: "Advaita Vedānta · One Year Membership",
     deva: "अद्वैत वेदान्त",
     tradition: "Adi Shankarācārya",
     excerpt:
-      "Monthly live classes on Zoom — inquiry into the non-dual teaching directly with Acharya Ji, alongside fellow sādhaks.",
+      "One year of live classes and recordings, a single payment, no renewal to track.",
     syllabus: [],
-    duration: "Monthly · ₹800/month",
+    duration: "One year membership",
     prerequisites: "None mandatory; sincerity assumed.",
-    priceINR: 800,
-    priceForeignINR: 2000,
+    priceINR: 24000,
+    priceForeignINR: 36000,
   },
 ];
 
@@ -664,7 +687,7 @@ export const LEVEL_COURSES: Course[] = COURSES.flatMap((c) =>
   })),
 );
 
-export const CATALOG: Course[] = [...COURSES, ...MONTHLY_LIVE, ...SESSION_COURSES, ...COUNSELLING_SESSION_COURSES, ...BOOK_SETS, ...CONSULTATION_PRODUCTS, ...LEVEL_COURSES];
+export const CATALOG: Course[] = [...COURSES, ...MONTHLY_LIVE, ...ANNUAL_MEMBERSHIP, ...SESSION_COURSES, ...COUNSELLING_SESSION_COURSES, ...BOOK_SETS, ...CONSULTATION_PRODUCTS, ...LEVEL_COURSES];
 
 /* Consultation pricing — single session & bulk pack. */
 export const CONSULTATION_SINGLE = { priceINR: 2000, duration: "45 min" };
