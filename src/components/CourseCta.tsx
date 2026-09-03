@@ -165,22 +165,22 @@ export default function CourseCta({
         <div className="grid gap-5 sm:grid-cols-2">
           {/* Recorded option */}
           <div className="rounded-xl border border-ink/10 bg-paper p-5">
-            <p className="eyebrow">Full Recorded Access</p>
+            <p className="eyebrow">The Self Paced Path</p>
             <p className="mt-2 text-xs text-ink-soft">
-              One time payment · {course.recordedAccess ?? "lifetime"} access with Zoom storage
+              {course.recordedAccess ?? "Lifetime"} to walk through the teaching at your own rhythm
             </p>
             <ul className="mt-4 space-y-2 text-xs text-ink-soft">
               <li className="flex gap-2">
                 <CheckIcon width={14} height={14} className="mt-0.5 shrink-0 text-gold" />
-                <span>All recordings, your pace</span>
+                <span>Every class yours to return to, whenever stillness calls for it</span>
               </li>
               <li className="flex gap-2">
                 <CheckIcon width={14} height={14} className="mt-0.5 shrink-0 text-gold" />
-                <span>Handwritten assignments with personal replies</span>
+                <span>Handwritten assignments, read and answered personally</span>
               </li>
               <li className="flex gap-2">
                 <CheckIcon width={14} height={14} className="mt-0.5 shrink-0 text-gold" />
-                <span>No recurring fees</span>
+                <span>One offering, complete, asked for only once</span>
               </li>
             </ul>
             <p className="mt-4 text-lg font-semibold text-ink">
@@ -191,28 +191,28 @@ export default function CourseCta({
               onClick={() => handleAdd(course.slug)}
               className="mt-3 w-full rounded-lg border border-ink/15 bg-transparent px-4 py-3 text-sm font-semibold text-ink shadow-sm transition-all hover:scale-[1.02] hover:bg-paper-warm"
             >
-              {recordedInCart ? "In basket, go to checkout" : "Enrol · recorded"}
+              {recordedInCart ? "Continue to enrolment" : "Begin at your own pace"}
             </button>
           </div>
 
           {/* One year membership option */}
           <div className="rounded-xl border border-saffron/20 bg-paper p-5">
-            <p className="eyebrow text-saffron">One Year Membership</p>
+            <p className="eyebrow text-saffron">The Year Long Sādhanā</p>
             <p className="mt-2 text-xs text-ink-soft">
-              Live classes and recordings for a full year
+              A full year in the company of Acharya Ji, live and at your own pace together
             </p>
             <ul className="mt-4 space-y-2 text-xs text-ink-soft">
               <li className="flex gap-2">
                 <CheckIcon width={14} height={14} className="mt-0.5 shrink-0 text-gold" />
-                <span>Live sessions with Acharya Ji all year</span>
+                <span>Live satsang with Acharya Ji through the year</span>
               </li>
               <li className="flex gap-2">
                 <CheckIcon width={14} height={14} className="mt-0.5 shrink-0 text-gold" />
-                <span>All recordings included</span>
+                <span>Every recording kept for you, to revisit as the inquiry deepens</span>
               </li>
               <li className="flex gap-2">
                 <CheckIcon width={14} height={14} className="mt-0.5 shrink-0 text-gold" />
-                <span>One payment, nothing to renew</span>
+                <span>One offering for the whole year, nothing further to arrange</span>
               </li>
             </ul>
             <p className="mt-4 text-lg font-semibold text-ink">
@@ -223,13 +223,13 @@ export default function CourseCta({
               onClick={() => handleAdd(membershipVariant.slug)}
               className="mt-3 w-full rounded-lg bg-saffron px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:scale-[1.02] hover:bg-clay"
             >
-              {membershipInCart ? "In basket, go to checkout" : "Join one year membership"}
+              {membershipInCart ? "Continue to enrolment" : "Begin the year long sādhanā"}
             </button>
           </div>
         </div>
 
         <p className="mt-4 text-center text-xs text-ink-faint">
-          Every enrolment is confirmed by email. The team handles the rest.
+          Every enrolment is confirmed by email, and the team carries the rest with care.
         </p>
       </div>
     );
