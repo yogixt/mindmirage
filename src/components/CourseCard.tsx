@@ -11,7 +11,7 @@ export default function CourseCard({
   course: Course;
   index?: number;
 }) {
-  const hasLevels = !!course.levels && course.levels.length > 0;
+  const hasLevels = !!course.levels && course.levels.length > 0 && !course.hideLevelsOnListing;
 
   return (
     <motion.div

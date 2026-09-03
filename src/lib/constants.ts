@@ -172,6 +172,9 @@ export type Course = {
   isLevel?: boolean;
   /** Comparison table of core texts studied in the course. */
   textComparison?: readonly { text: string; focus: string; bestFor: string }[];
+  /** Hide the level picker on the /programs listing card (still shown, and
+     still separately purchasable, on the course's own detail page). */
+  hideLevelsOnListing?: boolean;
 };
 
 export const COURSES: Course[] = [
@@ -222,7 +225,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "advaita-vedanta",
-    formats: ["Live classes on Zoom", "Recorded"],
+    formats: ["Live classes on Zoom"],
     title: "Advaita Vedānta",
     deva: "अद्वैत वेदान्त",
     tradition: "Adi Shankarācārya",
@@ -230,7 +233,7 @@ export const COURSES: Course[] = [
       "The path of nondual wisdom. Not something to acquire, but something to recognise: that the Self within you and the ultimate reality are not two, but one.",
     subhead:
       "Not something to acquire, but something to recognise: that the Self within you and the ultimate reality are not two, but one. A steady, patient inquiry into who you truly are beneath the roles, thoughts, and identities you carry.",
-    formatTags: ["Live sessions with Guruji", "Recorded classes", "No prior Sanskrit required"],
+    formatTags: ["Live sessions with Guruji", "No prior Sanskrit required"],
     syllabus: [
       "Tattva Bodha, the basic vocabulary",
       "Ātma Bodha, knowledge of the Self",
@@ -258,11 +261,10 @@ export const COURSES: Course[] = [
       "Dr. Bhagyashree Joshi (Acharya Ji). She teaches directly from her own realisation and the transmission received through her Guru, making this one of the few offerings led personally by Dr. Ji herself.",
     noteBeforeBegin:
       "Advaita is not learned in a single sitting. It is realised gradually, through sustained reflection and grace. This course offers you the structure and companionship for that unfolding, at the pace your own understanding allows.",
-    duration: "Live or recorded · ~6 months",
+    duration: "Live · one year sādhanā",
     prerequisites: "Familiarity with the Gītā helps but is not required.",
     priceINR: 18000,
     priceForeignINR: 24000,
-    recordedAccess: "12 months",
     textComparison: [
       {
         text: "Sadhana Pancakam",
@@ -397,6 +399,7 @@ export const COURSES: Course[] = [
   {
     slug: "jyotisha",
     formats: ["Live · 1-on-1 on Zoom"],
+    hideLevelsOnListing: true,
     title: "Jyotiṣa · Vedic Astrology",
     deva: "ज्योतिष",
     tradition: "Vedic · The eye of the Veda",
