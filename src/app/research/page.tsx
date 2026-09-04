@@ -22,12 +22,12 @@ const SECTIONS = [
     id: "bibliography",
     title: "Recommended Bibliography",
     items: [
-      "Vivekacūḍāmaṇi — Adi Shankarācārya",
+      "Vivekacūḍāmaṇi, Adi Shankarācārya",
       "Brahma Sūtra Śāṅkara Bhāṣya",
       "Yoga Sūtras of Patañjali with classical commentaries",
-      "Bhagavad Gītā Bhāṣya — Shankarācārya",
-      "Upadeśa Sāhasrī — Shankarācārya",
-      "Sānkhya Kārikā — Īśvarakṛṣṇa",
+      "Bhagavad Gītā Bhāṣya, Shankarācārya",
+      "Upadeśa Sāhasrī, Shankarācārya",
+      "Sānkhya Kārikā, Īśvarakṛṣṇa",
     ],
   },
   {
@@ -35,8 +35,8 @@ const SECTIONS = [
     title: "External Resources",
     items: [
       "JSTOR · Indian Philosophy",
-      "Sanskrit Library — primary texts",
-      "Wisdom Library — translations and commentaries",
+      "Sanskrit Library, primary texts",
+      "Wisdom Library, translations and commentaries",
     ],
   },
 ];
@@ -55,8 +55,8 @@ export default function ResearchPage() {
         }
         description={
           <>
-            Mind Mirage holds an active interest in primary-source scholarship of the
-            Indian Knowledge System. Below — our publications, the bibliography we
+            Mind Mirage holds an active interest in primary source scholarship of the
+            Indian Knowledge System. Below, our publications, the bibliography we
             return to, and the doors that open onto further study.
           </>
         }

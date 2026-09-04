@@ -13,9 +13,9 @@ import { SANSKRIT, THREE_PATHS, COURSES } from "@/lib/constants";
 import { JsonLd } from "@/components/JsonLd";
 
 export const metadata = {
-  title: "Mind Mirage — Advaita Vedanta, Yoga & Indian Philosophy Courses | Rishikesh",
+  title: "Mind Mirage, Advaita Vedanta, Yoga & Indian Philosophy Courses | Rishikesh",
   description:
-    "Study Advaita Vedanta, Yoga Sutras, Bhagavad Gita, Meditation & Sanskrit with Acharya Bhagyashree Joshi Ji at Advaita Sadhana Kutir, Rishikesh. Self-paced & live Zoom courses in the gurukulam tradition.",
+    "Study Advaita Vedanta, Yoga Sutras, Bhagavad Gita, Meditation & Sanskrit with Acharya Bhagyashree Joshi Ji at Advaita Sadhana Kutir, Rishikesh. Self paced & live Zoom courses in the gurukulam tradition.",
   keywords: [
     "Advaita Vedanta courses",
     "Yoga Sutras online course",
@@ -40,9 +40,9 @@ export const metadata = {
   ],
   alternates: { canonical: "https://mindmirageindia.com" },
   openGraph: {
-    title: "Mind Mirage — Step out of the Mind Matrix",
+    title: "Mind Mirage, Step out of the Mind Matrix",
     description:
-      "Advaita Vedanta, Yoga Sutras, Bhagavad Gita & Meditation courses from Rishikesh — taught in the living Guru-Shishya tradition.",
+      "Advaita Vedanta, Yoga Sutras, Bhagavad Gita & Meditation courses from Rishikesh, taught in the living Guru Shishya tradition.",
     url: "https://mindmirageindia.com",
     siteName: "Mind Mirage",
     locale: "en_IN",
@@ -51,8 +51,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mind Mirage — Advaita Vedanta & Yoga Courses | Rishikesh",
-    description: "Study Indian philosophy in the Guru-Shishya tradition. Self-paced & live courses.",
+    title: "Mind Mirage, Advaita Vedanta & Yoga Courses | Rishikesh",
+    description: "Study Indian philosophy in the Guru Shishya tradition. Self paced & live courses.",
     images: ["https://mindmirageindia.com/og-home.jpg"],
   },
 };
@@ -117,7 +117,7 @@ export default function HomePage() {
                   <span className="italic text-saffron">that finds you.</span>
                 </>
               }
-              subtitle="Each path — Yoga, Vedānta, Sanskrit — is held in the gurukulam rhythm: one lesson at a time, an assignment by hand."
+              subtitle="Each path, Yoga, Vedānta, Sanskrit, is held in the gurukulam rhythm: one lesson at a time, an assignment by hand."
             />
 
             <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -167,7 +167,7 @@ export default function HomePage() {
                     <span className="italic text-saffron">one teacher.</span>
                   </>
                 }
-                subtitle="From Patañjali's Yoga Sūtras to Nāgārjuna's Madhyamaka — each course is held in the gurukulam rhythm."
+                subtitle="From Patañjali's Yoga Sūtras to Nāgārjuna's Madhyamaka, each course is held in the gurukulam rhythm."
               />
               <Link
                 href="/programs"
@@ -191,7 +191,7 @@ export default function HomePage() {
           <div className="relative h-[400px] w-full sm:h-[500px] lg:absolute lg:inset-0 lg:h-full">
             <Image
               src="/acharya-ji.jpg"
-              alt="Acharya Bhagyashree Joshi Ji — Vedanta teacher at Advaita Sadhana Kutir, Rishikesh"
+              alt="Acharya Bhagyashree Joshi Ji, Vedanta teacher at Advaita Sadhana Kutir, Rishikesh"
               fill
               sizes="100vw"
               className="object-cover"
@@ -243,9 +243,9 @@ export default function HomePage() {
               </svg>
 
               <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft sm:text-lg">
-                A teacher in the Advaita lineage of Adi Shankarācārya —
+                A teacher in the Advaita lineage of Adi Shankarācārya,
                 weaving Yoga, Vedānta, and Sanskrit into the contemporary
-                sādhak&apos;s life, in the warmth of the Guru-Śiṣya Paramparā.
+                sādhak&apos;s life, in the warmth of the Guru Śiṣya Paramparā.
               </p>
 
               <div className="mt-7 flex flex-wrap items-center gap-3">

@@ -10,9 +10,9 @@ import PostCard from "./FeedClient";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Brahmavadini — Blogs & News from Guruji and the Team",
+  title: "Brahmavadini, Blogs & News from Guruji and the Team",
   description:
-    "Blogs, news, photos, and updates written by Acharya Bhagyashree Joshi Ji and the Mind Mirage team — sign in to read, like, and join the conversation.",
+    "Blogs, news, photos, and updates written by Acharya Bhagyashree Joshi Ji and the Mind Mirage team, sign in to read, like, and join the conversation.",
 };
 
 /* ──────────  Gate Card (shared layout)  ────────── */
@@ -78,7 +78,7 @@ export default async function VageshwariPage() {
           }
           description={
             <>
-              Blogs and news written by Acharya Ji and the team — with photos,
+              Blogs and news written by Acharya Ji and the team, with photos,
               links, and conversations beneath each one.
             </>
           }
@@ -86,7 +86,7 @@ export default async function VageshwariPage() {
         <GateCard
           deva="कुटीर पत्रिका"
           heading="For sādhaks' eyes."
-          body="Brahmavadini is read inside the satsang — sign in (free) to read, like, and comment."
+          body="Brahmavadini is read inside the satsang, sign in (free) to read, like, and comment."
           ctaHref="/sign-in"
           ctaLabel="Sign in to read"
           footer={
@@ -121,7 +121,7 @@ export default async function VageshwariPage() {
           }
           description={
             <>
-              Blogs and news written by Acharya Ji and the team — for sādhaks
+              Blogs and news written by Acharya Ji and the team, for sādhaks
               walking with us.
             </>
           }
@@ -129,7 +129,7 @@ export default async function VageshwariPage() {
         <GateCard
           deva="कुटीर पत्रिका"
           heading="Begin your journey first."
-          body="Brahmavadini opens to sādhaks who have enrolled in a course — once your journey with us begins, the letters are yours."
+          body="Brahmavadini opens to sādhaks who have enrolled in a course, once your journey with us begins, the letters are yours."
           ctaHref="/programs"
           ctaLabel="Browse the offerings"
         />

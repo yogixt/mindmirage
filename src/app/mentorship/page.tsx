@@ -24,8 +24,8 @@ export default function MentorshipPage() {
         }
         description={
           <>
-            A long-form bond with Acharya Ji for sādhaks committed to deep, sustained
-            practice. Custom in shape and duration. Reviewed personally — not every
+            A long form bond with Acharya Ji for sādhaks committed to deep, sustained
+            practice. Custom in shape and duration. Reviewed personally, not every
             application is accepted, and that is part of the care.
           </>
         }

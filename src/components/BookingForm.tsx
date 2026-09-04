@@ -173,12 +173,12 @@ export default function BookingForm({
                 {owned
                   ? s.priceINR
                     ? " · enrolled"
-                    : " · application-based"
+                    : " · application based"
                   : isCounselling
                     ? " · buy sessions to book"
                     : s.priceINR
-                      ? ` · ₹${s.priceINR.toLocaleString("en-IN")}/class — enrol first`
-                      : " — enrol first"}
+                      ? ` · ₹${s.priceINR.toLocaleString("en-IN")}/class, enrol first`
+                      : ", enrol first"}
               </option>
             );
           })},

@@ -8,9 +8,9 @@ import EditorialHeader from "@/components/EditorialHeader";
 import { COURSES, SESSION_COURSES, BOOK_SETS, CONSULTATION_PRODUCTS } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Indian Philosophy & Yoga Courses Online — Mind Mirage | Rishikesh",
+  title: "Indian Philosophy & Yoga Courses Online, Mind Mirage | Rishikesh",
   description:
-    "Online courses in Advaita Vedanta, Yoga Sutras, Bhagavad Gita, Meditation, Sanskrit, Buddhism, Jyotish & more. Self-paced & live Zoom classes with Acharya Bhagyashree Joshi Ji at Advaita Sadhana Kutir, Rishikesh.",
+    "Online courses in Advaita Vedanta, Yoga Sutras, Bhagavad Gita, Meditation, Sanskrit, Buddhism, Jyotish & more. Self paced & live Zoom classes with Acharya Bhagyashree Joshi Ji at Advaita Sadhana Kutir, Rishikesh.",
   keywords: [
     "Advaita Vedanta course online",
     "Yoga Sutras online course India",
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://mindmirageindia.com/programs" },
   openGraph: {
-    title: "Indian Philosophy & Yoga Courses — Mind Mirage | Rishikesh",
+    title: "Indian Philosophy & Yoga Courses, Mind Mirage | Rishikesh",
     description:
-      "Study Advaita Vedanta, Yoga Sutras, Bhagavad Gita & more — self-paced & live Zoom courses in the Guru-Shishya tradition.",
+      "Study Advaita Vedanta, Yoga Sutras, Bhagavad Gita & more, self paced & live Zoom courses in the Guru Shishya tradition.",
     url: "https://mindmirageindia.com/programs",
     siteName: "Mind Mirage",
     type: "website",
@@ -57,7 +57,7 @@ export default function ProgramsPage() {
         }
         description={
           <>
-            Each course is self-paced and held in the gurukulam rhythm: one lesson at
+            Each course is self paced and held in the gurukulam rhythm: one lesson at
             a time, an assignment by hand, Acharya Ji&apos;s personal reading.
           </>
         }
@@ -73,7 +73,7 @@ export default function ProgramsPage() {
                 Studied <span className="italic text-ink-soft">together.</span>
               </>
             }
-            subtitle="These run as live cohorts on Zoom — and remain available self-paced if you prefer your own rhythm."
+            subtitle="These run as live cohorts on Zoom, and remain available self paced if you prefer your own rhythm."
           />
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {liveCourses.map((c, i) => (
@@ -87,7 +87,7 @@ export default function ProgramsPage() {
       <section className="bg-paper-warm px-6 py-10">
         <div className="mx-auto max-w-6xl">
           <EditorialHeader
-            eyebrow="§ 03 · Self-paced · gurukulam rhythm"
+            eyebrow="§ 03 · Self paced · gurukulam rhythm"
             title={
               <>
                 Studied at your <span className="italic text-ink-soft">own pace.</span>
@@ -107,13 +107,13 @@ export default function ProgramsPage() {
       <section className="px-6 py-10">
         <div className="mx-auto max-w-6xl">
           <EditorialHeader
-            eyebrow="§ 04 · Personal guidance · one-to-one"
+            eyebrow="§ 04 · Personal guidance · one to one"
             title={
               <>
                 Eight classes <span className="italic text-ink-soft">each.</span>
               </>
             }
-            subtitle="Live one-to-one sessions on Zoom — personal guidance in meditation, pranayama, asanas, Ayurveda, Jyotish, and more."
+            subtitle="Live one to one sessions on Zoom, personal guidance in meditation, pranayama, asanas, Ayurveda, Jyotish, and more."
           />
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {SESSION_COURSES.map((c, i) => (
@@ -130,7 +130,7 @@ export default function ProgramsPage() {
             eyebrow="§ 05 · Consultation · with Guruji"
             title={
               <>
-                One-to-one <span className="italic text-ink-soft">with Acharya Ji.</span>
+                One to one <span className="italic text-ink-soft">with Acharya Ji.</span>
               </>
             }
             subtitle="Single sessions and multi-session packs for direct guidance on Zoom."
@@ -150,10 +150,10 @@ export default function ProgramsPage() {
             <div className="flex flex-col justify-center rounded-2xl border border-ink/[0.06] bg-paper-warm p-6 sm:p-8">
               <p className="eyebrow">§ 06 · Also in our offerings</p>
               <h2 className="display mt-3 text-xl text-ink sm:text-2xl">
-                The Booklist — primary texts from the ashram
+                The Booklist, primary texts from the ashram
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                Three curated sets — Beginner, Intermediate, Advanced. Selected by
+                Three curated sets, Beginner, Intermediate, Advanced. Selected by
                 Acharya Ji to support your sādhanā at every stage.
               </p>
               <Link

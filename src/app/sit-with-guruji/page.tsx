@@ -6,9 +6,9 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Sit with Guruji — Mentorship & Consultation",
+  title: "Sit with Guruji, Mentorship & Consultation",
   description:
-    "Two ways to sit with Acharya Bhagyashree Joshi Ji one-to-one — long-form mentorship and consultation on Zoom from Rishikesh.",
+    "Two ways to sit with Acharya Bhagyashree Joshi Ji one on one, long form mentorship and consultation on Zoom from Rishikesh.",
 };
 
 const WAYS = [
@@ -16,14 +16,14 @@ const WAYS = [
     href: "/mentorship",
     deva: "गुरुकुलम्",
     name: "Mentorship",
-    text: "A long-form relationship in the gurukulam rhythm — study, assignments, and Acharya Ji's personal attention over months, not minutes.",
+    text: "A long form relationship in the gurukulam rhythm, study, assignments, and Acharya Ji's personal attention over months, not minutes.",
     cta: "Apply for mentorship",
   },
   {
     href: "/consultation",
     deva: "मार्गदर्शन",
     name: "Consultation",
-    text: "Live classes and one-to-one guidance on Zoom — every subject taken with care, in the warmth of the Guru-Śiṣya Paramparā.",
+    text: "Live classes and one on one guidance on Zoom, every subject taken with care, in the warmth of the Guru Śiṣya Paramparā.",
     cta: "Book a consultation",
   },
 ];
@@ -33,7 +33,7 @@ export default function SitWithGurujiPage() {
     <main className="bg-paper">
       <Navbar variant="solid" />
       <PageHero
-        eyebrow="गुरुमुख · Guru-Mukha"
+        eyebrow="गुरुमुख · Guru Mukha"
         deva="गुरुजी के साथ"
         title={
           <>
@@ -42,8 +42,8 @@ export default function SitWithGurujiPage() {
         }
         description={
           <>
-            Three ways to sit with Acharya Ji one-to-one — each in the warmth and
-            attention of the traditional Guru-Śiṣya Paramparā.
+            Three ways to sit with Acharya Ji one on one, each in the warmth and
+            attention of the traditional Guru Śiṣya Paramparā.
           </>
         }
       />

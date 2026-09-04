@@ -6,27 +6,27 @@ import PageHero from "@/components/PageHero";
 import { whatsappLink } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "FAQ — Frequently Asked Questions",
+  title: "FAQ, Frequently Asked Questions",
   description:
     "Answers to common questions about Mind Mirage courses, consultations, live classes, payments, and studying with Acharya Bhagyashree Joshi Ji from Rishikesh.",
 };
 
 const FAQS = [
   {
-    q: "How do the self-paced courses work?",
+    q: "How do the self paced courses work?",
     a: "Buy the course through the secure checkout and a confirmation email follows with your first lesson. You study at your own rhythm; the team handles everything from there.",
   },
   {
     q: "Which courses also run as live classes on Zoom?",
-    a: "Bhagavad Gītā, Advaita Vedānta, and Lalita for Women are offered both self-paced and as live cohorts on Zoom. Live cohort dates are shared on enrolment, or ask us on WhatsApp.",
+    a: "Bhagavad Gītā, Advaita Vedānta, and Lalita for Women are offered both self paced and as live cohorts on Zoom. Live cohort dates are shared on enrolment, or ask us on WhatsApp.",
   },
   {
-    q: "How do the one-to-one classes work?",
-    a: "Each subject — prāṇāyāma, āsanas, shatkarma, western philosophy — is taken as a course of eight classes on Zoom. Browse the fields under Offerings, add a subject to your basket, and check out — timings are scheduled together after enrolment.",
+    q: "How do the one on one classes work?",
+    a: "Each subject, prāṇāyāma, āsanas, shatkarma, western philosophy, is taken as a course of eight classes on Zoom. Browse the fields under Offerings, add a subject to your basket, and check out; timings are scheduled together after enrolment.",
   },
   {
     q: "What is the difference between Mentorship and Consultation?",
-    a: "Mentorship is a long-form relationship in the gurukulam rhythm, by application. Consultation covers both subject-based one-to-one study and personal guidance — life's difficulties, transitions, and obstacles in practice — held through the lens of the teaching. Both live under Sit with Guruji.",
+    a: "Mentorship is a long form relationship in the gurukulam rhythm, by application. Consultation covers both subject based one on one study and personal guidance, life's difficulties, transitions, and obstacles in practice, held through the lens of the teaching. Both live under Sit with Guruji.",
   },
   {
     q: "Do I need to know Sanskrit?",
@@ -34,23 +34,23 @@ const FAQS = [
   },
   {
     q: "How do payments work?",
-    a: "All courses — self-paced, live, and one-to-one — are bought through the site's secure checkout: UPI, cards, net banking, wallets, with coupon codes applied at checkout. Books are confirmed by the team first; payment follows on confirmation.",
+    a: "All courses, self paced, live, and one on one, are bought through the site's secure checkout: UPI, cards, net banking, wallets, with coupon codes applied at checkout. Books are confirmed by the team first; payment follows on confirmation.",
   },
   {
     q: "Are the class timings friendly for sādhaks outside India?",
-    a: "Yes — classes run in fixed IST windows that map to mornings in the UK and Europe and evenings in the US. Acharya Ji confirms exact timings with you before anything is fixed.",
+    a: "Yes, classes run in fixed IST windows that map to mornings in the UK and Europe and evenings in the US. Acharya Ji confirms exact timings with you before anything is fixed.",
   },
   {
     q: "How do I buy books from the ashram?",
-    a: "The Booklist comes as three sets — Beginner, Intermediate, and Advanced. Purchase from the Booklist page — our team will contact you.",
+    a: "The Booklist comes as three sets, Beginner, Intermediate, and Advanced. Purchase from the Booklist page, our team will contact you.",
   },
   {
     q: "Where do I find blogs, news, and announcements from the team?",
-    a: "In Brahmavadini — blogs, news, photos, and announcements posted by Acharya Ji and the team. Sign in to read, like, and comment. Retreats and gatherings are also announced to the WhatsApp sādhaks' list first.",
+    a: "In Brahmavadini, blogs, news, photos, and announcements posted by Acharya Ji and the team. Sign in to read, like, and comment. Retreats and gatherings are also announced to the WhatsApp sādhaks' list first.",
   },
   {
     q: "I have a question that isn't answered here.",
-    a: "Write to us — the contact page routes to WhatsApp, email, and the inquiry form. The quickest reply is on WhatsApp.",
+    a: "Write to us, the contact page routes to WhatsApp, email, and the inquiry form. The quickest reply is on WhatsApp.",
   },
 ];
 
@@ -68,7 +68,7 @@ export default function FAQPage() {
         }
         description={
           <>
-            The questions sādhaks ask most — about courses, classes, payments,
+            The questions sādhaks ask most, about courses, classes, payments,
             and studying with Acharya Ji.
           </>
         }

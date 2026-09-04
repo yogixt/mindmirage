@@ -11,23 +11,23 @@ import { whatsappLink } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Live Q&A · Satsaṅga",
   description:
-    "Live group satsang where sādhaks gather, listen, ask, and study together — in the spirit of the gurukulam.",
+    "Live group satsang where sādhaks gather, listen, ask, and study together, in the spirit of the gurukulam.",
 };
 
 const MOVEMENTS = [
   {
     deva: "श्रवणम्",
-    name: "Śravaṇa — listening",
+    name: "Śravaṇa, listening",
     text: "Each satsang opens with a short reading from a primary text, taken slowly, in Sanskrit and in translation. Nothing is rushed; the verse is allowed to land.",
   },
   {
     deva: "मननम्",
-    name: "Manana — asking",
-    text: "Then the floor opens. Sādhaks bring their questions — from study, from practice, from life — and Acharya Ji takes each one as it comes, in the old gurukulam way.",
+    name: "Manana, asking",
+    text: "Then the floor opens. Sādhaks bring their questions, from study, from practice, from life, and Acharya Ji takes each one as it comes, in the old gurukulam way.",
   },
   {
     deva: "निदिध्यासनम्",
-    name: "Nididhyāsana — sitting",
+    name: "Nididhyāsana, sitting",
     text: "The session closes in silence. A few minutes of sitting with what was heard, so the words can settle from the mind toward something quieter.",
   },
 ];
@@ -47,7 +47,7 @@ export default function LiveQAPage() {
         description={
           <>
             Live Q&amp;A and group satsang where sādhaks gather, listen, ask, and
-            study together — held in the spirit of the gurukulam.
+            study together, held in the spirit of the gurukulam.
           </>
         }
       />
@@ -55,7 +55,7 @@ export default function LiveQAPage() {
       <section className="px-6 pb-4 pt-2">
         <SanskritVerse
           deva={"सत्सङ्गत्वे निस्सङ्गत्वं निस्सङ्गत्वे निर्मोहत्वम्"}
-          en="From the company of the good arises non-attachment; from non-attachment, freedom from delusion."
+          en="From the company of the good arises nonattachment; from nonattachment, freedom from delusion."
           citation="Bhaja Govindam 9"
           size="md"
         />
@@ -75,7 +75,7 @@ export default function LiveQAPage() {
           ))}
         </div>
         <p className="mx-auto mt-4 max-w-2xl text-center text-xs text-ink-faint">
-          This is the shape every satsang follows — listening, asking, sitting.
+          This is the shape every satsang follows, listening, asking, sitting.
         </p>
       </section>
 

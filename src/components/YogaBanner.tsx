@@ -24,9 +24,9 @@ const FACTS = [
 const AUDIENCES = ["Beginners", "All ages", "All levels"];
 
 const INCLUSIONS = [
-  "Warm-up & Breathing Practices",
+  "Warm Up & Breathing Practices",
   "Precise Asana in the Iyengar Method",
-  "Props for Alignment — belts, blocks & bolsters",
+  "Props for Alignment, belts, blocks & bolsters",
   "Flexibility & Strength Building",
   "Pranayama",
   "Relaxation & Meditation",
@@ -195,7 +195,7 @@ export default function YogaBanner() {
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
             src="/yoga/yoga-hero.jpg"
-            alt="Iyengar Yoga — Mind Mirage India"
+            alt="Iyengar Yoga, Mind Mirage India"
             style={{ width: "100%", display: "block" }}
           />
         ) : (
@@ -399,7 +399,7 @@ export default function YogaBanner() {
                 </div>
                 <div style={{ height: 1, background: "#E7DEC6" }} />
                 <div style={{ background: "#F6EFDD", border: "1px solid #E7DEC6", borderRadius: 14, padding: "14px 16px", fontSize: 14, color: "#6A6A5E", lineHeight: 1.5 }}>
-                  The class fee is shared over WhatsApp — reserve now and our team will connect with you to confirm your spot.
+                  The class fee is shared over WhatsApp, reserve now and our team will connect with you to confirm your spot.
                 </div>
 
                 {errorMsg && (

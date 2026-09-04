@@ -8,7 +8,7 @@ import FormCard from "@/components/FormCard";
 export const metadata: Metadata = {
   title: "Internship",
   description:
-    "Remote 3-month internship program at Mind Mirage — content, Sanskrit, course material, community, and technical.",
+    "Remote 3 month internship program at Mind Mirage, content, Sanskrit, course material, community, and technical.",
 };
 
 const ROLES = [

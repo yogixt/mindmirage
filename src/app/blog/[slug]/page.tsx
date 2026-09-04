@@ -67,7 +67,7 @@ export default async function BlogPost(
             {post.frontmatter.title}
           </h1>
           {post.frontmatter.author && (
-            <p className="mt-4 text-sm text-ink-soft">— {post.frontmatter.author}</p>
+            <p className="mt-4 text-sm text-ink-soft">By {post.frontmatter.author}</p>
           )}
 
           <Divider />

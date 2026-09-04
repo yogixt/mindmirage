@@ -23,9 +23,9 @@ const mukta = Mukta({
 export const metadata: Metadata = {
   title: "Ashtanga Hridayam · Sutrasthana",
   description:
-    "An unhurried study of Ayurveda's core scripture — Aṣṭāṅga Hṛdayam Sutrasthāna. 3 days a week over 2 months, offline in Rishikesh or online on Zoom. Starts 15 July. ₹8,000.",
+    "An unhurried study of Ayurveda's core scripture, Aṣṭāṅga Hṛdayam Sutrasthāna. 3 days a week over 2 months, offline in Rishikesh or online on Zoom. Starts 15 July. ₹8,000.",
   openGraph: {
-    title: "Ashtanga Hridayam · Sutrasthana — Mind Mirage",
+    title: "Ashtanga Hridayam · Sutrasthana, Mind Mirage",
     description:
       "Ayurveda core scripture series · 3 days a week · 2 months · Offline in Rishikesh or Online on Zoom · Starts 15 July.",
     type: "website",

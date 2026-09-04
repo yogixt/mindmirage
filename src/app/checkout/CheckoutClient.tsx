@@ -238,7 +238,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
       setStatus("error");
       setErrorMessage(
         response.error?.description ??
-          "Payment failed. No money was deducted — please try again.",
+          "Payment failed. No money was deducted, please try again.",
       );
     });
 
@@ -339,7 +339,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
               {!signedIn && (
                 <div className="mt-4 rounded-xl border border-saffron/30 bg-saffron/5 px-4 py-3 text-center">
                   <p className="text-sm text-ink">
-                    Sign in to complete your enrolment — your basket is saved.
+                    Sign in to complete your enrolment, your basket is saved.
                   </p>
                   <Link
                     href="/sign-in?redirect_url=%2Fcheckout"
@@ -407,7 +407,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
                 {coupon && discount ? (
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-ink">
-                      Coupon <strong>{coupon}</strong> — {discount.percent}% off
+                      Coupon <strong>{coupon}</strong>, {discount.percent}% off
                       <button
                         type="button"
                         onClick={() => { setCoupon(null); setCouponPercent(null); }}
@@ -462,7 +462,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
                 {status === "opening" && "Opening Razorpay…"}
                 {status === "verifying" && "Verifying payment…"}
                 {status === "idle" && `Pay ${formatINR(payable)} securely`}
-                {status === "error" && `Try again — pay ${formatINR(payable)}`}
+                {status === "error" && `Try again, pay ${formatINR(payable)}`}
               </button>
 
               {errorMessage && (
@@ -472,7 +472,7 @@ export default function CheckoutClient({ signedIn }: { signedIn: boolean }) {
               )}
 
               <p className="mt-4 text-center text-xs text-ink-faint">
-                UPI · cards · net banking · wallets — Razorpay encrypts every
+                UPI · cards · net banking · wallets, Razorpay encrypts every
                 transaction.
               </p>
 

@@ -20,7 +20,7 @@ export default async function CheckoutSuccessPage({
           deva="स्वागतम्"
           eyebrow="Enrolment confirmed"
           title="Welcome, sādhak."
-          description="Your payment has reached us. A confirmation email is on its way — with your live-class joining link or first lesson. The team handles the rest."
+          description="Your payment has reached us. A confirmation email is on its way, with your live class joining link or first lesson. The team handles the rest."
         />
 
         <section className="mx-auto max-w-2xl px-6 pb-4">

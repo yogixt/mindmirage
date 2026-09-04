@@ -8,9 +8,9 @@ import Divider from "@/components/Divider";
 import { SANSKRIT, SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "About Mind Mirage — Advaita Sadhana Kutir, Rishikesh",
+  title: "About Mind Mirage, Advaita Sadhana Kutir, Rishikesh",
   description:
-    "Mind Mirage is a contemplative learning space at Advaita Sadhana Kutir, Rishikesh — teaching Advaita Vedanta, Yoga Sutras, Bhagavad Gita & Sanskrit in the living Guru-Shishya tradition of Adi Shankaracharya.",
+    "Mind Mirage is a contemplative learning space at Advaita Sadhana Kutir, Rishikesh, teaching Advaita Vedanta, Yoga Sutras, Bhagavad Gita & Sanskrit in the living Guru Shishya tradition of Adi Shankaracharya.",
   keywords: [
     "Advaita Sadhana Kutir",
     "Rishikesh ashram",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://mindmirageindia.com/about-us" },
   openGraph: {
-    title: "About Mind Mirage — Advaita Sadhana Kutir, Rishikesh",
+    title: "About Mind Mirage, Advaita Sadhana Kutir, Rishikesh",
     description: "A contemplative learning space rooted in the Advaita tradition of Adi Shankaracharya.",
     url: "https://mindmirageindia.com/about-us",
     siteName: "Mind Mirage",
@@ -47,7 +47,7 @@ export default function AboutPage() {
           <>
             Mind Mirage is a contemplative learning space engaging the Indian
             Knowledge System through Yoga, inquiry, training, research, publications,
-            and reflective study — rooted in the gurukulam tradition and the living
+            and reflective study, rooted in the gurukulam tradition and the living
             stream of Advaita Paramparā.
           </>
         }
@@ -61,8 +61,8 @@ export default function AboutPage() {
             <p className="eyebrow text-saffron">Mission</p>
           </div>
           <p className="mt-6 text-lg leading-relaxed text-ink sm:text-xl">
-            To offer the timeless teaching of Advaita — the non-dual recognition at
-            the root of the Indian philosophical tradition — in a way that meets the
+            To offer the timeless teaching of Advaita, the nondual recognition at
+            the root of the Indian philosophical tradition, in a way that meets the
             contemporary sādhak without diluting the depth, the language, or the
             human relationship at its heart.
           </p>

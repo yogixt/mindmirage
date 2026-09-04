@@ -9,14 +9,14 @@ import CollaborationForm from "@/components/CollaborationForm";
 export const metadata: Metadata = {
   title: "Collaboration",
   description:
-    "Collaborate with Mind Mirage — co-author a work, write an article, or join a research paper on Yoga, Vedānta, and Indian knowledge systems.",
+    "Collaborate with Mind Mirage, co author a work, write an article, or join a research paper on Yoga, Vedānta, and Indian knowledge systems.",
 };
 
 const WAYS = [
   {
     deva: "सह-लेखन",
     name: "Co-author",
-    text: "Write a work together — books and long-form studies in Yoga and Vedānta.",
+    text: "Write a work together, books and long form studies in Yoga and Vedānta.",
   },
   {
     deva: "लेख",

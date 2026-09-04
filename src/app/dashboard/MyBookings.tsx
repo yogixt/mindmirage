@@ -101,7 +101,7 @@ export default function MyBookings() {
                     ))}
                   </div>
                   <p className="mt-2 text-xs text-ink-soft">
-                    {b.slot} — Zoom links follow by email.
+                    {b.slot}, Zoom links follow by email.
                   </p>
                 </div>
               ) : (

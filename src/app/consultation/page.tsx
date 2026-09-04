@@ -8,9 +8,9 @@ import { getSeeker } from "@/lib/auth";
 import FormCard from "@/components/FormCard";
 
 export const metadata: Metadata = {
-  title: "Consultation — Book Your Session",
+  title: "Consultation, Book Your Session",
   description:
-    "Book a Vedanta consultation or one-to-one class with the Mind Mirage team from Rishikesh, India — live sessions on Zoom.",
+    "Book a Vedanta consultation or one on one class with the Mind Mirage team from Rishikesh, India, live sessions on Zoom.",
 };
 
 export const dynamic = "force-dynamic";
@@ -30,8 +30,8 @@ export default async function ConsultationPage() {
         }
         description={
           <>
-            Live one-to-one sessions on Zoom — classes, guidance, and
-            counselling, all held in the warmth of the Guru-Śiṣya Paramparā.
+            Live one on one sessions on Zoom, classes, guidance, and
+            counselling, all held in the warmth of the Guru Śiṣya Paramparā.
             Browse the fields under{" "}
             <Link
               href="/programs"

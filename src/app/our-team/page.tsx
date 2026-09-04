@@ -20,7 +20,7 @@ const MENTORS = [
   {
     name: "Core Team",
     description:
-      "Acharya Ji is supported by a small core team of sādhaks and volunteers who hold the day-to-day work — assignments, communications, content, and the Rishikesh courtyard itself.",
+      "Acharya Ji is supported by a small core team of sādhaks and volunteers who hold the day to day work, assignments, communications, content, and the Rishikesh courtyard itself.",
   },
 ];
 
@@ -64,12 +64,12 @@ export default function OurTeamPage() {
                 Acharya Bhagyashree Joshi Ji is a teacher in the Advaita lineage of
                 Adi Shankarācārya. She studies and teaches Yoga, Vedānta, Sanskrit,
                 Sānkhya, and the contemplative traditions of the Indian Knowledge
-                System — from her seat at Advaita Sādhanā Kuṭīr in Rishikesh.
+                System, from her seat at Advaita Sādhanā Kuṭīr in Rishikesh.
               </p>
               <p className="mt-4 text-base text-ink-soft leading-relaxed">
                 Her teaching is rooted in primary texts, but its register is
                 intimate. She works with sādhaks one at a time, in the rhythm of
-                the gurukulam — a lesson sent personally, an assignment read
+                the gurukulam, a lesson sent personally, an assignment read
                 personally, a reply written by hand.
               </p>
             </div>

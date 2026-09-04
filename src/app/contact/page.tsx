@@ -5,7 +5,7 @@ import ContactHero from "@/components/ContactHero";
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Contact Mind Mirage — WhatsApp, Email & Inquiry Form",
+  title: "Contact Mind Mirage, WhatsApp, Email & Inquiry Form",
   description:
     "Contact Mind Mirage at Advaita Sadhana Kutir, Rishikesh. Reach us on WhatsApp (+91 73024 31279), email (namaste@mindmirageindia.com), or send an inquiry.",
   keywords: [
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://mindmirageindia.com/contact" },
   openGraph: {
-    title: "Contact Mind Mirage — Rishikesh",
+    title: "Contact Mind Mirage, Rishikesh",
     description: "Reach us on WhatsApp, email, or the inquiry form.",
     url: "https://mindmirageindia.com/contact",
     siteName: "Mind Mirage",

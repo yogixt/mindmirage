@@ -7,7 +7,7 @@ import FormCard from "@/components/FormCard";
 
 export const metadata: Metadata = {
   title: "Karma Yoga · Seva",
-  description: "Karma yoga at Mind Mirage — selfless service in the gurukulam tradition.",
+  description: "Karma yoga at Mind Mirage, selfless service in the gurukulam tradition.",
 };
 
 const ROLES = [
@@ -19,7 +19,7 @@ const ROLES = [
   "Social media seva",
   "Content and design",
   "Photography and video",
-  "Many more — tell us your skill",
+  "Many more, tell us your skill",
 ];
 
 export default function VolunteerPage() {
@@ -38,7 +38,7 @@ export default function VolunteerPage() {
           <>
             Seva is the spirit of selfless service that holds the gurukulam together.
             Mind Mirage welcomes sādhaks who would like to give time, skill, or
-            attention — in whatever measure they can.
+            attention, in whatever measure they can.
           </>
         }
       />

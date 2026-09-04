@@ -46,11 +46,11 @@ const kalam = Kalam({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} India — Vedic & Indian Philosophy Courses from Rishikesh`,
+    default: `${SITE.name} India, Vedic & Indian Philosophy Courses from Rishikesh`,
     template: `%s · ${SITE.name}`,
   },
   description:
-    "Mind Mirage is a contemplative learning space at Advaita Sādhanā Kuṭīr, Rishikesh. Yoga, Vedānta, meditation, and the living stream of the Indian Knowledge System — taught in the gurukulam tradition.",
+    "Mind Mirage is a contemplative learning space at Advaita Sādhanā Kuṭīr, Rishikesh. Yoga, Vedānta, meditation, and the living stream of the Indian Knowledge System, taught in the gurukulam tradition.",
   keywords: [
     "Advaita Vedanta",
     "Yoga Sutras",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: SITE.founder }],
   openGraph: {
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name}, ${SITE.tagline}`,
     description:
       "A contemplative learning space rooted in the Advaita tradition of Adi Shankarācārya. Rishikesh.",
     url: SITE.url,
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name}, ${SITE.tagline}`,
     description:
       "Yoga, Vedānta, meditation, and the living stream of the Indian Knowledge System.",
   },

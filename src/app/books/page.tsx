@@ -7,9 +7,9 @@ import AddToCartButton from "@/components/AddToCartButton";
 import { BOOK_SETS, formatINR } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Booklist — Primary Texts from the Ashram",
+  title: "Booklist, Primary Texts from the Ashram",
   description:
-    "The ashram's booklist in three sets — Beginner, Intermediate, and Advanced. Bought through checkout; shipped by the team.",
+    "The ashram's booklist in three sets, Beginner, Intermediate, and Advanced. Bought through checkout; shipped by the team.",
 };
 
 export default function BooksPage() {
@@ -26,7 +26,7 @@ export default function BooksPage() {
         }
         description={
           <>
-            Three sets, by stage of study. Purchase from here — our team will
+            Three sets, by stage of study. Purchase from here, our team will
             contact you.
           </>
         }

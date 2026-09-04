@@ -4,7 +4,7 @@ import { getSeeker } from "@/lib/auth";
 import BookWizard from "@/components/BookWizard";
 
 export const metadata = {
-  title: "Book your session — Mind Mirage",
+  title: "Book your session, Mind Mirage",
 };
 
 export default async function BookPage({

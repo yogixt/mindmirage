@@ -89,7 +89,7 @@ export default function AssignmentsPanel() {
         </div>
       </div>
       <p className="mb-4 text-xs leading-relaxed text-ink-soft">
-        After each video lesson, submit your handwritten assignment — the next lesson unlocks
+        After each video lesson, submit your handwritten assignment, the next lesson unlocks
         once the team reviews it.
       </p>
       <div className="space-y-4">
@@ -130,7 +130,7 @@ function CourseAssignment({
       if (!data.ok) throw new Error(data.error ?? "failed");
       onSubmitted();
     } catch {
-      setError("Could not upload — please try a smaller photo or again later.");
+      setError("Could not upload, please try a smaller photo or again later.");
     } finally {
       setSending(false);
       if (fileRef.current) fileRef.current.value = "";
@@ -169,7 +169,7 @@ function CourseAssignment({
             <div className="mt-4 overflow-hidden rounded-xl border border-ink/[0.06]">
               <iframe
                 src={youtubeEmbed(course.videoUrl)!}
-                title={`${course.title} — video lesson ${course.currentLesson}`}
+                title={`${course.title}, video lesson ${course.currentLesson}`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="aspect-video w-full"
@@ -225,12 +225,12 @@ function CourseAssignment({
               <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
               </svg>
-              Download assignment — {course.fileName ?? "file"}
+              Download assignment, {course.fileName ?? "file"}
             </a>
           ))}
         {!course.questions && !course.file && (
           <p className="mt-3 text-sm text-ink-faint">
-            Questions for this lesson are on the way — the team will add them soon.
+            Questions for this lesson are on the way, the team will add them soon.
           </p>
         )}
 
@@ -238,7 +238,7 @@ function CourseAssignment({
           {status === "pending" ? (
             <p className="inline-flex items-center gap-2 rounded-full bg-gold/[0.08] px-4 py-2 text-xs font-medium text-ink ring-1 ring-gold/20">
               <span className="size-2 rounded-full bg-gold animate-pulse" aria-hidden />
-              Submitted — under review. Your next lesson unlocks after approval.
+              Submitted, under review. Your next lesson unlocks after approval.
             </p>
           ) : (
             <>
@@ -246,7 +246,7 @@ function CourseAssignment({
                 <div className="mb-3 rounded-xl bg-red-50 px-4 py-3 text-xs font-medium text-red-700 ring-1 ring-red-200">
                   <span className="inline-flex items-center gap-2">
                     <span className="size-2 rounded-full bg-red-500" aria-hidden />
-                    Returned — please redo and submit again.
+                    Returned, please redo and submit again.
                   </span>
                   {course.currentRemarks && (
                     <p className="mt-1 italic">&ldquo;{course.currentRemarks}&rdquo;</p>

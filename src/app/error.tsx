@@ -23,7 +23,7 @@ export default function Error({
             Something went quiet.
           </h1>
           <p className="mt-4 text-base leading-relaxed text-ink-soft">
-            An unexpected error interrupted the page. Nothing is lost — you can
+            An unexpected error interrupted the page. Nothing is lost, you can
             try again, or return to stiller ground.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-3">

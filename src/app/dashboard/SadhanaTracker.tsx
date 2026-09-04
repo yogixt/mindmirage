@@ -223,7 +223,7 @@ function Row({
               type="button"
               onClick={onToggle}
               aria-pressed={done}
-              aria-label={`${practice.en} — ${done ? "done" : "not done"} today`}
+              aria-label={`${practice.en}, ${done ? "done" : "not done"} today`}
               className={`grid size-6 place-items-center rounded-full border-2 transition-all duration-300 ${
                 done
                   ? "border-saffron bg-saffron text-white shadow-sm shadow-saffron/20"

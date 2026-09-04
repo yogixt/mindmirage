@@ -23,7 +23,7 @@ const RHYTHM = [
     time: "Morning",
     deva: "स्वाध्यायः",
     name: "Text study with Acharya Ji",
-    text: "A text taken slowly — Sanskrit, translation, commentary, questions.",
+    text: "A text taken slowly, Sanskrit, translation, commentary, questions.",
   },
   {
     time: "Afternoon",
@@ -35,7 +35,7 @@ const RHYTHM = [
     time: "Evening",
     deva: "आरती",
     name: "Ganga ārati and satsang",
-    text: "Lamps on the water, then an open sitting — asking, listening, silence.",
+    text: "Lamps on the water, then an open sitting, asking, listening, silence.",
   },
 ];
 

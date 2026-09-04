@@ -12,7 +12,7 @@ const SEVA_ROLES = [
   "Social media seva",
   "Content and design",
   "Photography and video",
-  "Many more — tell us your skill",
+  "Many more, tell us your skill",
 ];
 
 export default function VolunteerForm() {

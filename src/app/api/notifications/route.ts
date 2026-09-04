@@ -30,13 +30,13 @@ export async function GET() {
     if (String(r.status) === "approved") {
       items.push({
         kind: "booking",
-        text: `Classes confirmed — ${subject}, ${slot}: ${String(r.approved_date ?? "")}`,
+        text: `Classes confirmed, ${subject}, ${slot}: ${String(r.approved_date ?? "")}`,
         at: String(r.created_at),
       });
     } else {
       items.push({
         kind: "booking",
-        text: `Booking for ${subject} could not be confirmed — the team will reach out.`,
+        text: `Booking for ${subject} could not be confirmed. The team will reach out.`,
         at: String(r.created_at),
       });
     }
@@ -57,8 +57,8 @@ export async function GET() {
       kind: "assignment",
       text:
         String(r.status) === "approved"
-          ? `Lesson ${Number(r.lesson)} of ${course} approved${marks} — your next lesson is open.`
-          : `Lesson ${Number(r.lesson)} of ${course} returned for redo${r.remarks ? ` — "${String(r.remarks)}"` : ""}.`,
+          ? `Lesson ${Number(r.lesson)} of ${course} approved${marks}, your next lesson is open.`
+          : `Lesson ${Number(r.lesson)} of ${course} returned for redo${r.remarks ? `, "${String(r.remarks)}"` : ""}.`,
       at: String(r.reviewed_at),
     });
   }
@@ -79,7 +79,7 @@ export async function GET() {
         String(r.course_slug);
       items.push({
         kind: "class",
-        text: `Upcoming class — ${course} on ${String(r.on_date)} at ${String(r.at_time)} IST.`,
+        text: `Upcoming class, ${course} on ${String(r.on_date)} at ${String(r.at_time)} IST.`,
         at: String(r.on_date),
       });
     }

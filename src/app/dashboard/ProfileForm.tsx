@@ -35,16 +35,16 @@ export default function ProfileForm({ metadata }: { metadata: SeekerMetadata }) 
         <dl className="grid gap-4 sm:grid-cols-2">
           <div>
             <dt className="eyebrow text-ink-faint">Phone</dt>
-            <dd className="mt-1.5 text-sm text-ink">{metadata.phone || "—"}</dd>
+            <dd className="mt-1.5 text-sm text-ink">{metadata.phone || "Not set"}</dd>
           </div>
           <div>
             <dt className="eyebrow text-ink-faint">City</dt>
-            <dd className="mt-1.5 text-sm text-ink">{metadata.city || "—"}</dd>
+            <dd className="mt-1.5 text-sm text-ink">{metadata.city || "Not set"}</dd>
           </div>
           <div className="sm:col-span-2">
             <dt className="eyebrow text-ink-faint">Preferred path</dt>
             <dd className="mt-1.5 text-sm text-ink">
-              {PATH_LABEL[metadata.preferredPath ?? ""] || "—"}
+              {PATH_LABEL[metadata.preferredPath ?? ""] || "Not set"}
             </dd>
           </div>
           {metadata.whyISeek && (

@@ -35,7 +35,7 @@ export async function GET(req: Request) {
       .join("\n");
     await notify({
       _kind: "Payment Alert",
-      summary: `Daily reconcile found ${result.newlyRecorded.length} captured payment(s) missing from orders — now backfilled.`,
+      summary: `Daily reconcile found ${result.newlyRecorded.length} captured payment(s) missing from orders, now backfilled.`,
       payments: lines,
       windowDays: result.windowDays,
     }).catch((e) => console.error("[cron/reconcile] alert notify failed", e));

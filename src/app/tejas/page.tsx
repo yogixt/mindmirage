@@ -108,7 +108,7 @@ export default function TejasPage() {
         {
           role: "assistant",
           content:
-            "Forgive me — I could not gather a reply just now. Please try again, or write to Acharya Ji directly.",
+            "Forgive me, I could not gather a reply just now. Please try again, or write to Acharya Ji directly.",
           time: nowTime(),
         },
       ]);

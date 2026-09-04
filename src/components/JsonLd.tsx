@@ -29,7 +29,7 @@ export function JsonLd() {
       availableLanguage: ["English", "Hindi", "Sanskrit"],
     },
     description:
-      "Mind Mirage is a contemplative learning space at Advaita Sadhana Kutir, Rishikesh. Courses in Advaita Vedanta, Yoga Sutras, Bhagavad Gita, Meditation, Sanskrit and Indian knowledge systems — taught in the living Guru-Shishya tradition.",
+      "Mind Mirage is a contemplative learning space at Advaita Sadhana Kutir, Rishikesh. Courses in Advaita Vedanta, Yoga Sutras, Bhagavad Gita, Meditation, Sanskrit and Indian knowledge systems, taught in the living Guru Shishya tradition.",
   };
 
   const website = {
@@ -50,7 +50,7 @@ export function JsonLd() {
       "@type": "Course",
       name: "Sānkhya Darśan + Yoga Sūtras",
       description:
-        "The sister systems studied together — the twenty-five tattvas of Sānkhya and Patañjali's 196 Yoga Sūtras — over one year, with booklist and study material.",
+        "The sister systems studied together, the twenty five tattvas of Sānkhya and Patañjali's 196 Yoga Sūtras, over one year, with booklist and study material.",
       provider: { "@type": "Organization", name: "Mind Mirage", sameAs: "https://mindmirageindia.com" },
       url: "https://mindmirageindia.com/programs/sankhya-darshan",
       courseMode: "online",
@@ -75,7 +75,7 @@ export function JsonLd() {
       "@type": "Course",
       name: "Advaita Vedānta",
       description:
-        "The non-dual teaching at the root of Indian philosophy — Brahman alone is real; the world is appearance; the self is none other than Brahman.",
+        "The nondual teaching at the root of Indian philosophy, Brahman alone is real; the world is appearance; the self is none other than Brahman.",
       provider: { "@type": "Organization", name: "Mind Mirage", sameAs: "https://mindmirageindia.com" },
       url: "https://mindmirageindia.com/programs/advaita-vedanta",
       courseMode: "online",
@@ -87,7 +87,7 @@ export function JsonLd() {
       "@type": "Course",
       name: "Meditation · Dhyāna",
       description:
-        "Meditation as the natural state — posture, breath, attention, and the quiet recognition of the witness.",
+        "Meditation as the natural state, posture, breath, attention, and the quiet recognition of the witness.",
       provider: { "@type": "Organization", name: "Mind Mirage", sameAs: "https://mindmirageindia.com" },
       url: "https://mindmirageindia.com/programs/meditation",
       courseMode: "online",
@@ -99,7 +99,7 @@ export function JsonLd() {
       "@type": "Course",
       name: "Astrology · Jyotiṣa",
       description:
-        "Jyotisha as the eye of the Veda — a contemplative map of time, karma, and the rhythm of one's incarnation.",
+        "Jyotisha as the eye of the Veda, a contemplative map of time, karma, and the rhythm of one's incarnation.",
       provider: { "@type": "Organization", name: "Mind Mirage", sameAs: "https://mindmirageindia.com" },
       url: "https://mindmirageindia.com/programs/jyotisha",
       courseMode: "online",
@@ -111,7 +111,7 @@ export function JsonLd() {
   const localBusiness = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "Mind Mirage — Advaita Sadhana Kutir",
+    name: "Mind Mirage, Advaita Sadhana Kutir",
     image: "https://mindmirageindia.com/og-home.jpg",
     url: "https://mindmirageindia.com",
     telephone: "+91-73024-31279",
@@ -150,15 +150,15 @@ export function JsonLd() {
         name: "What courses does Mind Mirage offer?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Mind Mirage offers courses in Advaita Vedanta, Yoga Sutras, Bhagavad Gita, Meditation, Sānkhya Darśan, Buddhism, Lalitā Sahasranāma for women, and Vedic Astrology (Jyotiṣa). All courses are taught in the Guru-Shishya tradition from Rishikesh.",
+          text: "Mind Mirage offers courses in Advaita Vedanta, Yoga Sutras, Bhagavad Gita, Meditation, Sānkhya Darśan, Buddhism, Lalitā Sahasranāma for women, and Vedic Astrology (Jyotiṣa). All courses are taught in the Guru Shishya tradition from Rishikesh.",
         },
       },
       {
         "@type": "Question",
-        name: "Are the courses self-paced or live?",
+        name: "Are the courses self paced or live?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Most courses are self-paced with one lesson at a time and handwritten assignments reviewed personally by Acharya Ji. Select courses also run as live classes on Zoom.",
+          text: "Most courses are self paced with one lesson at a time and handwritten assignments reviewed personally by Acharya Ji. Select courses also run as live classes on Zoom.",
         },
       },
       {
@@ -166,7 +166,7 @@ export function JsonLd() {
         name: "Who is Acharya Bhagyashree Joshi Ji?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Acharya Bhagyashree Joshi Ji is a teacher in the Advaita lineage of Adi Shankaracharya, based at Advaita Sadhana Kutir in Rishikesh. She teaches Yoga, Vedanta, and Sanskrit in the living Guru-Shishya Parampara.",
+          text: "Acharya Bhagyashree Joshi Ji is a teacher in the Advaita lineage of Adi Shankaracharya, based at Advaita Sadhana Kutir in Rishikesh. She teaches Yoga, Vedanta, and Sanskrit in the living Guru Shishya Parampara.",
         },
       },
     ],

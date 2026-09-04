@@ -26,7 +26,7 @@ export default function BlogPage() {
         }
         description={
           <>
-            Short reflections, teachings, and contemplative questions — written by
+            Short reflections, teachings, and contemplative questions, written by
             Acharya Ji and the Mind Mirage community.
           </>
         }

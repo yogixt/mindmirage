@@ -19,7 +19,7 @@ export default function CollaborationForm() {
       email: String(fd.get("email") ?? ""),
       whatsapp: String(fd.get("whatsapp") ?? ""),
       country: String(fd.get("country") ?? ""),
-      subject: `Collaboration — ${String(fd.get("type") ?? "")}`,
+      subject: `Collaboration, ${String(fd.get("type") ?? "")}`,
       message: String(fd.get("message") ?? ""),
     };
     try {
@@ -44,7 +44,7 @@ export default function CollaborationForm() {
       <div className="rounded-2xl border border-gold/30 bg-paper-warm px-6 py-4 text-center">
         <p className="display text-2xl text-ink">नमस्ते</p>
         <p className="mt-2 text-sm text-ink-soft">
-          Your proposal has reached us — the team will write back soon.
+          Your proposal has reached us, the team will write back soon.
         </p>
       </div>
     );

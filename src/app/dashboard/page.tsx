@@ -163,7 +163,7 @@ export default async function DashboardPage() {
                   <p className="display mt-2 text-2xl text-ink">Begin where you stand.</p>
                   <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-ink-soft">
                     Choose a course to begin your journey. A confirmation email follows every
-                    enrolment — the team handles the rest.
+                    enrolment, the team handles the rest.
                   </p>
                   <Link
                     href="/programs"
@@ -249,7 +249,7 @@ export default async function DashboardPage() {
                 &ldquo;The self is not attained by the weak, nor by the careless, nor by misdirected
                 austerity.&rdquo;
               </blockquote>
-              <p className="mt-2 text-[11px] text-ink-faint">— Muṇḍaka Upaniṣad</p>
+              <p className="mt-2 text-[11px] text-ink-faint">Muṇḍaka Upaniṣad</p>
             </div>
           </div>
         </div>

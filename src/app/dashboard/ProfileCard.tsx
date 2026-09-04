@@ -245,14 +245,14 @@ export default function ProfileCard({
               onChange={(e) => setBio(e.target.value)}
               rows={3}
               maxLength={600}
-              placeholder="Your bio — a few lines about you and your journey ✨"
+              placeholder="Your bio, a few lines about you and your journey ✨"
               className="w-full rounded-xl border border-ink/[0.1] bg-transparent px-4 py-3 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-saffron/30 focus:border-saffron/30"
             />
             <input
               value={intention}
               onChange={(e) => setIntention(e.target.value)}
               maxLength={200}
-              placeholder="Set your intention (sankalpa) — e.g. One chapter of the Gita, every day."
+              placeholder="Set your intention (sankalpa), e.g. One chapter of the Gita, every day."
               className="w-full rounded-xl border border-ink/[0.1] bg-transparent px-4 py-3 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-saffron/30 focus:border-saffron/30"
             />
           </div>
@@ -271,7 +271,7 @@ export default function ProfileCard({
             )}
             {!p.bio && !p.intention && (
               <p className="mt-4 text-sm text-ink-faint">
-                Add a bio and set your intention — tap Edit profile.
+                Add a bio and set your intention, tap Edit profile.
               </p>
             )}
           </>
